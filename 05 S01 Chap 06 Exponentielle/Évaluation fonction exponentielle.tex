@@ -1,0 +1,360 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{lmodern}
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{headings=block}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Évaluation \no{6} : exponentielle}
+\author{\bsc{Ts 3}}
+\date{23 janvier 2016}
+
+\begin{document}
+
+\maketitle
+
+\begin{tabular}{|p{6em}|p{26em}|p{6em}|}\hline
+   & & \\
+   & & \\
+   \hfill\Huge /\totalpoints* & & \\
+   & & \\
+   & & \\ \hline
+\end{tabular}
+
+
+\begin{question}[ID=4p90,use=false]
+  ~\\[-6ex]
+  \phantom{a}\hfill\textbf{(\GetQuestionProperty{points}{4p90} points)}\\
+  $f$ est la fonction définie sur $\R$ par : \[f(x) = \frac{e^{2x} -
+  1}{2e^x}.\]
+  \begin{enumerate}
+    \item \begin{enumerate}
+        \item Démontrez que pour tout nombre $x$ : \[f(x) = \frac{e^x -
+          e^{-x}}2.\] \addpoints*{1}
+        \item Calculez la limite de $f$ en $-\infty$ et $+\infty$.
+          \addpoints*{1}
+      \end{enumerate}
+    \item \begin{enumerate}
+        \item Étudiez le sens de variation de $f$. \addpoints*{1}
+        \item Donner la valeur de $f$ et son nombre dérivé en 0. \addpoints*{1}
+      \end{enumerate}
+%    \item Pour tout nombre $x$, on pose \[d(x) = f(x) - x.\]
+%      \begin{enumerate}
+%        \item Vérifiez que pour tout nombre $x$, \[ d'(x) = \frac{(e^x
+%          -1)^2}{2e^x}.\] \addpoints*{1}
+%        \item Dressez le tableau de variation de $d$. \addpoints*{1}
+%        \item Déduisez-en la position de $\mathscr{C}$ par rapport à la
+%          tangente $T_0$. \addpoints*{1}
+%      \end{enumerate}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item \begin{enumerate}
+        \item Soit $x\in\R$ : \[f(x) = \frac{e^{2x} - 1}{2e^x} =
+          \frac{e^{2x} - 1}{2}e^{-x} = \frac{e^x - e^{-x}}2.\]
+        \item Avec la deuxième forme, on trouve :
+          \begin{itemize}
+            \item $\lim_{x\to+\infty}f(x) = +\infty$
+            \item $\lim_{x\to-\infty}f(x) = -\infty$
+          \end{itemize}
+      \end{enumerate}
+    \item \begin{enumerate}
+        \item Soit $x \in \R$, $f'(x) = \frac{e^x -(-e^{-x})}2 =
+          \frac{e^x + e^{-x}}2.$
+
+          $\forall x\in\R,\ e^x > 0$ et $e^{-x} > 0 \implies \forall
+          x\in \R,\ f'(x) > 0$ donc $f$ est strictement croissante.
+        \item
+          \begin{itemize}
+            \item $f(0) = \frac{e^0 - e^{-0}}2 = 0$
+            \item $f'(1) = \frac{e^0 + e^{-0}}2 = \frac22 = 1$
+          \end{itemize}
+      \end{enumerate}
+  \end{enumerate}
+\end{solution}
+
+\begin{question}[ID=limites]
+  ~\\[-6ex]
+  \phantom{a}\hfill\textbf{(\GetQuestionProperty{points}{limites} points)}\\
+  Donnez la limite en $+\infty$ et $-\infty$ des fonctions suivantes :
+  \begin{enumerate}
+    \item $f(x) = e^x - e^{-x}$ \addpoints*{1}
+    \item $f(x) = e^{3x^2 -2x +1}$ \addpoints*{1}
+    \item $f(x) = xe^{-x}$ \addpoints*{1}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item \begin{itemize}
+        \item Par somme, on a$\lim_{x\to+\infty}f(x) = +\infty$
+        \item Par somme, on a $\lim_{x\to-\infty}f(x) = -\infty$
+      \end{itemize}
+    \item \begin{itemize}
+        \item D'une part, $\lim_{x\to+\infty} 3x^2 -2x +1 =
+          \lim_{x\to+\infty} x\left(3x -2 +\frac1x\right) = +\infty$ ;
+        \item d'autre part $\lim_{x\to-\infty} 3x^2 -2x +1 = +\infty$ ;
+        \item d'ù $\lim_{x\to\pm\infty} f(x) = +\infty$.
+      \end{itemize}
+    \item \begin{itemize}
+        \item $\lim_{x\to+\infty}xe^x =
+          -\lim_{x\to+\infty}\frac{-x}{e^{-x}} = 0$
+
+          Le produit ici aurait donné une forme indéterminée et donc, il
+          faut se ramener à l'inverse du quotient $\frac{e^x}x$, au
+          signe près pour conclure.
+        \item Par produit des limites, on a $\lim_{x\to-\infty}xe^{x} =
+          -\infty$.
+      \end{itemize}
+  \end{enumerate}
+\end{solution}
+
+\begin{question}[ID=ROC]
+  ~\\[-6ex]
+  \phantom{a}\hfill\textbf{(\GetQuestionProperty{points}{ROC} points)}\\
+  Démontrez que s'il existe une fonction $f$ telle que $f = f'$ et $f(0)
+  = 1$, alors $f$ est unique et est strictement positive.
+
+  \emph{Indication :} Considérez $\varphi(x) = f(x)\times f(-x)$ puis si
+  $f$ et $g$ sont deux fonctions différentes, étudier $\psi(x) =
+  f(x)\times g(-x)$.
+  \addpoints*{3}
+\end{question}
+\begin{solution}
+  \begin{itemize}
+    \item Premier point : si $f$ est dérivable sur $I\subset \R$, alors
+      $x\mapsto f(-x)$ aussi et $\forall x \in I,\ (x\mapsto f(-x))'  =
+      -f'(-x)$
+    \item Deuxième point : on considère la fonction $\varphi$ définie
+      par $\varphi(x) = f(x)\times f(-x)$.
+
+      Cette fonction est dérivable comme produit de deux fonctions
+      dérivables et $\varphi'(x) = f'(x)\times f(-x) - f(x)\times
+      f'(-x)$. Mais $f'=f$ par hypthèse, d'où $\varphi'(x) = f(x)\times
+      f(-x) - f(x)\times f(-x) = 0$.
+
+      $\varphi$ est donc constante, on peut la déterminer avec la valeur
+      en 0 : $\varphi(0) = f(0) \times f(-0) = 1$.
+
+      On en déduit que $\forall x\in \R,\ f(x) \neq 0$ et $f(-x) =
+      \frac1{f(x)}$.
+    \item Troisième point (l'unicité à proprement parler) : on suppose
+      désormais que $f$ et $g$ sont deux fonctions qui satisfont aux
+      hypothèses $f = f'$ et $f(0) = 1$. Considérons la fonction $\psi =
+      \frac{f}{g}$. Cette fonction est bien définie car $g$ ne s'annule
+      pas, cf. le  point précédent.
+
+      Montrons que $\psi$ est constante égale à 1. Pour cela, calculons
+      la dérivée qui existe car on a supposé $f$ et $g$ dérivables.
+      $\psi' = \frac{f'g - g'f}{f^2} = \frac{fg -gf}{f^2} \equiv 0$
+      (notations fonctionnelles.) $\psi$ est donc constante. De plus,
+      $\psi(0) = 1$ donc $\frac{f}g = 1$ et donc $f=g$.
+  \end{itemize}
+\end{solution}
+
+
+\begin{question}[ID=BAC,use=true]
+  ~\\[-6ex]
+  \phantom{a}\hfill\textbf{(\GetQuestionProperty{points}{BAC} points)}\\
+
+  $f$ est la fonction définie sur $\interfo{0;+\infty}$ par : \[ f(x) =
+  \frac{x-1}{x+1} - e^{-x}. \]
+  On note $\mathscr{C}$ sa courbe représentative dans un repère.
+
+  \begin{enumerate}
+    \item Démontrez que $\mathscr{C}$ admet une asymptote horinzontale
+      dont on donnera une équation. \addpoints*{1}
+    \item Étudiez les variations de $f$ sur $\interfo{0;+\infty}$.
+      \addpoints*{1}
+    \item Déterminez une équation de la tangente $T$ à $\mathscr{C}$ au
+      point d'abscisse 0. \addpoints*{1}
+    \item Démontrez que l'équation $f(x) = 0$ admet une solution unique
+      dans l'intervalle $\interff{1;2}$. \addpoints*{1} On note $u$
+      cette solution.
+
+      Déterminez un encadrement d'amplitude $10^{-1}$ de $u$.
+      \addpoints*{1}
+  \end{enumerate}
+\end{question}
+
+\begin{question}[ID=Vecteurs,use=true]
+  ~\\[-6ex]
+  \phantom{a}\hfill\textbf{(\GetQuestionProperty{points}{Vecteurs} points)}\\
+
+  Dans un repère orthonormé, on donne les points $A (1;0;1)$, $B
+  (0;-1;2)$ et $C (2;5;2)$.
+
+  \begin{enumerate}
+    \item Vérifier que ces points ne sont pas alignés. \addpoints*{1}
+    \item Déterminer la valeur de $a$ pour que le vecteur $\vec{n} : (a
+      ; -1 ; 2)$ soit normal au plan $(ABC)$. \addpoints*{3}
+  \end{enumerate}
+\end{question}
+
+
+%\pagebreak
+%\printsolutions
+
+\end{document}

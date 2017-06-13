@@ -1,0 +1,114 @@
+\documentclass[a4paper,12pt,french]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[upright]{kpfonts}
+\usepackage[margin=1.4cm]{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+
+\usepackage[inline]{enumitem}
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[zerostyle=d]{newtxtt}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{tipfr}
+
+\usepackage[pyfuture=all, autoprint=true, gobble=auto]{pythontex}
+
+\usepackage{babel}
+\usepackage[lastexercise,answerdelayed]{exercise}
+
+\renewcommand{\ExerciseName}{Exercice}
+\renewcommand{\AnswerName}{Réponse de l'exercice}
+
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\R}{\mathbf{R}}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Exercices sur les limites}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{sympyblock}
+  var('x')
+  funcslims = [
+  ('x**2 - 2*x - 3','+oo'),
+  ('-x**2 + 2*x + 3','-oo')
+  ]
+
+  print(r'\begin{Exercise}[number=1,title={Vrai-faux}]')
+  for func,lim in funcslims:
+      question = "Calculer la limite de ${}$ en ${}$".format(
+      latex(eval(func)),latex(eval(lim)))
+      print(r'\Question')
+      print(question)
+
+  print(r'\end{Exercise}')
+  print(r'\begin{Answer}')
+  for func,lim in funcslims:
+      print(r'\Question')
+      # Décomposition en somme : on initialise une liste vide dans
+      #laquelle on ajoute les éléments de la somme
+      funcn = []
+      for k,v in enumerate(eval(func).as_coefficients_dict()):
+          funcn.append(eval('{}*{}'.format(eval(func).as_coefficients_dict()[v],v)))
+      print(r"L'expression se décompose comme la somme de", end=' ')
+      # On affiche les différents termes de cette somme.
+      for i in range(len(funcn) - 1):
+          print(r"${}$,".format(latex(funcn[i])), end=' ')
+          print(r"et ${}$.".format(latex(funcn[-1])))
+      limits_mon =  map(lambda x: Limit(x,'x',lim).doit(), funcn)
+      # On passe à la limite pour chacun des termes (dans la liste) Voir
+      # les effets de 'map' et 'lambda: '
+      # Si la somme des limites n'est pas indéterminée, alors on a le
+      # résultat et on l'affiche
+      if sum(limits_mon) != nan:
+          print(r'La somme des limites donne ici le résultat :')
+          limit = Limit(func,'x',lim)
+          reponse = "${} = {}$".format(latex(limit),latex(limit.doit()))
+          print(reponse)
+      # Sinon on factorise
+      else:
+          print(r'La somme des limites ici conduit à une forme \
+          indéterminée. On ne peut conclure ainsi.')
+          print(r'Factorisons, si cela est possible.')
+          # Si la factorisation «échoue», on «factorise par x != 0
+          if factor(func) != func:
+              print(r'Ici, on ne peut pas factoriser. Pour $x\neq 0$, on a :')
+              x = Symbol('x',nonzero = true)
+              funcx = expand(eval(func)/x)
+              print(r'${} = x\times\left({}\right)$.'.format(
+              latex(eval(func)),latex(funcx)))
+              print(r'Le deuxième facteur de ce produit a pour limite')
+              funcxn = []
+              for k,v in enumerate(funcx.as_coefficients_dict()):
+                  funcxn.append(eval('{}*{}'.format(
+                  funcx.as_coefficients_dict()[v],v)))
+              limits_monx =  map(lambda f: Limit(f,'x',lim).doit(), funcxn)
+              print(r'${}$.'.format(latex(Limit(funcx,x,lim).doit())))
+              limit = Limit(func,'x',lim)
+              reponse = "${} = {}$".format(latex(limit),latex(limit.doit()))
+              print("Le produit nous donne donc", reponse)
+
+  print(r'\end{Answer}')
+\end{sympyblock}
+
+\pagebreak
+\shipoutAnswer
+\end{document}

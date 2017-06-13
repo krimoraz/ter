@@ -1,0 +1,315 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{lmodern}
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+%\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{mdframed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, ref=\textbf{\arabic*}}
+\setlist[enumerate,2]{label=\textbf{\alph*}),
+ref=\theenumi.\textbf{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{
+  headings = block,
+  %question/pre-hook = \mdframed,
+  %question/post-hook = \endmdframed,
+}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Exercices : géométrie dans l'espace}
+\author{\bsc{Ts 3}}
+\date{2016}
+
+\begin{document}
+
+\maketitle
+
+\begin{question}[ID=Metropole_juin_2015]
+  Dans un repère orthonormé $(O,I,J,K)$ d'unité \np[cm]{1}, on consièdre
+  les points $A \vecteur{0;-1;5}$, $B \vecteur{2;-1;5}$, $C
+  \vecteur{11;0;1}$, $D \vecteur{11;4;4}$.
+
+  Un point $M$ se déplace sur la droite $(AB)$ de $A$ vers $B$ à la
+  vitesse de \np[cm]{1} par seconde.
+
+  Un point $N$ se déplace sur la droite $(CD)$ de $C$ vers $D$ à la
+  vitesse de \np[cm]{1} par seconde.
+
+  À l'instant $t = 0$, le point $M$ est en $A$ et le point $N$ est en
+  $C$.
+
+  On note $M_t$ et $N_t$ les positions des points $M$ et $N$ au bout de
+  $t$ secondes, $t$ désignant un nombre réel positif.
+
+  On admet que $M_t$ et $N_t$ on pour coordonnées :
+
+  $M_t\vecteur{t;-1;5}$ et $N_t \vecteur{11;\np{0.8}t;1+\np{0.6}t}$.
+
+  \emph{Les questions 1 et 2 sont indépendantes.}
+
+  \begin{enumerate}
+    \item \begin{enumerate}
+        \item La droite $(AB)$ est parallèle à l'un des axes $(OI)$,
+          $(OJ)$ ou $(OK)$. Lequel ?
+        \item La droite $(CD)$ se trouve dans un plan $\mathscr{P}$
+          parallèle à $(OIJ)$, $(OIK)$ ou $(OJK)$.
+        \item Vérifier que la droite $(AB)$, orthogonale au plan
+          $\mathscr{P}$ coupe ce plan au point $E \vecteur{11;-1;5}$
+        \item Les droites $(AB)$ et $(CD)$ sont elles sécantes ?
+      \end{enumerate}
+    \item \begin{enumerate}
+        \item Montrer que $M_tN_t^2 = 2t^2 - \np{25.2}t + 138$.
+        \item À quel instant $t$ la longueur $M_tN_t$ est elle minimale.
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+\end{solution}
+
+\begin{question}[ID=Métropole_juin_2014]
+  Dans l’espace, on considère un tétraèdre $ABCD$ dont les faces $ABC$,
+  $ACD$ et $ABD$ sont des triangles rectangles et isocèles en $A$. On
+  désigne par $E$, $F$ et $G$ les milieux respectifs des côtés $[AB]$,
+  $[BC]$ et $[CA]$.
+
+  On choisit $AB$ pour unité de longueur et on se place dans le repère
+  orthonormé $\vecteur{A;\vv{AB};\vv{AC};\vv{AD}}$ de l'espace.
+
+  \begin{enumerate}
+    \item On désigne par $\mathscr{P}$ le plan  qui passe par $A$ et qui
+      est orthogonal à la droite $(DF)$.
+
+      On note $H$ le point d'intersection du plan $\mathscr{P}$ et de la
+      droite $(DF)$.
+      \begin{enumerate}
+        \item Donner les coordonnées des points $D$ et $F$.
+        \item Donner une représentation paramétrique de la droite
+          $(DF)$.
+        \item Déterminer une équation cartésienne du plan $\mathscr{P}$.
+        \item Calculer les coordonnées du point $H$.
+        \item Démontrer que l'angle $\widehat{EHG}$ est un angle droit.
+      \end{enumerate}
+    \item On désigne par $M$ un point de la droite $(DF)$ et par le $t$
+      réel tel que $\vv{DM} = t\vv{DF}$.
+
+      On note $\alpha$ la mesure en radians de l'angle géométrique
+      $\widehat{EMG}$.
+
+      Le but de cette question est de déterminer la position du point
+      $M$ pour que $\alpha$ soit maximal.
+
+      \begin{enumerate}
+        \item Démontrer que $ME^2 = \frac32t^2 - \frac52t + \frac54$.
+        \item Démontrer que le triangle $MEG$ est isocèle en $M$.
+
+          En déduire que $ME\sin\left(\frac{\alpha}2\right) =
+          \frac1{2\sqrt{2}}$.
+        \item Justifier que $\alpha$ est maximale si et seulement si
+          $\sin\left(\frac{\alpha}2\right)$ est maximal.
+
+          En déduire que $\alpha$ est maximale si et seulement si $ME^2$ est
+          minimal.
+        \item Conclure.
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
+
+\begin{question}[ID=Métropole_septembre_2010]
+  Le plan est rapporté à un repère orthornormal
+  $\vecteur{O;\vv{i};\vv{j};\vv{k}}$.
+
+  Soit $(\mathscr{P})$ le plan d'équation : $3x + y - z - 1 = 0$ et
+  $(\mathscr{D})$ la droite dont une représentation paramétrique est
+  \[ \left\lbrace \begin{array}{ccc}
+      x & = & -t + 1 \\
+      y & = & 2t \\
+      z & = & -t +2
+  \end{array}\right. \text{où $t$ désigne un nombre réel.}\]
+
+  \begin{enumerate}
+    \item \begin{enumerate}
+        \item Le point $C \vecteur{1;3;2}$ appartient-il au plan
+          $(\mathscr{P})$ ? Justifier.
+        \item Démontrer que la droite $(\mathscr{D})$ est incluse dans
+          le plan $(\mathscr{P})$.
+      \end{enumerate}
+    \item Soit $(\mathscr{Q})$ le plan passant par le point $C$ et
+      orthogonal à la droite $(\mathscr{D})$.
+      \begin{enumerate}
+        \item Déterminer une équation cartésienne du plan
+          $(\mathscr{Q})$.
+        \item Calculer les coordonnées du point $I$, point
+          d'intersection du plan $(\mathscr{Q})$ et de la droite
+          $(\mathscr{D})$.
+        \item Montrer que $CI = \sqrt{3}$.
+      \end{enumerate}
+    \item Soit $t$ un nombre réel et $M_t$ le point de la droite
+      $(\mathscr{D})$ de coordonnées $\vecteur{-t +1;2t;-t +2}$.
+      \begin{enumerate}
+        \item Vérifier que pour tout nombre réel $t$, $CM_t^2 = 6t^2
+          -12t + 9$.
+        \item Montrer que $CI$ est la valeur minimale de $CM_t$ lorsque
+          $t$ décrit l'ensemble des nombres réels.
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
+
+\pagebreak
+\printsolutions
+
+\end{document}

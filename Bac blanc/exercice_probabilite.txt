@@ -1,0 +1,60 @@
+\textbf{Première partie : calculs de probabilités}
+
+Partons d'un seul individu. Nous étudions la population de ses
+descendants. La probabilité que la population s'éteigne dès la première
+génération est $q_1 = \frac18$
+
+\begin{enumerate}
+  \item Donner la probabilité que la population soit éteinte à la
+    deuxième génération.
+    \begin{enumerate}
+      \item S'il a deux enfants, quelle est la probabilité qu'il n'ait
+        pas de petits enfants.
+
+        Et s'il en a 3 ?
+      \item Calculer alors la probabilité que la population soit éteinte
+        à la deuxième génération.
+    \end{enumerate}
+  \item Soit $q_n$ la probabilité pour la descendance d'un individu
+    comporte au plus $n$ générations ($n\geqslant 1$). Exprimer en
+    fonction de $q_n$ la probabilité $q_{n+1}$ que la descendance d'un
+    individu comporte au plus $n+1$ générations. Pour calculer $q_{n+1}$
+    on remarquera que la descendance d'un individu comporte au plus
+    $n+1$ générations s'il n'a pas d'enfant ou si les descendances de
+    ses enfants comportent au plus $n$ générations.
+\end{enumerate}
+
+\textbf{Deuxième partie : étude de la suite $(q_n)$}
+
+\begin{enumerate}
+  \item Soit $f$ la fonction définie sur l'intervalle $\intv{0}{1}$
+    \[ f(x) = \frac18x^3 + \frac38x^2 + \frac38x + \frac18 \]
+    \begin{enumerate}
+      \item Étudier les variations de $f$ sur l'intervalle $\intv{0}{1}$
+      \item Soit $g$ la fonction définie pour tout $x$ de $\intv{0}{1}$
+        par $g(x) = f(x) - x$
+
+        En remarquant que $g(1) = 0$, trouver trois nombres réels $a,b$
+        et $c$ tels que pour tout $x$ de $\intv{0}{1}$, \[ g(x) =
+        (x-1)(ax^2 + bx + c) .\] En déduire le signe de $g(x)$ sur
+        l'intervalle $\intv{0}{1}$.
+    \end{enumerate}
+  \item On admet que la suite $(q_n)$ est définie par la relation de
+    récurrence \[ \left\lbrace\begin{matrix}q_{n+1} = f(q_n) \\ q_0 =
+    \frac18\end{matrix}\right. \]
+
+    \begin{enumerate}
+      \item À l'aide du graphique ci dessous, représenter les premiers
+        termes de la suite $(q_n)$. Que peut-on prédire sur son
+        comportement.
+
+      \item Prouver par récurrence que pour tout entier $n$ supérieur ou
+        égal à 1 : \[ 0 \leqslant q_n \leqslant \sqrt{5} - 2 \]
+
+        Prouver que la suite $(q_n)$ est croissante.
+
+      \item Prouver que la suite $(q_n)$ est convergente et déterminer
+        sa limite.
+    \end{enumerate}
+\end{enumerate}
+

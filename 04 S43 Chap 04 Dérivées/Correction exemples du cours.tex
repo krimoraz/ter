@@ -1,0 +1,64 @@
+\documentclass[a4paper,12pt,french]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{cmbright}
+
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{ntheorem}
+
+\theorembodyfont{\normalfont}
+\theoremstyle{break}
+\newtheorem{exercice}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{reponse}{Réponse}
+
+\newcommand{\R}{\mathbf{R}}
+
+\begin{document}
+
+\begin{exercice}
+  Sans développer dériver la fonction définie pour tout réel par
+  $f(x)=(x^2 + 2x -3)^3$.
+
+  \begin{reponse}
+    On utilise $(u^n)' = nu'n^{n-1}$ avec $u(x) = x^2 + 2x - 3$. On a
+    donc $u'(x) = 2x + 2$ et $f'(x) = 3\times(2x + 2)\times(x^2 + 2x
+    -3)^2$.
+
+    Il est ici inutile de développer, en particulier si on a besoin du
+    signe de cette dérivée : $x^2 + 2x -3 = (x-1)(x+3)$ ce qui entraîne
+    que la dérivée s'annule en changeant de signe en -1, 1 et 3.
+  \end{reponse}
+\end{exercice}
+
+\begin{exercice}
+  Dériver $x\mapsto \frac1{x^2 +1}$
+  \begin{reponse}
+    La fonction est de la forme $\frac1u$, avec $u = x\mapsto x^2 + 1$.
+
+    $\forall x\in \R,\ x^2 + 1 > 0$ et on utilise ici $\left( \frac1u
+    \right)' = \frac{-u}{u^2}$.
+
+    On a donc $u' = x\mapsto 2x$ et donc la dérivée de la fonction
+    considérée est la fonction $x \mapsto \frac{-2x}{(x^2 +1)^2}$.
+  \end{reponse}
+\end{exercice}
+
+\begin{exercice}
+  Dériver la fonction définie sur $\R$ par $f(x) = \sqrt{x^2 + 2x + 2}$
+  \begin{reponse}
+    Soit la fonction $u$ définie sur $\R$ par $u(x) = x^2 + 2x + 2$.
+
+    Soit $x\in \R,\ u(x) = x^2 + 2x + 1 +1 = (x+1)^2 + 1 > 0$ (remarque
+    : le calcul du discriminant montre ici que cette fonction
+    polynômiale n'a pas de racines réelles.)
+
+    $\forall x\in\R,\ u'(x) = 2x + 2$, donc $f'(x) = \frac{2x +
+    2}{2\sqrt{x^2 + 2x + 2}} = \frac{x + 1}{\sqrt{x^2 + 2x + 2}}$.
+  \end{reponse}
+\end{exercice}
+\end{document}

@@ -1,0 +1,230 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{probleme}{Problème}
+\newtheorem{preuve}{Preuve}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Unicité de la fonction exponentielle}
+\author{\bsc{Jumel}}
+\date{janvier 2017}
+
+\begin{document}
+
+\maketitle
+
+\section{Définition}
+
+\begin{theoreme}
+  Soit $f$ une fonction définie, continue, dérivable sur $\R$ vérifiant
+  $f' = f$ et $f(0) = 1$.
+
+  Une telle fonction est unique.
+\end{theoreme}
+
+Admettons qu'une telle fonction existe bien. Nous allons démontrer que
+cette fonction est unique.
+
+On va démontrer cette affirmation par l'absurde. On suppose d'abord que
+s'il existe deux fonctions vérifiant de telles hypothèses, alors elles
+sont égales.
+
+\subsection{Quelques résultats préliminaires}
+
+\begin{exercice}
+  On suppose que $f$ est une fonction dérivable sur $\R$, on note $f'$
+  sa dérivée et $a$ un réel non nul.
+
+  Donner l'expression de la dérivée de la fonction définie pour tout $x$
+  réel par $f(ax)$.
+  \vspace{3cm}
+\end{exercice}
+
+\begin{exercice}
+  Montrer que la fonction $\phi$ définie pour tout $x$ réel par $\phi(x)
+  = f(x)\times f(-x)$ est constante et donner sa valeur.
+  \vspace{4cm}
+  Que peut-on en déduire pour $f(x)$ ?
+  \vspace{1cm}
+\end{exercice}
+
+\subsection{Démonstration}
+
+On suppose désormais qu'il existe $f$ et $g$ deux fonctions distinctes
+qui satisfont aux hypothèses du théorème.
+
+\begin{exercice}
+  On considère la fonction $\psi$ définie pour tout réel $x$ par
+  $\psi(x) = g(x)\times f(-x)$.
+
+  Démontrer que $\psi$ est constante et donner sa valeur.
+  \vspace{4cm}
+
+  Soit $x$ un réel, en utilisant un résultat intermédiaire de l'exercice
+  2, démontrer que $g(x) \times f(-x) = f(x) \times f(-x)$.
+  \vspace{2cm}
+
+  Justifier qu'on peut simplifier par $f(-x)$.
+  \vspace{1cm}
+
+  Conclure.
+  \vspace{1cm}
+\end{exercice}
+
+$f$ est donc l'unique fonction dérivable sur $\R$, telle que $f' = f$ et
+$f(0) = 1$.
+
+\end{document}

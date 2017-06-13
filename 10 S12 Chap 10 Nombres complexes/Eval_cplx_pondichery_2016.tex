@@ -1,0 +1,440 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{lmodern}
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.9cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\usepackage[]{algorithm2e}
+
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+
+\makeatletter
+
+\count1=\year \count2=\year
+\ifnum\month<8\advance\count1by-1\else\advance\count2by1\fi
+
+\setlength{\headheight}{14.5pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\cfoot{\textsl{\footnotesize{Année \number\count1/\number\count2}}}
+
+\rfoot{%
+  \ifthenelse{\value{page}=1}{%
+  }
+  {%
+    \footnotesize{Page \thepage/ \pageref{LastPage}}
+  }
+}
+
+\rhead{}
+
+\lhead{%
+  \ifthenelse{\value{page}=1}{%
+    Nom:\dotfill\hfill Prénom: \dotfill \hfill
+    Classe: \@author \dots%
+  }
+  { }
+}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{headings=block}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Évaluation \no{11} : Nombres complexes}
+\author{\bsc{Ts}}
+\date{mai 2017}
+
+
+\usepackage{pst-plot,pst-tree,pstricks,pst-node,pst-text}
+\usepackage{pst-eucl}
+\usepackage{pstricks-add}
+\newcommand{\vect}[1]{\mathchoice%
+{\overrightarrow{\displaystyle\mathstrut#1\,\,}}%
+{\overrightarrow{\textstyle\mathstrut#1\,\,}}%
+{\overrightarrow{\scriptstyle\mathstrut#1\,\,}}%
+{\overrightarrow{\scriptscriptstyle\mathstrut#1\,\,}}}
+\def\Oij{$\left(\text{O},~\vect{\imath},~\vect{\jmath}\right)$}
+\def\Oijk{$\left(\text{O},~\vect{\imath},~\vect{\jmath},~\vect{k}\right)$}
+\def\Ouv{$\left(\text{O},~\vect{u},~\vect{v}\right)$}
+
+\begin{document}
+
+\maketitle
+
+\begin{tabular}{|p{6em}|p{26em}|p{6em}|}\hline
+   & & \\
+   & & \\
+   \hfill\Huge /\totalpoints* & & \\
+   & & \\
+   & & \\ \hline
+\end{tabular}
+
+
+\begin{question}[ID=complexes;géométrie;bac;pondichery;2016]
+
+\medskip
+
+L'objectif de cet exercice est de trouver une méthode pour construire à la règle et au compas
+un pentagone régulier.
+
+\medskip
+
+\parbox{0.5\linewidth}{Dans le plan complexe muni d'un repère
+orthonormé direct \Ouv, on considère le pentagone régulier $A_0A_1A_2A_3A_4$, de centre $O$ tel
+que $\vect{OA_0} = \vect{u}$.
+
+On rappelle que dans le pentagone régulier $A_0A_1A_2A_3A_4$, ci-contre :
+
+\setlength\parindent{1cm}
+\begin{itemize}
+\item[$\bullet~~$] les cinq côtés sont de même longueur;
+\item[$\bullet~~$] les points $A_0,\:A_1,\:A_2,\:A_3$ et $A_4$
+appartiennent au cercle trigonométrique ;
+\item[$\bullet~~$] pour tout entier $k$ appartenant à $\{0~;~1~;~2~;~3\}$ on a 
+
+$\left(\vect{OA_k}~;~\vect{OA_{k+1}}\right) = \dfrac{2\pi}{5}$.
+\end{itemize}
+\setlength\parindent{0cm}}\hfill
+\parbox{0.49\linewidth}{\psset{unit=2.5cm}
+\begin{pspicture}(-1.2,-1.1)(1.2,1.1)
+\psaxes[linewidth=1.25pt]{->}(0,0)(-1.2,-1.1)(1,1)
+\pspolygon(1;0)(1;72)(1;144)(1;216)(1;288)
+\uput[d](0.5,0){$\vect{u}$}\uput[l](0,0.5){$\vect{v}$}
+\uput[dl](0,0){O}
+\uput[ur](1;0){$A_0$} \uput[ur](1;72){$A_1$} \uput[ul](1;144){$A_2$} \uput[dl](1;216){$A_3$} \uput[dr](1;288){$A_4$} 
+\end{pspicture}
+}
+
+\medskip
+
+\begin{enumerate}
+\item On considère les points $B$ d'affixe $- 1$ et $J$ d'affixe $\dfrac{\text{i}}{2}$.
+
+Le cercle $(\mathcal{C})$ de centre $J$ et de rayon $\dfrac{1}{2}$ coupe le segment $[BJ]$ en un point $K$.
+
+Calculer $BJ$, puis en déduire $BK$.
+\item 
+	\begin{enumerate}
+		\item Donner sous forme exponentielle l'affixe du point $A_2$. Justifier brièvement.
+		\item Démontrer que $BA_2\,^2 = 2 +  2\cos \left(\dfrac{4\pi}{5}\right)$.
+		\item Un logiciel de calcul formel affiche les résultats ci-dessous, que l'on pourra utiliser
+sans justification :
+\begin{center}
+\begin{tabularx}{0.5\linewidth}{|c|X|}\hline
+\multicolumn{2}{|l|}{$\blacktriangleright$ Calcul formel}\\\hline
+1&cos (4*pi/5)\\
+&\rule[-3mm]{0mm}{9mm}$\to \dfrac{1}{4}\left(- \sqrt{5} - 1\right)$\\ \hline
+2&sqrt((3 - sqrt(5))/2)\\ \hline
+&\rule[-3mm]{0mm}{9mm}$\to \dfrac{1}{2}\left(\sqrt{5} - 1\right)$\\ \hline
+\end{tabularx}
+
+\og sqrt \fg{} signifie \og racine carrée\fg
+\end{center}
+
+En   déduire, grâce à ces résultats, que $BA_2 = BK$.
+ 	\end{enumerate}
+\item  Dans le repère \Ouv{} donné en annexe, construire à la règle et au compas un
+pentagone régulier. N'utiliser ni le rapporteur ni les graduations de la règle et laisser
+apparents les traits de construction.
+  \addpoints*{6}
+\end{enumerate}
+
+\end{question}
+
+\begin{question}
+  \emph{Les deux parties \text{A} et \text{B} peuvent être traitées de façon indépendante}
+
+\bigskip
+
+\textbf{Partie A}
+
+\medskip
+
+Des études statistiques ont permis de modéliser le temps hebdomadaire, en heures, de
+connexion à internet des jeunes en France âgés de 16 à 24 ans par une variable aléatoire $T$
+suivant une loi normale de moyenne $\mu = 13,9$ et d'écart type $\sigma$.
+
+La fonction densité de probabilité de $T$ est représentée ci-dessous :
+
+\begin{center}
+\psset{xunit=0.3cm,yunit=1.8cm,algebraic=true}
+\begin{pspicture}(-1.5,-0.1)(30,3)
+%\psgrid
+\psline(-1.5,0)(30,0)
+\multido{\n=-1+1}{31}{\psline(\n,0)(\n,-0.05)}
+\def\m{13.9}% moyenne
+\def\s{4.1}% écart type
+\def\f{30/(\s*sqrt(2*PI))*EXP((-((x-\m)/\s)^2)/2)}
+\psplot[plotpoints=1000,linecolor=blue]{-1.5}{30}{\f}
+\uput[d](0,0){0}\uput[d](1,0){1}\uput[d](10,0){10}\uput[d](13.9,0){13,9}
+\psline[linestyle=dashed](13.9,0)(13.9,2.9)
+\end{pspicture}
+\end{center}
+
+\begin{enumerate}
+\item On sait que $p(T \geqslant 22) =  0,023$.
+
+En exploitant cette information :
+	\begin{enumerate}
+		\item hachurer sur le graphique donné un annexe, deux domaines distincts
+dont l'aire est égale à $0,023$ ;
+		\item déterminer $P(5,8 \leqslant T \leqslant 22)$. Justifier le résultat.
+Montrer qu'une valeur approchée de $\sigma$ au dixième est $4,1$.
+	\end{enumerate}
+\item On choisit un jeune en France au hasard.
+
+Déterminer la probabilité qu'il soit connecté à internet plus de 18 heures par semaine.
+
+Arrondir au centième.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B}
+
+\medskip
+
+Dans cette partie, les valeurs seront arrondies au millième.
+
+La Hadopi (Haute Autorité pour la diffusion des Œuvres et la Protection des droits sur
+Internet) souhaite connaître la proportion en France de jeunes âgés de 16 à 24 ans pratiquant
+au moins une fois par semaine le téléchargement illégal sur internet. Pour cela, elle envisage
+de réaliser un sondage.
+
+Mais la Hadopi craint que les jeunes interrogés ne répondent pas tous de façon sincère. Aussi,
+elle propose le protocole $(\mathcal{P})$ suivant :
+
+\begin{tabularx}{\linewidth}{|X}
+On choisit aléatoirement un échantillon de jeunes âgés de 16 à 24 ans.\\
+Pour chaque jeune de cet échantillon :
+\setlength\parindent{1cm}
+\begin{itemize}
+\item[$\bullet~~$] le jeune lance un dé équilibré à 6 faces ;
+l'enquêteur ne connaît pas le résultat du lancer ;
+\item[$\bullet~~$] l'enquêteur pose la question : \og Effectuez-vous un téléchargement illégal au
+moins une fois par semaine ? \fg{} ;
+\end{itemize}
+\setlength\parindent{0cm}\\
+\begin{tabular}{|m{11cm}|}\hline
+$\blacksquare$~~si le résultat du lancer est pair alors le jeune doit répondre à la question par
+\og Oui \fg{} ou \og Non\fg{} de façon sincère ;\\
+$\blacksquare$~~ si le résultat du lancer est \og 1 \fg{} alors le jeune doit répondre \og Oui \fg{} ;\\
+$\blacksquare$~~ si le résultat du lancer est \og 3 ou 5 \fg{} alors le jeune doit répondre \og Non \fg.\\ \hline
+\end{tabular}\\
+\end{tabularx}
+
+\medskip
+
+Grâce à ce protocole, l'enquêteur ne sait jamais si la réponse donnée porte sur la question
+posée ou résulte du lancer de dé, ce qui encourage les réponses sincères.
+
+\medskip
+
+On note $p$ la proportion inconnue de jeunes âgés de 16 à 24 ans qui pratiquent au moins une
+fois par semaine le téléchargement illégal sur internet.
+
+\medskip
+
+\begin{enumerate}
+\item \emph{Calculs de probabilités}
+
+On choisit aléatoirement un jeune faisant partie du protocole $(\mathcal{P})$.
+
+On note : $R$ l'évènement \og le résultat du lancer est pair\fg,
+
+$O$ l'évènement \og le jeune a répondu Oui \fg.
+
+Reproduire et compléter l'arbre pondéré ci-dessous :
+
+\begin{center}
+\pstree[treemode=R,nodesep=2.5pt]{\TR{}}
+{\pstree{\TR{$R$}}
+	{\TR{$O$}
+	\TR{$\overline{O}$}
+	}
+\pstree{\TR{$\overline{R}$}}
+	{\TR{$O$}
+	\TR{$\overline{O}$}
+	}
+}
+\end{center}
+\smallskip
+
+En déduire que la probabilité $q$ de l'évènement \og le jeune a répondu Oui\fg{} est :
+
+\[q = \dfrac{1}{2}p + \dfrac{1}{6}.\]
+
+\item \emph{Intervalle de confiance}
+
+\medskip
+
+	\begin{enumerate}
+		\item À la demande de l'Hadopi, un institut de sondage réalise une enquête selon le
+protocole $(\mathcal{P})$. Sur un échantillon de taille \np{1500}, il dénombre $625$ réponses \og Oui \fg.
+
+Donner un intervalle de confiance, au niveau de confiance de 95\,\%, de la proportion $q$
+de jeunes qui répondent \og Oui \fg{} à un tel sondage, parmi la population des jeunes
+français âgés de 16 à 24 ans.
+		\item Que peut-on en conclure sur la proportion $p$ de jeunes qui pratiquent au moins une fois
+par semaine le téléchargement illégal sur internet ?
+	\end{enumerate}
+\end{enumerate}
+
+\addpoints*{8}
+
+\end{question}
+
+
+%\newpage
+%\section*{Correction}
+%\printsolutions
+\end{document}

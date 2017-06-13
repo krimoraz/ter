@@ -1,0 +1,172 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{lmodern}
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage[inline]{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+%\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+\usepackage[extdef]{delimset}
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\makeatother
+
+
+\usepackage{mdframed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, ref=\textbf{\arabic*}}
+\setlist[enumerate,2]{label=\textbf{\alph*}),
+ref=\theenumi.\textbf{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{
+  headings = block,
+  %question/pre-hook = \mdframed,
+  %question/post-hook = \endmdframed,
+}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Évaluation \no 4 : géométrie dans l'espace}
+\author{\bsc{Ts 3}}
+\date{28 novembre 2016}
+
+\begin{document}
+
+\maketitle
+
+\begin{question}
+  L'espace est rapporté à un repère orthonormé $\brk*{O, \vv{\imath},
+  \vv{\jmath}, \vv{k}}$. On note $d$ la droite passant par les points
+  $A \brk{1;-2;-1}$ et $B \brk{3;-5;-2}$.
+
+  \begin{enumerate}
+    \item Démontrez qu'une représentation paramétrique de la droite
+      $d$ est : \[ \left\lbrace\begin{array}{lr} x = 1 + 2t & \\ y =
+    -2 -3t, & t\in \mathbf{R} \\ z = -1 -t \end{array}\right. . \]
+    \item $d'$ est la droite de représentation paramétrique \[
+        \left\lbrace\begin{array}{lr} x = 2 - s & \\ y = 1 + 2s, &
+      s\in \mathbf{R} \\ z = s \end{array}\right. . \] Démontrer que
+      $d$ et $d'$ ne sont pas coplanaires.
+    \item On considère le plan $\mathscr{P}$ passant par le point $C
+      \brk{0;-3;0}$ et dirigé par les vecteurs $\vv{u} : \brk*{
+      \begin{matrix} 1 \\ -4 \\ 0 \end{matrix}}$ et $\vv{v}  : \brk*{
+      \begin{matrix} 0 \\ -5 \\ 1 \end{matrix}}$.
+
+      \begin{enumerate}
+        \item Démontrer que le plan $\mathscr{P}$ contient la droite
+          $d$.
+        \item Démontrer que le plan $\mathscr{P}$ et la droite $d'$ se
+          coupent en un point $D$ dont on déterminera les coordonnées.
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
+%\begin{solution}
+%\end{solution}
+
+
+\pagebreak
+\printsolutions
+
+\end{document}

@@ -1,0 +1,697 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{kpfonts}
+\usepackage{textcomp}
+\newcommand{\euro}{\eurologo{}}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+\usepackage{breakurl}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\frenchbsetup{ItemLabels=\textbullet,}
+
+\usepackage{tabularx}
+\usepackage{enumitem}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+\usepackage[top=1.4cm,bottom=1.4cm,left=2cm,right=2cm,includehead,
+includefoot]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{fancybox}
+
+\usepackage[autolanguage]{numprint}
+\newcommand{\np}{\numprint}
+
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{\ifthenelse{\value{page}=1}{Nom:\bsc{Jumel}\hfill Prénom:
+    Vincent-Xavier \hfill ~}{}}
+\rhead{}
+\chead{}
+
+\rfoot{\upshape \small page {\thepage} de \pageref{LastPage}}
+\lfoot{}
+\cfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\usepackage{pdfmarginpar}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\theorembodyfont{\normalfont}
+\theoremstyle{nobreak}
+\newtheorem{exercice}{Exercice}
+
+%\theoremstyle{plain}
+\theoremstyle{nonumberplain}
+\newtheorem{probleme}{Problème}
+
+% Mise en forme des labels dans les énumérations
+\renewcommand{\labelenumi}{\textbf{\theenumi.}}
+\renewcommand{\labelenumii}{\textbf{\theenumii)}}
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\theenumii}{\alph{enumii}}
+
+\renewcommand{\labelitemi}{$\bullet$}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\R}{\mathbf{R}}
+
+\newcommand{\ligne}[1]{%
+  \begin{tikzpicture}[]
+    \draw[white] (0,#1+0.8) -- (15,#1+0.8) ;
+    \foreach \i in {1,...,#1}
+    { \draw[dotted] (0,\i) -- (\linewidth,\i) ; }
+    \draw[white] (0,0.6) -- (15,0.6) ;
+  \end{tikzpicture}%
+}
+
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\definecolor{fond}{RGB}{136,136,136}
+\definecolor{sicolor}{RGB}{128,0,128}
+\definecolor{tantquecolor}{RGB}{221,111,6}
+\definecolor{pourcolor}{RGB}{187,136,0}
+\definecolor{bloccolor}{RGB}{128,0,0}
+\newenvironment{cadrecode}{%
+  \def\FrameCommand{{\color{fond}\vrule width
+  5pt}\fcolorbox{fond}{white}}%
+  \MakeFramed {\hsize \linewidth \advance\hsize-\width
+\FrameRestore}\begin{footnotesize}}%
+{\end{footnotesize}\endMakeFramed}
+\makeatletter
+\def\therule{\makebox[\algorithmicindent][l]{\hspace*{.5em}\color{fond}
+\vrule width 1pt height .75\baselineskip depth .25\baselineskip}}%
+\newtoks\therules
+\therules={}
+\def\appendto#1#2{\expandafter#1\expandafter{\the#1#2}}
+\def\gobblefirst#1{#1\expandafter\expandafter\expandafter{\expandafter\@gobble\the#1}}%
+\def\Ligne{\State\unskip\the\therules}% 
+\def\pushindent{\appendto\therules\therule}%
+\def\popindent{\gobblefirst\therules}%
+\def\printindent{\unskip\the\therules}%
+\def\printandpush{\printindent\pushindent}%
+\def\popandprint{\popindent\printindent}%
+\def\Variables{\Ligne \textcolor{bloccolor}{\textbf{VARIABLES}}}
+\def\Si#1{\Ligne \textcolor{sicolor}{\textbf{SI}} #1
+\textcolor{sicolor}{\textbf{ALORS}}}%
+\def\Sinon{\Ligne \textcolor{sicolor}{\textbf{SINON}}}%
+\def\Pour#1#2#3{\Ligne \textcolor{pourcolor}{\textbf{POUR}} #1
+  \textcolor{pourcolor}{\textbf{ALLANT\_DE}} #2
+\textcolor{pourcolor}{\textbf{A}} #3}%
+\def\Tantque#1{\Ligne \textcolor{tantquecolor}{\textbf{TANT\_QUE}} #1
+\textcolor{tantquecolor}{\textbf{FAIRE}}}%
+\algdef{SE}[WHILE]{DebutTantQue}{FinTantQue}
+{\pushindent \printindent
+\textcolor{tantquecolor}{\textbf{DEBUT\_TANT\_QUE}}}
+{\printindent \popindent
+\textcolor{tantquecolor}{\textbf{FIN\_TANT\_QUE}}}%
+\algdef{SE}[FOR]{DebutPour}{FinPour}
+{\pushindent \printindent
+\textcolor{pourcolor}{\textbf{DEBUT\_POUR}}}
+{\printindent \popindent
+\textcolor{pourcolor}{\textbf{FIN\_POUR}}}%
+\algdef{SE}[IF]{DebutSi}{FinSi}%
+{\pushindent \printindent
+\textcolor{sicolor}{\textbf{DEBUT\_SI}}}
+{\printindent \popindent
+\textcolor{sicolor}{\textbf{FIN\_SI}}}%
+\algdef{SE}[IF]{DebutSinon}{FinSinon}
+{\pushindent \printindent
+\textcolor{sicolor}{\textbf{DEBUT\_SINON}}}
+{\printindent \popindent
+\textcolor{sicolor}{\textbf{FIN\_SINON}}}%
+\algdef{SE}[PROCEDURE]{DebutAlgo}{FinAlgo}
+{\printandpush
+\textcolor{bloccolor}{\textbf{DEBUT\_ALGORITHME}}}%
+{\popandprint
+\textcolor{bloccolor}{\textbf{FIN\_ALGORITHME}}}%
+\makeatother
+\newenvironment{algobox}%
+{%
+  \begin{ttfamily}
+    \begin{algorithmic}[1]
+      \begin{cadrecode}
+        \labelwidth 1.5em
+        \leftmargin\labelwidth
+        \addtolength{\leftmargin}{\labelsep}
+      }
+      {%
+      \end{cadrecode}
+    \end{algorithmic}
+  \end{ttfamily}
+}
+
+\usepackage[gobble=auto]{pythontex}
+
+\newcommand{\qed}{\hfill$\Box$}
+
+\newcommand{\maximaout}[3]{%
+\begin{framed}%
+  {\ttfamily \textcolor{red}{(\%i#1)} #2\\%
+      \textcolor{brown}{(\%o#1)} #3}%
+\end{framed}%
+}
+\usepackage{wasysym}
+
+\newcommand{\vf}{%
+  \Square{}~ Vrai \-\- \Square{}~ Faux%
+}
+
+\renewcommand{\Vec}[1]{\overrightarrow{#1}}
+\newcommand{\ProSca}[2]{#1 \cdot #2}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+
+\usepackage{esvect}
+
+\makeatletter
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{0.98\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+  \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+\makeatother
+
+\title{Corrigé bac blanc \no{1}}
+\author{\bsc{Jumel}}
+\date{décembre 2015}
+
+\begin{document}
+
+\maketitle
+
+\emph{Compétences :}
+\begin{itemize}
+  \item Étudier la limite d'une somme, d'un produit ou d'un quotient de
+    deux suites ;
+  \item Utilisation des théorèmes de comparaison ;
+  \item Savoir mener un raisonnement par récurrence ;
+  \item Construire un arbre pondéré de probabilités ;
+  \item Théorème des valeurs intermédiaires ;
+  \item Limites de fonctions (et interprétations graphiques) ;
+  \item Dérivation et variation d'une fonction :
+  \item Géométrie dans l'espace.
+\end{itemize}
+
+\begin{exercice}[Une étude de suites, dans un cas concret]~
+
+  \underline{Cas \no{1}} : $u_0 \in \left[0;1\right], k\in
+  \left]0;1\right[$
+  \begin{enumerate}
+    \item Soit $P_n$ la propritété «$0\leqslant u_n \leqslant k^n$».
+      \begin{description}
+        \item[Initialisation :] $P_0$ est vraie, en effet, $u_0 \in
+          [0;1] \iff 0\leqslant u_0 \leqslant k^0 = 1$.
+        \item[Hérédité :] Soit $i$ un entier fixé et supposons que $P_j$
+          est vraie pour cet entier $j$.
+
+          $0\leqslant u_j \leqslant k^j \implies 0\leqslant ku_j
+          \leqslant k\times k^j$.
+
+          De plus $0\leqslant u_j \implies -u_j \leqslant 0 \implies 1 -
+          u_j \leqslant 1$.
+
+          D'où $0\leqslant ku_j(1 - u_j) \leqslant k\times k^j (1 -
+          u_j)$.
+
+          On obtient donc $0\leqslant u_j \leqslant k^j \implies
+          0\leqslant u_{j+1} \leqslant k^{j+1}$ \qed
+        \item [Conclusion :] Par application du principe de récurrence,
+          on a $\forall n\in\N,\ 0\leqslant u_n \leqslant k^n$.
+      \end{description}
+    \item Posons $v_n = k^n$. Pour tout $n$ entier naturel, la suite $u$
+      est encadrée par deux suites de limites nulles ($\abs{k} < 1$). Le
+      théorème d'encadrement nous permet de conclure que $u_n$ converge
+      et que \[\boxed{\lim_{n\to\infty}u_n = 0.}\]
+    \item Si le facteur $k$ est inférieur à 1, il y a exctinction de la
+      population, quel que soit l'effectif de départ.
+  \end{enumerate}
+  \underline{Cas \no{2}}
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          \footnotesize
+          \begin{tabular}{|*{12}{c|}} \hline
+            N & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ \hline
+            U & 0,1 & 0,171 & 0,269 & 0,374 & 0,445 & 0,469 & 0,473 &
+            0,474 & 0,474 & 0,474 & 0,474 \\ \hline
+          \end{tabular}
+          \normalsize
+        \item La suite semble converger vers \np{0.474}.
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item $f$ est une fonction polynomiale de degré 2.
+
+          $\forall x\in \R,\ f'(x) = -3,8x + 1,9$.
+
+          \begin{tikzpicture}
+            \tkzTabInit{ $x$ /1, $f'(x)$ /1, $f$ /2}
+            {0,$\frac12$, 1}
+            \tkzTabLine{ , + ,z , - }
+            \tkzTabVar{ -/0 , +/\np{0.475} , -/0 }
+          \end{tikzpicture}
+        \item $f$ est continue sur $\left[0;\frac12\right]$. D'après le
+          théorème des valeurs intermédiaires, l'image d'un intervalle
+          est un intervalle et donc
+          $f\left(\left[0;\frac12\right]\right) = \left[0;0,475\right]
+          \subset \left[0;\frac12\right]$.
+        \item Démontrons la proposition $P_(n)$ : « $0 \leqslant u_n
+          \leqslant u_{n+1} \leqslant \frac12$» par récurrence.
+          \begin{description}
+            \item[Initialisation :] $P(0) : 0 \leqslant u_0 = 0,1
+              \leqslant u_1 = 0,171 \leqslant \frac12 = 0,5$
+            \item[Hérédité :] Soit $k$ un entier naturel fixé, et
+              supposons $0 \leqslant u_k \leqslant u_{k+1} \leqslant
+              \frac12$.
+
+              Sur $\left[0;\frac12\right],\ f$ est croissante donc, on a
+              $f(0) \leqslant f(u_k) \leqslant f(u_{k+1}) \leqslant
+              f\left(\frac12\right)$, ce qui se lit encore $0 \leqslant
+              u_{k+1} \leqslant u_{k+2} \leqslant 0,475 \leqslant
+              \frac12$. \qed
+              \item[Conclusion :] L'axiome de récurrence nous garantit
+              que $\forall n\in\N, 0 \leqslant u_n \leqslant u_{n+1}
+              \leqslant \frac12$
+          \end{description}
+        \item D'après ce qui précède, $(u_n)$ est croissante majorée,
+          donc convergente.
+
+          De plus, si elle converge, on peut noter sa limite $\ell$ qui
+          est telle que $f(\ell) = \ell$, c'est-à-dire solution de
+          l'équation $-1,9x^2+0,9x = 0$ dont les solutions sont 0 et
+          $\boxed{\ell = \frac9{19} \approx \np{0,473684}}$.
+        \item La population considéré convergera vers un effectif de
+          \np{473684} individus.
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[Une étude de fonction]~
+
+  \noindent\textbf{\underline{Partie A}}
+
+  \begin{enumerate}
+    \item Déterminons la limite en $+\infty$ de $g$.
+
+      $\lim_{x\to+\infty} 4x^3 - 3x -8 = \lim_{x\to+\infty} x(4x^2 - 3 -
+      \frac8x)$. Or $\lim_{x\to+\infty} - 3 - \frac8x = 0$. On a donc
+      $\lim_{x\to+\infty} g(x) = \lim_{x\to+\infty} x \times
+      \lim_{x\to+\infty} 4x^2 = +\infty$.
+
+      Le même raisonnement conduit à $\lim_{x\to-\infty} g(x) = -\infty$.
+    \item $g$ est dérivable sur tout $\R$ et sa dérivée $g'$ s'écrit
+      pour tout $x\in\R,\ g'(x) = 12x^2 - 3 = 3(2x -1 )(2x+1)$. Le signe
+      de $g'(x)$ et les variations de $g$ peuvent être résumer dans le
+      tableau suivant.
+
+      \begin{center}
+        \begin{tikzpicture}
+          \tkzTabInit{ $x$ /1, $g'(x)$ /1, $g$ /2}
+          {$-\infty$,$-\frac12$,$\frac12$, $+\infty$}
+          \tkzTabLine{ , + ,z , - , z, + }
+          \tkzTabVar{ -/$-\infty$ , +/-7, -/-9 , +/$+\infty$ }
+        \end{tikzpicture}
+      \end{center}
+
+    \item $g$ est continue sur $\R$, strictement monotone sur
+      $\left]-\infty;-\frac12\right]$, $\left[-\frac12;\frac12\right]$
+      et $\left[\frac12;+\infty\right[$. Or le seul de ses intervalles
+      dont l'image contient 0 est le dernier. En utilisant le théorème
+      des valeurs intermédiaires, on en déduit l'existence et l'unicité
+      de $\alpha$ dans l'intervalle $\left[\frac12;+\infty\right[$.
+    \item On trouve avec le code Python suivant (algorithme de
+      dichotomie.)
+      \begin{pyblock}
+        a = 0.5
+        b = 2
+        def g(x):
+            return 4*x**3 - 3*x - 8
+
+        while b-a > 10**(-2):
+            c = (b+a)/2
+            if g(a)*g(c) < 0:
+                b = c
+            else:
+                a = c
+        print("On trouve l'encadrement ${0:1.3f} \\leqslant \\alpha \
+        \\leqslant {1:1.3f}$".format(a,b).replace('.',','),end='')
+      \end{pyblock}
+      \printpythontex\!.
+
+      Remarque : la dernière ligne de cette algorithme permet surtout
+      l'affichage de la ligne dessous avec \LaTeX{}.
+    \item ~
+
+      \begin{center}
+        \begin{tikzpicture}
+          \tkzTabInit{ $x$ /1, $g(x)$ /1}
+          {$-\infty$,$\frac12$, $\alpha$ ,$+\infty$}
+          \tkzTabLine{ , -, , - ,z ,  + }
+        \end{tikzpicture}
+      \end{center}
+
+  \end{enumerate}
+
+  \noindent\textbf{\underline{Partie B}}
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item $\lim_{x\to \infty}f(x) = \lim_{x\to \infty}
+          \frac{x^2\left(x+\frac1{x^2}\right)}{x^2\left(4 -
+          \frac1{x^2}\right)} = +\infty$
+        \item $\lim_{\substack{x\to \frac12\\x > \frac12}}f(x) =
+          \lim_{\substack{x\to \frac12\\x > \frac12}}
+          \frac{\frac98}{4x^2 -1} = +\infty$
+
+          On a ici $x > \frac12 \implies 4x^2 > 1 \implies 4x^2 - 1 >
+          0$.
+
+          $\mathscr{C}$ possède une asymptote verticale d'équation $x =
+          \frac12$.
+      \end{enumerate}
+    \item Soit $x\in \left]\frac12;+\infty\right[$.
+
+        $f'(x) = \frac{(3x^2)\times(4x^2 -1) - 8x\times (x^3 +1) }{(4x^2 -
+        1)^2}.$
+
+        Or $3x^2(4x^2 -1) - 8x\times (x^3 +1) = 12x^4 - 3x^2 - 8x^4 -
+        8x$
+
+        Donc le numérateur vaut $xg(x)$.
+    \item On en déduit les variations de $f$ :
+
+      \begin{tikzpicture}
+        \tkzTabInit{ $x$ /1, $f(x)$ /3}
+        {$\frac12$, $\alpha$ ,$+\infty$}
+        \tkzTabVar{ D+/$+\infty$ , -/$f(\alpha)$ , +/$+\infty$ }
+      \end{tikzpicture}
+
+    \item Par définition $4\alpha^3 - 3\alpha - 8 = \alpha$. Ainsi,
+      $\alpha^2 = 1 + \frac2{\alpha}$ et $\alpha^3 = \alpha + 2$
+
+      $4\alpha^2 - 1 = 3 + \frac8{\alpha}$
+
+      Ainsi, $f(\alpha) = \frac{\alpha + 3}{3 + \frac8{\alpha}}
+      = \frac{\alpha^2 + 3\alpha}{3\alpha + 8}$.
+
+      D'autre part, $f(\alpha) - \frac38\alpha = \frac{8\alpha^3 -
+      12\alpha^3 + 3\alpha + 8}{8(4\alpha^2 - 1)} = \frac{-g(\alpha)}{
+      8(4\alpha^2 - 1)} = 0$.
+
+      On en déduit que $\boxed{0,543 \leqslant f(\alpha) \leqslant
+      0,547.}$
+
+  \end{enumerate}
+
+  \noindent\textbf{\underline{Partie C}}
+
+  \begin{enumerate}
+    \item Cf. annexe
+    \item $\mathscr{C}$ est au dessus de $\mathcal{D}$.
+
+      Pour le démontrer, montrons que $f(x) - \frac14 x \geqslant 0$.
+
+      Or pour $x> \frac12$, $f(x) - \frac14 x = \frac{x^3 - x^3 +
+      \frac14 x}{4x^2 - 1} > 0$.
+    \item Lorsque $x$ tend vers $+\infty$, la distance $MN$ est en
+      valeur absolue la différence précédente, qui est de limite nulle.
+      Donc $MN$ devient nulle.
+  \end{enumerate}
+
+\end{exercice}
+
+\begin{exercice}[Suite et probabilités]~
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item ~
+
+          \begin{center}
+            \begin{tikzpicture}[level distance=25mm,sibling distance=15mm]
+              \node {} [grow=right]
+              child[sibling distance=35mm] { node {$R$}
+                child[sibling distance=15mm] {
+                  node {$\overline{S_1}$}
+                  edge from parent node[below] {$\frac13$}
+                }
+                child[sibling distance=15mm] {
+                  node {$S_1$}
+                  edge from parent node[above] {$\frac23$}
+                }
+                edge from parent node[below] { $\frac13$ }
+              }
+              child[sibling distance=35mm] { node {$V$}
+                child[sibling distance=15mm] {
+                  node {$\overline{S_1}$}
+                  edge from parent node[below] { $\frac56$ }
+                }
+                child[sibling distance=15mm] {
+                  node {$S_1$}
+                  edge from parent node[above] { $\frac16$ }
+                }
+                edge from parent node[above] { $\frac23$ }
+              } ;
+            \end{tikzpicture}
+          \end{center}
+        \item $P(S_1) = P(V\cap S_1) + P(R\cap S_1) = \frac29 +
+          \frac2{18} = \frac13$ car $R$ et $V$ forment une partition,
+          c'est à dire $R\cup V = E$ et $R\cap V = \emptyset$.
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item Soit $n\in\N^*$. $P_V(S_n)$ est la répétition d'un tirage
+          aléatoire avec remise : donc $P_V(S_n) =
+          \left(\frac16\right)^n$.
+
+          De même, $P_R(S_n) = \left(\frac23\right)^n$
+        \item On utilise la formule des probabilités totales comme à la
+          question 1.b) : $P(V\cap S_n) = P(V)\times P_V(S_n)$ et
+          $P(R\cap S_n) = P(R)\times P_R(S_n)$, d'où $P(S_n) = \frac23
+          \left(\frac16\right)^n + \frac13 \left(\frac23\right)^n$
+        \item $p_n$ est une probabilité conditionnelle. On a donc $p_n =
+          \frac{P(R\cap S_n)}{P(S_n)} = \frac{\frac13
+          \left(\frac23\right)^n}{\frac23 \left(\frac16\right)^n +
+          \frac13 \left(\frac23\right)^n} = \frac{1}{1 + \frac23
+          \left(\frac16\right)^n \times \frac31 \left(\frac32
+          \right)^n} = \frac1{1 + 2\times\left( \frac16 \times \frac32
+          \right)^n}$
+
+          On a donc $\boxed{p_n = \frac1{1 + 2\times\left( \frac14
+          \right)^n}.}$
+        \item Calculons $\lim_{n\to+\infty} p_n$
+
+          $\lim_{n\to+\infty} \left( \frac14 \right)^n = 0$ donc \[
+          \boxed{\lim_{n\to+\infty} p_n =1} \]
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item On vient de montre à la question précédente que
+          $p_n\mathop{\longrightarrow}_{n\to+\infty}1$. Donc par
+          définition de la limite, il existe un rang $n_0$ tel que tous
+          les intervalles de la forme $[\ell - \varepsilon ; \ell +
+          \varepsilon]$ contiennent tous les termes de la suite d'un
+          rang supérieur ou égal à $n_0$.
+
+          Ici, $\ell = 1$ et $\varepsilon = 10^{-3}$.
+        \item Cf. annexe.
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[Géométrie dans l'espace]~
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item Deux versions :
+          \begin{itemize}
+            \item $I$ milieu de $[OA]$ et $J$ milieu de $[OB]$, donc
+              d'après le théorème des milieux, $(IJ)$ et $(AB)$ sont
+              parallèles. \qed
+            \item Dans le repère $(O,\vv{OI},\vv{OJ})$, on a $I :
+              \vecteur{1;0}$, $A: \vecteur{2;0}$, $J: \vecteur{0;1}$ et
+              $B : \vecteur{0;2}$. On en déduit que $\vv{IJ} =
+              \vecteur{-1,1}$ et $\vv{AB} = \vecteur{-2,2}$ et donc que
+              $\vv{IJ} = \frac12\vv{AB}$. Ils sont colinéaires et les
+              droites $(IJ)$ et $(AB)$ sont parallèles. \qed
+          \end{itemize}
+        \item Les droites $(IK)$ et $(AC)$ sont coplanaires car
+          $I\in(OA)$ et $K\in(OC)$.
+
+          Raisonnons par l'absurde\footnote{On peut aussi calculer les
+          coordonnées des vecteurs et conclure.} (ou contraposée du
+          théorème de Thalès). Supposons que $(IK)$ et $(AC)$ sont
+          parallèles. Alors dans ce cas, $\frac{OI}{OA} =
+          \frac{OK}{OC}$, ce qui n'est pas le cas. Donc l'hypothèse
+          «$(IK)$ et $(AC)$ sont parallèles» est absurde.
+
+          Les droites $(IK)$ et $(AC)$ sont sécantes en $M$. \qed
+        \item On peut écrire les relations suivantes :
+          \begin{itemize}
+            \item $(IK) \cap (AC) = M$ ;
+            \item $(JK) \cap (AB) = N$ ;
+            \item Donc $(IJK) \cap (ABC) = (MN)$.
+          \end{itemize}
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item Démontrons que $\vv{OG} = \frac13\left( \vv{OI} + \vv{OJ}
+          + \vv{OK} \right)$.
+
+          Les égalités suivantes sont des équivalences.
+
+          $\vv{OG} = \frac13\left( \vv{OI} + \vv{OJ} + \vv{OK} \right)$
+
+          $3\vv{OG} = \vv{OI} + \vv{OJ} + \vv{OK}$
+
+          $\vv{OG} + \vv{OG} + \vv{OG} = \vv{OI} + \vv{OJ} + \vv{OK}$
+
+          $\vv{KO} + \vv{OG} = \vv{GO} + \vv{OI} + \vv{GO} + \vv{OJ}$
+
+          \[\boxed{\vv{KG} = \vv{GI} + \vv{GJ}}\]
+
+          Les vecteurs $\vv{KG}$, $\vv{GI}$ et $\vv{GJ}$ sont
+          coplanaires donc les points $I,J,K$ et $J$ sont coplanaires.
+          \qed
+        \item $E$ milieu de $IJ$ entraîne que $\vv{IE} + \vv{JE} =
+          \vv{0}$ et donc $\vv{KG} + \vv{0} = \vv{GI} + \vv{GJ} +
+          \vv{IE} + \vv{JE} = 2\vv{GE}$.
+
+          $G$ est le centre de gravité du triangle $IJK$. \qed
+     \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item Prenons pour la droite, le point $O$ et comme vecteur
+          directeur $3\vv{OG} = \vecteur{1,1,1}$
+
+          Une représentation paramétrique de la droite $(OG)$ est
+          \[ (OG) : \left\lbrace\begin{matrix} x = t \\ y = t \\ z = t
+          \end{matrix} \right. , t\in\R \]
+        \item Prenons $\vv{AC} = \vecteur{-2,0,3}$ et $\vv{BC} =
+          \vecteur{0,-2,3}$ comme vecteurs directeurs du plan $(ABC)$ et
+          le point $C : \vecteur{0,0,3}$.
+
+          Une représentation paramétrique du plan $(ABC)$ est
+          \[ (ABC) : \left\lbrace\begin{matrix} x = & \!\!-2t \\ y = &
+          \!\! -2s \\ z = & \!\!3 + 3t + 3s \end{matrix} \right. ,
+          (t,s)\in\R^2 \]
+        \item Démontrons que le point $H : \vecteur{\frac34 ; \frac34 ;
+          \frac34}$ appartient à la droite $(OG)$ et au plan $(ABC)$,
+          c'est à dire qu'il existe un paramètre $t$ pour $(OG)$ et deux
+          paramètres $(t,s)$ pour $(ABC)$ tel que les coordonnées du
+          point vérifient la représentation paramétrique choisie.
+
+          Pour la droite $(OG)$, $t=\frac34$ convient.
+
+          Pour le plan $(ABC)$, les deux premières équations donnent
+          $t = s = -\frac38$. La dernière équation donne donc $3 -
+          3\frac38 - 3\frac38 = 3 - \frac94 = \frac34$.
+
+          Le point $H : \vecteur{\frac34 ; \frac34 ; \frac34}$
+          appartient bien au plan et à la droite. Comme celle-ci n'est
+          ni coplanaire, ni parallèle, c'est bien l'unique point
+          d'intersection. \qed
+        \item Considérons le plan $(COF)$. Celui contient la droite
+          $(OG)$, donc il contient le point $H$.
+
+          $(CF)$ est l'intersection des plans $(COF)$ et $(ABC)$, donc
+          le point $H$, comme point de $(ABC)$ appartient à la droite
+          $(CF)$.\qed
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\pagebreak
+\section*{Annexe}
+
+\textbf{\underline{Exercice \no{2}}}
+
+\begin{center}
+  \begin{tikzpicture}[scale=2.7,>=latex]
+    \draw [dashed] (0,0) grid[step=0.5] (6.15,3.2) ;
+    \draw [->,thick] (-0.25,0) -- (6.15,0) ;
+    \draw [->,thick] (0,-0.25) -- (0,3.2) ;
+    \draw [very thick] plot [smooth,samples=500,domain=0.589:6.19]
+    (\x,{(\x*\x*\x + 1)/(4*\x*\x - 1)}) ;
+    \draw [red,very thick] plot [domain=0:6.2] (\x,0.25*\x) ;
+    \foreach \x in {1,...,6} {
+      \draw (\x,0) -- (\x,-0.05) node [below] { $\x$ } ;
+    }
+    \foreach \y in {1,...,3} {
+      \draw (0,\y) -- (-0.05,\y) node [left] { $\y$ } ;
+    }
+    \draw (0,0) node [below left] {0} ;
+  \end{tikzpicture}
+\end{center}
+
+\textbf{\underline{Exercice \no{3}}}
+
+\begin{tabular}{p{5em}p{0.1em}cp{20em}}
+  Variables      &  & : & $E$ est un réel strictement compris entre 0 et 1 \\
+                 &  &   & $N$ est un entier naturel non nul                           \\
+  Entrée         &  & : & $E$ \textcolor{red}{$=10^{-3}$}                              \\
+  Initialisation &  & : & Affecter à $N$ la valeur 1                                  \\
+  Traitement     &  & : & Tant que \textcolor{red}{$1-p_N\geqslant E$}                \\
+                 &  &   & \hspace{1em}\textcolor{red}{Affecter à $N$ la valeur $N+1$} \\
+                 &  &   & Fin Tant que                                                \\
+  Sortie         &  & : & Afficher $N$                                                \\
+\end{tabular}
+
+\end{document}

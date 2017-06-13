@@ -1,0 +1,535 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[frenchb]{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[autolanguage]{numprint}
+\newcommand{\np}{\numprint}
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Vecteur}{\overrightarrow}
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\vabs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\ioo}[2]{\left]#1~;~#2\right[}
+
+\makeatother
+
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exercice}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{probleme}{Problème}
+\newtheorem{preuve}{Preuve}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\usepackage{enumitem}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Limites des suites}
+\author{Terminale S}
+\date{septembre 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Généralités sur les entiers et les suites}
+
+\subsection{Raisonnement par récurrence}
+
+Le raisonnement par \underline{\hspace{8em}} est un type de raisonnement
+permettant de montrer une propriété sur les entiers.
+
+Il repose sur le principe (ou axiome) énoncé par Peano pour la
+construction des entiers naturels, ensemble dont on suppose l'existence
+\emph{a priori} :
+\begin{enumerate}[label=(\roman*)]
+  \item L'élément appelé \emph{zéro} et noté 0 existe et est un entier
+    naturel.
+  \item Tout entier naturel $n$ possède un \emph{unique} successeur,
+    noté $s(n)$.
+  \item Aucun entier naturel n'a pour successeur 0.
+  \item Deux entiers naturels ayant le même successeur sont égaux.
+  \item Si un ensemble contient 0 et contient le successeur de chacun de
+    ses éléments, alors il est égal à l'ensemble des entiers naturels,
+    noté $\N$.
+\end{enumerate}
+
+Quelques remarques sur ces différents points.
+
+Le premier point est un point d'existence, aussi fondamental que
+l'existence des nombres naturels. C'est d'ailleurs quasiment lui qui
+confirme, avec l'axiome 5 l'existence des entiers naturels.
+
+Le successeur d'un entier $n$ est souvent noté $n+1$. On peut utiliser
+intensivement cette proposition pour définir addition et multiplication
+et démontrer leurs propriétés -- associativité, commutativité et
+distributivité.
+
+On peut voir $s$ comme une fonction (axiome 2) injective (axiome 4) de
+$\N$ dans $\N$.
+
+\framebox{\begin{minipage}{0.99\linewidth}
+    \emph{Donner la définition de fonction injective}
+    \vspace{3cm}
+  \end{minipage}
+}
+
+La dernière proposition est aussi appellée axiome d'induction et
+correspond au cœur même du raisonnement par récurrence et peut se
+reformuler :
+
+\framebox{\begin{minipage}{0.99\linewidth}
+    Si une proprosition dépendant d'un entier naturel $n$ est vraie pour
+    $n = 0$, puis que si elle est vraie pour un élément arbitraire $k$,
+    on en déduit qu'elle est vraie pour $s(k)$ le successeur de $k$,
+    alors elle est vraie pour tous les entiers naturels.
+  \end{minipage}
+}
+
+Exemple de raisonnement par récurrence : démontrer que pour tout $n$
+entier naturel, $1 + 2 + 3 + \dots + n = \frac{n(n+1)}2$.
+
+\framebox{\begin{minipage}{0.99\linewidth}
+    \emph{Initialisation}\\[1.6cm]
+    \emph{Hérédité}\\[4.8cm]
+    \emph{Conclusion}\\[1.6cm]
+  \end{minipage}
+}
+
+La structure de ce raisonnement doit bien apparaître, éventuellement en
+mettant en exergue la proposition, ici «$P(n) : 1 + 2 + 3 + \dots + n =
+\frac{n(n+1)}2$».
+
+\subsection{La notion de suite}
+
+Les suites sont un objet mathématique à la fois simple à définir mais
+extremement riche et permettant d'amorçer nombre de raisonnement. En
+voici une définition :
+\begin{definition}
+  On appelle \emph{suite}, en précisant la nature des éléments, une
+  collection infinie et ordonnée d'éléments de même nature, indexés par
+  les entiers naturels, c'est à dire numérotés.
+\end{definition}
+
+On peut donner quelques exemples :
+\begin{itemize}
+  \item les entiers naturels ;
+  \item les entiers pairs ;
+  \item les nombres premiers ;
+\end{itemize}
+
+On note l'ensemble de la suite $(u_n)_{n\in\N}$ et $u_0$, $u_1$, \dots
+$u_n$ en sont les éléments.
+
+Lorsque tous les éléments sont égaux entre eux, on parle de suite
+constante.
+
+Pour les suites plus élaborées que celles que nous venons de présenter,
+il existe deux façon de les définir :
+\begin{itemize}
+  \item pour tout $n$ entier naturel, $u_n = f(n)$ où $f$ est une
+    fonction ;
+  \item pour tout $n$ entier naturel $u_{n+1} = f(u_n)$ où $f$ est une
+    fonction, $u_0$ donné.
+\end{itemize}
+La deuxième définition s'appelle définition par récurrence d'une suite
+et on tâchera de se ramener à la première formulation.
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \emph{Montrer qu'une suite arithmétique définie pour tout entier
+    naturel $n$ par $u_{n+1} = u_n + r$ peut se mettre sous la forme
+    $u_n = u_0 + rn$.\\[4.8cm]
+  Donner la somme des $N$ premiers termes.\\[2.7cm]}
+  \end{minipage}
+}
+
+\subsection{Quelques compléments sur les suites}
+
+\begin{definition}
+  On dit qu'une suite est 
+  \begin{itemize}
+    \item arithmétique si la différence entre un terme et le suivant est
+      une constante $r$ qu'on appelle raison. On a alors $u_n = u_0 +
+      rn$ ;
+    \item géométrique si le quotient entre un terme et le suivant est
+      une constante $q$ qu'on appelle la raison.
+  \end{itemize}
+\end{definition}
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \emph{Montrer qu'une suite géométrique définie pour tout entier
+    naturel $n$ par $u_{n+1} = q\times u_n $ peut se mettre sous la
+  forme $u_n = u_0 \times q^n $.\\[4.8cm]}
+\end{minipage}
+}
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \emph{
+    Montrer par récurrence que la somme des $N$ premiers termes vaut
+    $u_0 \times \frac{1 - q^{N+1}}{1 - q}$ si $q\neq 1$ \\[4.8cm]}
+  \end{minipage}
+}
+
+Enfin, pour conclure cette partie, on peut parler de la monotonie d'une
+suite.
+
+\begin{definition}
+  On dit qu'une suite est monotone croissante (respectivement
+  décroissante) lorsque pour tout entier naturel $n$, $u_{n+1} \geq u_n$
+  (respectivement $u_{n+1} \leq u_n$.)
+\end{definition}
+
+\section{Limite d'une suite}
+
+\subsection{Limite finie d'une suite}
+
+On dit qu'une suite admet une limite finie $\ell$ lorsqu'à partir d'un
+certain rang, tous les termes de la suite sont au voisinage de cette
+limite. Ce voisinage s'entend à une précision $\varepsilon$ près. On a
+donc la définition suivante :
+\begin{definition}
+  La suite $(u_n)_{n\in\N}$ admet $\ell$ pour limite si \[ \forall
+    \varepsilon > 0, \exists N_0\in\N | \forall n \in\N , n\geq N_0
+  \implies \vabs{u_n - \ell} \leq \varepsilon \]
+  On note alors $\lim_{n\to+\infty} u_n = \ell$
+\end{definition}
+
+On ne perd pas en généralité si on remplace l'inégalité précédente par
+une inégalité stricte.
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \emph{Réécrire la proposition de la définition en terme
+    d'appartenance à un intervalle.}
+    \vspace{3cm}
+  \end{minipage}
+}
+
+On peut désormais prendre la proposition suivante, équivalente à la
+définition 1 :
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    $\lim_{n\to+\infty} u_n = \ell$ si et seulement si tout
+    \underline{\hspace{5cm}} contenant \underline{\hspace{0.7cm}}
+    contient aussi tous les termes de la suite \underline{\hspace{6cm}}.
+  \end{minipage}
+}
+
+\begin{remarque}
+  Si la limite d'une suite existe, alors elle est unique.
+\end{remarque}
+
+\begin{minipage}{0.99\linewidth}
+  \emph{Preuve} (par l'absurde, en considérant que $\ell_1$ et $\ell_2$ sont
+  deux limites distinctes)
+  \vspace{3cm}
+\end{minipage}
+
+Donnons quelques exemples de suites qui présentent une limite finie et
+donnons la valeur de celle-ci.
+
+\begin{itemize}
+  \item Pour $u_n = \frac1n$, $\lim_{n\to +\infty}u_n = 0$ ;
+  \item Pour $u_n = \frac1{n^2}$, $\lim_{n\to +\infty}u_n = 0$ ;
+  \item Pour $u_n = \frac1{\sqrt{n}}$, $\lim_{n\to +\infty}u_n = 0$ ;
+\end{itemize}
+
+On remarque que cette définition ne donne aucun moyen pratique de
+calculer la limite d'une suite ni même de dire si celle-ci existe.
+
+\begin{remarque}[Critère de Cauchy (admis et hors programme)]~\\
+  $(u_n)_{n\in\N}$ converge si, et seulement si, $\forall \varepsilon >
+  0,\ \exists N_0\in\N,\ \forall (n,p)\in\N^2,\ n\geq p\geq N_0 \implies
+  \vabs{u_n - u_p} < \varepsilon$.
+\end{remarque}
+
+\subsection{Limite infinie d'une suite}
+
+On dit qu'une suite admet une limite infinie ($+\infty$ ou $-\infty$)
+lorsqu'à partir d'un certain rang, tous les termes de la suite
+appartiennent à tous les intervalles de la forme $\ioo{A}{+\infty}$, où
+$A$ est un réel arbitraitement grand.
+
+\begin{definition}
+  La suite $(u_n)_{n\in\N}$ admet $+\infty$ pour limite si \[ \forall
+    A\in\R,\ \exists N_0\in\N\ |\ \forall n\in\N,\ n\geq N_0 \implies
+  u_n > A \]
+\end{definition}
+
+On peut aussi écrire la proposition suivante, équivalente à la
+définition 2 :
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    $\lim_{n\to+\infty} u_n = +\infty$ si et seulement si tout
+    \underline{\hspace{5cm}} de la forme \underline{\hspace{3cm}}
+    contient aussi tous les termes de la suite \underline{\hspace{6cm}}.
+  \end{minipage}
+}
+
+Donnons quelques exemples de suites qui présentent une limite infinie.
+
+\begin{itemize}
+  \item Pour $u_n = n$, $\lim_{n\to +\infty}u_n = +\infty$ ;
+  \item Pour $u_n = {n^2}$, $\lim_{n\to +\infty}u_n = +\infty$ ;
+  \item Pour $u_n = \sqrt{n}$, $\lim_{n\to +\infty}u_n = +\infty$ ;
+\end{itemize}
+
+\begin{remarque}~\\
+  Une suite de limite infinie est dite divergente vers $\pm\infty$.
+\end{remarque}
+
+\begin{remarque}[absence de limite]~\\
+  Certaines suites ne présentent pas de limite. C'est le cas de la suite
+  définie pour tout $n$ naturel par $u_n = (-1)^n$.
+\end{remarque}
+
+\section{Calcul effectif de la limite d'une suite}
+
+Dans cette partie, on va voir comment calculer de façon efficace la
+limite d'une suite.
+
+\subsection{Théorèmes de comparaion}
+
+\begin{theoreme}
+  Soient $(u_n)_{n\in\N}$, $(v_n)_{n\in\N}$ et $(w_n)_{n\in\N}$, trois
+  suites. Si à partir d'un certain rang ($p$) on a : \[ u_n \geq v_n
+    \text{ et } \lim_{n\to\infty} v_n = +\infty \text{ alors }
+  \lim_{n\to\infty} u_n = +\infty \]
+\end{theoreme}
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \emph{Preuve :}
+      \vspace{4cm}
+  \end{minipage}
+}
+
+\begin{exercice}
+  Adapter le théorème au cas où $\lim_{n\to\infty} v_n = -\infty$.
+
+  \framebox{
+    \begin{minipage}{0.99\linewidth}
+      \hspace{\linewidth}
+      \vspace{2.5cm}
+    \end{minipage}
+  }
+\end{exercice}
+
+\begin{theoreme}[d'encadrement (admis)]
+  Soient $(u_n)_{n\in\N}$, $(v_n)_{n\in\N}$ et $(w_n)_{n\in\N}$, trois
+  suites. Si à partir d'un certain rang ($p$) on a : \[ w_n \leq u_n
+    \leq w_n \text{ et } \lim_{n\to\infty} v_n = \lim_{n\to\infty}w_n =
+  \ell \text{ alors } \lim_{n\to\infty} u_n = \ell \]
+\end{theoreme}
+
+\begin{exemple}
+  \begin{itemize}
+    \item Démontrer que la suite $(v_n)_{n\in\N}$ définie par $\forall
+      n\in\N,\ v_n = n + \sin n $ diverge vers $+\infty$.
+
+      \framebox{
+        \begin{minipage}{0.99\linewidth}
+          \hspace{\linewidth}
+          \vspace{3cm}
+        \end{minipage}
+      }
+    \item Démontrer que la suite $(u_n)_{n\in\N}$ définie par $\forall
+      n\in\N,\ u_n = \frac{\sin n}{n + 1} $ converge vers 0.
+
+      \framebox{
+        \begin{minipage}{0.99\linewidth}
+          \hspace{\linewidth}
+          \vspace{3cm}
+        \end{minipage}
+      }
+  \end{itemize}
+\end{exemple}
+
+\subsection{Opérations sur les limites}
+
+Il paraît assez naturel de se poser la question de savoir que sont les
+limites potentielles de la somme (algébrique), du produit et du quotient
+de deux suites. Raisonnons par «condition nécessaire» : si deux suites
+$u$ et $v$ possèdent toutes deux une limite finie, la limite de la somme
+est également finie et est la somme des limites. Admettons que cette
+condition est aussi «suffisante». On donne ainsi, sans justification le
+tableau suivant pour la limite de la somme :
+
+\begin{center}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{|l|*{6}{>{\hfill$}p{1cm}<{$\hfill~}|}}
+    \hline
+    $u$ a pour limite    & \ell   & \ell      & \ell      & +\infty   & -\infty    & +\infty \\ \hline
+    $v$ a pour limite    & \ell'  & +\infty   & -\infty   & +\infty   & -\infty    & -\infty \\ \hline
+    %$u+v$ a pour limite & $l+l'$ & $+\infty$ & $-\infty$ & $+\infty$ & %$-\infty$ & $+\infty$ \\ \hline
+    $u+v$ a pour limite  &        &           &           &           &            & \\ \hline
+  \end{tabular}
+\end{center}
+
+Pour le produit, on donne aussi le tableau suivant, pour $\ell \neq 0$
+et $\ell' \neq 0$ :
+
+\begin{center}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{|l|*{6}{>{\hfill$}p{1cm}<{$\hfill~}|}}
+    \hline
+    $u$ a pour limite         & \ell  & \ell    & \ell    & +\infty & -\infty & +\infty \\ \hline
+    $v$ a pour limite         & \ell' & +\infty & -\infty & +\infty & -\infty & -\infty \\ \hline
+    $u\times v$ a pour limite &       &         &         &         &         & \\ \hline
+    \end{tabular}
+\end{center}
+
+Attention, dans le cas où $\ell = 0$, on a des formes indéterminées :
+\begin{center}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{|l|*{3}{>{\hfill$}p{1cm}<{$\hfill~}|}}
+    \hline
+    $u$ a pour limite         & 0     & 0       & 0       \\ \hline
+    $v$ a pour limite         & \ell' & +\infty & -\infty \\ \hline
+    $u\times v$ a pour limite &       &         &         \\ \hline
+    \end{tabular}
+\end{center}
+
+Pour le quotient, on a toujours dans le cas où $\ell \neq 0$ et $\ell'
+\neq 0$ :
+\begin{center}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{|l|*{5}{>{\hfill$}p{1cm}<{$\hfill~}|}}
+    \hline
+    $u$ a pour limite         & \ell  & \ell    & \ell    & +\infty & -\infty \\ \hline
+    $v$ a pour limite         & \ell' & +\infty & -\infty & \ell' & \ell' \\ \hline
+    $\frac{u}{v}$ a pour limite &       &         &         &         &       \\ \hline
+    \end{tabular}
+\end{center}
+
+Pour lever les cas d'indétermination, on essaie de revenir à un autre
+cas connu, en factorisant l'expression de la suite.
+
+Faire les exercices 11 à 19 p 31 et 32.
+
+\pagebreak
+
+\section{Suites majorées ou minorées et monotonie}
+
+\subsection{Un premier exemple pour comprendre}
+
+On s'intéresse au comportement à l'infini de la suite définie pour tout
+entier naturel $n$ par $q^n$ où $q$ est un réel strictement supérieur à
+1.
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \emph{Rappeler l'inégalité de Bernoulli :}
+      \vspace{4cm}
+  \end{minipage}
+}
+
+Attention, ici l'hypothèse $a>1$ prend toute son importance !
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \emph{Utiliser le théorème de majoration des suites pour conclure :}
+      \vspace{4cm}
+  \end{minipage}
+}
+
+On démontre également que les suites géométriques de raison $\vabs{a} <
+1$ convergent vers 0.
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \emph{Preuve :}
+      En effet, à partir du rang $n_0$, tous les intervalles ouverts
+      contenus dans l'intervalle
+      $\ioo{-\frac{u_0}{\vabs{a}^{n_0+1}}}{\frac{u_0}{\vabs{a}^{n_0+1}}}$
+      contiennent tous les termes de la suite.
+  \end{minipage}
+}
+
+\subsection{Croissance, monotonie et limite}
+
+\begin{theoreme}[admis]
+  Toute suite strictement croissante majorée admet une limite.
+\end{theoreme}
+
+\begin{theoreme}
+  Toute suite strictement croissante non-majorée diverge vers $+\infty$.
+\end{theoreme}
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \emph{Preuve :}
+      \vspace{4cm}
+  \end{minipage}
+}
+
+
+
+\end{document}

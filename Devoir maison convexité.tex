@@ -1,0 +1,603 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{lmodern}
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+%\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{mdframed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{
+  headings = block,
+  question/pre-hook = \mdframed,
+  question/post-hook = \endmdframed,
+}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Devoir à la maison \no{3} : convexité, théorie et applications}
+\author{\bsc{Ts 3}}
+\date{pour le 30 janvier 2017}
+
+\begin{document}
+
+\maketitle
+
+\section{Petit préambule géométrique}
+
+\subsection{Approche qualitative}
+
+\begin{definition}
+  On dit qu'un domaine du plan est convexe lorsque le segment qui joint
+  deux points arbitraires de ce domaine est contenu dedans.
+\end{definition}
+
+\begin{exemple}
+  Parmi les parties convexes du plan, on peut citer :
+  \begin{itemize}
+    \item le segment ;
+    \item l'intérieur d'un triangle ;
+    \item le disque ;
+    \item l'intérieur d'un quadrilatère non-croisé.
+  \end{itemize}
+\end{exemple}
+
+\begin{question}[ID=reformulation]
+  Reformuler cette définition avec les quantificateurs $\forall$ et
+  $\exists$
+\end{question}
+\begin{solution}
+  On dit qu'un domaine $A$ du plan est convexe lorsque $\forall (M,M')
+  \in A^2,\ [MM']\subset A$.
+\end{solution}
+
+Le vocabulaire «ancien» des fonctions définissait la notion de graphe et
+d'épigraphe d'une fonction. Cependant, nous pouvons donner la définition
+suivante.
+\begin{definition}
+  \begin{itemize}
+    \item On appelle graphe $\Gamma$ d'une fonction l'ensemble des
+      points du plan $\Gamma = \lbrace (x,y) \mid y = f(x) \rbrace$.
+    \item On appelle épigraphe d'une fonction l'ensemble des points du
+      plans $\lbrace (x,y) \mid y \geqslant f(x)\rbrace$.
+  \end{itemize}
+\end{definition}
+
+On dira donc qu'une fonction est convexe si son épigraphe est convexe.
+
+\begin{question}[ID=convexe.parties]
+  \begin{enumerate}
+    \item Parmi les ensembles suivants, préciser s'ils sont convexes ou
+      non.
+      \begin{itemize}
+        \item un carré ;
+        \item un disque ;
+        \item un segment ;
+      \end{itemize}
+    \item Proposer une figure géométrique dont l'intérieur n'est pas
+      convexe. Illustrer par un dessin.
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item Les 3 propositions sont convexes.
+    \item
+
+      \tikz{
+        \draw (0,0) -- (2,0) -- (2,2) -- (1,1) -- (0,2) -- cycle ;
+      }
+  \end{enumerate}
+\end{solution}
+
+
+\subsection{Décrire un segment : le barycentre}
+
+On ne traitera qu'une vision simplifiée de la notion de barycentre ici,
+en se limitant au plan et au barycentre de deux points. D'autres
+démonstrations peuvent être menés avec cette notion.
+
+Cependant, il est pertinent de donner ici la définition du barycentre
+d'un système de points pondérés.
+
+\begin{definition}
+  On appelle \emph{barycentre} du système de points $(A_i, \alpha_i)$,
+  avec $1 \leqslant i \leqslant n$ et $\sum \alpha_i \neq 0$ le point
+  $G$ tel que \[ \sum_{i=1}^n \alpha_i \vv{GA_i} = \vv{0}.\]
+\end{definition}
+
+On peut remarquer que ce point est unique et que le système de
+pondération des points permet, $n$ points étant donnés, de déterminer
+tous les points du plan.
+
+En particulier, on peut même réduire ce nombre de points à $n + 1$ pour
+un espace de dimension $n$, ce qui nous donne deux points pour définir
+un point d'une droite.
+
+Plus précisément même encore, dans le cas d'un segment, on peut chercher
+à raffiner les poids à considérer.
+
+\begin{question}[ID=barycentre.segment]
+  \begin{enumerate}
+    \item Démontrer que si $x\in\interff{a;b}$, alors il existe
+      $t\in\interff{0;1}$ tel que $x=f(t)$. \emph{On explicitera $f$}.
+    \item Démontrer que $x$ s'écrit $x = (1-t)a + tb$.
+    \item Donner une autre expression de $x$. \emph{Indication : on peut
+      parcourir le segment «dans l'autre sens».}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item Soit $x\in\interff{a;b}$.
+      \begin{align*}
+        a\leqslant x \leqslant b \iff \\
+        0\leqslant x - a \leqslant b - a \iff \\
+        0\leqslant \frac{x-a}{b-a} \leqslant 1.
+      \end{align*}
+    \item D'après ce qui précède, $t = \frac{x - a}{b - a}$
+      \begin{align*}
+        \iff t(b - a) = x - a \\
+        \iff tb - ta + a = x\\
+        \iff x = (1-t)a + tb.
+      \end{align*}
+  \end{enumerate}
+\end{solution}
+
+On dit que cette dernière expression est l'expression barycentrique de
+$x$.
+
+\begin{definition}
+  On appelle barycentre de deux points $A$ et $B$ pondérés
+  respectivement par $\alpha$ et $\beta$ le point $G$ tel que pour tout
+  point $M$ du plan, \[\alpha \vv{MA} + \beta \vv{MB} = (\alpha + \beta)
+  \vv{MG}.\]
+\end{definition}
+
+\begin{remarque}
+  Cette définition ne possède un sens que si $\alpha + \beta \neq 0$.
+\end{remarque}
+
+\section{Fonctions convexes}
+
+On va maintenant chercher à exploiter davantage la définition de la
+convexité qu'on s'est donné, ainsi que l'outillage qui en découle.
+
+\subsection{Caractérisation en utilisant les cordes}
+
+Comencons par une petite définition de la notion de corde d'une courbe.
+
+\begin{definition}
+  On appelle corde d'une courbe le segment de coordonnées
+  $(x_A,f(x_A))$, $(x_B,f(x_B))$.
+\end{definition}
+
+\begin{center}
+  \begin{tikzpicture}[scale=0.7]
+    \tkzInit
+    \tkzGrid
+    \tkzDrawXY
+
+    \draw [thick] plot [smooth,domain=0:10] (\x,{(\x/2 - 2)^2 + 1/2}) ;
+    \draw [thick] (1,{(1/2 - 2)^2 + 1/2}) node [circle,fill=black,inner
+    sep=1pt] {} -- (8,{(8/2 - 2)^2 + 1/2}) node [circle,fill=black,inner
+    sep=1pt] {} ;
+  \end{tikzpicture}
+\end{center}
+
+\begin{question}[ID=inégalité.des.pentes]
+  \begin{enumerate}
+    \item Soit $M$ un point de la corde. Écrire ses coordonnées
+      barycentriques.
+    \item Donner l'image par la fonction $f$ d'un élément de même
+      abscise que ce point de la corde.
+    \item Quelle relation de comparaison peut-on écrire entre la
+      valeur de la fonction et l'ordonnée d'un point de la corde, si
+      celle-ci est convexe.
+    \item On considère une fonction convexe sur le segment
+      $\interff{a;c}$ et $b$ est un élément de $\interoo{a,c}$.
+      \begin{enumerate}
+        \item Exprimer les coordonnées barycentriques de $b$.
+        \item Exprimer, en fonction de $b$, la valeur du paramètre.
+        \item En utilisant l'inégalité de convexité \[ f(ta + (1-t)c)
+            \leqslant tf(a) + (1-t)f(c) \] démontrer que \[\frac{f(c) -
+          f(a)}{c-a} \leqslant \frac{f(c) - f(b)}{c-b}.\]
+          \emph{On fera attention au signe des différences.}
+      \end{enumerate}
+    \item Démontrer, de la même façon que \[\frac{f(b) - f(a)}{b-a}
+      \leqslant \frac{f(c) - f(a)}{c-a}.\]
+      \emph{On pourra changer le paramétrage du segment $\interff{a;c}$.}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item $M$ a pour coordonnées $(x = tx_A + (1-t)x_B ; y = tf(x_A) +
+      (1-t)f(x_B))$.
+    \item L'image par $f$ d'un point du segment est $f(tx_A +
+      (1-t)x_B)$.
+    \item Puisque la fonction est convexe, on a $f(tx_A + (1-t)x_B)
+      \leqslant tf(x_A) + (1-t)f(x_B))$.
+    \item Puisque la fonction est convexe sur le segment
+      $\interff{a;b}$, on a $f(ta + (1-t)c) \leqslant f(a) + (1-t)f(c)$.
+      \begin{enumerate}
+        \item $b$ s'écrit $b = ta + (1-t)c$.
+        \item $t = \frac{b - c}{a - c}$.
+        \item $f(ta + (1-t)c) \leqslant tf(a) + (1-t)f(c)$ devient
+          $f(b) \leqslant \frac{b - c}{a - c}\left(f(a) - f(c)\right) +
+          f(c)$
+
+          D'où on tire que $f(b) - f(c) \leqslant (b - c)\frac{f(a) -
+          f(c)}{a-c}$.
+
+          Comme $b-c<0$, on obtient $\frac{f(b) - f(c)}{b-c} \geqslant
+          \frac{f(a) - f(c)}{a-c}$.
+
+          \begin{center}
+            \begin{tikzpicture}[scale=0.7]
+              \tkzInit
+              \tkzGrid
+              \tkzDrawXY
+
+              \draw [thick] plot [smooth,domain=0:10] (\x,{(\x/2 - 2)^2 + 1/2}) ;
+
+              \draw [thick] (1,{(1/2 - 2)^2 + 1/2}) node [circle,fill=black,inner
+              sep=1pt] {} -- (3,{(3/2 - 2)^2 + 1/2}) node [circle,fill=black,inner
+              sep=1pt] {} ;
+               \draw [thick] (3,{(3/2 - 2)^2 + 1/2}) node [circle,fill=black,inner
+              sep=1pt] {} -- (8,{(8/2 - 2)^2 + 1/2}) node [circle,fill=black,inner
+              sep=1pt] {} ;
+               \draw [thick] (1,{(1/2 - 2)^2 + 1/2}) node [circle,fill=black,inner
+              sep=1pt] {} -- (8,{(8/2 - 2)^2 + 1/2}) node [circle,fill=black,inner
+              sep=1pt] {} ;
+
+              \draw (1,0) node [below] {$a$} ;
+              \draw (3,0) node [below] {$b$} ;
+              \draw (8,0) node [below] {$c$} ;
+            \end{tikzpicture}
+          \end{center}
+
+          L'inégalité précédente peut s'écrire $\frac{f(a) - f(c)}{a -
+          c} \leqslant \frac{f(b) - f(c)}{b - c}$.
+      \end{enumerate}
+  \end{enumerate}
+\end{solution}
+
+\begin{propriete}[inégalité des trois pentes]
+  Si $f$ est une fonction convexe sur un segment $\interff{a;c}$ et $b$
+  un élément de l'ouvert $\interoo{a;b}$, alors elle vérifie l'inégalité
+  suivante : \[ \frac{f(b) - f(a)}{b-a} \leqslant \frac{f(c) -
+  f(a)}{c-a} \leqslant \frac{f(c) - f(b)}{c-b}.\]
+\end{propriete}
+
+\subsection{Caractérisation par les variations de la dérivée.}
+
+On peut démontrer, mais c'est difficile, que si $f$ est convexe, alors,
+$f$ est dérivable, donc continue. Admettons ce résultat et intéressons
+nous à la dérivée.
+
+On va démontrer dans cette partie qu'on peut être encore plus précis et
+que la dérivée seconde, si elle existe est positive.
+
+\begin{question}[ID=df.croissante]
+  Démontrer, en utilisant l'égalité des pentes, que la fonction dérivée
+  est strictement croissante.
+
+  En déduire, que si $f$ est deux fois dérivable, alors $f''(x) > 0$.
+\end{question}
+\begin{solution}
+  \begin{center}
+    \begin{tikzpicture}[scale=1.4]
+      \tkzInit[xmin=1,xmax=6,ymax=3]
+      \tkzGrid
+      \tkzDrawXY
+
+      \draw [thick] plot [smooth,domain=1:5] (\x,{(\x/2 - 2)^2 + 1/2}) ;
+
+      \draw [red,thick] (2,{(2/2 - 2)^2 + 1/2}) node
+      [circle,fill=black,inner sep=1pt] {} -- (3,{(3/2 - 2)^2 + 1/2})
+      node [circle,fill=black,inner sep=1pt] {} ;
+      \draw [red,thick] (3,{(3/2 - 2)^2 + 1/2}) node
+      [circle,fill=black,inner sep=1pt] {} -- (4,{(4/2 - 2)^2
+      + 1/2}) node [circle,fill=black,inner sep=1pt] {} ;
+
+      \draw (2,0) node [below] {$a$} ;
+      \draw (3,0) node [below] {$b$} ;
+      \draw (4,0) node [below] {$c$} ;
+    \end{tikzpicture}
+  \end{center}
+\end{solution}
+
+
+\subsection{Caractérisation par les tangentes}
+
+Le but de cette partie est de démontrer que la courbe représentative
+d'une fonction convexe est au dessus de ses tangentes.
+
+\begin{question}[ID=tangentes]
+  \begin{enumerate}
+    \item Rappeller l'expression de l'équation de la tangente en un
+      point.
+    \item On pose $h(x) = \frac{f(x) - f(b)}{x -b}$
+      \begin{enumerate}
+        \item Justifier que $f$ convexe entraîne $h$ croissante.
+        \item Dériver $h$. Que peut-on dire du signe du quotient obtenu
+          ?
+        \item En déduire que $f(b) \geqslant f(a) + (b -a)f'(a)$.
+      \end{enumerate}
+    \item Peut-on utiliser des équivalences dans le raisonnement
+      précédent ? Conclure.
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item L'équation de la tangente $T$ est $y = f'(x_0) (x - x_0) +
+      f(x_0)$.
+      \begin{enumerate}
+        \item Puisque $f$ est convexe, d'après l'inégalité des trois
+          pentes, on a, pour tout $a < x \leqslant y < b$, \[ \frac{f(x)
+          - f(y)}{x -y} \leqslant \frac{f(b) - f(x)}{b - x} \leqslant
+          \frac{f(y) - f(b)}{y -b}. \] En particulier, on retrouve $h(x)
+          \leqslant h(y)$.
+        \item $h'(x) = \frac{f'(x)(x -b) - f(x) + f(b)}{(x - b)^2}$.
+
+          Comme $h$ est croisstante, on en déduit que $f'(x)(x -b) -
+          f(x) + f(b) \geqslant 0$.
+        \item L'inégalité précédente entraîne que $f'(x)(x -b) - f(x)
+          \geqslant -f(b) \implies f(b) \geqslant f'(x)(b - x) + f(x)$.
+      \end{enumerate}
+    \item Oui, on peut mener le raisonnement précédent par équivalence.
+      En fait, il est valable pour tout $a < x < y < b$ et on trouve que
+      $f(y) \geqslant f'(x)(t - x) + f(x)$, ce qui prouve bien que la
+      tangente est sous la courbe.
+  \end{enumerate}
+\end{solution}
+
+\section{Développements autour de cette notion}
+
+\subsection{Concavité}
+
+On dit qu'une fonction est concave si $-f$ est convexe.
+
+\begin{question}[ID=concave]
+  \begin{enumerate}
+    \item En supposant que $f$ est deux fois dérivable, donner une
+      caractérisation de $f$ est concave pour de telles fonctions.
+    \item Donner un interprétation de la concavité en termes de
+      \begin{enumerate}
+        \item cordes ;
+        \item tangentes.
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item On a de façon assez immédiate que $f'' < 0$
+    \item On peut dire que
+      \begin{enumerate}
+        \item les cordes sont sous la fonction ;
+        \item les tangentes sont au dessus de la fonction.
+      \end{enumerate}
+  \end{enumerate}
+\end{solution}
+
+\subsection{Tracés de courbes, étude des points d'inflexion d'une
+courbe}
+
+Une application intéressante de la convexité est le tracé des courbes.
+En particulier, par comparaison locale avec un cercle, on peut se poser
+la question de la convexité des fonctions de références, tout simplement
+car il est plus facile de tracer une fonction lorsqu'on connaît sa
+convexité.
+
+\begin{question}[ID=convexite.reference]
+  Pour les fonctions de références (affine, carrée, racine, inverse,
+  cube, exponentielle, logarithme), préciser sur quels intervalles elles
+  sont convexe ou concave. Vous justifierez votre réponse.
+\end{question}
+\begin{solution}
+  \begin{itemize}
+    \item Les fonctions affines sont convexes (utiliser la définition.)
+    \item La fonction carrée est convexe, il suffit de prendre la
+      dérivée seconde.
+    \item La fonction racine est concave, car la dérivée seconde est
+      négative.
+    \item La fonction inverse est convexe sur $\interoo{0;+\infty}$,
+      concave sur $\interoo{-\infty;0}$.
+    \item La fonction exponentielle est convexe.
+    \item La fonction logarithme est concave.
+  \end{itemize}
+\end{solution}
+
+Sans rentrer dans les détails, nous avons vu que les inégalités qui
+portaient sur la dérivée seconde était stricte. Si on se pose la
+question de savoir ce qui se passe lorsque la dérivée seconde s'annule,
+on peut observer par exemple le comportement de la fonction cube.
+
+On parle alors de point d'inflexion : c'est un point où la tangente
+«tarverse» la courbe.
+
+\subsection{Équilibre en physique : stabilité, instabilité}
+
+L'étude d'une situation physique, par des raisonnements de minimisation
+d'énergie amène souvent à plusieurs solutions. Prenons un exemple
+concret :
+
+On cherche à placer une bille immobile dans une parabole. Pour cela, on
+peut placer la parabole dans deux sens différents. Intuitivement, on se
+doute la meilleure situation d'équilibre correspond à la situation où la
+bille est placée dans la partie convexe de la parabole.
+
+\begin{question}
+  Pourquoi choisir une solution convexe dans un problème de physique ?
+\end{question}
+\begin{solution}
+  Il s'agit d'une question relativement difficile telle que posée ainsi.
+  En effet, l'idée générale, mais qui n'est pas forcément facile a
+  démontrer est que si $f$ est convexe sur un convexe de $\R$, alors un
+  minimum local de $f$ est en fait un minimum global.
+  %https://who.rocq.inria.fr/Jean-Charles.Gilbert/ensta/04-co.pdf
+  %https://who.rocq.inria.fr/Jean-Charles.Gilbert/ensta/optim.html
+  %http://dumas.perso.math.cnrs.fr/LSMA651.html
+\end{solution}
+
+%\end{document}
+
+\pagebreak
+\setcounter{page}{1}
+\printsolutions
+
+\end{document}

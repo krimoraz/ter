@@ -1,0 +1,279 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{kpfonts}
+\usepackage{textcomp}
+\newcommand{\euro}{\eurologo{}}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\frenchbsetup{ItemLabels=\textbullet,}
+
+\usepackage{tabularx}
+\usepackage{enumitem}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+\usepackage[top=1.4cm,bottom=1.4cm,left=2cm,right=2cm,includehead,
+includefoot]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{fancybox}
+
+\usepackage[autolanguage]{numprint}
+\newcommand{\np}{\numprint}
+
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{\ifthenelse{\value{page}=1}{Nom:\dotfill\hfill Prénom: \dotfill
+\hfill ~}{}}
+\rhead{}
+\chead{}
+
+\rfoot{\upshape \small page {\thepage} de \pageref{LastPage}}
+\lfoot{}
+\cfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\usepackage{pdfmarginpar}
+
+\makeatletter
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{0.98\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+  \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\makeatother
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\theorembodyfont{\normalfont}
+\theoremstyle{nobreak}
+\newtheorem{exercice}{Exercice}
+
+%\theoremstyle{plain}
+\theoremstyle{nonumberplain}
+\newtheorem{probleme}{Problème}
+
+% Mise en forme des labels dans les énumérations
+\renewcommand{\labelenumi}{\textbf{\theenumi.}}
+\renewcommand{\labelenumii}{\textbf{\theenumii)}}
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\theenumii}{\alph{enumii}}
+
+\renewcommand{\labelitemi}{$\bullet$}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\R}{\mathbf{R}}
+
+\newcommand{\ligne}[1]{%
+  \begin{tikzpicture}[]
+    \draw[white] (0,#1+0.8) -- (15,#1+0.8) ;
+    \foreach \i in {1,...,#1}
+    { \draw[dotted] (0,\i) -- (\linewidth,\i) ; }
+    \draw[white] (0,0.6) -- (15,0.6) ;
+  \end{tikzpicture}%
+}
+
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\definecolor{fond}{RGB}{136,136,136}
+\definecolor{sicolor}{RGB}{128,0,128}
+\definecolor{tantquecolor}{RGB}{221,111,6}
+\definecolor{pourcolor}{RGB}{187,136,0}
+\definecolor{bloccolor}{RGB}{128,0,0}
+\newenvironment{cadrecode}{%
+  \def\FrameCommand{{\color{fond}\vrule width
+  5pt}\fcolorbox{fond}{white}}%
+  \MakeFramed {\hsize \linewidth \advance\hsize-\width
+\FrameRestore}\begin{footnotesize}}%
+{\end{footnotesize}\endMakeFramed}
+\makeatletter
+\def\therule{\makebox[\algorithmicindent][l]{\hspace*{.5em}\color{fond}
+\vrule width 1pt height .75\baselineskip depth .25\baselineskip}}%
+\newtoks\therules
+\therules={}
+\def\appendto#1#2{\expandafter#1\expandafter{\the#1#2}}
+\def\gobblefirst#1{#1\expandafter\expandafter\expandafter{\expandafter\@gobble\the#1}}%
+\def\Ligne{\State\unskip\the\therules}% 
+\def\pushindent{\appendto\therules\therule}%
+\def\popindent{\gobblefirst\therules}%
+\def\printindent{\unskip\the\therules}%
+\def\printandpush{\printindent\pushindent}%
+\def\popandprint{\popindent\printindent}%
+\def\Variables{\Ligne \textcolor{bloccolor}{\textbf{VARIABLES}}}
+\def\Si#1{\Ligne \textcolor{sicolor}{\textbf{SI}} #1
+\textcolor{sicolor}{\textbf{ALORS}}}%
+\def\Sinon{\Ligne \textcolor{sicolor}{\textbf{SINON}}}%
+\def\Pour#1#2#3{\Ligne \textcolor{pourcolor}{\textbf{POUR}} #1
+  \textcolor{pourcolor}{\textbf{ALLANT\_DE}} #2
+\textcolor{pourcolor}{\textbf{A}} #3}%
+\def\Tantque#1{\Ligne \textcolor{tantquecolor}{\textbf{TANT\_QUE}} #1
+\textcolor{tantquecolor}{\textbf{FAIRE}}}%
+\algdef{SE}[WHILE]{DebutTantQue}{FinTantQue}
+{\pushindent \printindent
+\textcolor{tantquecolor}{\textbf{DEBUT\_TANT\_QUE}}}
+{\printindent \popindent
+\textcolor{tantquecolor}{\textbf{FIN\_TANT\_QUE}}}%
+\algdef{SE}[FOR]{DebutPour}{FinPour}
+{\pushindent \printindent
+\textcolor{pourcolor}{\textbf{DEBUT\_POUR}}}
+{\printindent \popindent
+\textcolor{pourcolor}{\textbf{FIN\_POUR}}}%
+\algdef{SE}[IF]{DebutSi}{FinSi}%
+{\pushindent \printindent
+\textcolor{sicolor}{\textbf{DEBUT\_SI}}}
+{\printindent \popindent
+\textcolor{sicolor}{\textbf{FIN\_SI}}}%
+\algdef{SE}[IF]{DebutSinon}{FinSinon}
+{\pushindent \printindent
+\textcolor{sicolor}{\textbf{DEBUT\_SINON}}}
+{\printindent \popindent
+\textcolor{sicolor}{\textbf{FIN\_SINON}}}%
+\algdef{SE}[PROCEDURE]{DebutAlgo}{FinAlgo}
+{\printandpush
+\textcolor{bloccolor}{\textbf{DEBUT\_ALGORITHME}}}%
+{\popandprint
+\textcolor{bloccolor}{\textbf{FIN\_ALGORITHME}}}%
+\makeatother
+\newenvironment{algobox}%
+{%
+  \begin{ttfamily}
+    \begin{algorithmic}[1]
+      \begin{cadrecode}
+        \labelwidth 1.5em
+        \leftmargin\labelwidth
+        \addtolength{\leftmargin}{\labelsep}
+      }
+      {%
+      \end{cadrecode}
+    \end{algorithmic}
+  \end{ttfamily}
+}
+
+\newcommand{\maximaout}[3]{%
+\begin{framed}%
+  {\ttfamily \textcolor{red}{(\%i#1)} #2\\%
+      \textcolor{brown}{(\%o#1)} #3}%
+\end{framed}%
+}
+\usepackage{wasysym}
+
+\newcommand{\vf}{%
+  \Square{}~ Vrai \-\- \Square{}~ Faux%
+}
+
+\renewcommand{\Vec}[1]{\overrightarrow{#1}}
+\newcommand{\ProSca}[2]{#1 \cdot #2}
+
+\title{Évaluation \no 1 -- Durée : 35 minutes}
+\author{TS3}
+\date{27 septembre 2015}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+  \textit{L'usage de la calculatrice est fortement recommandé.}
+  \\
+  \textit{La qualité globale de la copie sera appréciée suivant un
+  système bonus/malus.}
+\end{center}
+
+\emph{Compétences :}
+\begin{itemize}
+  \item Étudier la limite d'une somme, d'un produit ou d'un quotient de
+    deux suites ;
+  \item Savoir mener un raisonnement par récurrence ;
+  \item Construire un arbre pondéré de probabilités.
+\end{itemize}
+
+\begin{exercice}[Limite de suite]~
+
+  \begin{enumerate}
+    \item Donner la limite de la suite définie par $\forall n\in\N,\ u_n
+      = n^2 - 3n$.
+    \item Donner la limite de la suite définie par $\forall n\in\N^*,\ v_n
+      = \dfrac{2 + 5(-1)^n}{n}$.
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[Récurrence]~
+
+  Démontrer par récurrence que $\forall n \in \N,\ 1 + 4 + 9 + \cdots +
+  n = \dfrac{n(n+1)(2n+1)}6$
+\end{exercice}
+
+\begin{exercice}[Probabilités conditionnelles]~
+
+  \begin{minipage}{0.75\linewidth}
+    Le tableau ci-contre indique les résultats d'un sondage sur
+    l'installation d'un parc d'horodateurs, auprès d'un échantillon de
+    personnes fréquentant une ville.
+  \end{minipage}
+  \begin{minipage}{0.25\linewidth}
+    \begin{tabular}{c|*{2}{c|}}
+      \cline{2-3}
+      & $H$ & $\overline{H}$ \\ \hline
+      \multicolumn{1}{|c|}{$A$} & 125 & 175 \\
+      \hline
+      \multicolumn{1}{|c|}{$\overline{A}$} & 10 & 50 \\
+      \hline
+    \end{tabular}
+  \end{minipage}
+
+On choisit au hasard une personne de l'échantillon.
+On considère les événements :
+\begin{itemize}
+  \item[$A$ :] « La personne a une opinion positive » ;
+  \item[$H$ :] « La personne habite la ville ».
+\end{itemize}
+  \begin{enumerate}
+    \item Calculer $P(A)$, $P(H)$, $P_A(H)$ et $P_H(A)$.
+    \item Représenter la situation par un arbre :
+      \begin{enumerate}
+        \item en commençant par $A$ et $\overline{A}$ ;
+        \item en commençant par $H$ et $\overline{H}$.
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\end{document}

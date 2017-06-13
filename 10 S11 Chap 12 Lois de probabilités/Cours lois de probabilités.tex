@@ -1,0 +1,845 @@
+\documentclass[11pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-base}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\Cf}{\mathscr{C}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\diff}[1]{\mathrm{d}\,#1}
+
+\newcommand{\p}{\mathcal{P}}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}{Lemme}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+%\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Lois de probabilité à densité}
+\author{\bsc{Jumel}}
+\date{avril 2017}
+
+\begin{document}
+
+\noindent\maketitle
+
+\bigskip
+
+\section*{Activités}
+
+\subsection*{Le pêcheur de Poisson}
+
+Dans cette activité, on se pose la question d'obtenir la probabilité
+qu'un pêcheur attrape un poisson lors d'une partie de pêche.
+
+\textbf{Partie A}
+
+\begin{enumerate}
+  \item Si on considère cette partie de pêche sur l'ensemble de la
+    journée du pêcher, quelle est le type de loi de probabilité
+    rencontrée ici ?
+  \item La rivière où se trouve notre pêcheur est extrèmement
+    poissonneuse. Pour fixer les idées, il y'a plus de \np{10000}
+    poissons à proximité de notre pécheur.
+
+    Dresser un arbre de probabilité permettant de modéliser trois
+    lancers successifs.
+  \item Quelle loi permet de modéliser ce genre de situation ?
+  \item Justifier alors qu'on peut fixer la probabilité.
+
+    Quelle est l'espérance d'une telle loi de probabilité ?
+\end{enumerate}
+
+\textbf{Partie B}
+
+On va estimer qu'en moyenne notre pécheur rapporte \np{1.6} poissons par
+journée de pêche. Sa journée de pêche dure en moyenne 8h.
+
+\begin{enumerate}
+  \item Quelle est, en moyenne, la probabilité qu'il pêche un poisson
+    pendant une heure donnée ?
+  \item Même question avec une minute ?
+\end{enumerate}
+
+On admet que si on découpe la journée en $n$ unités de temps, la
+probabilité de pêcher un poisson dans cet intervalle de temps est
+$p = \frac{\lambda}{n}$ et que cette expérience aléatoire est
+indépendante des autres, et qu'elle sont répétées $n$ fois.
+
+Ainsi, $\mathcal{P}(X = k)$, la probabilité que le pêcheur
+rapporte exactement $k$ poissons est donnée par $\mathcal{P}(X = k)
+= \binom{n}{k}p^k(1-p)^{n-k}$
+
+\begin{enumerate}[resume*]
+  \item Réécrire la dernière égalité en fonction de $\lambda$ et de $n$.
+\end{enumerate}
+
+\textbf{Partie C}
+
+On image qu'on peut découper notre intervalle de temps de plus en plus.
+
+\begin{enumerate}
+  \item Traduire cette condition en terme mathématiques.
+  \item Justifier que $\binom{n}{k} = \frac{n(n-1)(n-2)\cdots
+    (n-k+1)}{k!}$.
+  \item Regrouper les termes en $n$ et les autres dans l'expression
+    $\binom{n}{k} \left(\frac{\lambda}{n}\right)^k$ et justifier que \\
+    $\lim_{n\to+\infty}\frac{n(n-1)(n-2)\cdots (n-k+1)}{n^k} = 1$
+  \item Écrire le terme $\left(1 - \frac{\lambda}n \right)^{n-k}$ sous
+    la forme d'un produit de deux termes et donner la limite de $\left(1
+    - \frac{\lambda}n \right)^{-k}$ quand $n$ tend vers $+\infty$.
+  \item On admet que $\left(1 - \frac{\lambda}n \right)^{n} =
+    e^{-\lambda}$. Donner les arguments qui permettent de conclure.
+\end{enumerate}
+
+On a obtenu, par passage à la limite que $\mathcal{P}(X = k) =
+\frac{e^{-\lambda}\lambda^k}{k!}$. On peut montrer que l'espérance de
+cette loi est la même que pour la loi binomiale dont elle est issue.
+
+Cette loi s'appelle la loi de Poisson (du mathématicien Simeon-Denis
+Poisson, rien à voir avec le milieu aquatique) et permet de modéliser le
+passage («rare») d'un objet : on peut ainsi modéliser en probabilité le
+passage d'une voiture dans une rue, mais pas sur le périphérique
+parisien. On note souvent $X\leadsto \mathcal{P}(\lambda)$ cette loi
+d'espérance $\lambda$.
+
+\subsection*{Avec les calculatrices}
+
+Dans cette activité, on ne dispose que d'une calculatrice permettant de
+générer un nombre aléatoire entre 0 et 1. C'est en fait le cas de la
+plus part des calculatrices, de la fonction \texttt{rand()} du module
+\texttt{random} de Python ou de la fonction \texttt{=ALEA()} des
+tableurs.
+
+\textbf{Partie A.} Modélisation du jeu de pile ou face
+
+Proposer un algorithme qui renvoie Pile ou Face en n'utilisant que la
+fonction décrite ci-dessus.
+
+Mettre en œuvre cet algorithme sur Algobox, sur la calculatrice puis sur
+Python.
+
+On désire écrire une boucle qui permet de répéter 1000 fois l'expérience
+et de compter le nombre de Pile. Mettre en œuvre une telle boucle sur
+Python.
+
+\emph{Rappels}
+\begin{itemize}
+  \item Un test s'écrit \texttt{if <condition>:} suivi des actions à
+    exécuter dans un bloc indenté.
+  \item Une boucle «Pour» s'écrit \texttt{for i in range(k):} suivi des
+    actions à exécuter dans un bloc indenté.
+  \item Une boucle «Tant que» s'écrit \texttt{while <condition>:} suivi
+    des actions à exécuter dans un bloc indenté.
+  \item Une fonction se définit par \texttt{def <name>(<variables>):} et
+    son bloc d'exécution (indenté) se termine impérativement par
+    \texttt{return <variable>|<expression>}.
+\end{itemize}
+
+\textbf{Partie B.} Étude approfondie de la fonction qui renvoie un
+nombre au hasard entre 0 et 1.
+
+Activité 1 page 378.
+
+\pagebreak
+\setcounter{page}{1}
+
+\noindent\maketitle
+
+\bigskip
+
+\section{La loi uniforme, un exemple pour comprendre}
+
+Le modèle utilisé dans cet exemple est celui du tirage aléatoire d'un
+nombre réel entre deux réels $a$ et $b$. Il est très similaire au tirage
+d'un nombre au hasard entre 0 et 1.
+
+\begin{exercice}
+  Justifier l'affirmation précédente.
+\end{exercice}
+
+\begin{tikzpicture}
+  \draw (0,0) -- (5,0) ;
+  \draw (1,0) node { $\large [$ };
+  \draw (1,-.5) node { $a$ };
+  \draw (4,0) node { $\large ]$ };
+  \draw (4,-.5) node { $b$ };
+
+  \draw[red] (1.7,0) node { $\large [$ } --(3.3,0) node { $\large ]$ };
+  \draw[red] (2.5,-0.5) node { $J$ };
+\end{tikzpicture}
+
+On choisit au hasard $x \in \interff{a;b}$ et on cherche la probabilité
+que $x$ appartiennent à $J$, notée $\p(x\in J)$.
+
+Supposons que $J = \interff{\frac{p}q ; \frac{p'}q}$, avec $p$, $p'$ et
+$q$ convenablement choisis. La probabilité d'appartenir à un tel
+intervalle est $\frac{p' - p}{q(b-a)}$.
+
+Divisons désormais l'intervalle $\interff{a;b}$ en $n$ intervalle de
+longueur $\frac{b-a}n$. Sur tous ces intervalles $J_i = \interff{a_i +
+i\frac{b-a}n ; a_i + (i+1)\frac{b-a}n}$, la probabilité que $x$
+appartiennent à un de ces intervalles est constante et vaut $p$ et
+la probabilité qu'il appartiennent à la réunion des intervalles vaut 1.
+
+Un intervalle arbitraire $K$ peut-être vu comme réunion d'intervalles
+$J_i$ pour un $n$ donné : $K \bigcup_{i = l}^m J_i$. Avec notre
+construction, on peut aussi bien considérer que nos intervalles sont
+ouvert ou fermés, on verra pourquoi par la suite.
+
+On a donc, en généralisant une formule connue : $\p(x\in K) =
+\sum_{i=l}^m \p(x\in J_i) = (m -l)p$.
+
+On obtient donc que $p = \frac1{b-a}$.
+
+\begin{exercice}
+  \begin{enumerate}
+    \item Rappeler la formule qui a permis cette généralisation.
+    \item Quel argument permet d'obtenir le dernier résultat ?
+    \item Proposer une interprétation «robuste» du fait que $\sum_{i =
+      a}^b \p(x\in J_i) = 1$ qui permettra une généralisation.
+  \end{enumerate}
+\end{exercice}
+
+\section{Lois à densité}
+
+\subsection{Généralités}
+
+On va désormais généraliser les résultats précédents. On va admettre
+quelques résultats que nous n'exploiterons que dans le cadre de ce cours
+et qui nous ameneraient à des développements théoriques très longs.
+
+En particulier, on admet que, sous certaines conditions, on peut écrire
+$\int_a^{+\infty}f(x)\diff x$ et affirmer qu'il s'agit d'un nombre réel.
+C'est bien souvent un résultat obtenu à partir de
+$\lim_{b\to+\infty}\int_a^b f(x) \diff x$.
+
+Ceci étant posé, on peut écrire la première définition formelle du
+chapitre.
+
+\begin{definition}
+  On appelle \emph{densité de probabilité} une fonction $f$ définie et
+  continue sur $I$ un intervalle (non nécessairement borné) de $\R$
+  telle que son intégrale sur $I$ $\int_{x\in I}f(x) \diff x = 1$.
+\end{definition}
+
+On considère désormais une variable aléatoire $X$ à valeurs dans $I$. On
+notera de façon abusive $X \in J$pour indiquer que l'image $X(\omega)$
+d'un évenement appartient à l'intervalle (non nécessairement borné) $J$.
+
+\begin{definition}
+  On dit que la variable aléatoire \emph{suit la loi de densité $f$}
+  lorsque $\p(X\in J) = \int_{J} f(x)\diff{x}$.
+\end{definition}
+
+\begin{remarque}
+  \begin{exercice}~\\
+    Démontrer qu'ainsi, pour $J$ et $K$ deux intervalles de $I$, on a :
+    \begin{itemize}
+      \item $\p(X\in \overline{J}) = 1 - \p(X\in J)$
+      \item $\p(X\in J \cup K) + p(X\in J \cap K) = \p(X\in J) + \p(X\in K)$
+    \end{itemize}
+    Justifier que, pour une loi à densité, $\p(X \in \{a\}) = \p(X = a)
+    = 0$.
+  \end{exercice}
+\end{remarque}
+
+On notera souvent $\p(X\in \{x\in \R | a\leqslant x \leqslant b\})$ par
+$\p(a \leqslant X \leqslant b)$ par abus «inverse» de notation.
+
+\begin{propriete}
+  Pour toute variable aléatoire $X$ qui suit une loi à densité, on a
+  \begin{itemize}
+    \item $\p(X = a) = 0$
+    \item $\p(X \leqslant a ) = \p(X < a)$
+  \end{itemize}
+\end{propriete}
+
+On définit également, par analogie avec les lois dites discrètes,
+l'espérance d'une variable aléatoire $X$ dans le cas où celle-ci suit
+une loi de densité de probabilité $f$.
+
+\begin{definition}
+  Sous réserve d'existence de l'intégrale, \emph{l'espérance} de la
+  variable aléatoire $X$ est définie par $E(x) = \int_I xf(x) \diff x$.
+\end{definition}
+
+\subsection{La loi uniforme}
+
+Revenons à notre exemple premier de loi uniforme sur le segment
+$\interff{a;b}$.
+
+\begin{definition}
+  La loi de probabilité uniforme a pour densité de probabilité la
+  fonction continue défine sur $\interff{a;b}$ par $f(x) = \frac1{b-a}$
+\end{definition}
+
+On vérifie immédiatement que cette fonction définit bien une densité de
+probabilité.
+
+\begin{exercice}
+  Calculer $\int_a^b f(x) \diff x$.
+\end{exercice}
+
+On parle de loi de probabilité uniforme car si $J$ et $K$ sont deux
+intervalles de même longueur, $\p(X\in J) = \p(X \in K)$
+
+\begin{exercice}
+  Montrer que si $X$ suit une loi uniforme, alors $E(X) = \frac{a+b}2$.
+\end{exercice}
+
+Ce résultat est à connaître.
+
+\pagebreak
+
+\maketitle
+
+\section{Loi exponentielle}
+
+\subsection{Définition et espérance}
+
+\begin{definition}
+  On appelle \emph{loi exponentielle} de paramètre $\lambda>0$ une loi
+  de probabilité dont la densité de probabilité est donnée par
+  $f:x\mapsto \lambda e^{-\lambda x}$
+\end{definition}
+
+Il faut néamoins vérifier que cette fonction définit bien une densité de
+probabilité.
+
+\begin{exercice}
+  Soit $\lambda$ un réél strictement positif.
+  \begin{enumerate}
+    \item Calculer l'intégrale $\int_0^x \lambda e^{-\lambda t} \diff t$
+      en fonction de $x$ et de $\lambda$.
+    \item Donner la limite de la fonction $F:t \mapsto 1 - e^{-\lambda
+      t}$ en $+\infty$.
+    \item Conclure.
+  \end{enumerate}
+\end{exercice}
+
+Le calcul d'une probabilité lorsqu'une variable aléatoire $T$ suit une
+loi exponentielle s'obtient généralement par le calcul direct.
+
+\begin{exercice}
+  Soient $a$ et $b$ deux réels tels que $0\leqslant a \leqslant b$.
+  Calculer :
+  \begin{itemize}
+    \item $\p(T \leqslant a) = \int_0^a \lambda e^{-\lambda x} \diff x$ ;
+    \item $\p(T \geqslant a) = \p(T > a )$
+    \item $\p(a \leqslant T \leqslant b)$
+  \end{itemize}
+\end{exercice}
+
+On peut s'intéresser à l'espérance d'une telle variable aléatoire.
+
+\begin{propriete}
+  L'espérance d'une variable aléatoire $T$ qui suit une loi
+  exponentielle de paramètre $\lambda$ est $E(T) = \frac1{\lambda}$.
+\end{propriete}
+
+\begin{exercice}
+  Soit $\lambda$ un réél strictement positif.
+  \begin{enumerate}
+    \item Calculer l'intégrale $\int_0^x \lambda te^{-\lambda t} \diff
+      t$ en fonction de $x$ et de $\lambda$ (on pourra utiliser une
+        intégration par parties ou poser $f:t\mapsto \lambda
+        te^{-\lambda t}$ et étudier $\lambda f + f'$.)
+    \item Donner la limite de la primitive trouvée ci-dessus en
+      $+\infty$.
+    \item Conclure.
+  \end{enumerate}
+\end{exercice}
+
+\subsection{Loi de vieillissement « sans mémoire»}
+
+Dans cette partie, $t$ et $h$ sont deux nombres réels positifs et on
+note $\p(A | B) = \p_B(A)$ la probabilité de l'événement $A$ sachant que
+l'événement $B$ est réalisé.\\
+On rappelle également que $\p(A | B) = \frac{\p(A\cap B)}{\p(B)}$.
+
+\begin{definition}
+  On dit qu'un processus aléatoire est «sans mémoire» lorsque la
+  probabilité qu'il tombe en panne au bout de $t+h$ sachant qu'il a
+  fonction $t$ heures est identique à la probabilité qu'il cesse de
+  fonctionner au bout de $h$ heures. Mathématiquement, si $T$ est la
+  variable aléatoire qui à un composant associe sa durée de vie en
+  heures, alors $\p(T > t+h | T > t) = \p(T > h)$
+\end{definition}
+
+Une autre formulation est de dire que la probabilité $\p(T > t+h | T >
+t)$ ne dépend pas de $t$.
+
+Ce modèle est particulièrement vrai dans le cadre de la modélisation des
+composants électroniques non chimiques qui entre pour une partie non
+négligeable des produits fabriqués aujourd'hui. Ce modèle est également
+utilisé pour décrire un taux de panne constant sur des systèmes
+complexes.
+
+Ce modèle n'est en revanche pas valide pour les pièces présentant une
+usure mécanique qui est généralement quantifiable et donc ne fait pas
+appel à des méthodes probabbilistes.
+
+\begin{propriete}
+  La loi exponnentielle est une loi «sans vieillissement».
+\end{propriete}
+\begin{preuve}
+  \begin{exercice}
+    Soit $T$ une variable aléatoire qui suit une loi exponnentielle de
+    paramètre $\lambda$.
+    \begin{enumerate}
+      \item Exprimer $\p(T > t+h | T > t)$ en fonction de $\p(T > t+h)$
+        et de $\p(T > t)$.
+      \item Exprimer $\p(T > t+h)$ et $\p(T > t)$ avec des
+        exponnentielles.
+      \item Interpréter $e^{-\lambda h}$ comme une probabilité.
+      \item Conclure.
+    \end{enumerate}
+  \end{exercice}
+\end{preuve}
+
+On admet que la réciproque est également vraie et que les variables
+aléatoires qui suivent des lois exponnentielles sont les seules
+variables aléatoires «sans vieillissement». En fait, cette démonstratio
+n'est possible que si on dispose d'une théorie des équations
+différentielles qui permet de réellement montrer l'existence et
+l'unicité de la fonction exponnentielle et qui a permis de construire la
+loi exponnentielle à partir des lois «sans usure».
+
+\pagebreak
+
+\maketitle
+
+\section*{Activité de découverte d'une nouvelle loi : Étude statistiques
+des notes du bac de 1000 élèves à la session 2015}
+
+On désire représenter les notes moyennes du bac de 1000 élèves pris au
+hasard parmi les élèves qui ont passé le bac l'année dernière.
+
+On dispose pour cela du fichier de données qui est à récupérer à
+l'adresse suivante : \url{fichier://a.recuperer}. Ce fichier ressemble à
+cela :
+\begin{verbatim}
+l = [..]
+
+import numpy as np
+from matplotlib import pyplot as plt
+\end{verbatim}
+
+Éxécutez le et nous continuerons ensuite à travailler dans la console
+interactive.
+
+Pour obtenir un histogramme des données, il suffit de taper
+successivement \texttt{plt.hist(l)} puis \texttt{plt.show()}.
+
+\begin{enumerate}
+  \item Préciser le rôle de chacune de ces deux commandes.
+\end{enumerate}
+
+Recommencer l'opération avec \texttt{plt.hist(l,50)} puis 100.
+
+\begin{enumerate}[resume*]
+  \item Préciser ce qui se passe. À quoi sert ce deuxième argument ?
+\end{enumerate}
+
+On veut désormais trouver une fonction qui approche cet histogramme.
+
+Pour tracer une fonction, il faut d'abord se donner un intervalle $x$
+avec la fonction \\
+\texttt{x = np.linspace(<début>,<fin>)}, puis calculer
+les images avec \texttt{y = f(x)} et enfin tracer et afficher le
+résultat avec \texttt{plt.plot(x,y)} et \texttt{plt.show()}.
+
+\begin{enumerate}[resume*]
+  \item Tracer la courbe représentative de la fonction racine sur
+    $\interff{2;20}$. On donne la fonction racine : \texttt{np.sqrt()}.
+  \item Que permet de faire l'enchainement \texttt{plt.hist(l,50)} ;
+    \texttt{plt.plot(x,y)} ; \texttt{plt.show()} ?
+\end{enumerate}
+
+Définissons désormais nos propres fonctions. Pour cela, retournons
+temporairement dans l'éditeur. Ajoutons y le code suivant :
+\begin{verbatim}
+def f(x,a,b,c):
+    return a*x**2 + b*x + c
+\end{verbatim}
+
+Éxécutons de nouveau le script et considérons la fonction $f$.
+
+\begin{enumerate}[resume*]
+  \item Combien d'argument prend cette fonction ?
+  \item Que renvoie-t-elle ?
+  \item Quelles valeurs donner à $a$,$b$ et $c$ de façon à avoir le même
+    maximum que l'histogramme et essayer d'approcher l'histogramme par
+    une telle courbe.
+  \item Cette approche semble-t-elle valide ?
+  \item Par essais-successifs sur les valeurs $m$ et $s$, essayer
+    d'approcher l'histogramme par la fonction définie par $\phi : x
+    \mapsto \frac1{s\sqrt{2\pi}} e^{-\frac{(x - m)^2}{2s^2}}$.
+\end{enumerate}
+
+\emph{Indication :}
+\begin{itemize}
+  \item $\exp \to$ \texttt{np.exp} ;
+  \item $\pi \to$ \texttt{np.pi}.
+\end{itemize}
+
+Cette dernière fonction s'appelle \textbf{densité de probabilité de
+Laplace-Gauss}.
+\pagebreak
+
+\maketitle
+
+\section{Loi normale}
+
+Dans cette partie, on parle indiférement de la loi de Laplace-Gauss ou
+de la loi normale pour désigner la même densité de probabilité.
+
+\subsection{Le cas «simple» : la loi normale centrée-réduite}
+
+L'appellation de centrée-réduite sera justifiée par la suite.
+
+\begin{definition}
+  La fonction $\varphi : x\mapsto \frac1{\sqrt{2\pi}}e^{-\frac{x^2}2}$
+  s'appelle \emph{densité de probabilité de la loi normale}.
+\end{definition}
+
+On dit aussi loi de Laplace-Gauss du nom des premiers mathématiciens à
+l'avoir étudié.
+
+\begin{propriete}[admise]
+  \[ \int_{-\infty}^{+\infty} e^{-\frac{x^2}2} = \sqrt{2\pi} \]
+\end{propriete}
+
+Ce résultat général est dur à obtenir, mais il nous assure que la
+fonction $\varphi$ définie ci-dessus est bien une densité de
+probabilité.
+
+\begin{exercice}
+  Justifier cette affirmation.
+\end{exercice}
+
+\begin{definition}
+  On dit qu'une variable aléatoire $Z$ suit la loi normale
+  centrée-réduite lorsque $\p(a\leqslant Z \leqslant b) = \int_a^b
+  \varphi(x)\diff x$. On note $Z \leadsto \mathcal{N}(0,1)$.
+\end{definition}
+
+\begin{remarque} La notation $\mathcal{N}(0,1)$ sera expliquée
+  rapidement par la suite. Ces deux valeurs 0 et 1 sont à connaître pour
+  la loi centrée-réduite : elles permettent le calcul effectif d'une
+  probabilité avec la calculatrice.
+\end{remarque}
+
+Il est aussi parfois commode d'envisager la probabilité pour $Z$ d'être
+entre $a$ et $b$ comme l'aire sous une courbe. Cette méthode avait un
+grand avantage de simplification avant l'arrivée des calculatrices. En
+effet, la primitive $\Phi$ de $\varphi$ ne pouvant s'exprimer avec des
+fonctions usuelles, les valeurs de $\Phi$ étaient tabulées sur la
+demi-droite des $x$ positifs.
+
+\begin{propriete}
+  $\p(a \leqslant X \leqslant b) = \Phi(b) - \Phi(a)$
+\end{propriete}
+\begin{preuve}
+  $\Phi$ est, par définition, une primitive de $\varphi$.
+\end{preuve}
+
+Les $x$ positifs suffisent, en vertu de cette propriété :
+
+\begin{propriete}
+  Pour tout $x$ réel, $\Phi(-x) = 1 - \Phi(x)$
+\end{propriete}
+\begin{preuve}
+  Par symétrie de $\varphi$ et en utilisant le fait que le poids total
+  est de 1.
+\end{preuve}
+
+Cependant, ce résultat peut servir lors de certaines démonstrations.
+
+Calculons l'espérance d'une variable aléatoire suivant une telle loi.
+
+\begin{exercice}
+  Soit $a$ un nombre réel.
+  \begin{enumerate}
+    \item Calculer $\int_0^a x\varphi(x) \diff x$.
+    \item En déduire $\lim_{a\to+\infty} \int_0^a x\varphi(x) \diff x$.
+    \item Conclure sur l'espérance $E(Z)$.
+  \end{enumerate}
+\end{exercice}
+
+\begin{definition}[Variance]
+  Soit $Z$ une variable aléatoire qui suit une loi normale
+  centrée-réduite. On appelle \emph{variance} et on note $\sigma^2$ le
+  nombre défini par $\sigma^2 = \int_{-\infty}^{+\infty} x^2\varphi(x)
+  \diff x$.
+\end{definition}
+
+\begin{propriete}
+  La variance $\sigma^2$ d'une variable qui suit la loi normale
+  centrée-réduite est $\sigma^2 = 1$
+\end{propriete}
+\begin{preuve}
+  Exercices 82 et 83 p 432
+\end{preuve}
+
+\begin{propriete}[admise]
+  $\sigma^2 = E((X - E(X))^2)$
+\end{propriete}
+
+\begin{exercice}
+  Montrer que cette dernière proposition conduit à la définition
+  proposée de la variance. Interpréter la variance en terme de
+  moyenne.
+\end{exercice}
+
+Dans la littérature, on note souvent la moyenne $\mu$ et la variance
+$\sigma^2$.
+
+\pagebreak
+
+\subsection{Le cas général}
+
+On a vu, dans la partie précédente, un cas particulier de loi normale
+lorsque les paramètres $\mu$ et $\sigma^2$ valent respectivement 0 et 1,
+ce qui n'est pas toujours le cas.
+
+On peut aisément généraliser et considérer une variable aléatoire $X$
+qui suit une loi normale d'espérance $\mu$ quelconque et $\sigma^2 > 0$.
+
+\begin{propriete}
+  Si $X \leadsto \mathcal{N}(\mu,\sigma^2)$, alors $Z = \frac{ X -
+  \mu}{\sigma^2}$ suit une loi normale centrée-réduite.
+\end{propriete}
+
+\begin{exercice}
+  On considère une variable aléatoire $X$ qui suit une loi normale de
+  paramètres $\mu$ et $\sigma^2$.
+  \begin{enumerate}
+    \item Donner l'expression de $X$ en fonction de $Z$ lorsque $Z$ suit
+      la loi normale centrée-réduite.
+    \item En déduire l'expression de la densité de probabilité de $X$.
+  \end{enumerate}
+\end{exercice}
+
+En règle général, le calcul des valeurs de la loi normale se fait
+désormais à la calculatrice.
+
+\section{Applications et autres exemples}
+
+\subsection{Quelques valeurs particulières à connaître}
+
+Avant de se lancer dans le calcul à proprement parler, démontrons une
+première propriété.
+
+\begin{propriete}
+  Soit $\alpha \in \interoo{0;1}$ et $X$ une variable aléatoire qui suit
+  la loi normale centrée-réduite. Il existe un unique réel positif
+  $u_{\alpha}$ tel que $\p(-u_{\alpha} \leqslant X \leqslant) = 1 -
+  \alpha$.
+\end{propriete}
+
+\begin{exercice}
+  On se donne $\alpha \in \interoo{0;1}$.
+  \begin{enumerate}
+    \item Exprimer $\Phi(x)$ en fonction de $\alpha$ où $\Phi$ est la
+      primitive (aire sous la courbe de la densité de densité de
+      probabilité) qui vaut $\frac12$ en 0.
+    \item Vérifier que $\Phi$ respecte les hypothèses d'un théorème
+      important du cours de Terminale.
+    \item Conclure.
+  \end{enumerate}
+\end{exercice}
+
+En particulier, il faut connaître : $u_{\np{0.05}} = \np{1.96}$ et
+$u_{\np{0.01}} = \np{2.58}$. De façon équivalente, on obtient $\p(-1,96
+\leqslant X \leqslant 1,96) \approx 0,95$ et $\p(-2,58 \leqslant X
+\leqslant 2,58) \approx 0,99$.
+
+Il est intéressant de noter que ce sont des cas particuliers de points
+plus généraux qu'on peut exprimer ainsi :
+\begin{itemize}
+  \item $\p(\mu - \sigma \leqslant X \leqslant \mu + \sigma) \approx
+    0,63$
+  \item $\p(\mu - 2\sigma \leqslant X \leqslant \mu + 2\sigma) \approx
+    0,95$
+  \item $\p(\mu - 3\sigma \leqslant X \leqslant \mu + 3\sigma) \approx
+    0,99$
+\end{itemize}
+
+\pagebreak
+
+\subsection{Approximation d'une loi binomiale par une loi normale}
+
+On a vu dans une activité que la loi binomiale pouvait, sous certaines
+hypothèses, permettre de modéliser un nouveau type de loi, la loi de
+Poisson. On conservait cependant un invariant : l'espérance des deux
+lois restait la même.
+
+On peut de même approcher, sous certaines conditions la loi binomiale
+par une loi normale, c'est le théorème de Moivre-Laplace.
+
+\begin{theoreme}[Admis]
+  Soit $X$ une variable aléatoire qui suit une loi binomiale
+  $\mathcal{B}(n,p)$ et $Z = \frac{X - E(X)}{\sigma(X)} = \frac{X -
+  np}{\sqrt{np(1-p)}}$.
+
+  Alors $\lim_{n\to+\infty} P(a \leqslant Z \leqslant b) = \int_a^b
+  \varphi(x) \diff x$.
+\end{theoreme}
+
+\begin{remarque}
+  Pour $n \leqslant 30$ ou $np$ ou $n(1-p) \leqslant 5$, cette
+  approximation n'est pas valide.
+\end{remarque}
+
+
+
+\end{document}

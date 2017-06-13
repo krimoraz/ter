@@ -1,0 +1,426 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+%\usetikzlibrary{hobby}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  \vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exercice}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{probleme}{Problème}
+\newtheorem{preuve}{Preuve}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+\newcommand{\qed}{~\hfill$\Box$}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+%\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{framed}
+\newenvironment{acompleter}{%
+  \begin{framed}}
+  {\end{framed}%
+}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Produit scalaire dans l'espace}
+\author{\bsc{Jumel}}
+\date{janvier 2017}
+
+\begin{document}
+
+\noindent\maketitle
+
+Au niveau de la classe de Terminale, on n'explore que le produit
+scalaire «canonique», obtenu par extensin d'une des définitions et
+propriétés vues en classe de Première. Cette définition sera
+éventuellement revue sous un nouvel angle dans l'enseignement supérieur.
+
+\section{Définition et premières propriétés}
+
+\begin{acompleter}
+  \begin{definition}
+    Soient deux vecteurs $\vv{u} = \vecteur{x, y, z}$ et $\vv{v} =
+    \vecteur{x',y',z'}$ de l'espace, exprimés dans une même base dite
+    canonique.
+
+    \noindent Le nombre réel $xx' + yy' + zz'$ est appelé produit
+    scalaire de $\vv{u}$ et $\vv{v}$. Il est noté $\vv{u}\cdot\vv{v}$.
+  \end{definition}
+\end{acompleter}
+
+\begin{remarque}
+  \begin{itemize}
+    \item L'expression du produit scalaire dépend de la base choisie.
+    \item La base canonique, ou orthonormée, est la base telle que pour
+      tout vecteur $\vv{e}$ de celle-ci, $\norme{\vv{e}} = 1$ et pour
+      tout couple de deux vecteurs distincts de cette base, leur produit
+      scalaire est nul.
+    \item Les élements qui «changent l'échellent des vecteurs» sont
+      appellés les scalaires
+  \end{itemize}
+\end{remarque}
+
+On peut d'ailleurs rappeller une propriété du produit scalaire qui reste
+vraie dans l'espace.
+
+\begin{propriete}
+  \[ \forall \vv{u} \in E,\ \vv{u}\cdot\vv{u} = \norme{\vv{u}}^2 \]
+\end{propriete}
+
+Si les vecteurs $\vv{u}$ et $\vv{v}$ ne sont pas colinéaires, il est
+toujours possible de se placer dans le plan formé par ces deux vecteurs
+et on a la propriété suivante.
+
+\begin{propriete}
+  Soit $M$ un point de l'espace.
+
+  \noindent Dans le plan $(O,\vv{u},\vv{v})$, le produit scalaire égale
+  le cosinus de l'angle orienté $(\vv{u},\vv{v})$.
+\end{propriete}
+
+On dispose toujours de la caractérisation suivante, fort utile en
+pratique.
+
+\begin{propriete}
+  Soient $\vv{u}$ et $\vv{v}$ deux vecteurs de l'espace non nuls. \[
+  \vv{u}\cdot\vv{v} = 0 \iff \vv{u} \perp \vv{v}. \]
+\end{propriete}
+
+La précision que les vecteurs $\vv{u}$ et $\vv{v}$ ne sont pas nuls est
+importante. En effet, on rappelle les deux propriétés suivantes, qui
+découlent de la définition.
+
+\begin{propriete}
+  \[ \forall (\vv{u},\vv{v})\in E^2,\ \vv{u}\cdot\vv{v} =
+  \vv{v}\cdot\vv{u} \]
+\end{propriete}
+
+\begin{propriete}
+  \[ \forall \vv{u} \in E,\ \vv{u}\cdot\vv{0} = 0 \]
+\end{propriete}
+
+Enfin, on rappelle une dernière proposition importante et également
+utile en partique, à savoir utiliser.
+
+\begin{acompleter}
+  \begin{propriete}
+    Soit $\vv{u}$ un vecteur de l'espace.
+
+    \noindent Si, pour tout vecteur $\vv{v}$ du plan,
+    $\vv{u}\cdot\vv{v} = 0$, alors $\vv{u} = 0$.
+  \end{propriete}
+\end{acompleter}
+
+\section{Vecteur normal à un plan}
+
+\subsection{Approche vectorielle}
+
+Si dans le plan, la notion d'orthogonalité permettait de caractériser
+les droites, dans l'espace, cette notion permettra de caractériser les
+plans. En effet, donnons nous un vecteur $\vv{u} = \vecteur{x,y,z}$. Les
+vecteurs $\vv{v} = \vecteur{0,-z,y}$ et $\vv{w}  = \vecteur{-z,0,x}$
+sont deux vecteurs orthogonaux à $\vv{u}$, mais ne sont pas colinéaires.
+
+\begin{acompleter}
+  \begin{exercice}
+    Vérifier l'affirmation précédente.
+    \vspace{3cm}
+  \end{exercice}
+\end{acompleter}
+
+Les vecteurs $\vv{v}$ et $\vv{w}$ définissent un plan.
+
+\begin{acompleter}
+  \begin{exercice} Caractériser, sous forme d'une combinaison linéaire,
+    un vecteur du plan $(\vv{v},\vv{w})$.\vspace{1cm}
+  \end{exercice}
+\end{acompleter}
+
+On peut enfin démontrer que le vecteur $\vv{u}$ est orthogonal à tout
+vecteur du plan ainsi défini.
+
+\begin{acompleter}
+  \begin{exercice}
+    Démontrer que si $\vv{n}$ est orthogonal à deux vecteurs non
+    colinéaires d'un plan, alors il est orthogonal à tout vecteur de ce
+    plan. \vspace{2cm}
+  \end{exercice}
+\end{acompleter}
+
+On peut se servir de cette dernière assertion pour démontrer la
+proposition suivante.
+
+\begin{propriete}
+  Une droite est orthogonale à toute droite du plan si et seulement si
+  elle est orthogonale à deux droites sécantes de ce plan.
+  \begin{preuve}~\\
+    Sens direct : On suppose qu'une droite est orthogonale à toutes les
+    droites d'un plan. Elle est donc orthogonale à deux droites sécantes
+    de ce plan.\\
+    Sens réciproque : On suppose qu'une droite est orthogonale à deux
+    droites sécantes du plan. Donc elle possède un vecteur directeur
+    orthogonal à deux vecteurs non colinaires du plan. Donc le vecteur
+    directeur choisi est orthogonal à tout vecteur du plan, qu'on peut
+    considérer comme vecteur directeur d'une droite. Donc la droite est
+    orthogonale à toute droite du plan. \qed
+  \end{preuve}
+\end{propriete}
+On peut désormais définir le vecteur normal à un plan et utiliser une
+nouvelle caractérisation des plans.
+
+\begin{acompleter}
+  \begin{definition}
+    On dit que $\vv{u}$ est un vecteur normal au plan.
+  \end{definition}
+  \begin{propriete}
+    La donnée d'un point et d'un vecteur normal définissent enièrement
+    un plan de de l'espace.
+  \end{propriete}
+\end{acompleter}
+
+\subsection{Approche «analytique»}
+
+Soit un plan $\mathscr{P}$ défini par un vecteur normal $\vv{n} =
+\vecteur{a,b,c}$ et un point $A:\vecteur{x';y';z'}$. On va démontrer que
+dans ce cas, on peut trouver une expression analytique, sous la forme
+d'une unique équation qui caractérisera l'appartenance d'un point à un
+plan, et donc par voie de conséquence, l'appartenance d'un vecteur à ce
+plan.
+
+\begin{acompleter}
+  \begin{exercice}
+    Redonner la condition de colinéarité de deux vecteurs. \vspace{2cm}
+  \end{exercice}
+\end{acompleter}
+
+Simplifions le problème posé en se ramenant à un cas plus simple : le
+cas où $A:\vecteur{0;0;0}$.
+
+\begin{acompleter}
+  \begin{exercice}
+    Démontrer que si $\vv{n}$ est orthogonal à $\vv{AM}$, alors $\vv{n}$
+    est orthogonal à $\vv{OM'}$ où $M'$ est le translaté de $M$ de
+    vecteur $\vv{AO}$.\vspace{3cm}
+  \end{exercice}
+\end{acompleter}
+
+On se donne désormais un point $M$ appartenant à un plan $\mathscr{P}$
+passant par l'origine.
+
+\begin{acompleter}
+  \begin{exercice}
+    Justifier que si $M$ a pour coordonnées $M:\vecteur{x;y;z}$ et
+    $\vv{n} = \vecteur{a,b,c}$ est un vecteur normal au plan
+    $\mathscr{P}$, alors les coordonnées de $M$ vérifient $ax + by + cz
+    = 0$.\vspace{2cm}
+  \end{exercice}
+\end{acompleter}
+
+Revenons au premier problème, c'est-à-dire, celui où $A$ n'était pas
+l'origine du repère.
+
+\begin{acompleter}
+  \begin{exercice}
+    En écrivant un vecteur du plan $\mathscr{P}$ sous la forme
+    $\vecteur{x - d_1, y - d_2, z - d_3}$, annuler le produit scalaire
+    de ce vecteur avec le vecteur normal $\vecteur{a,b,c}$.\vspace{2cm}
+  \end{exercice}
+\end{acompleter}
+
+On peut désormais qualifier cette dernière équation.
+
+\begin{acompleter}
+  \begin{definition}
+    Une équation de la forme $ax + by + cz + d =0$ est l'équation
+    analytique d'un plan.
+
+    \noindent Les coefficients en $x$, $y$ et $z$ sont les composantes
+    du vecteur normal à ce plan, et $d$ est obtenu en multipliant terme
+    à terme les composantes du vecteur normal et les coordonnées du
+    point.
+  \end{definition}
+\end{acompleter}
+
+\section{Quelques applications pratiques}
+
+Il est en général pertinent de se poser la question de savoir quelle
+représentation (analytique ou paramétrique) est la plus pertinente pour
+un plan. Certaines questions, typiquement, l'appartenance d'un point à
+un plan peuvent se traiter aussi bien avec l'une ou l'autre des
+représentations du plan. En revanche, l'intersection de deux plans est
+généralement aisée à traiter avec la représentation paramétrique, alors
+que l'intersection de trois plans se traite davantage avec la
+représentation analytique.
+
+Parmi les autres applications, on peut citer les propriétés suivantes.
+
+\begin{propriete}
+  Deux plans parallèles ont des vecteurs normaux colinéaires
+\end{propriete}
+
+\begin{theoreme}[du toit]
+  Si deux plans $\mathscr{P}$ et $\mathscr{P}'$ sont sécants selon une
+  droite $\mathscr{D}$ et que $\mathscr{P}$ et $\mathscr{P}"$ sont
+  sécants selon une droite $\mathscr{D}'$ parallèle à $\mathscr{D}$,
+  alors $\mathscr{P}'$ et $\mathscr{P}"$ sont sécants selon une droite
+  $\mathscr{D}"$ parallèle $\mathscr{D}$ et à $\mathscr{D}'$.
+\end{theoreme}
+
+\begin{center}
+  \begin{tikzpicture}
+    \tkzInit
+    \tkzDefPoint(0,0){A}
+    \tkzDefPoint(2,0){B}
+    \tkzDefPoint(1,1){C}
+
+    %\tkzDrawLines[add=1 and 1](A,B A,C B,C)
+    \begin{scope}[shift=(45:3)]
+      \tkzDefPoint(0,0){A'}
+      \tkzDefPoint(2,0){B'}
+      \tkzDefPoint(1,1){C'}
+    \end{scope}
+    %\tkzDrawLine[dashed, add=1 and 0](A',B')
+
+  \end{tikzpicture}
+\end{center}
+
+\end{document}

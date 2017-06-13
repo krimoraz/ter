@@ -1,0 +1,497 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{lmodern}
+\usepackage{kpfonts}
+\usepackage{cmbright}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\count1=\year \count2=\year
+\ifnum\month<8\advance\count1by-1\else\advance\count2by1\fi
+\pagestyle{fancy}
+\cfoot{\textsl{\footnotesize{Année \number\count1/\number\count2}}}
+\lfoot{\textsl{\footnotesize{Lycée \textsc{LaSalle Saint-Denis}}}}
+\rfoot{\footnotesize{Page \thepage/ \pageref{LastPage}}}
+\rhead{}
+%\lhead{\ifthenelse{\value{page}=1}{Nom:\dotfill\hfill Prénom: \dotfill
+%\hfill ~}{}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+%\frenchbsetup{ItemLabels=\textbullet,}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\hypersetup{%
+  pdftitle = {Exercices sur la continuité},
+  pdfauthor = {Vincent-Xavier Jumel},
+  pdfkeywords = {TS, exercices, continuité, TVI},
+}
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+%\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage{lastpage}
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+\usepackage[tikz]{bclogo}
+
+
+\makeatletter
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensembles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieur des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatre types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{mdframed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{
+  headings = block-subtitle,
+%  question/pre-hook = \mdframed,
+%  question/post-hook = \endmdframed,
+  counter-format = qu[1],
+}
+\usepackage{exsheets-listings}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Exercices sur la continuité}
+\author{\bsc{Ts 3}}
+\date{novembre 2016}
+
+\tikzstyle{inclue}=[draw, circle,fill, inner sep = 1pt]
+\tikzstyle{exclue}=[draw, circle, fill = white,inner sep=1pt]
+
+\begin{document}
+
+\maketitle
+
+\bigskip
+
+\begin{question}[subtitle={Pour démarrer},class=3,topic={continuité}]
+  Indiquer si les fonctions présentées sont continues. Préciser
+  éventuellement leur points de discontinuité et les valeurs des
+  fonctions en ces points.
+
+  \begin{multicols}{3}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.5,>=latex]
+        \clip (-5,-5) rectangle (5,5) ;
+        \draw [->] (-5,0) -- (5,0) ;
+        \draw [->] (0,-5) -- (0,5) ;
+        \draw [thin,dotted] (-5,-5) grid (5,5) ;
+        \draw [thick] plot [domain=-5:-2] (\x,{(\x+2)^2}) ;
+        \draw [thick] plot [domain=-2:2] (\x,\x+2) ;
+        \draw [thick] plot [domain=2:5] (\x,0.5*\x+3) ;
+      \end{tikzpicture}
+    \end{center}
+
+    \begin{center}
+      \begin{tikzpicture}[scale=0.5,>=latex]
+        \clip (-5,-5) rectangle (5,5) ;
+        \draw [->] (-5,0) -- (5,0) ;
+        \draw [->] (0,-5) -- (0,5) ;
+        \draw [thin,dotted] (-5,-5) grid (5,5) ;
+        \foreach \i in {-5,-3,...,3} {
+          \begin{scope}[xshift=\i cm]
+            \draw [thick] plot [domain=0:2] (\x,\x-1) ;
+            \draw (0,-1) node [inclue] {} ;
+            \draw (2,1) node [exclue] {} ;
+          \end{scope}
+        }
+      \end{tikzpicture}
+    \end{center}
+
+    \begin{center}
+      \begin{tikzpicture}[scale=0.5,>=latex]
+        \clip (-5,-5) rectangle (5,5) ;
+        \draw [->] (-5,0) -- (5,0) ;
+        \draw [->] (0,-5) -- (0,5) ;
+        \draw [thin,dotted] (-5,-5) grid (5,5) ;
+        \draw [thick] plot [domain=-5:-2] (\x,{(\x+2)^2}) node [exclue]
+        {} ;
+        \draw [thick] plot (-2,-1) node [thick,inclue] {} ;
+        \draw [thick] plot [domain=-2:2] (\x,\x+2) node [inclue] {} ;
+        \draw [thick] (2,2) node [exclue] {}  -- plot [domain=2:5] (\x,0.5*\x+1) ;
+      \end{tikzpicture}
+    \end{center}
+  \end{multicols}
+\end{question}
+
+\begin{question}[subtitle={Avec des expressions},
+  topic={continuité}, class=3]
+  Pour les fonctions suivantes indiquer le domaine de définition de la
+  fonction et si elle présente des discontinuités.
+  \begin{multicols}{4}
+    \begin{enumerate}
+      \item $x\mapsto \sqrt{1 - x^2}$
+      \item $x\mapsto \frac{\sin x}x$
+      \item $x\mapsto \frac{3x - 1}{2x + 5}$
+      \item $x\mapsto \left\lfloor x \right\rfloor$
+    \end{enumerate}
+  \end{multicols}
+\end{question}
+
+\begin{question}[subtitle={Une fonction définie par morceaux},
+  topic={continuité},class=2]
+  On considère la fonction définie sur $\R$ par \[ f(x) = \left\lbrace
+  \begin{matrix}  x^2 - 4x + 5\ \text{si}\ x<2 \\
+  -x^2 + 4x -3 \ \text{sinon} \end{matrix} \right. \]
+  \begin{enumerate}
+    \item La fonction $f$ est-elle continue ?
+    \item Calculer $f(1)$.
+    \item Tracer la courbe représentative de la fonction $f$ sur la
+      calculatrice.
+  \end{enumerate}
+\end{question}
+
+\begin{lstquestion}[pre={On considère le code Python suivant},
+  post={%
+    \begin{enumerate}%
+      \item Que renvoie ce code pour 1 ; 2 ; 1,99 ; 2,01 ?
+      \item Transformer ce code en une fonction Python.
+      \item Écrire une fonction définie de la même façon que dans
+        l'exercice précédent.
+      \item La fonction ainsi définie est-elle continue ?
+    \end{enumerate}%
+  },
+  options={
+    subtitle={Algorihtme},
+    class=3,topic={continuité},
+  },
+  listings={language=Python}]
+  x = float(input())
+  if x >= 2:
+      print(x+2)
+  else:
+      print(x**2)
+\end{lstquestion}
+
+\begin{question}[subtitle={Image d'un intervalle}, topic={continuité},
+  class=3]
+  Donner l'image de l'intervalle $\interff{0,1}$ par les fonctions
+  suivantes :
+  \begin{enumerate}
+    \item $x\mapsto x^2$
+    \item $x\mapsto 5\sqrt{\frac{1}{25} - \frac{x^2}{25}}$
+    \item $x\mapsto \sin{x}$
+  \end{enumerate}
+\end{question}
+
+\begin{bclogo}[noborder,logo=\bcoutil]{Précision}%
+  Dans un tableau de variation, la flèche continue entre deux valeurs
+  traduit à la fois la monotonie et la continuité de la fonction.  Une
+  double barre permet de préciser une discontinuité.
+
+  Une étude de fonction comprend :
+  \begin{itemize}
+    \item l'ensemble de définition ; de continuité; de dérivabilité ;
+    \item le calcul des limites aux bornes des intervalles précédents ;
+    \item le calcul de la dérivée ;
+    \item un tableau contenant l'ensemble de définition, le signe de la
+      dérivée et les variations de la fonction.
+  \end{itemize}
+\end{bclogo}
+
+\begin{question}[subtitle={Étude de fonction},class=3,
+  topic={continuité}]
+  Étudier la fonction définie pour tout $x$ appartenant à $\R \setminus
+  \{1\}$ par $f(x) = \frac{-4x^2 + 1}{x^3 - 1}$
+\end{question}
+
+\begin{question}[subtitle={Une autre étude de fonction},
+  class=2,topic={continuité}]
+  On considère la fonction $f$ définie sur $I = \interff{-4,1}$ par
+  $f(x) = x^3 + 6x^2 + 9x + 3$.
+
+  Elle admet le tableau de variation suivant :
+  \begin{center}
+    \begin{tikzpicture}
+      \tkzTabInit[espcl=2]
+      {$x$ / 1, $f'(x)$ / 1, $f$ / 2}
+      { -4, -3, -1, 1}
+      \tkzTabLine{,+,,-,,+,}
+      \tkzTabVar{-/-1,+/3,-/-1,+/19}
+    \end{tikzpicture}
+  \end{center}
+  \begin{enumerate}
+    \item Justifier que $f$ est continue sur $I$.
+    \item Que vaut $f(I)$ ? Quelle est sa nature ? Justifier.
+    \item L'équation $f(x) = 2$ possède-t-elle des solutions ? Si oui,
+      les dénombrer.
+    \item Justifier que l'équation $f(x) = 4$ admet une unique solution
+      sur $I$.
+    \item Écrire un algorithme qui permet d'encadrer cette solution à
+      $10^{-1}$ près.
+    \item Que vaut cette solution d'après votre algorithme. Détaillez
+      les étapes intermédiaires dans un tableau.
+  \end{enumerate}
+\end{question}
+
+\begin{question}[subtitle={Résolution d'une équation}, class=3,
+  topic={continuité}]
+  On considère l'équation de la variable $x$ réelle \[x^3 - 4x^2 + 4x -
+  1 = 0 \]
+  \begin{enumerate}
+    \item Dénombrer les solutions d'une telle équation.
+    \item Justifier que 1 est une solution.
+    \item Justifier cette équation admet une seule solution sur
+      l'intervalle $\interff{2,3}$.
+    \item Donner un encadrement au centième de cette solution.
+      %les deux autres solutions sont \frac32 ± \frac{\sqrt{5}}2
+    \item En admettant que $\frac{3 - \sqrt{5}}2$ est une solution de
+      l'équation, déterminer de façon exacte la troisième solution.
+  \end{enumerate}
+\end{question}
+
+\begin{bclogo}[noborder,logo=\bcoutil]{}%
+  On rappelle que si $\alpha$ est une racine d'un polynôme $P = a_0 +
+  a_1X + \cdots + a_nX^n$ de degré $n$ ($a_n \neq 0$), alors $P$ s'écrit
+  $P = (X-\alpha)Q$ où $Q$ est un polynôme de degré $n -1$ qui
+  s'écrit $Q = b_0 + b_1X + \cdots b_{n-1}X^{n-1}$. On a peut exprimer
+  les coefficients $a_i$ en fonction de $\alpha$ et des $b_i$ avec des
+  relations comme : \[ \left\lbrace \begin{array}{l} a_0 = -b_0\alpha \\
+    a_n = b_{n-1} \\ a_i = b_{i-1} - \alpha b_i \ \forall i \in
+  \{1,\dots,n-1\} \end{array} \right. \]
+\end{bclogo}
+
+\begin{question}[subtitle={Vers le bac : Nouvelle calédonie 2000},
+  topic={continuité},class=3]
+  \begin{multicols}{2}
+    Dans tout ce problème le plan est rapporté à un repère orthonormal
+    $(0;\vv{\imath};\vv{\jmath})$ d'unité graphique \np[cm]{2}.
+
+    Soit la fonction numérique $u$ définie sur $\R$ par \[ u(x) =
+    \sqrt{x^2 + 1} + x \] et $\mathscr{C}$ sa courbe représentative.
+    \begin{enumerate}
+      \item \begin{enumerate}
+          \item Déterminer la limite en $-\infty$.
+          \item Montrer que pour tout $x$ réel : \[ u(x) = \frac1{\sqrt{x^2
+            + 1} + x} .\] En déduire la limite de $u$ en $+\infty$.
+        \end{enumerate}
+      \item \begin{enumerate}
+          \item Montrer que $x\mapsto u(x) + 2x$ tend vers 0 quand $x$ tend
+            vers $-\infty$.
+          \item Montrer que pour tout $x$ réel, on a $u(x) > 0$.
+
+            En déduire le signe de $u(x) + 2x$.
+          \item Interpréter graphiquement ces résultats.
+        \end{enumerate}
+      \item \begin{enumerate}
+          \item Montrer que la dérive de la fonction $u$ est la fonction
+            $u'$ définie par \[ u'(x) = \frac{-u(x)}{\sqrt{x^2 + 1}} .\]
+          \item Étudier les variations de la fonction $u$.
+        \end{enumerate}
+      \item Tracer la courbe $\mathscr{C}$ et son asymptote oblique.
+    \end{enumerate}
+  \end{multicols}
+\end{question}
+
+\begin{bclogo}[noborder,logo=\bcoutil]{}%
+  Après avoir étudié une fonction, on cherche généralement à la
+  tracer, ou au moins à donner son allure. Voici quelques conseils.
+  \begin{itemize}
+    \item On place les bornes (limites) lorsqu'elles sont finies et les
+      asymptotes éventuelles.
+    \item On place les tangentes horizontales (maxima et minima) aux
+      valeurs indiquées dans la tableau de variation.
+    \item On peut se donner quelques points remarquables comme les zéros
+      de la fonction (les points où elle s'annule.)
+    \item On peut aussi compléter avec quelques tangentes en
+      particuliers aux bornes lorsqu'elles sont finies et aux zéros.
+  \end{itemize}
+  Si tout ces éléments sont en place, l'allure de la courbe devrait se
+  dégager. Il suffit désormais de la tracer sans lever le crayon si elle
+  est continue.
+\end{bclogo}
+
+\begin{question}[subtitle={Prolongement par continuité},
+  class=3,topic={continuité}]
+  \begin{enumerate}
+    \item Étudier la continuité de la fonction $f : \R\setminus \{ 0 \}
+      \to \R,
+      x\mapsto \frac{\sin x}x$.
+    \item Tracer la fonction sur la calculatrice et zoomer autour de 0.
+      Que se passe-t-il ?
+
+      Formuler une conjecture sur la valeur à donner à $f(0)$ pour
+      compléter la fonction de façon continue.
+    \item Quelle est la nature de la forme $\lim_{\substack{x\to 0\\x >
+      0}} \frac{\sin x}x$
+    \item On va chercher à faire un encadrement de la fonction sinus en
+      0.
+      \begin{enumerate}
+        \item Étudier sur $\interff{0,1}$ la fonction $x\mapsto \sin x -
+          x$. En particulier, on regardera son sens de variation et son
+          maximum sur cet intervalle.
+        \item En déduire que $\sin x \leqslant x$.
+        \item Proposer une méthode pour montrer que $x - \frac{x^3}6
+          \leqslant \sin x$
+      \end{enumerate}
+    \item Donner un encadrement de $\sin x$. En déduire la limite de $f$
+      en 0. La fonction $f$ ainsi complétée est-elle continue ?
+    \item Quelle est l'image de $\R$ par $f$ ?
+  \end{enumerate}
+\end{question}
+
+\begin{bclogo}[noborder,logo=\bcinfo]{Remarque}%
+  \begin{itemize}
+    \item Pour ce dernier exercice, on peut trouver une démonstration
+      géométrique de cette inégalité.
+    \item Ce résultat géométrique sera particulièrement utile pour
+      démontrer la dérivée de la fonction cosinus.
+  \end{itemize}
+\end{bclogo}
+
+\end{document}
+
+\pagebreak
+
+\section*{Solutions des exercices}
+
+\vspace{-7mm}
+
+\printsolutions
+
+\end{document}

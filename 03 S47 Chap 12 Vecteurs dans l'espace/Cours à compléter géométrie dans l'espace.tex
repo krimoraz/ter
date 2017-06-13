@@ -1,0 +1,415 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\usepackage{framed}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{smallmatrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{smallmatrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+%\newcommand*{\versioncomplet}{}
+\newcommand{\complet}[2]{%
+  \ifdefined\versioncomplet
+    \textcolor{blue}{#2}
+  \else
+   ~\\\hspace{0.98\linewidth}\vspace{#1}
+  \fi
+}
+
+\makeatother
+
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exercice}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{probleme}{Problème}
+\newtheorem{preuve}{Preuve}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newcommand{\qed}{\hfill$\Box$}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Géométrie dans l'espace}
+\author{Terminale S}
+\date{novembre 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Généralités sur les vecteurs}
+
+La géométrie dans l'espace ne constitue pas une révolution par rapport à
+la géométrie planaire et on se ramène bien souvent, par choix ou par
+projection, à un plan particulier dans lequel le calcul ou le
+raisonnement sera facilité.
+
+Un vecteur $\vv{AB}$ de l'espace est toujours l'expression du
+déplacement qui amène le point $A$ sur $B$.
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    On dit souvent qu'un vecteur $\vv{AB}$ est défini par :
+    \complet{25mm}{
+      \begin{itemize}
+        \item une direction ;
+        \item un sens ;
+        \item une norme.
+      \end{itemize}
+    }
+  \end{minipage}
+}
+
+En particulier, on admet l'existence du déplacement nul et on note :
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \complet{5mm}{$\vv{AA} = \vv{0}$ pour tout point $A$ du plan (ou de
+    l'espace)}
+  \end{minipage}
+}
+
+L'égalité de deux vecteurs permet de définir un parallélogramme et
+réciproquement, si quatre points sont les sommets d'un parallélogramme,
+ils définissent l'égalité de deux vecteurs.
+
+On rappelle qu'«on peut toujours faire un détour» : c'est l'égalité de
+Chasles :
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \complet{5mm}{pour tous points $A,\ B$ et $C$ du plan (ou de
+    l'espace), $\vv{AB} = \vv{AC} + \vv{CB}$.}
+  \end{minipage}
+}
+
+Ce qu'il faut retenir : les propositions, théorèmes et méthodes qui
+étaient valables dans le plan restent vrais dans l'espace.
+
+\section{Vecteurs du plan et de l'espace}
+
+\subsection{Vecteurs dans le plan}
+
+Soient $A$, $B$ et $C$ trois points de l'espace (ou d'un plan qu'ils
+définissent) non alignés.
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    Le plan $(ABC)$ est
+    \complet{15mm}{l'ensemble des points $M$ tels qu'il existe $x$ et
+    $y$ réels tel que $\vv{AM} = x\vv{AB} + y\vv{AC}$.}
+  \end{minipage}
+}
+
+Cette caractérisation du plan nous permet de définir la notion de
+vecteurs coplanaires :
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{definition}[Vecteurs coplanaires]
+      \complet{15mm}{Trois vecteurs sont dit coplanaires s'il l'un
+        d'entre eux est une combinaison linéaire des deux autres, c'est
+        dire s'il existe $\alpha$ et $\beta$ réels tels que $\vv{w} =
+      \alpha\vv{u} + \beta\vv{v}.$}
+    \end{definition}
+  \end{minipage}
+}
+
+\begin{remarque}~\\[-9mm]
+
+  \begin{itemize}
+    \item On utilise le fait que tout point (ou tout vecteur) d'un plan
+      peut s'exprimer comme combinaison linéaire de deux vecteurs
+      non-colinéaire.
+    \item On peut aussi caractériser une droite $(AB)$ comme l'ensemble
+      des points $M$ tels que $\vv{AM} = t\vv{AB}$.
+    \item On peut désormais définir un plan par deux vecteurs non
+      colinéaires et un point.
+  \end{itemize}
+\end{remarque}
+
+\begin{framed}
+  \begin{propriete}
+    On dit que trois vecteurs sont coplanaires lorsque la seule
+    combinaison linéaire $a\vv{u} + b\vv{v} + c\vv{w} = \vv{0}$ est la
+    combinaison $(a,b,c) = (0,0,0)$.
+  \end{propriete}
+\end{framed}
+
+\subsection{Vecteurs dans l'espace}
+
+Soient $(\vv{u};\vv{v};\vv{w})$ trois vecteurs non-coplanaires et $O$ un
+point de l'espace.
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{theoreme}[Décomposition]
+      Tout point $M$ de l'espace,
+      \complet{15mm}{se décompose de façon unique de la façon suivante :
+      $\vv{OM} = x\vv{u} + y\vv{v} + z\vv{w}$}
+
+      Tout vecteur $\vv{AB}$ de l'espace,
+      \complet{15mm}{se décompose de façon unique de la façon suivante :
+      $\vv{s} = x\vv{u} + y\vv{v} + z\vv{w}$}
+    \end{theoreme}
+  \end{minipage}
+}
+
+On admet que cette écriture est unique, c'est à dire que pour deux
+points $M$ et $M'$ distints, les triplets $(x;y;z)$ et $(x';y';z')$ sont
+différents et réciproquement.
+
+\begin{definition}
+  Avec la décomposition précédente :
+  \begin{itemize}
+    \item Les coordonnées du point $M$ dans le repère
+      $(O;\vv{u};\vv{v};\vv{w})$ est le triplet $(x;y;z)$;
+    \item les coordonnées du vecteur $\vv{AB}$ dans la base
+      $(\vv{u};\vv{v};\vv{w})$.
+  \end{itemize}
+\end{definition}
+
+Pour le calcul en pratique, on reprendra avec les coordonnées dans
+l'espace les mêmes techniques et propriétés que dans l'esapce en
+ajoutant une troisième coordonnées.
+
+Ainsi, si $\vv{u} = \vecteur{x,y,z}$ et $\vv{v} = \vecteur{x',y',z'}$,
+on a pour tout $\alpha$ et $\beta$ réels, \[ \alpha\vv{u} + \beta\vv{v}
+= \complet{-4mm}{\vecteur{\alpha x + \beta x' ,\alpha y + \beta y' ,
+\alpha z + \beta z' }}\] %\vecteur{. ,. ,. } \]
+
+Rappellons également que dans une même base, deux vecteurs sont égaux si
+et seulement s'ils ont les mêmes coordonnées.
+
+Si $A$ a pour coordonnées $\vecteur[,&]{x_a,y_a,z_a}$ et $B$ a pour
+coordonnées $\vecteur[,&]{x_b,y_b,z_b}$, dans le même repère alors :
+\begin{itemize}
+  \item $\vv{AB} = \complet{-4mm}{(x_b - x_a;\ y_b - y_a;\ z_b - z_a)}$
+  \item $I$ milieu de $AB$ a pour coordonnées :
+    $\complet{-4mm}{\left(\frac{x_b + x_a}2;\ \frac{y_b + y_a}2;\
+      \frac{z_b + z_a}2 \right)}$
+\end{itemize}
+
+On démontre également que la norme d'un vecteur $\vv{u} =
+\vecteur{x,y,z}$ se calcule avec $\norme{\vv{u}} = \sqrt{x^2 + y^2 +
+z^2}$.
+
+Cette dernière proposition n'est vraie que pour un plan dans lequel on
+a défini le produit scalaire canonique (voir cours sur le produit
+scalaire) et si on se place dans la base canonique pour ce produit
+scalaire, c'est à dire la base $(\vv{\imath},\vv{\jmath},\vv{k})$ où
+$\vv{\imath} = \vecteur{1,0,0}$, $\vv{\jmath} = \vecteur{0,1,0}$ et
+$\vv{k} = \vecteur{0,0,1}$
+
+\begin{propriete}
+  On dit qu'une droite est parallèle à un plan si elle est dirigée par
+  un vecteur colinéaire combinaison linéaire de deux vecteurs non nuls
+  du plan.
+\end{propriete}
+
+\begin{exercice}
+  Traduire cette proposition en terme d'égalité de vecteurs
+  \complet{15mm}{Si $\vv{w}$ est un vecteur dircteur de $\mathcal{D}$ et
+    que $\mahtcal{P}$ est dirigé par $\vv{u}$ et $\vv{v}$, la condition
+  s'écrit $\vv{w} a \vv{u} + b\vv{v}$.}
+\end{exercice}
+
+\pagebreak
+
+\section{Équations de plans et de droites}
+
+\subsection{Équations de droites dans le plan, de plan dans l'espace}
+
+On rappelle que dans le plan, on a :
+
+\framebox{%
+  \begin{minipage}{0.9\linewidth}
+    \complet{10mm}{%
+      Dans le plan, $ax + by + c =0$ est une équation de droite.
+  }\end{minipage}
+}
+
+De façon similaire, dans l'espace, on a :
+
+\framebox{%
+  \begin{minipage}{0.9\linewidth}
+    \complet{10mm}{%
+      Dans l'espace, $ax + by + cz + d =0$ est une équation de plan.
+  }\end{minipage}
+}
+
+\subsection{Équation paramétrique d'une droite}
+
+Soit $M: \vecteur[,&]{x_0;y_0;z_0}$ un point et $\vv{u} =
+\vecteur{a,b,c}$ un vecteur directeur de la droite $\mathscr{D}$.
+
+\framebox{%
+  \begin{minipage}{0.9\linewidth}
+    \begin{definition}
+    \complet{20mm}{%
+      On appelle équation paramétrique de la droite l'ensemble des
+      points  de coordonnées \[ \left\lbrace\begin{array}{r} x = x_0 +
+      at \\ y = y_0 + bt \\ z = z_0 + ct \end{array}\right.,\ t\in\R \]
+  }\end{definition}
+\end{minipage}
+}
+
+\framebox{%
+  \begin{minipage}{0.9\linewidth}
+    \begin{preuve}
+    \complet{20mm}{%
+      \begin{itemize}
+        \item Soit $P$ un point de $\mathscr{D}$. D'après la définition
+          précédente, $\vv{MP} = t\vv{u}$, donc $\vv{u} $ est un vecteur
+          directeur.
+        \item Soit $P$ un point de la droite $\mathscr{D}$. Il s'exprime
+          comme $\vv{MP} = \lambda\vv{u},\ \lambda\in\R$. On a donc que
+          les coordonnées de $\vv{MP}$ sont $\vv{MP} = \vecteur{\lambda
+          a,\lambda b,\lambda c} = \vecteur{x - x_0, y - y_0, z -z_0}$
+      \end{itemize}
+      \qed
+  }\end{preuve}
+\end{minipage}
+}
+
+
+
+\end{document}

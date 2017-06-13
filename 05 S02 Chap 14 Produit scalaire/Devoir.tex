@@ -1,0 +1,86 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fourier}
+\usepackage[scaled=0.875]{helvet}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage{amsmath,amssymb,makeidx}
+\usepackage[normalem]{ulem}
+\usepackage{fancybox}
+\usepackage{enumerate}
+\usepackage{tabularx}
+\usepackage{ulem}
+\usepackage{dcolumn}
+\usepackage{textcomp}
+\newcommand{\euro}{\eurologo{}}
+\usepackage{pstricks,pst-plot,pst-text,pst-tree}
+\everymath{\displaystyle}
+\setlength\paperheight{297mm}
+\setlength\paperwidth{210mm}
+\setlength{\textheight}{23,5cm}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\vect}[1]{\mathchoice%
+{\overrightarrow{\displaystyle\mathstrut#1\,\,}}%
+{\overrightarrow{\textstyle\mathstrut#1\,\,}}%
+{\overrightarrow{\scriptstyle\mathstrut#1\,\,}}%
+{\overrightarrow{\scriptscriptstyle\mathstrut#1\,\,}}}
+\renewcommand{\theenumi}{\textbf{\arabic{enumi}}}
+\renewcommand{\labelenumi}{\textbf{\theenumi.}}
+\renewcommand{\theenumii}{\textbf{\alph{enumii}}}
+\renewcommand{\labelenumii}{\textbf{\theenumii.}}
+\def\Oij{$\left(\text{O},~\vect{\imath},~\vect{\jmath}\right)$}
+\def\Oijk{$\left(\text{O},~\vect{\imath},~ \vect{\jmath},~ \vect{k}\right)$}
+\def\Ouv{$\left(\text{O},~\vect{u},~\vect{v}\right)$}
+\usepackage{fancyhdr} 
+\textheight 23,5cm 
+\voffset -1.5cm \oddsidemargin 0pt 
+\usepackage{esvect}
+\usepackage[frenchb]{babel}
+\usepackage[np]{numprint}
+
+\begin{document}
+\setlength\parindent{0mm}
+
+\vspace{0,25cm}
+
+\textbf{\textsc{Exercice 1}}
+
+\medskip
+
+On considère le cube ABCDEFGH d'arête de longueur 1 représenté ci-dessous.
+
+L'espace est rapporté au repère orthonormal $\left(\text{A}~;~\vect{\text{AB}},\,\vect{\text{AD}},\,\vect{\text{AE}}\right)$.
+
+\medskip
+
+\begin{enumerate}
+  \item Démontrer que le vecteur $\vect{n}$ de coordonnées $(1~;~0~;~1)$
+    est un vecteur normal au plan (BCE).
+  \item Déterminer une équation du plan (BCE).
+  \item On note $(\Delta)$ la droite perpendiculaire en E au plan (BCE).
+
+    Déterminer une représentation paramétrique de la droite $(\Delta)$.
+  \item Démontrer que la droite $(\Delta)$ est sécante au plan (ABC) en
+    un point R, symétrique de B par rapport à A.
+  \item Démontrer que $\vv{DR} -\vv{DB} + 2\vv{DC} = \vv{0}$
+\end{enumerate}
+
+\medskip
+\psset{unit=1cm}
+\begin{center}
+  \begin{pspicture}(6,6)
+    \psline(0.4,4)(0.4,0.6)(4,0)(5.3,1.5)(5.3,5)(4,3.5)(0.4,4)(1.7,5.5)(5.3,5)%EABCGFEHG
+    \psline(4,0)(4,3.5)
+    \uput[ul](0.4,4){E} \uput[dl](0.4,0.6){A} \uput[dr](4,0){B} \uput[r](5.3,1.5){C}
+    \uput[ur](5.3,5){G} \uput[ul](4,3.5){F} \uput[u](1.7,5.5){H} \uput[ul](1.7,2.1){D}
+    \psline[linestyle=dashed](0.4,0.6)(1.7,2.1)(1.7,5.5)
+    \psline[linestyle=dashed](1.7,2.1)(5.3,1.5)
+  \end{pspicture}
+\end{center}
+
+\end{document}

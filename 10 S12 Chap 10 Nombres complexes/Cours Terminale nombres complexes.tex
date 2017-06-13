@@ -1,0 +1,654 @@
+\documentclass[11pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-base}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\Cf}{\mathscr{C}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\diff}[1]{\mathrm{d}\,#1}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}{Lemme}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+%\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Nombres complexes}
+\author{\bsc{Jumel}}
+\date{février 2017}
+
+\begin{document}
+
+\noindent\maketitle
+
+\bigskip
+
+Les titres des sous parties de ce cours peuvent sembler ésotérique à
+première vue, mais seront justifiée par la suite.
+
+\section*{Activités préparatoires}
+
+Afin de bien aborder les notions, commençons par travailler sur des
+choses connues : l'équation du second degré.
+
+\begin{exercice}~\\
+  \textbf{Partie A}
+
+  Résoudre les équations suivantes :
+  \begin{itemize}
+    \item $x^2 + 2x + 1 = 0$
+    \item $x^2 - 3x + 2 = 0$
+    \item $x^2 - 3x - 4 = 0$
+  \end{itemize}
+
+  \noindent\textbf{Partie B}
+
+  Soient $a$ et $b$ deux réels.
+  \begin{enumerate}
+    \item Développer $(X - a)(X - b)$
+    \item Que représentent $a$ et $b$ pour l'équation $X^2 - (a+b)X +
+      ab$ ?
+    \item En déduire une méthode permettant de trouver deux nombres
+      connaissant leur somme et leur produit.
+  \end{enumerate}
+
+   \noindent\textbf{Partie C}
+
+   Développer $(a+b)^3$.
+\end{exercice}
+
+On peut en profiter pour revenir sur une méthode de résolution générale
+pour des équations de degré 3. Avant de s'attaquer à l'exercice,
+étudions une propriété essentielle des polynomes et son application
+immédiate.
+
+\begin{propriete}
+  Deux polynomes sont égaux si et seulement s'ils ont les mêmes
+  coefficients devant les termes de même degré.
+\end{propriete}
+
+L'exercice qui vient permet de préciser cette notion.
+
+\begin{exercice}~\\
+  On considère le polynome $2 x^{3} - 11 x^{2} + 18 x - 9$ dont on
+  cherche les racines, c'est à dire les solutions de l'équation $2 x^{3}
+  - 11 x^{2} + 18 x - 9= 0$.
+  \begin{enumerate}
+    \item Vérifier que 1 est une racine de ce polynome.
+    \item \begin{enumerate}
+        \item Justifier que 1 est aussi une racine du polynome $(x - 1)
+          (ax^2 + bx + c)$
+        \item En développant ce polynome et en l'identifiant à $2 x^{3}
+          - 11 x^{2} + 18 x - 9$ donner la valeur de $a$, $b$ et $c$.
+        \item Résoudre l'équation $2 x^{2} - 9 x + 9 = 0$
+        \item Donner l'ensembe des racines.
+
+          Que constate-t-on ?
+      \end{enumerate}
+    \item Écrire le polynome $2 x^{3} - 11 x^{2} + 18 x - 9$ sous forme
+      factorisée.
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}~\\
+  \noindent\textbf{Partie A}
+
+  De la même façon qu'on dispose d'une méthode générale pour factoriser
+  les polynomes de degré 1 et 2 (Calcul du discriminant dans le deuxième
+  cas), on va chercher une méthode générale pour trouver les racines des
+  polynomes de degré 3.
+
+  On va, pour simplifier, supposer que notre polynome de degré 3 s'écrit
+  $P = X^3 + bX^2 + cX + d$ et on notera $P: X \mapsto P$ la fonction
+  polynomiale associée.
+
+  \begin{enumerate}
+    \item Justifier que tout polynome de degré 3 possède au moins une
+      solution sur $\R$.
+    \item On pose $X = X' - \frac{b}3$. Montrer que $P$ s'écrit $P =
+      X'^3 + pX' + q$.
+
+      Préciser les valeurs de $p$ et $q$.
+    \item Les cas «triviaux»
+      \begin{enumerate}
+        \item Résoudre l'équation $P(x) = 0$ dans le cas $p = 0$
+          Préciser dans ce cas la condition sur $b,\ c$ et $d$.
+          Que se passe-t-il si de plus $q=0$ ?
+        \item Résoudre l'équation $P(x) = 0$ dans le cas $q = 0$, $p
+          \neq 0$.
+          Quelle solution «évidente» retrouve-t-on ? Ce résultat
+          était-il prévisible ?
+          Quel type d'équation doit-on ensuite résoudre ?
+      \end{enumerate}
+    \item Le cas général
+
+      On va chercher $X'$ sous la forme $X' = u + v$.
+      \begin{enumerate}
+        \item Substituer $u + v$ à $X'$ et développer.
+        \item On impose $uv = -\frac{p}3$. Justifier que c'est possible
+          ?
+        \item Réécrire l'équation avec cette nouvelle condition.
+        \item Quelle condition doit ont avoir sur $q$, $u^3$ et $v^3$.
+        \item Justifier que résoudre l'équation se ramène désormais à
+          trouver deux cubes ($u^3$ et $v^3$) connaissant leur somme et
+          leur produit.
+          Préciser le système d'équation qu'ils vérifient.
+          Donner une méthode permettant de résoudre un tel système.
+        \item Justifier qu'ensuite, si $x_1$ est la solution trouvée,
+          alors :
+          \begin{itemize}
+            \item si $u$ et $v$ sont égaux, $x_1$ est une racine double
+              et en déduire la dernière solution ;
+            \item si $u$ et $v$ sont différents, en déduire $x_2$ et
+              $x_3$.
+          \end{itemize}
+      \end{enumerate}
+  \end{enumerate}
+
+  \noindent\textbf{Partie B}
+
+  Sur la résolution de l'équation du troisième degré, Cardan démontra
+  que la racine certaine pouvait se calculer explicitement à l'aide de
+  la formule $x = \sqrt[3]{\frac{-q}2 + \sqrt{\frac{q^2}4 +
+  \frac{p^3}{27}}} + \sqrt[3]{\frac{-q}2 - \sqrt{\frac{q^2}4 +
+  \frac{p^3}{27}}}$.
+
+  \begin{enumerate}
+    \item Résoudre l'exemple historique du à Cardan, $x^3 -x -1 =0$, en
+      appliquant la méthode décrite ci-dessus.
+    \item Résoudre $x^3 -3x + 2 =0$.
+    \item Résoudre l'exemple historique du à Bombelli : $x^3 - 15x -4 =
+      0$.
+      \begin{enumerate}
+        \item Vérifier que $4$ est solution de l'équation considérée.
+        \item Quel problème semble être posé par la méthode ?
+        \item On va supposer que $\sqrt{-121}$ est une écriture
+          légitime. Justifier qu'une autre écriture serait $\sqrt{-121}
+          = 11\sqrt{-1}$. Quelle propriété des radicaux a-t-on utilisé ?
+        \item On va chercher un cube qui vaut $2 \pm 11\sqrt{-1}$ sous
+          la forme $2 + a\sqrt{-1}$. Développer $(2+a\sqrt{-1})^3$ en
+          utilisant $\sqrt{-1}\times \sqrt{-1} = -1$. Effectuer le même
+          calcul avec $(2-a\sqrt{-1})^3$ et identifier l'un à $2 +
+          11\sqrt{-1}$ et l'autre à $2 - 11\sqrt{-1}$. Que vaut $a$ ?
+        \item Retrouver alors par le calcul $x = 4$ en additionnant les
+          nombres trouvés.
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\pagebreak
+
+\noindent\maketitle
+
+\section{Une extension du corps des réels}
+
+\subsection{Une construction qui ajoute des propriétés}
+
+L'idée générale des nombres complexes est d'étendre les capacités de
+calculs, éventuellement en recourant à des «nombres astucieux»
+permettant de mener des calculs. On rencontre cette idée plusieurs fois
+dans le développement des mathématiques. Ainsi, l'ensemble des nombres
+$\N$ muni de l'opération d'addition a été étendu en $\Z$ afin de donner
+un sens à $a+b =0$ et à permis d'exprimer de nouvelles opérations. De la
+même façon, $\Z$ a été étendu à $\Q$ pour donner un sens à $ab = 1$.
+Enfin, $\Q$, par une méthode bien plus complexe peut s'étendre à $\R$
+qui est construit de façon à donner un sens à des nombres tels que
+$\sqrt{2}$. Cependant, même dans $\R$ des nombres tels que $\sqrt{-1}$
+n'ont pas de sens.
+
+On considère $x$ et $y$, tout deux éléments de $\R$, qu'on note
+$(x,y) \in \R \times \R$ et $(x',y') \in \R \times \R$. On construit
+deux «nouvelles» opérations :
+\begin{itemize}
+  \item une addition définie par $(x,y) + (x',y') = (x + x', y + y')$ ;
+  \item une multiplication définie par $(x,y) \times (x',y') = (xx' -
+    yy', xy' + x'y)$.
+\end{itemize}
+
+\begin{exercice}[Quelques démonstrations]~\\
+  En utilisant les notations et les règles de calculs ci-dessus :
+  \begin{enumerate}
+    \item Montrer que $\varphi (x,y) \mapsto (x,0)$ permet de retrouver
+      l'ensemble des nombres réels. (Appliquer les règles de calcul)
+    \item Que vaut $(0,1)\times (0,1)$ ?
+    \item Vérifier que
+      \begin{enumerate}
+        \item $(0,0)$ est l'élément neutre de + et $(1,0)$ celui de
+          $\times$ ;
+        \item ces deux opérations sont associatives et commutatives ($(a
+          * b) * c = a * (b * c)$ et $a * b = b * a$, $* \in
+          \{+,\times\}$) ;
+        \item que $a \times ( b + c ) = a \times b + a \times c$.
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+On peut désormais définir le corps des nombres complexes ainsi que
+l'unité imaginaire.
+
+\begin{definition}[Unité imaginaire]
+  On pose $i$ défini par $i^2 = -1$.
+\end{definition}
+
+\begin{remarque}
+  On note parfois $j$, en particulier en physique, pour ne pas confondre
+  avec $i(t)$ l'intensité d'un courant. On trouve également, en
+  particulier dans la littérature anglo-saxonne $\sqrt{-1}$ ou
+  $(-1)^{\frac12}$.
+
+  L'école française (bourbakiste) reste attachée à $i$.
+\end{remarque}
+
+\begin{definition}[Corps des complexes]
+  On note $\R\times\R$ muni des opérations définies ci-dessus le coprs
+  $\C$ des nombres complexes. On note souvent les éléments de ce corps
+  $z = a + ib$, $z\in \C,\ (a,b)\in \R^2$.
+\end{definition}
+
+\begin{remarque}
+  On parle d'écriture cartésienne.
+\end{remarque}
+
+\begin{propriete}[Règles de calculs]
+  Soient $z$ et $z'$ deux nombres complexes s'écrivant $z = a + i b$ et
+  $z' = a' + i b'$.
+  \begin{itemize}
+    \item $z + z' = a + a' + i(b + b')$
+    \item $zz' = aa' - bb' + i(ab' + a'b)$
+  \end{itemize}
+\end{propriete}
+
+On a une identification «canonique».
+
+\begin{propriete}
+  Si $b = 0$, on identifie le nombre complexe $z = a +i0$ au nombre réel
+  $a$.\\ On dit alors que $\R$ est plongé dans $\C$ et on note $\R
+  \subset \C$.
+\end{propriete}
+
+\begin{definition}
+  Soit $z$ un nombre complexe s'écrivant $z = a +ib$. On définit et note
+  $a = \Re(z)\in\R $ la partie réelle de $z$ et $b = \Im(z) \in \R$ la
+  partie imaginaire de $z$.
+\end{definition}
+
+\subsection{Exploration de ce nouvel espace de nombres}
+
+Les nombres réels vont continuer de jouer un rôle prépondérant dans ce
+nouvel espace de nombres et on peut noter d'une certaine façon que $\C
+= \R + i\R$. Cherchons une application bijective, qui préserve les
+opérations et les nombres réels. Pour préciser, on va chercher $\varphi
+\colon \C \to \C$ telle que pour tous nombres complexes $z$ et $z'$ :
+\begin{itemize}
+  \item $\varphi(z+z') = \varphi(z) + \varphi(z')$
+  \item $\varphi(zz') = \varphi(z) \times \varphi(z')$
+  \item si $x\in \R$, $\varphi(x) = x$
+\end{itemize}
+
+\begin{exercice}
+  Soit $\varphi$ une application satisfaisant les conditions ci-dessus.
+  \begin{enumerate}
+    \item Justifier que $\varphi(0) = 0$ en utilisant la première
+      condition.
+    \item Justifier que $\varphi(1) = 1$ en utilisant la deuxième
+      condition.
+    \item Exprimer $\varphi(a + ib)$
+    \item Justifier que $\varphi(i) = \pm i$
+    \item Quelle application célèbre obtient-on en prenant $\varphi(i) =
+      i$ ?
+  \end{enumerate}
+\end{exercice}
+
+On a donc une application qui préserve les opérations (morphisme) de
+$\C$ dans $\C$ (endomorphisme) et bijective (donc on peut définir
+l'application réciproque, automorphisme.)
+
+\begin{definition}[conjugaison]
+  L'application $\varphi \colon \C \to \C, z = a + ib \mapsto a - ib$
+  s'appelle la conjugaison.\\ On note $\varphi(z) = \overline{z}$ ou
+  encore $z^*$.
+\end{definition}
+
+\begin{propriete}
+  \begin{itemize}
+    \item $\overline{z + z'} = \overline{z} + \overline{z'}$
+    \item $\overline{zz'} = \overline{z} \times \overline{z'}$
+    \item $\overline{\overline{z}} = z$
+  \end{itemize}
+\end{propriete}
+
+La conjugaison est une application très importante : on peut s'en servir
+pour calculer certaines quantités.
+
+\begin{exercice} Soit $z = a + ib$ un nombre complexe. Calculer
+  \begin{enumerate}
+    \item $z + \overline{z}$
+    \item $z - \overline{z}$
+    \item $z \times \overline{z}$
+  \end{enumerate}
+\end{exercice}
+
+Enfin, pour finir cette partie, on peut noter que désormais toutes les
+équations du second degré à coefficient réels ont une solution,
+éventuellement complexe. En effet, soit $ax^2 + bx +c =0$ une équation
+du second degré à coefficients réels, si $\Delta = b^2 - 4ac < 0$ on ne
+dira plus que «l'équation ne possède pas de solutions réelles» mais on
+dira que l'équation possède \emph{deux solutions complexes conjuguées}.
+Ces solutions seront $x_1 = \frac{-b + i\sqrt{\abs{\Delta}}}{2a}$ et son
+conjugué $x_2 = \frac{-b - i\sqrt{\abs{\Delta}}}{2a}$.
+
+\section{Une approche géométrique des nombres complexes}
+
+\subsection{Quelques éléments de géométrie}
+
+Le corps des nombres complexes a été construit comme $\R\times\R$ et les
+premiers éléments qui en ont été donnés l'ont été sous la forme de
+couples. Il est assez naturel de penser à une représentation
+géométrique.
+
+\begin{definition}[affixe d'un point]
+  Soit $M: \vecteur{x;y}$ un point du plan. On appelle affixe du point
+  $M$ et on note le nombre complexe $z_M = x + iy$.
+\end{definition}
+
+On peut faire de même avec un vecteur en procédant de la façon suivante.
+
+\begin{definition}[affixe d'un vecteur]
+  Soit $\vv{MP}: \vecteur{x,y}$ un vecteur du plan. On appelle affixe du
+  vecteur $\vv{MP}$ et on note le nombre complexe $z_{\vv{MP}} = z_P -
+  z_M$.
+\end{definition}
+
+Ainsi, à tout nombre complexe $z$ on peut associer un point du plan (dit
+d'Argand-Cauchy) et réciproquement. Puisqu'on algébrise la géométrie,
+intéressont nous aux conséquences et implications.
+
+Commençons par l'opération de conjugaison.
+
+\begin{exercice}~\\[-5mm]
+  \begin{enumerate}
+    \item Citer une application géométrique telle que si elle est
+      appliquée deux fois consécutives, elle renvoie sur le point
+      d'origine.
+    \item Parmi les applications géométriques trouvées précédement,
+      étudier leurs éléments invariants et comparer au fait que la
+      conjugaison laisse les réels invariant.
+    \item Conclure.
+  \end{enumerate}
+\end{exercice}
+
+\begin{propriete}
+  La conjugaison correspond à une symétrie axiale d'axe l'axe des
+  abscisses.
+\end{propriete}
+
+Puisqu'on a vu une première symétrie, axiale, intéressons nous à la
+symétrie centrale.
+
+\begin{exercice}~\\[-5mm]
+  \begin{enumerate}
+    \item La symétrie centrale possède-t-elle également cette propriété
+      d'involution, c'est-à-dire que si elle est appliquée deux fois, on
+      revient sur le point d'origine ?
+    \item Combien la symétrie centrale possède-t-elle de point fixe ?
+      Quel(s) (est|sont) il(s) ?
+    \item Donner une application algébrique de la symétrie centrale de
+      centre $O: \vecteur{0;0}$.
+  \end{enumerate}
+\end{exercice}
+
+On peut noter une proposition permettant de réaliser une symétrie axiale
+d'axe l'axe des ordonnées.
+
+\begin{propriete}
+  L'application $s:\C\to\C,\ z\mapsto -\overline{z}$ est la symétrie
+  axiale d'axe l'axe des ordonnées.
+\end{propriete}
+
+Parmi les applications géométriques, on peut aussi noter les
+applications suivantes ainsi que leurs variantes algébriques dans
+l'ensemble des nombres complexes.
+
+\begin{propriete}
+  \begin{itemize}
+    \item $z \mapsto z+a$ est la translation de vecteur $\vv{OA}$ où $a$
+      est l'affixe du point $A$.
+    \item $z \mapsto z + \overline{z} = \Re(z)$ est la projection sur
+      $(Ox)$ parallèlement à $(Oy)$.
+    \item $z \mapsto z - \overline{z} = \Im(z)$ est la projection sur
+      $(Oy)$ parallèlement à $(Ox)$.
+  \end{itemize}
+\end{propriete}
+
+
+\subsection{Une analyse fonctionnelle pour une égalité}
+
+Avant de se lancer dans une analyse fonctionnelle et en dégager un
+nouvelle notion, apportons quelques précisions.
+
+\begin{exercice}Soit $z$ un nombre complexe. On considère l'application
+  $\psi:\C \to \R, z \mapsto \sqrt{z\times \overline{z}}$
+  \begin{enumerate}
+    \item Vérifier que $\psi(z) = \psi(-z) = \psi(\overline{z})$.
+    \item Exprimer $z^{-1}$ en fonction de $\overline{z}$ et $\psi(z)$.
+    \item Montrer que $\Re(z) \leqslant \psi(z)$ et $\Im(z) \leqslant
+      \psi(z)$. Préciser quelles sont les conditions d'égalité de
+      $\Re(z) = \psi(z)$.
+    \item \begin{enumerate}
+        \item $\forall z\in \C,\ \psi(z) = 0 \iff z = 0$
+        \item $\forall (z,z') \in \C^2,\ \psi(zz') = \psi(z) \psi(z')$
+        \item $\forall (z,z') \in \C^2,\ \psi(z + z') \leqslant \psi(z)
+          + \psi(z')$
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+L'application $\psi$ définit en fait une norme, qu'on note
+$\abs{\cdot}$.
+
+\begin{definition}[Module]
+  L'application $\psi$ définie ci-dessus s'appelle le \emph{module} du
+  nombre complexe $z$. On le note $\abs{z}$.
+\end{definition}
+
+\begin{propriete}
+  Le module définit une norme.
+\end{propriete}
+
+La notion de module prendra son sens avec celle d'argument que nous
+allons développer.
+
+\begin{exercice}Soit $t$ un nombre réel. On pose $e^{it} = \cos t +
+  i\sin t$.
+  \begin{enumerate}
+    \item \begin{enumerate}
+        \item Exprimer $e^{-it}$.
+        \item En déduire que $e^{-it} = \overline{e^{it}}$.
+        \item Calculer $\abs{e^{it}}$.
+      \end{enumerate}
+    \item Calculer $\frac{\diff e^{it}}{\diff t}$
+    \item Vérifier que $e^{it}\times e^{it'} = e^{i(t+t')}$.
+  \end{enumerate}
+\end{exercice}
+
+\begin{definition}[Argument]
+  Tout nombre complexe peut s'écrire sous la forme $z = re^{i\theta} =
+  r\cos \theta + ri\sin \theta$, où $r = \abs{z}$ . On dit que
+  $re^{i\theta}$ est la forme polaire du nombre complexe et $\theta$ est
+  un \emph{argument} du nombre complexe $z$, noté $\arg(z)$.
+\end{definition}
+
+\begin{remarque} L'angle $\theta$ n'est défini qu'à $2\pi$ près, on note
+  que si $\theta$ est un argument, $\theta + 2k\pi,\ k\in\Z$ est aussi
+  un argument de $z$.
+\end{remarque}
+
+\begin{propriete}
+  $\forall (z,z') \in \C^2,\ \arg(zz') = \arg(z) + \arg(z') \ [2\pi]$.
+\end{propriete}
+
+\begin{propriete}
+  \begin{itemize}
+    \item La distance $AB = \abs{z_B - z_A}$ où $A$ et $B$ ont pour
+      affixes respectives $z_A$ et $z_B$.
+    \item L'angle $\widehat{\left[Ox\right),\vv{AB}} = \arg(z_B - z_A)
+      \ [2\pi]$
+  \end{itemize}
+\end{propriete}
+
+\section*{Références}
+
+\begin{itemize}
+  \item \url{http://serge.mehl.free.fr/chrono/Bombelli.html}
+  \item \url{http://serge.mehl.free.fr/anx/equ_deg3.html}
+  \item Ramis, Deschamps, Odoux : Tome 1. Algèbre
+\end{itemize}
+
+\end{document}

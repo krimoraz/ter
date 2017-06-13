@@ -1,0 +1,727 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{lmodern}
+\usepackage{kpfonts}
+\usepackage{cmbright}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+%\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{mdframed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=2.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{
+  headings = block,
+  question/pre-hook = \mdframed,
+  question/post-hook = \endmdframed,
+}
+\usepackage{exsheets-listings}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Devoir à la maison \no{2} : Analyse : continuité et dérivabilité}
+\author{\bsc{Ts 3}}
+\date{pour le 17 novembre 2016}
+
+\begin{document}
+
+\maketitle
+
+\bigskip
+
+Ce devoir à la maison se propose de démontrer quelques théorèmes qui
+sont à la limite du programme : une partie d'entre-eux vous sont
+présentés en cours, mais sont admis. Une partie des théorèmes ne sont
+ici présents que pour démontrer les théorèmes suivants et donc ceux du
+cours.
+
+En revanche, comme il faut bien partir de quelque part, la première
+propriété sera admise comme \emph{axiome}. Il est d'ailleurs possible de
+la démontrer en partant d'un autre axiome, c'est ce qui est fait dans
+l'enseignement supérieur.
+
+\section{Sur les suites}
+
+Comme annoncé précédement, on admet la proposition suivante :
+
+\begin{propriete}
+  Toute partie non-vide majorée de $\R$ admet une borne supérieure.
+\end{propriete}
+
+\begin{theoreme}
+  Toute suite croissante majorée est convergente.
+\end{theoreme}
+
+
+\begin{question}[name=Démonstration,subtitle={Toute suite croissante
+  majorée est convergente}]
+
+  Soit $(u_n)$ une suite croissante majorée par un réel $A$.
+
+  \begin{enumerate}
+    \item Pourquoi peut on dire que $U = \{ u_n | n\in \N \}$ est majoré
+      ?
+    \item Notons $\ell$ la borne supérieure de $U$.
+
+      \begin{enumerate}
+        \item Soit $\varepsilon > 0$. En utilisant le fait que la borne
+          supérieure de $U$ est un élément de $U$ tel qu'il n'y en ait
+          pas de plus grand que lui, caractériser le fait que pour un
+          rang donné $N$, on peut trouver une valeur proche de la borne
+          supérieure.
+        \item En utilisant ensuite la croissance de la suite $(u_n)$
+          démontrer que pour tout $n$ supérieur à $N$, $\ell
+          -\varepsilon < u_N \leqslant u_n \leqslant \ell$.
+        \item Conclure.
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  Soit $(u_n)$ une suite croissante majorée par un réel $A$.
+
+  \begin{enumerate}
+    \item $U = \{ u_n | n\in \N \}$ est majoré par hypothèse (voir P1)
+    \item
+      \begin{enumerate}
+        \item Notons $\ell$ la borne supérieure de $U$. On a d'une part,
+          pour tout $N\in \N$, $u_N \leqslant \ell$. D'autre part, pour
+          $\varepsilon > 0$ fixé, on peut trouver $u_N$ tel que $\ell -
+          \varepsilon < u_N$.
+        \item $(u_n)$ est croissante, on peut donc dire que pour tout
+          $n \geqslant N$, on a $\ell - \varepsilon < u_N
+          \leqslant u_n \leqslant \ell < \ell + \varepsilon$.
+        \item L'implication précédente étant vraie pour tout
+          $\varepsilon > 0$ et pour tout entier $n \geqslant N$ on a
+          bien la définition d'une suite convergente.
+      \end{enumerate}
+  \end{enumerate}
+\end{solution}
+
+
+\begin{definition}[Suites adjacentes]
+  Soient $(u_n)$ et $(v_n)$ deux suites réelles vérifiant :
+  \begin{enumerate}[label=(\roman*)]
+    \item $(u_n)$ est croissante et $(v_n)$ décroissante ;
+    \item $(v_n - u_n)$ converge vers 0.
+  \end{enumerate}
+
+  On dit alors que ces deux suites sont \emph{adjacentes}
+\end{definition}
+
+\begin{theoreme}
+  Si deux suites sont adjacentes, alors
+  \begin{enumerate}[label=\roman*)]
+    \item les suites sont convergentes ;
+    \item la limite de ces deux suites est la même.
+  \end{enumerate}
+\end{theoreme}
+
+\begin{question}[name=Démonstration,subtitle={suites adjacentes}]
+  Soient $(u_n)$ $(v_n)$ deux suites adjacentes.
+  \begin{enumerate}
+    \item Convergences des suites.
+      \begin{enumerate}
+        \item Quel est le sens de variation de $(v_n - u_n)$ ?
+        \item Quel est le signe des termes de $(v_n - u_n)$ ?
+        \item Démontrer que pour tout $n\in \N$, \[ a_0 \leqslant a_n
+          \leqslant b_n \leqslant b_0 \]
+        \item Justifier ainsi qu'elles convergent.
+      \end{enumerate}
+    \item Unicité de la limite. On suppose désormais que $u_n$ converge
+      vers $\ell$ et $(v_n)$ vers $\ell'$ deux limites finies.
+      \begin{enumerate}
+        \item Justifier que $\ell - \ell' = 0$.
+        \item Conclure.
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  Soient $(u_n)$ $(v_n)$ deux suites adjacentes.
+  \begin{enumerate}
+    \item Convergences des suites.
+      \begin{enumerate}
+        \item $(v_n - u_n)$ est décroissante par (i).
+        \item Comme $(v_n - u_n)$ converge vers 0 en étant décroissante
+          (ii) + point précédent, on a $\forall n \in \N,\ v_n - u_n
+          \geqslant 0$
+        \item Le point (i) de la définition entraîne que $a_0 \leqslant
+          a_n$ et $b_n \leqslant b_0$. L'inégalité centrale est le
+          résultat du point précédent.
+        \item $(a_n)$ est croissante majorée par $b_0$ donc elle
+          converge ; $(b_n)$ est décroissante minorée par $a_0$ donc
+          elle converge.
+      \end{enumerate}
+    \item Unicité de la limite. On suppose désormais que $u_n$ converge
+      vers $\ell$ et $(v_n)$ vers $\ell'$ deux limites finies.
+      \begin{enumerate}
+        \item (ii) entraine que $\ell - \ell' = 0$.
+        \item Les deux suites ont donc la même limite.
+      \end{enumerate}
+  \end{enumerate}
+\end{solution}
+
+\textsc{Remarque :} On peut montrer que la propriété 1 est équivalente à
+l'un ou l'autre de ces énoncés. Il est plus simple de l'admettre.
+
+Le théorème qui suite est un théorème assez fondamental de l'analyse et
+plus particulièrement de la topologie. On peut le démontrer de bien des
+manières, certaines faisant appel à des notions largement hors du
+programme. La démonstration guidée laissée en exercice peut se faire dès
+à présent avec les «outils» de la classe de Terminale.
+
+Signalons que l'énoncé de ce théorème est assez bref, et qu'il sera
+précisé ensuite.
+
+\begin{theoreme}[Bolzano-Weierstrass]
+  De toute suite bornée, on peut extraire une sous-suite convergente.
+\end{theoreme}
+
+\begin{definition}
+  \begin{itemize}
+    \item On appelle \emph{fonction d'extraction} une fonction $\varphi
+      : \N \to \N$ tel que pour tout $n \in \N$, $\varphi(n) \geqslant
+      n$.
+    \item On appelle \emph{suite extraite} ou \emph{sous-suite} de
+      $(u_n)$ une suite de la forme $(u_{\varphi(n)})$ où $\varphi$ est
+      une fonction d'extraction.
+  \end{itemize}
+\end{definition}
+
+\begin{question}[name=Démonstration,subtitle={BW par dichotomie}]
+  Soit $(u_n)$ une suite bornée.
+  \begin{enumerate}
+    \item Une construction par dichotomie qui sera utile plus tard.
+      \begin{enumerate}
+
+        \item Traduire le fait que $(u_n)$ est bornée.
+        \item On définit les suites $(a_n)$ et $(b_n)$ par récurrence de
+          la façon suivante : \[ a_0 = a\ \ ; \ \ b_0 = b \] et pour
+          tout $p$ entier naturel en prenant l'un des deux choix :
+          \begin{itemize}
+            \item $a_{p+1} = a_p$ et $b_{p+1} = \frac{a_p + b_p}2$
+            \item $a_{p+1} = \frac{a_p + b_p}2$ et $b_{p+1} = b_p$
+          \end{itemize}
+          de façon à ce qu'il y ait toujours une infinité de termes dans
+          $\interff{a_p,b_p}$.
+
+          Faire un schéma de la situation.
+        \item Quelle est la nature des deux suites $(a_n)$ et $(b_n)$ ?
+        \item Conclure.
+      \end{enumerate}
+    \item Construction de la suite extraite.
+      \begin{enumerate}
+        \item Combien de termes sont dans les intervalles
+          $\interff{a_p,b_p}$ ?
+        \item Peut-on choisir des termes croissants dans les intervalles
+          de la forme $\interff{a_{p+1},b_{p+1}}$ ?
+        \item Peut-on ainsi définir une suite extraite ?
+        \item En notant $\varphi(n) = p$, encadrer cette suite extraite
+          pour tout $p$ entier naturel.
+        \item Conclure.
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item $(u_n)$ bornée $\iff \exists (a,b) \in \R^2,\ \forall n
+          \in \N,\ a \leqslant u_n \leqslant b$
+        \item
+          \begin{center}
+            \begin{tikzpicture}
+              \draw (-2.5,0) -- (-2,0) node [circle] {} -- (0,0) node
+              [circle] {} -- (2,0) node [circle] {} -- (2.5,0) ;
+              \draw (-2,0) node [below] {$a_n$} ;
+              \draw (+2,0) node [below] {$b_n$} ;
+              \draw (0,0) node [below] {$\frac{a_n+b_n}2$} ;
+            \end{tikzpicture}
+          \end{center}
+        \item $(a_n)$ et $(b_n)$ sont deux suites adjacentes.
+        \item $(a_n)$ et $(b_n)$ sont convergentes.
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item Il y a une infinité de termes dans les intervalles
+          $\interff{a_p,b_p}$.
+        \item Oui, car on a toujours $\interff{a_p,b_p} \subset
+          \interff{a_{p+1},b_{p+1}}$.
+        \item Le choix des termes précédents définit précisément une
+          suite extraite.
+        \item On a, pour tout $p$ entier naturel, $a_p \leqslant u_p
+          \leqslant b_p$.
+        \item En utilisant le théorème d'encadrement des suites, on a le
+          résultat attendu.
+      \end{enumerate}
+  \end{enumerate}
+\end{solution}
+
+On pourrait, pour terminer cette partie, rappeler la définition d'une
+suite de Cauchy et montrer l'équivalence entre suites de Cauchy et
+suites convergentes, mais cette notion est hors-progamme et n'apporte
+pas grand chose en Terminale.
+
+\section{Continuité des fonctions}
+
+Commençons pas redonner une caractérisation des fonctions continues.
+
+\begin{theoreme}
+  Soit $f$ une fonction continue sur $I$ et $(u_n)$ une suite d'éléments
+  de $I$ de limite $\ell$
+
+  Alors $\lim_{n\to +\infty}f(u_n) = f(\ell)$
+\end{theoreme}
+
+\begin{theoreme}[des valeurs intermédiaires]
+  Soit $f$ une fonction continue sur $\interff{a,b}$.
+
+  Alors pour tout réel $y $ compris entre $f(a)$ et $f(b)$ il existe
+  $c\in \interff{a,b}$ tel que $f(c) = y$.
+\end{theoreme}
+
+\begin{question}[name=Démonstration,subtitle={TVI par dichotomie}]
+  Supposons (par exemple) que $f(a) < f(b)$.
+  \begin{enumerate}
+    \item Écrire l'hypothèse $y $ compris entre $f(a)$ et $f(b)$ sous
+      forme d'une inégalité.
+    \item Proposer deux suites définies par récurrence pour découper en
+      deux l'intervalle $\interff{a,b}$.
+    \item Caractériser les suites ainsi définies.
+    \item Justifier que \[ f(a_n) \leqslant y \leqslant
+      f(b_n) \] où $(a_n)$ et $(b_n)$ sont les suites définies plus
+      haut.
+    \item Étudier la convergence des suites $(a_n)$ et $(b_n)$.
+    \item En utilisant le théorème 4, en déduire que $f(c) = y$.
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item $f(a) \leqslant y \leqslant f(b)$
+    \item On peut prendre les suites $(a_n)$ et $(b_n)$ définies par
+      $a_0 = a$, $b_0 = b$ et pour tout $n$ entier naturel,
+      \begin{itemize}
+        \item si $f\left(\frac{a_n + b_n}{2}\right) \leqslant y$,
+          $a_{n+1} = a_n$ et $b_{n+1} = \frac{a_n + b_n}2$ ;
+        \item sinon $a_{n+1} = \frac{a_n + b_n}2$ et $b_{n+1} = b_n$
+      \end{itemize}
+    \item Les suites ainsi définies sont des suites adjacentes. En
+      effet, $(a_n)$ est croissante, $(b_n)$ décroissante et pour tout
+      $n$, $b_{n+1} - a_{n+1} = \frac{b_n - a_n}2$ distance qui
+      peut-être rendue aussi petite que l'on veut.
+    \item Cette inégalité est justifiée par construction des suites.
+    \item $(a_n)$ et $(b_n)$ sont adjacentes donc elles convergent vers
+      une limite commune $c$.
+    \item $f$ étant continue, on obtient, par passage à la limite dans
+      l'inégalité du 4. $f(c) \leqslant y \leqslant f(c)$ donc $c =
+      f(y)$.
+  \end{enumerate}
+\end{solution}
+
+\begin{question}
+  Proposer un algorithme d'encadrement d'une solution, utilisant la
+  méthode par dichotomie, vue dans les preuves précédentes, dans le cas
+  d'une fonction strictement monotone sur un intervalle $\interff{a,b}$.
+
+  On écrira l'algorithme en langage calculatrice, en \textsc{Python} ou
+  en pseudo-code.
+\end{question}
+\begin{lstsolution}[listings={language=Python},
+  pre={Voici une correction en Python pour le calcul de racine de 2.}]
+  def f(x):
+      return x*x
+
+  a,b = 1,2
+  y = 2
+
+  def g(x):
+      return f(x) - y
+
+  while (b-a) > 10**(-3):
+      c = (a+b)/2
+      if g(a) * g(c) <= 0:
+              b=c
+      else:
+              a=c
+
+  print(a,b)
+\end{lstsolution}
+
+On peut déduire de ce théorème en utilisant le théorème de
+Bolzano-Weierstrass le théorème des bornes.
+
+\begin{corollaire}
+  L'image par une fonction continue d'un intervalle est un intervalle.
+\end{corollaire}
+
+\begin{corollaire}[des bornes]
+  L'image par une fonction continue d'un segment est un segment.
+\end{corollaire}
+
+\section{Des conséquences de la dérivabilité des fonctions}
+
+Une première conséquence, assez évidente est la proposition suivante.
+
+\begin{propriete}
+  Une fonction dérivable sur un intervalle $I$ est continue sur $I$.
+\end{propriete}
+
+\begin{question}[name=Démonstration]
+  \begin{enumerate}
+    \item Formuler la version «en un point» de la propriété.
+    \item Justifier que cette formulation est équivalente à la
+      proposition \[ \forall \varepsilon > 0 \exists \eta > 0 \, \abs{x
+        - c} < \eta \implies \abs{\frac{f(x) - f(c)}{x - c} - f'(c)} <
+      \varepsilon \]
+    \item Fixons un $\varepsilon > 0$
+      \begin{enumerate}
+        \item Écrire l'inégalité finale de l'expression de la limite
+          sous la forme d'un encadrement.
+        \item Justifier que $\abs{\frac{f(x) - f(c)}{x - c}} \leqslant
+          \max\left(\abs{f'(c) + \varepsilon},\abs{f'(c) -
+          \varepsilon}\right)$.
+
+          En déduire que $\abs{\frac{f(x) - f(c)}{x - c}} \leqslant
+          \abs{f'(c)} + \varepsilon$
+        \item Proposer une majoration de $\abs{f(x) - f(c)}$.
+        \item Que se passe-t-il si on prend $x$ tel que $\abs{x-c} <
+          \min\left(\eta,\frac{\varepsilon}{\abs{f'(c)} + \varepsilon}
+            \right)$ ?
+        \item Conclure.
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item On peut dire que $f$ dérivable en $c$ entraîne $f$ continue en
+      $c$.
+    \item Il s'agit ni plus ni moins que du cumul de la définition de la
+      limite et de la définition de la dérivée.
+      \begin{enumerate}
+        \item On obtient $f'(c) - \varepsilon < \frac{f(x) - f(c)}{x -
+          c} < f'(c) + \varepsilon$.
+        \item On obtient ceci par passage à la valeur absolue. On en
+          déduit le deuxième point en utilisant le fait qu'il s'agisse
+          d'un $\max$ et l'inégalité triangulaire : $\forall (x,y) \in
+          \R^2,\ \abs{x+y} \leqslant \abs{x} + \abs{y}$.
+        \item On a la majoration suivante : $\abs{f(x) - f(c)} \leqslant
+          \abs{x - c}\left(\abs{f'(c)}+\varepsilon\right)$.
+        \item On a alors $\abs{f(x) - f(c)} \leqslant \varepsilon$
+        \item $f$ est continue en $c$ et puisqu'on a raisonné sur un
+          point $c$ quelconque, c'est vrai pour tout $c\in I$.
+      \end{enumerate}
+  \end{enumerate}
+\end{solution}
+
+Attention, la réciproque n'est pas vraie.
+
+\begin{question}[subtitle={Réciproque de l'implication dérivable
+  entraîne continue}]
+  \begin{enumerate}
+    \item Formuler la proposition réciproque.
+    \item Exhiber un contre-exemple.
+    \item Que peut-on dire d'une fonction non dérivable ? Est-ce une
+      condition nécessaire ou suffisante ?
+  \end{enumerate}
+\end{question}
+
+\begin{theoreme}[de Rolle]
+  Soit $f$ une fonction continue sur $\interff{a,b}$, dérivable sur
+  $\interoo{a,b}$ telle que $f(a) = f(b)$.
+
+  Alors il existe (au moins) un point $c \in \interoo{a,b}$ tel que
+  $f'(c) = 0$.
+\end{theoreme}
+
+\begin{question}[name=Démonstration,subtitle={du théorème de Rolle}]
+  Soit $f$ une fonction continue sur $\interff{a,b}$, dérivable sur
+  $\interoo{a,b}$ telle que $f(a) = f(b)$.
+
+  \textsc{Premier cas} : Si $f$ est constante, que peut-on dire de sa
+  dérivée ?
+
+  \textsc{Deuxième cas} : Supposons $f$ non constante. Elle admet un
+  maximum global (théorème des bornes) différent du minimum global.
+  Nommons ce maximum $c$.
+  \begin{enumerate}
+    \item Pourquoi $c$ ne peut-il être égal à $a$ ou à $b$.
+    \item
+      \begin{enumerate}
+        \item pour $h$ strictement positif et tel que $c + h$
+          appartienne à l'intervalle $\interff{a,b}$, quel est le signe
+          de $\frac{f(c + h) - f(c)}{h}$.
+        \item En déduire que la limite du nombre dérivée à droite est
+          négative.
+      \end{enumerate}
+    \item Reproduire le raisonnement à gauche.
+    \item que dire d'un nombre à la fois positif et négatif.
+    \item Conclure.
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \textsc{Premier cas} : Si $f$ est constante, sa dérivée est nulle et
+  tout $c$ convient.
+
+  \textsc{Deuxième cas} :
+  \begin{enumerate}
+    \item $c$ est un maximum global et donc $f(c) \neq f(a)$ et $f(c)
+      \neq f(b)$ qui sont égaux. Donc $c$ est différent de $a$ et $b$.
+    \item
+      \begin{enumerate}
+        \item pour $h$ strictement positif et tel que $c + h$
+          appartienne à l'intervalle $\interff{a,b}$, on a $\frac{f(c +
+          h) - f(c)}{h} \leqslant 0$.
+        \item On en déduit $f'_d(c) \leqslant 0$.
+      \end{enumerate}
+    \item En prenant $h$ négatif, on obtient $f'_g(c) \geqslant 0$.
+    \item Un nombre à la fois positif et négatif est nul.
+    \item $f'(c) = 0$.
+  \end{enumerate}
+\end{solution}
+
+\begin{theoreme}[des accroissements finis]
+  Soit $f$ une fonction continue sur $\interff{a,b}$, dérivable sur
+  $\interoo{a,b}$.
+
+  Alors il existe $c \in \interoo{a,b}$ tel que \[ f'(c) = \frac{f(b) -
+  f(a)}{b - a}\]
+\end{theoreme}
+
+\begin{question}[name=Démonstration,subtitle={des accroissements finis}]
+  Quelles hypothèses sont vérifiées par la fonction $\varphi :
+  \interff{a,b} \to \R,\ x\mapsto f(x) - \frac{f(b) - f(a)}{b - a}x$.
+
+  Conclure.
+\end{question}
+\begin{solution}
+  $\varphi$ vérifie précisément les hypothèses du théorème de Rolle, il
+  existe donc $c \in \interoo{a,b}$ tel que $\varphi'(c) = 0$ d'où on
+  déduit que $f'(c) - \frac{f(b) - f(a)}{b - a} = 0$.
+\end{solution}
+
+\begin{question}
+  À l'aide du théorème des accroissements finis, démontrer l'équivalence
+  \begin{enumerate}[label=(\roman*)]
+    \item $f$ croissante sur $\interff{a,b} \implies \forall x \in
+      \interoo{a,b},\ f'(x) \geqslant 0$
+    \item $f$ décroissante sur $\interff{a,b} \implies \forall x \in
+      \interoo{a,b},\ f'(x) \leqslant 0$
+    \item $f$ constante sur $\interff{a,b} \implies \forall x \in
+      \interoo{a,b},\ f'(x) = 0$
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  La solution n'est donnée que pour le premier point.
+
+  $\Rightarrow$ : Il suffit de reprendre la définition d'une fonction
+  croissante et d'étudier le signe de $\frac{f(b) - f(a)}{b - a}$.
+
+  $\Leftarrow$ : On considère $(x,y) \in \interff{a,b}^2$ tel que $x <
+  y$. Graçe au théorème précédent, on peut trouver $c \in \interoo{x,y}
+  \subset \interoo{a,b}$ tel que $f(y) - f(x) = f'(c)(y - x)$. Comme
+  $f'(c) \geqslant 0$, on en déduit que $f(y) - f(x) \geqslant 0$ et
+  donc $f$ est croissante.
+\end{solution}
+
+On peut également citer la formule de Taylor à l'ordre 1 pour les
+fonctions continues dérivables.
+
+\begin{theoreme}[de Taylor]
+ Pour une fonction $f$ dérivable sur $\interff{a,b}$ telle que $f'$ soit
+ dérivable sur $\interoo{a,b}$ on a \[ f(b) = f(a) + f'(a)(b-a) +
+ \frac{f"(c)}{2}(b-a)^2 \] où $c\in \interoo{a,b}$
+\end{theoreme}
+
+\begin{question}[name=Démonstration,subtitle={Taylor}]
+  Démontrer ce résultat.
+\end{question}
+\begin{solution}
+  On considère la fonction $\psi$ qui va bien.
+\end{solution}
+
+\begin{propriete}[inégalité des accroissements finis]
+  Soit $f$ une fonction continue sur $\interff{a,b}$, dérivable sur
+  $\interoo{a,b}$ telle que pour tout $x \in \interoo{a,b},\ \abs{f'(x)}
+  < k$
+
+  Alors \[ \abs{f(b) - f(a)} < k \abs{b - a}\]
+\end{propriete}
+
+\begin{question}[name=Démonstration,subtitle={Inégalité des
+  accroissements finis}]
+  En appliquant le théorème des accroissements finis, proposer une
+  démonstration.
+\end{question}
+
+\section*{Références}
+\url{http://www.math-info.univ-paris5.fr/~avner/MC1/L1_S1/cours/df/node5.html}
+
+\url{http://www-irma.u-strasbg.fr/~bopp/CAPES/cours/demo-analyse.pdf}
+
+Wikipedia
+%\url{http://www.capes-de-maths.com/lecons/lecon66.pdf}
+
+%\end{document}
+
+\pagebreak
+
+\section*{Solutions des exercices}
+
+\vspace{-7mm}
+
+\printsolutions
+
+\end{document}

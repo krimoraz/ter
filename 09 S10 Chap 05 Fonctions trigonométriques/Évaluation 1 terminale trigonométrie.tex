@@ -1,0 +1,298 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{lmodern}
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.9cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\usepackage[]{algorithm2e}
+
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+
+\makeatletter
+
+\count1=\year \count2=\year
+\ifnum\month<8\advance\count1by-1\else\advance\count2by1\fi
+
+\setlength{\headheight}{14.5pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\cfoot{\textsl{\footnotesize{Année \number\count1/\number\count2}}}
+
+\rfoot{%
+  \ifthenelse{\value{page}=0}{%
+  }
+  {%
+    \footnotesize{Page \thepage/ \pageref{LastPage}}
+  }
+}
+
+\rhead{}
+
+\lhead{%
+  \ifthenelse{\value{page}=1}{%
+    Nom:\dotfill\hfill Prénom: \dotfill \hfill
+    Classe: \@author \dots%
+  }
+  { }
+}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{headings=block}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Évaluation \no{11} : trigonométrie}
+\author{\bsc{Ts}}
+\date{24 mars 2016}
+
+\begin{document}
+
+\maketitle
+
+\begin{tabular}{|p{6em}|p{26em}|p{6em}|}\hline
+   & & \\
+   & & \\
+   \hfill\Huge /\totalpoints* & & \\
+   & & \\
+   & & \\ \hline
+\end{tabular}
+
+
+\begin{question}[ID=trigonometrie;bac;Nouvelle-Caledonie;2013]
+  ~\\[-6ex]
+  \phantom{a}\hfill\textbf{(\GetQuestionProperty{points}{\CurrentQuestionID} points)}\\
+
+  \textit{Pour l'énoncé suivant, indiquer si la proposition
+    correspondante est vraie ou fausse et proposer une justification de
+  la réponse choisie.}
+
+  On considère une fonction $f$, sa dérivée $f'$ et son unique primitive
+  $F$ s'annulant en $x=0$. Les représentations graphiques de ses trois
+  fonctions sont données (dans le désordre) par les courbes ci-dessous.
+
+  \textbf{Proposition :} «La courbe 3 est la représentation graphique de
+  $f$.» \addpoints*{3}
+
+  \textbf{Courbe 1}
+
+  \begin{tikzpicture}[xscale=2,yscale=0.7]
+    \tkzInit[xmax=3.5,xmin=-2,ymin=-4.1,ymax=4,ystep=2]
+    \tkzAxeX[trig=2, label options = {below right = 7 pt} ]
+    \tkzAxeY[orig = false]
+
+    \draw [thick, green] plot [smooth,domain=-1.57:3.14] (\x,
+    {-2*sin(2*\x r)}) ;
+  \end{tikzpicture}
+
+  \textbf{Courbe 2}
+
+  \begin{tikzpicture}[xscale=2,yscale=0.7]
+    \tkzInit[xmax=3.5,xmin=-2,ymin=-2.1,ymax=2]
+    \tkzAxeX[trig=2, label options = {below right = 7 pt} ]
+    \tkzAxeY[orig = false,step = 2]
+
+    \draw [thick, red] plot [smooth,domain=-1.57:3.14] (\x,
+    {2*cos(2*\x r)}) ;
+  \end{tikzpicture}
+
+  \textbf{Courbe 3}
+
+  \begin{tikzpicture}[xscale=2,yscale=0.7]
+    \tkzInit[xmax=3.5,xmin=-2,ymin=-1.5,ymax=1,ystep=0.5]
+    \tkzAxeX[trig=2, label options = {below right = 7 pt} ]
+    \tkzAxeY[orig = false, step=0.5]
+
+    \draw [thick, blue] plot [smooth,domain=-1.57:3.14] (\x,
+    {2*sin(2*\x r)}) ;
+  \end{tikzpicture}
+
+  \blank[style=dotted,width=6\linewidth,linespread=1.7]{}
+
+  \blank[style=dotted,width=6\linewidth,linespread=1.7]{}
+
+  \blank[style=dotted,width=6\linewidth,linespread=1.7]{}
+
+  \blank[style=dotted,width=8\linewidth,linespread=1.7]{}
+
+
+\end{question}
+\begin{solution}
+  Il s'agit d'une partie du sujet de Nouvelle-Calédonie 2013.
+
+  La proposition est fausse : plusieurs arguments permettent de
+  l'affirmer. Par exemple, les courbes 1 et 2 son manifestement des
+  sinus de signe opposés et donc l'une est primitive et l'autre est
+  dérivée. On peut utiliser le facteur multiplicatif pour les ranger
+  dans l'ordre :
+  \begin{itemize}
+    \item la courbe 2 est la fonction $f$ ;
+    \item la courbe 1 est la dérivée de $f$, son amplitude est deux fois
+      plus élevée ;
+    \item la courbe 3 est la primitive $F$, son amplitude est deux fois
+      moins élevée.
+  \end{itemize}
+\end{solution}
+
+
+\newpage
+\section*{Correction}
+\printsolutions
+\vfill
+\hrule
+\vfill
+\section*{Correction}
+\printsolutions
+\vfill
+\hrule
+\vfill
+\section*{Correction}
+\printsolutions
+\end{document}

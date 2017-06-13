@@ -1,0 +1,557 @@
+\documentclass[11pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Étude de la fonction logarithme}
+\author{\bsc{Jumel}}
+\date{janvier 2017}
+
+\begin{document}
+
+\maketitle
+
+On note $\R_+^* = \interoo{0;+\infty}$ et si $x$ et $y$ sont deux
+éléments de $E$, on note $(x,y) \in E^2$.
+
+\section{Activités préparatoires}
+
+\subsection{Petit détour par la physique}
+
+On sait qu'en physique et plus particulièrement en acoustique que
+doubler le volume ne fait qu'augmenter de \np[dB]{3} et que si on désire
+augmenter de \np[dB]{6}, on aura quadruplé le volume. On dit, à ce titre
+que le décibel est une échelle logarithmique.
+
+Comme le vocabulaire utilisé le montre, les fonctions logarithmiques
+transforment les produits en somme. Étudions plus précisément la
+signification mathématique de cette affirmation.
+
+\subsection{Étude de l'équation fonctionnelle}
+
+\begin{exercice}\label{prop:consequence}
+  Soit $f$ une fonction définie sur $\interoo{0;+\infty}$ et vérifiant
+  l'équation fonctionnelle \begin{equation} f(xy) = f(x) + f(y).
+  \label{eq:fonc_log}\end{equation}
+
+  Démontrer rigoureusement que :
+  \begin{itemize}
+    \item $f(1) = 0$ ;
+    \item $\forall x \in \R_+^*,\ f\left(\frac1x\right) = -f(x)$ ;
+    \item $\forall (x,y)\in\R_+^{*2} f\left(\frac{x}y\right) = f(x) -
+      f(y)$ ;
+    \item $\forall n\in\N,\ \forall x\in\R_+^*,\ f(x^n) = nf(x)$ ;
+    \item $\forall n\in\Z,\ \forall x\in\R_+^*,\ f(x^n) = nf(x)$ ;
+    \item $\forall x \in \R_+^*,\ f(\sqrt{x}) = \frac12f(x)$.
+  \end{itemize}
+\end{exercice}
+
+Ces résultats entretiennent une familiarité avec une autre équation
+fonctionnelle.
+
+\begin{exercice}
+  Donner la relation fonctionnelle de l'exponentielle.
+\end{exercice}
+
+\begin{exercice}\label{prop:fondamentale}
+  Soient $f$ une fonction qui satisfait à \ref{eq:fonc_log} et $g$ une
+  fonction qui satisfait à la relation fonctionnelle de l'exponentielle.
+  Montrer que :
+  \begin{itemize}
+    \item pour tout $(x,y)$ réels strictement positifs, $g(f(xy)) =
+      g(f(x))g(f(y))$ ;
+    \item pour tout $(x',y')$ réels, $f(g(x'+y')) = f(g(x')) + f(g(y'))$
+  \end{itemize}
+
+  En déduire, pour un $y$, un $x'$ et un $y'$ bien choisis que $\forall
+  x\in \R^*,\ f(g(x)) = x = g(f(x))$.
+\end{exercice}
+
+\begin{definition}
+  On dit que des fonctions $f$ et $g$ telles que pour tout $x$ de $I$,
+  intervalle de $\R$, $f(g(x)) = g(f(x)) = x$ sont réciproques l'une de
+  l'autre.
+\end{definition}
+
+\begin{remarque}
+  On note également $f\circ g = g\circ f = Id_I$, où $Id_I:I\to I,x
+  \mapsto x$ est la fonction identité qui a un élément associe lui même.
+\end{remarque}
+
+\subsection{Une conséquence du théorème des valeurs intermédiaires}
+
+\begin{exercice}
+  \begin{itemize}
+    \item Rappeler le théorème des valeurs intermédiaires.
+    \item Justifier que $\forall y > 0,$ il existe un unique $x\in R$
+      tel que $y = e^x$.
+  \end{itemize}
+\end{exercice}
+
+Comme conséquence des considérations précédentes, on peut définir une
+nouvelle fonction, réciproque de la fonction exponentielle.
+
+\begin{definition}
+  La fonction réciproque de la fonction $\exp$ s'appelle le logarithme
+  népérien, notée $\ln$. Elle est définie de $\interoo{0,+\infty} \to
+  \R$ et à chaque élément $x$ de $\interoo{0,+\infty}$ associe l'unique
+  solution de l'équation $x = e^y$.
+\end{definition}
+
+Quelques conséquences immédiates :
+\begin{itemize}
+  \item pour tout nombre $x >0,\ e^{\ln(x)} = x$ (c'est la définition) ;
+  \item pour tout nombre $x,\ \ln(e^x) = x$ (attention aux conditions
+    sur $x$) ;
+  \item $\ln(1) = 0$ et $\ln(e) = 1$.
+\end{itemize}
+
+\begin{propriete}
+  Pour tous nombres $x$ et $y$ strictement positifs, $\ln(xy) = \ln(x) +
+  \ln(y)$.
+\end{propriete}
+\begin{preuve}
+  Voir l'exercice \ref{prop:fondamentale}
+\end{preuve}
+
+L'exercice \ref{prop:consequence} appliqué à la fonction $\ln$ permet de
+démontrer un certain nombre de propriétés «calculatoires» de $\ln$.
+
+Ces propriétés étaient à la base de la règle à caclul.
+
+\begin{exercice}
+  Rechercher le fonctionnement de la règle à calcul.
+\end{exercice}
+
+\section{Étude de la fonction $\ln$}
+
+On a vu que la fonction exponentielle et la fonction logarithme étaient
+intimement liées. Explorons plus en détail ce lien en particulier dans
+le cadre de l'étude de la fonction logarithme.
+
+\subsection{Quelques conjectures}
+
+\begin{exercice}
+  \begin{itemize}
+    \item Démontrer que les points $A:(1,2)$ et $B(2,1)$ sont
+      symétriques l'un de l'autre par rapport à $\Delta$.
+    \item Étendre cette démonstration au cas général des points
+      $M:(x,y)$ et $P:(y,x)$.
+    \item Construire par symétrie la courbe représentative de la
+      fonction logarithme.
+  \end{itemize}
+\end{exercice}
+
+\begin{center}
+  \begin{tikzpicture}
+    \tkzInit[xmin=-3,xmax=5,ymin=-3,ymax=5]
+    \tkzGrid
+    \tkzAxeXY
+    \draw [dashed] plot [domain=-3:5] (\x,\x) node [above right] {
+    $\Delta$ } ;
+    \draw [thick] plot [domain=-3:1.61] (\x,{exp(\x)}) ;
+  \end{tikzpicture}
+\end{center}
+
+\begin{propriete}
+  Pour tout nombre $x$ strictement positif et pour tout nombre $y$, \[
+  \ln(x) = y \iff x = e^y .\]
+\end{propriete}
+\begin{preuve}
+  On montre le sens direct puis le sens réciproque.
+  \begin{itemize}
+    \item[$\Rightarrow$] Soient $x > 0$ et $y$. $\ln(x) = y \implies
+      e^{\ln(x)} = e^y \implies x = e^y$.
+    \item[$\Leftarrow$] Soient $x > 0$ et $y$. $x = e^y \implies \ln(x)
+      = \ln(e^y) \implies \ln(x) = y$.
+  \end{itemize}
+\end{preuve}
+
+\begin{exercice}
+  Quelles conjectures peut-on former à propos de la fonction $\ln$ :
+  \begin{itemize}
+    \item continue ou non ;
+    \item croissante ou décroissante ;
+    \item limite en $-\infty$ et $+\infty$.
+  \end{itemize}
+\end{exercice}
+
+On peut cependant, sans attendre, démontrer que la fonction est
+strictement croissante.
+
+\begin{propriete}
+  La fonction $\ln$ est strictement croissante sur
+  $\interoo{0;+\infty}$.
+  \begin{preuve}
+    Soient $0< x < y$ deux réels. On peut écrire $e^{\ln(x)} <
+    e^{\ln(y)}$. Or $\exp$ est strictement croissante ($a<b \iff e^a <
+    e^b$) d'où $\ln(x) < \ln(y)$.
+  \end{preuve}
+\end{propriete}
+
+\begin{exercice}
+  \begin{itemize}
+    \item Compléter $0<x<y \iff $ ;
+    \item Démontrer que $x = y \iff \ln(x) = \ln(y)$.
+  \end{itemize}
+\end{exercice}
+
+\subsection{Compléments sur l'étude de fonction}
+
+\begin{remarque}
+  On admet que la fonction $\ln$ est continue sur $\R_+^*$. Le lecteur
+  intéressé pourra consulter
+  \href{https://fr.wikipedia.org/wiki/Th\%C3\%A9or\%C3\%A8me_de_la_bijection}{https://fr.wikipedia.org/wiki/Théorème\_de\_la\_bijection}
+  qui justifie ce point là.
+\end{remarque}
+
+\begin{propriete}
+  La fonction $\ln$ est dérivable sur $\interoo{0;+\infty}$ et sa
+  dérivée $\ln'$ est la fonction inverse ($\forall x \in \R_+^*,\
+  \ln'(x) = \frac1x$).
+\end{propriete}
+\begin{preuve}
+  On rappelle que $(f\circ u)' = u'\times f'\circ u$. Prenons $f = \exp$
+  et $u = \ln$.
+
+  Ainsi, on a $Id' = \ln'\times \exp' \circ \ln$
+
+  Or $Id: x\mapsto x$ donc $Id' = 1$ et $\exp' \circ \ln = \exp \circ
+  \ln = Id$
+
+  Donc pour $x \in \R_+^*,\ 1 = x \ln'(x)$ et donc $\ln'(x) = \frac1x.$
+\end{preuve}
+
+\begin{exercice}
+  Réécrire cette démonstration en détaillant avec la notation $f(u(x))$.
+
+  On suppose que $f$ et $g$ sont deux fonctions continues, dérivables,
+  réciproques l'une de l'autre et que de plus, $f'$ ne s'annule pas.
+  Exprimer $g'$ en fonction de $f$, $f'$ et $g$.
+\end{exercice}
+
+\begin{exercice}
+  Une autre démonstration avec le taux d'accroissement.
+
+  Soit $x$ un élément de $\R_+^*$, construisons $\tau_x(h)$ la fonction
+  de la variable $h$ qui donne le taux d'accroissement entre $x$ et $x +
+  h$. On va démontrer que $\lim_{h\to 0} \tau_x(h) = \frac1x$.
+
+  \begin{enumerate}
+    \item Écrire $\tau_x(h)$.
+    \item On pose $u = \ln(x+h)$ et $v = \ln(x)$. Exprimer $x+h$ et $x$
+      en fonction de $u$ et $v$ puis démontrer que $\tau_x(h) = \frac{u
+      -v}{e^u - e^v}$.
+    \item On pose $k = u - v$.
+      \begin{enumerate}
+        \item Exprimer $u$ en fonction de $v$ et $k$.
+        \item En déduire $\tau_x(h)$.
+        \item Démontrer que $\lim_{h\to0}k = 0$.
+        \item En écrivant le nombre dérivé de l'exponentielle en $v$,
+          démontrer que $\lim_{k\to0}\frac{e^{v+k} - e^v}{k} = x$ et en
+          déduire $\lim_{k\to0}\frac{k}{e^{v+k} - e^v}$.
+        \item En utilisant le théorème sur la limite d'une composée de
+          fonction, conclure quant à $\lim_{h\to 0}\tau_x(h)$
+      \end{enumerate}
+    \item Conclure.
+  \end{enumerate}
+\end{exercice}
+
+\begin{remarque}
+  La démonstration proposée et l'exercice présentant une autre
+  démonstration présentent tous les deux le même défaut de reposer sur
+  la dérivée d'une composée de fonction ou sur la limite d'une composée
+  de fonction\footnote{Mais la première proposition dépend \textit{in
+  fine} de la deuxième}.
+\end{remarque}
+
+On peut aussi démontrer les limites suivantes.
+
+\begin{propriete}
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item $\lim_{x\to+\infty}\ln x = +\infty$
+      \item $\lim_{x\to 0}\ln x = -\infty$
+    \end{itemize}
+  \end{multicols}
+\end{propriete}
+\begin{preuve}
+  \begin{itemize}
+    \item Soit $A = e^M$. Pour tout $x>A$, $\ln(x) > M$ par stricte
+      croissance de l'exponentielle (ou du logarithme). On en déduit le
+      résultat.
+    \item On pose $X = \frac1x$, puis on procéde par composition de
+      limite.
+  \end{itemize}
+\end{preuve}
+
+\begin{exercice}
+  Réécrire le deuxième point de la preuve en entier.
+\end{exercice}
+
+On peut résumer les variations et les limites dans le tableau de
+variation suivant.
+
+\begin{center}
+  \begin{tikzpicture}
+    \tkzTabInit[espcl=9]
+    {$x$/1,$\ln'(x)$/1,$\ln(x)$/2}
+    {0,$+\infty$}
+    \tkzTabLine{,+,}
+    \tkzTabVar{D-/$-\infty$,+/$+\infty$}
+    \tkzTabVal{1}{2}{0.33}{1}{0}
+    \tkzTabVal{1}{2}{0.67}{e}{1}
+  \end{tikzpicture}
+\end{center}
+
+On peut donc tracer la courbe représentatitive suivante.
+
+\begin{center}
+  \begin{tikzpicture}
+    \tkzInit[xmin=-2,xmax=12,ymin=-5,ymax=3]
+    \tkzGrid
+    \tkzAxeXY
+    \draw [thick] plot [smooth,domain=0.007:1] (\x,{ln(\x)}) ;
+    \draw [thick] plot [smooth,domain=1:12] (\x,{ln(\x)}) ;
+  \end{tikzpicture}
+\end{center}
+
+\subsection{Dévelopements limités et autres formules}
+
+On a aussi, de façon analogue aux résultats dits de développements
+limités ou de comparaisons, les résultats suivants.
+
+\begin{propriete}~\\[-6ex]
+  \begin{multicols}{3}
+    \begin{itemize}
+      \item $\lim_{x\to0}\frac{\ln(x+1)}x = 1$
+      \item $\lim_{x\to +\infty}\frac{\ln(x)}x = 0$
+      \item $\lim_{x\to 0}x\ln(x) = 0$
+    \end{itemize}
+  \end{multicols}
+\end{propriete}
+\begin{preuve}
+  Le premier se montrer par un raisonnement sur le nombre dérivé en 1.
+  Les deux autres, par un changement de variable.
+\end{preuve}
+
+\begin{exercice}
+  Démontrer rigoureusement ces trois limites.
+\end{exercice}
+
+La première s'interprète comme le comportement des fonctions $x\mapsto
+x$ et $x\mapsto \ln(x+1)$ dans un petit intervalle centré autour de 0
+est «similaire». Les suivantes s'interprète comme pour les
+exponentielles, ici on dira que $\ln$ croit moins vite que $x\mapsto x$.
+
+On a aussi une dérivée importante à noter.
+\begin{propriete}
+  Soit $u$ une fonction dérivable strictement positive (c'est à dire à
+  valeurs dans $\R_+^*$) définie sur un intervalle $I$.
+
+  $x\mapsto \ln(u(x))$ est dérivable et pour tout $x$ de $I$,
+  $(\ln(u(x))' = \frac{u'(x)}{u(x)}$.
+\end{propriete}
+
+\begin{exercice}
+  Réécrire la proposition précédente avec la notation formelle des
+  fonction pour l'expression de la dérivée.
+\end{exercice}
+
+\section{D'autres avatars du logarithme}
+
+\subsection{Le logarithme «non naturel»}
+
+\begin{definition}
+  Soit $a$ un réel strictement positif.
+
+  On appelle logarithme en base $a$ de $x$ et on note $\log_a(x)$ le
+  nombre $\log_a(x) = \frac{\ln(x)}{\ln(a)}$.
+\end{definition}
+
+Parmi toutes les bases $a$, deux bases retiennent particulièrement
+l'attention des mathématiciens et des physiciens : la base 2 et la base
+10.
+
+\begin{remarque}
+  Lorsque $a = 10$, on omet souvent de préciser la base et on note
+  $\log_a = \log$.
+\end{remarque}
+
+On peut se poser la question des variations de ces fonctions.
+
+\begin{propriete}
+  Si $a >1$, alors $\log_a$ a les même variations que $\ln$. Si $a<1$,
+  alors $\log_a$ a des variations opposées.
+\end{propriete}
+
+\begin{exercice}
+  Démontrer cette proposition.
+\end{exercice}
+
+\subsection{Retour à la physique}
+
+Et voilà, on sait désormais pourquoi on parle d'échelle logarithmique
+pour le pH ou pour les dB.
+
+\end{document}

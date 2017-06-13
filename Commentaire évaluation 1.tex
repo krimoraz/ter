@@ -1,0 +1,281 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{kpfonts}
+\usepackage{textcomp}
+\newcommand{\euro}{\eurologo{}}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\frenchbsetup{ItemLabels=\textbullet,}
+
+\usepackage{tabularx}
+\usepackage{enumitem}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+\usepackage[top=1.4cm,bottom=1.4cm,left=2cm,right=2cm,includehead,
+includefoot]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{fancybox}
+
+\usepackage[autolanguage]{numprint}
+\newcommand{\np}{\numprint}
+
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{\ifthenelse{\value{page}=1}{Nom:\dotfill\hfill Prénom: \dotfill
+\hfill ~}{}}
+\rhead{}
+\chead{}
+
+\rfoot{\upshape \small page {\thepage} de \pageref{LastPage}}
+\lfoot{}
+\cfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\usepackage{pdfmarginpar}
+
+\makeatletter
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{0.98\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+  \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\makeatother
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\theorembodyfont{\normalfont}
+\theoremstyle{nobreak}
+\newtheorem{exercice}{Exercice}
+
+%\theoremstyle{plain}
+\theoremstyle{nonumberplain}
+\newtheorem{probleme}{Problème}
+
+% Mise en forme des labels dans les énumérations
+\renewcommand{\labelenumi}{\textbf{\theenumi.}}
+\renewcommand{\labelenumii}{\textbf{\theenumii)}}
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\theenumii}{\alph{enumii}}
+
+\renewcommand{\labelitemi}{$\bullet$}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\R}{\mathbf{R}}
+
+\newcommand{\ligne}[1]{%
+  \begin{tikzpicture}[]
+    \draw[white] (0,#1+0.8) -- (15,#1+0.8) ;
+    \foreach \i in {1,...,#1}
+    { \draw[dotted] (0,\i) -- (\linewidth,\i) ; }
+    \draw[white] (0,0.6) -- (15,0.6) ;
+  \end{tikzpicture}%
+}
+
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\definecolor{fond}{RGB}{136,136,136}
+\definecolor{sicolor}{RGB}{128,0,128}
+\definecolor{tantquecolor}{RGB}{221,111,6}
+\definecolor{pourcolor}{RGB}{187,136,0}
+\definecolor{bloccolor}{RGB}{128,0,0}
+\newenvironment{cadrecode}{%
+  \def\FrameCommand{{\color{fond}\vrule width
+  5pt}\fcolorbox{fond}{white}}%
+  \MakeFramed {\hsize \linewidth \advance\hsize-\width
+\FrameRestore}\begin{footnotesize}}%
+{\end{footnotesize}\endMakeFramed}
+\makeatletter
+\def\therule{\makebox[\algorithmicindent][l]{\hspace*{.5em}\color{fond}
+\vrule width 1pt height .75\baselineskip depth .25\baselineskip}}%
+\newtoks\therules
+\therules={}
+\def\appendto#1#2{\expandafter#1\expandafter{\the#1#2}}
+\def\gobblefirst#1{#1\expandafter\expandafter\expandafter{\expandafter\@gobble\the#1}}%
+\def\Ligne{\State\unskip\the\therules}% 
+\def\pushindent{\appendto\therules\therule}%
+\def\popindent{\gobblefirst\therules}%
+\def\printindent{\unskip\the\therules}%
+\def\printandpush{\printindent\pushindent}%
+\def\popandprint{\popindent\printindent}%
+\def\Variables{\Ligne \textcolor{bloccolor}{\textbf{VARIABLES}}}
+\def\Si#1{\Ligne \textcolor{sicolor}{\textbf{SI}} #1
+\textcolor{sicolor}{\textbf{ALORS}}}%
+\def\Sinon{\Ligne \textcolor{sicolor}{\textbf{SINON}}}%
+\def\Pour#1#2#3{\Ligne \textcolor{pourcolor}{\textbf{POUR}} #1
+  \textcolor{pourcolor}{\textbf{ALLANT\_DE}} #2
+\textcolor{pourcolor}{\textbf{A}} #3}%
+\def\Tantque#1{\Ligne \textcolor{tantquecolor}{\textbf{TANT\_QUE}} #1
+\textcolor{tantquecolor}{\textbf{FAIRE}}}%
+\algdef{SE}[WHILE]{DebutTantQue}{FinTantQue}
+{\pushindent \printindent
+\textcolor{tantquecolor}{\textbf{DEBUT\_TANT\_QUE}}}
+{\printindent \popindent
+\textcolor{tantquecolor}{\textbf{FIN\_TANT\_QUE}}}%
+\algdef{SE}[FOR]{DebutPour}{FinPour}
+{\pushindent \printindent
+\textcolor{pourcolor}{\textbf{DEBUT\_POUR}}}
+{\printindent \popindent
+\textcolor{pourcolor}{\textbf{FIN\_POUR}}}%
+\algdef{SE}[IF]{DebutSi}{FinSi}%
+{\pushindent \printindent
+\textcolor{sicolor}{\textbf{DEBUT\_SI}}}
+{\printindent \popindent
+\textcolor{sicolor}{\textbf{FIN\_SI}}}%
+\algdef{SE}[IF]{DebutSinon}{FinSinon}
+{\pushindent \printindent
+\textcolor{sicolor}{\textbf{DEBUT\_SINON}}}
+{\printindent \popindent
+\textcolor{sicolor}{\textbf{FIN\_SINON}}}%
+\algdef{SE}[PROCEDURE]{DebutAlgo}{FinAlgo}
+{\printandpush
+\textcolor{bloccolor}{\textbf{DEBUT\_ALGORITHME}}}%
+{\popandprint
+\textcolor{bloccolor}{\textbf{FIN\_ALGORITHME}}}%
+\makeatother
+\newenvironment{algobox}%
+{%
+  \begin{ttfamily}
+    \begin{algorithmic}[1]
+      \begin{cadrecode}
+        \labelwidth 1.5em
+        \leftmargin\labelwidth
+        \addtolength{\leftmargin}{\labelsep}
+      }
+      {%
+      \end{cadrecode}
+    \end{algorithmic}
+  \end{ttfamily}
+}
+
+\newcommand{\maximaout}[3]{%
+\begin{framed}%
+  {\ttfamily \textcolor{red}{(\%i#1)} #2\\%
+      \textcolor{brown}{(\%o#1)} #3}%
+\end{framed}%
+}
+\usepackage{wasysym}
+
+\newcommand{\vf}{%
+  \Square{}~ Vrai \-\- \Square{}~ Faux%
+}
+
+\renewcommand{\Vec}[1]{\overrightarrow{#1}}
+\newcommand{\ProSca}[2]{#1 \cdot #2}
+
+\title{Commentaires sur l'évaluation \no 1}
+\author{TS3}
+\date{2 octobre 2015}
+
+\begin{document}
+
+\maketitle
+
+\emph{Compétences :}
+\begin{itemize}
+  \item Étudier la limite d'une somme, d'un produit ou d'un quotient de
+    deux suites ;
+  \item Savoir mener un raisonnement par récurrence ;
+  \item Construire un arbre pondéré de probabilités.
+\end{itemize}
+
+\begin{exercice}[Limite de suite]~
+
+  Dans l'ensemble, l'exercice a été assez bien réussi. Attention, parmi
+  les erreurs (non sanctionnées pour l'instant) :
+  \begin{itemize}
+    \item il faut préciser que la factorisation est vraie $\forall
+      n\in\N$, en écrivant par exemple «$\forall n\in\N,\ u_n = n^2 -3n
+      = n(n-3)$ ;
+    \item il faut écrire si la forme est indéterminée en toutes lettres
+      ;
+    \item il faut citer la règle utilisée («produit de deux suites de
+      limite infinie»).
+  \end{itemize}
+  Pour les théorèmes de comparaison ou d'encadrement, il faut préciser
+  le «domaine de validité» des encadrements ou majoration, c'est-à-dire
+  le rang à partir du quel cette majoration est vraie. Celui-ci
+  peut-être nul.
+
+  Attention à bien définir les suites utilisées si vous le faites :
+  «Soit la suite $(v_n)_{n\in\N}$ définie par $\forall n\in\N,\ v_n =
+  f(n)$, où $f(n)$ est une expression.
+\end{exercice}
+
+\begin{exercice}[Récurrence]~
+
+  Plusieurs points de vigilance :
+  \begin{itemize}
+    \item $P(n)$ est une proposition, c'est à dire une phrase que je
+      peut mettre entre guillemets et qui contient la lettre
+      \emph{variable} $n$ ;
+    \item $P(n)$ ne peut contenir le quantificateur universel
+      ($\forall$) appliqué à la variable $n$ ;
+    \item si la propriété est à démontrer pour $n\in\N$, il faut
+      initialiser à $n=0$, si la propriété est à démontrer pour
+      $n\in\N^*$, il faut initialiser à $n=1$ ;
+    \item il faut écrire tous les calculs algébrique permettant
+      d'obtenir la proposition $P(n+1)$, un bon début est de partir de
+      l'hypothèse de récurrence et de «dérouler les calculs» jusqu'à
+      obtenir l'expression présente dans $P(n+1)$ ;
+    \item les lignes de calculs entretiennent souvent un rapport les
+      unes entres elles, il faut donc le matérialiser : « les égalités
+      suivantes sont successcivement équivalentes» ou placer le symbole
+      d'équivalence logique «$\iff$» devant chacune des lignes ;
+    \item ne pas oublier de conclure dans la récurrence : c'est le cumul
+      de l'initialisation et de la vérification de l'hérédité, qui
+      valide l'affirmation finale.
+  \end{itemize}
+\end{exercice}
+
+\begin{exercice}[Probabilités conditionnelles]~
+
+  Exercice bien réussi dans l'ensemble, à l'exception de deux erreurs
+  fondamentales :
+  \begin{itemize}
+    \item il faut préciser la signification des événements considérés ;
+    \item une probabilité est un nombre compris entre 0 et 1.
+  \end{itemize}
+\end{exercice}
+
+\end{document}

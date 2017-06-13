@@ -1,0 +1,487 @@
+\documentclass[11pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-base}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\Cf}{\mathscr{C}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{mdframed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+%\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{
+  headings = block,
+  question/pre-hook = \mdframed,
+  question/post-hook = \endmdframed,
+}
+
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Devoir maison \no 4 : Intégration}
+\author{\bsc{Jumel}}
+\date{pour le 20 avril 2017}
+
+\begin{document}
+
+\noindent\maketitle
+
+\bigskip
+
+Le but de ce devoir est d'approfondir la notion d'intégrale dans
+différents cas de figures. Les parties de ce devoir sont largement
+indépendantes les unes des autres.
+
+\section{Intégration par parties}
+
+On a vu en cours que l'intégrale d'un produit et le produit d'intégrale
+différent. On a cependant vu que si $f$ s'écrit sous certaines formes,
+alors $f$ possède une primitive.
+
+\begin{question}
+  Donner les cas où $f$ est un produit de deux fonctions et $f$ possède
+  une primitive.
+\end{question}
+\begin{solution}
+  On peut citer les cas suivants :
+  \begin{itemize}
+    \item le produit d'une fonction polynomiale et d'une exponentielle
+      ou d'un (co)sinus ;
+    \item les formes $u'e^u$ ;
+    \item les formes $u' \times \frac1u$.
+  \end{itemize}
+\end{solution}
+
+Le but de l'exercice qui vient est de voir plus précisement dans quels
+cas on peut intégrer un produit et comment procéder.
+
+\begin{question} Dans cet exercice, $u$ et $v$ sont deux fonctions.
+  \begin{enumerate}
+    \item Écrire la formule de dérivation du produit $uv$.
+    \item Exprimer $uv'$ en fonction de $(uv)'$ et de $u'v$.
+    \item À quelle condition $uv'$ est elle intégrable ? Même question
+      pour $u'v$. En déduire une condition sur $u$ et $v$.
+    \item Que vaut $\int_a^b (uv)'(x) \diff x$.
+    \item Exprimer $\int_a^b u(x)v'(x) \diff x$. Cette dernière égalité
+      est connue sous le nom de \emph{formule d'intégration par parties}
+      sous réserve d'existence dans les conditions définies au 3.
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item $(uv)' = u'v + uv'$
+    \item $uv' = (uv)' - u'v$
+    \item $uv'$ est intégrable si et seulement si $(uv)'$ et $u'v$ sont
+      continues. Par symétrie, on en déduit que $u$ et $v$ doivent être
+      dérivables à dérivée continue.
+    \item $\int_a^b (uv)'(x) \diff x = \big[ (uv)(x) \big]_a^b$
+    \item $\int_a^b u(x)v'(x) \diff x = \big[ (uv)(x) \big]_a^b -
+      \int_a^b u'(x)v(x) \diff x$. Cette dernière égalité
+      est connue sous le nom de \emph{formule d'intégration par parties}
+      sous réserve d'existence dans les conditions définies au 3.
+  \end{enumerate}
+\end{solution}
+
+On peut désormais, sous de nouvelles conditions, intégrer des produits.
+L'exercice suivant permettra de préciser ces conditions et cette mise en
+œuvre.
+
+\begin{question}
+  À l'aide d'une intégration par parties, calculer :
+  \begin{itemize}
+    \item $\int_0^1 xe^x \diff x$
+    \item $\int_0^1 x^2e^x \diff x$
+    \item $\int_1^e x\ln x \diff x$
+  \end{itemize}
+\end{question}
+\begin{solution}
+  \begin{itemize}
+    \item On pose $u(x) = x$ et $v'(x) = e^x$.  $u'(x) = 1$ et $v(x) =
+      e^x$. $\int_0^1 xe^x \diff x = [xe^x]_0^1 - \int_0^1 e^x \diff x =
+      e - e + 1 = 1$
+    \item On pose $u(x) = x^2$ et $v'(x) = e^x$.  $u'(x) = 2x$ et et
+      $v(x) = e^x$. on trouve, de la mêm façon que précédement $\int_0^1
+      x^2e^x \diff x = e - 2$.
+    \item On pose $u(x) = \ln(x) $ et $v'(x) = x^2$, ainsi $u'(x) =
+      \frac1x$ et $v(x) = x^3/3$, mais $u'(x)v(x) = x^2/3$ et donc on
+      obtient $\int_1^e x\ln x \diff x = [x^3/3\ln x]_1^e - \int_1^e
+      x^2/3 \diff x = \frac{e^3}3 + \frac19 - \frac{e^3}9$.
+  \end{itemize}
+\end{solution}
+
+On peut aussi appliquer cette formule de calcul à la recherche de
+primitives. Démontrons ainsi qu'une primitive de $\ln$ est $x \mapsto
+x\ln x - x$.
+
+\pagebreak
+
+\begin{question}
+  ~\\[-5mm]
+  \begin{enumerate}
+    \item Démontrer, en dérivant, l'affirmation précédente.
+    \item
+      \begin{enumerate}
+        \item On pose $u(x) = \ln x$ et $v'(x) = 1$. Donner une
+          primivite de $v'$ notée $v$ et $u'$ la dérivée de $u$.
+        \item Calculer, à l'aide d'une intégration par parties,
+          $\int_e^t 1\times \ln x \diff x$
+        \item En déduire la primitive de $\ln$. En quelle valeur
+          s'annule-t-elle ?
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item $x\ln x - x $ se dérive en $\ln x + x\frac1x - 1 = \ln x$
+    \item
+      \begin{enumerate}
+        \item $v(x) = x$, $u'(x) = \frac1x$
+        \item On applique la formule
+        \item La primitive s'annule en $e$.
+      \end{enumerate}
+  \end{enumerate}
+\end{solution}
+
+\section{Changement de variable}
+
+Dans certains cas, et c'est d'ailleurs ce qui se passe avec les formes
+du «deuxième» type dans le cours, il est pratique de passer par une
+fonction intermédiaire. Donnons sans plus attendre le théorème en
+question. Le premier exercice de cette partie constituera la preuve de
+ce théorème et les exercices suivants en seront des exemples
+d'applications.
+
+\begin{definition}
+  Une application $\varphi$ continue bijective, à dérivée continue et
+  bijective s'appelle un $\mathcal{C}^1$-difféomorphisme.
+\end{definition}
+
+\begin{theoreme}
+  Soit $f$ une fonction continue et $\varphi$ un
+  $\mathcal{C}^1$-difféomorphisme telle que $\varphi(\interff{a;b})
+  \subset \mathcal{D}_f$. \[ \int_{\varphi(a)}^{\varphi(b)}f(x) \diff x
+  = \int_a^bf(\varphi(t))\varphi'(t) \diff t.\]
+\end{theoreme}
+
+Commençons par la démonstration de ce théorème.
+
+\begin{question}
+  Soit $F$ une primitive de $f$ sur $\mathcal{D}_f$.
+  \begin{enumerate}
+    \item Justifier de l'existence de $F$.
+    \item Rappeller la formule de calcul de la dérivée d'une fonction
+      composée.
+
+      L'appliquer à la fonction $F\circ \varphi$.
+    \item Intégrer l'égalité précédente à droite et à gauche entre $a$
+      et $b$.
+    \item Écrire le membre de droite sous la forme de la différence des
+      valeurs extrémales de la primitive sur l'intervalle
+      $\interff{a;b}$.
+    \item Écrire cette dernière égalité sous la forme d'une nouvelle
+      intégrale.
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item $F$ existe car on a supposé $f$ continue.
+    \item $[f(u(x))]' = u'(x)f'(u(x))$
+
+      Avec la notation $F\circ \varphi$, on a $(F\circ \varphi)' = \varphi'
+      \times F'\circ \varphi$.
+    \item On peut donc écrire $\int_a^b (F\circ \varphi)'(x) \diff x =
+      \int_a^b \varphi'(x) \times F'\circ \varphi(x) \diff x$
+    \item $\int_a^b \varphi'(x) \times F'\circ \varphi(x) \diff x =
+      F\circ \varphi(b) - F\circ \varphi(a) =
+      [F(x)]_{\varphi(a)}^{\varphi(b)}$
+    \item $\int_a^b \varphi'(x) \times F'\circ \varphi(x) \diff x =
+      \int_{\varphi(a)}^{\varphi(b)} F(x) \diff x$.
+  \end{enumerate}
+\end{solution}
+
+Ce résultat une fois acquis, les exercices suivants de difficulté
+croissante permettront de mettre en œuvre cette méthode de calcul.
+
+\begin{question}
+  Calculer $\int_0^1 \frac1{1+\sqrt{x}}\diff x$.
+
+  \emph{On pourra poser $y = \sqrt{x}$.}
+\end{question}
+\begin{solution}
+  On pose $y = \sqrt{x}$, d'où $y^2 = x$ sur $[0;1]$ et $\diff x = 2 y
+  \diff y$. $\frac1{1+\sqrt{x}}\diff x$ devient donc $\frac{2y}{1+y}
+  \diff y$
+  
+  On peut ensuite intégrer par parties et on trouve $2 - \ln(2)$.
+\end{solution}
+
+\pagebreak
+
+\begin{question}~\\[-5mm]
+  \begin{enumerate}
+    \item \begin{enumerate}
+        \item Justifier par un raisonnement géométrique que $\int_0^1
+          \sqrt{1 - x^2} \diff x = \frac{\pi}4$.
+        \item En utilisant le changement de variable $x = \sin y$,
+          retrouver ce résultat par le calcul.
+
+          \emph{$\sin' = \cos$}
+      \end{enumerate}
+    \item \begin{enumerate}
+        \item On définit, pour tout $x$ réel les fonctions $\cosh x =
+          \frac{e^x + e^{-x}}2$ et $\sinh x = \frac{e^x - e^{-x}}2$.
+
+          Calculer $\cosh'$ et $\sinh'$. En déduire les primitives de
+          $\cosh$ et $\sinh$.
+        \item Calculer $\int_0^1 \sqrt{1 + x^2} \diff x$
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item La courbe est un quart de cercle et l'intégrale est l'aire
+          sous la courbe.
+        \item On pose $x = \sin t$. $\sqrt{1 - x^2} \diff x = \sqrt{1 -
+          \sin^2 t} \diff \sin t = \cos t \cos t \diff t $ Pour $x = 0$,
+          on ttrouve $t = 0$, et pour $x = 1$, on trouve $t = \pi$. On a
+          donc $\int_0^1 \sqrt{1 - x^2} \diff x = \int_0^{\pi} \cos^2 t
+          \diff t$. On en déduit alors le résultat.
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item $\cosh' = \sinh$ et $\sinh' = \cosh$
+        \item Le calcul est très similaire au précédent.
+      \end{enumerate}
+  \end{enumerate}
+\end{solution}
+
+On peut ensuite retrouver un résultat intéressant : l'aire d'un disque.
+
+\begin{question}
+  L'équation d'un cercle de rayon $r$ est donnée par la relation $x^2 +
+  y^2 = r^2$.
+
+  \begin{enumerate}
+    \item Exprimer $y$ en fonction de $x$.
+    \item Justifier que $\mathcal{A} = 2\int_{-r}^r \sqrt{r^2 - x^2}
+      \diff x$ est l'aire d'un cercle.
+    \item Calculer $\mathcal{A}$ à l'aide du changement de variable $x =
+      r\cos y$.
+    \item Conclure.
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item On trouve $y^2 = \sqrt{r^2 - x^2}$ soit encore $y = \pm
+      \sqrt{r^2 - x^2}$.
+    \item On s'intéresse donc à la partie positive et on doublera le
+      résultat ainsi obtenu.
+    \item Le changement de variable proposé donne $2r^2 \int_{-\pi}^{\pi}
+      \cos y \sin y \diff y$
+    \item On trouve bien $\mathcal{A} = \pi r^2$.
+  \end{enumerate}
+\end{solution}
+
+Ce dernier exercice est de loin le plus dur qu'il comporte une intégrale
+impropre ou intégrale généralisée. On admettra la proposition-définition
+suivante :
+\begin{proposition}
+  Soit $f$ une fonction intégrable sur $\interfo{1;+\infty}$. \[
+    \int_1^{+\infty} f(x) \diff x = \lim_{L\to +\infty} \int_1^L f(x)
+  \diff x.\] sous réserve d'existence dans $\R$ de cette limite.
+\end{proposition}
+
+\begin{question}
+  Soit à calculer $\int_1^{+\infty} \frac{\diff x}{x\sqrt{1+x^2}}$.
+
+  \begin{enumerate}
+    \item Justifier que $y = \sqrt{1 + x^2}$ est un changement de
+      variable.
+    \item Effectuer ce changement de variable.
+    \item Vérifier que $\frac1{y^2 - 1} = \frac12 \left(\frac1{y - 1} -
+      \frac1{y + 1}\right)$
+    \item Écrire $\int_1^L \frac{\diff x}{x\sqrt{1+x^2}}$ à l'aide d'une
+      primitive.
+    \item Conclure en donnant la valeur exacte de l'intégrale.
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item $y = \sqrt{1 + x^2}$ est un changement de variable car $x
+      \mapsto \sqrt{1 + x^2}$ est bien une fonction continue, dérivable
+      à dérivée continue.
+    \item Le changement de variable donne 
+    \item $\frac12 \left(\frac1{y - 1} - \frac1{y + 1}\right) = \frac12
+      \left( \frac{y + 1}{y^2 - 1} - \frac{y - 1}{y^2 - 1} \right) =
+      \frac1{y^2 - 1}$
+  \end{enumerate}
+\end{solution}
+
+\section{Intégration dans $\R^n$}
+
+Faire le T.D. 46 p 211.
+
+\pagebreak
+
+\printsolutions
+\end{document}
+
+Les sources
+
+https://fr.wikipedia.org/wiki/Int%C3%A9gration_par_changement_de_variable
+https://fr.wikiversity.org/wiki/Changement_de_variable_en_calcul_int%C3%A9gral/Exercices/Changement_de_variable_tr%C3%A8s_facile
+https://fr.wikiversity.org/wiki/Changement_de_variable_en_calcul_int%C3%A9gral/Exercices/Changement_de_variable_facileo
+http://gecif.net/articles/mathematiques/integrale/#1
+
+

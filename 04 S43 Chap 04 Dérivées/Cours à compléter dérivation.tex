@@ -1,0 +1,379 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{smallmatrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{smallmatrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+%\newcommand*{\versioncomplet}{}
+\newcommand{\complet}[2]{%
+  \ifdefined\versioncomplet
+    {\color{blue} #2}
+  \else
+   ~\\\hspace{0.98\linewidth}\vspace{#1}
+  \fi
+}
+
+
+\makeatother
+
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exercice}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{probleme}{Problème}
+\newtheorem{preuve}{Preuve}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Dérivation des fonctions}
+\author{Terminale S}
+\date{novembre 2016}
+
+\begin{document}
+
+\maketitle
+
+Dans tout ce document, $f$ désigne une fonction continue et
+$\interff{a,b}$ un intervalle de $\R$.
+
+\section{Nombre dérivé -- fonction dérivée}
+
+En classe de première, le nombre dérivé est défini comme limite du taux
+d'accroissement en un point, sachant que la limite est une notion encore
+mal définie.
+
+On peut désormais poser la définition suivante :
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \complet{4cm}{%
+      \begin{definition}
+        $f$ est dérivable en $x_0\in\interoo{a,b}$ si
+        $\lim_{\substack{h\to x_0 \\ h<x_0}} \frac{f(x_0 + h) - f(x_0)}h
+        = \lim_{\substack{h\to x_0 \\ h>x_0}} \frac{f(x_0 + h) -
+        f(x_0)}h = d$, un nombre fini.
+
+        Cette limite s'appelle nombre dérivé de $f$ en $x_0$ et se note
+        $f'(x_0)$
+      \end{definition}%
+    }
+  \end{minipage}
+}
+
+\begin{center}
+  \begin{tikzpicture}[scale=1,
+      use Hobby shortcut,
+      tangent/.style={%
+        in angle={(180+#1)},
+        Hobby finish,
+        designated Hobby path=next,
+        out angle=#1,
+      },>=latex,
+    ]
+    \draw [dotted, help lines, line width=0.6pt] (-6,-1) grid (6,6) ;
+    \draw [dotted, help lines, step=0.5] (-6,-1) grid (6,6) ;
+    \draw [very thick, ->] (0,-1) -- (0,6) ;
+    \draw [very thick, ->] (-6,0) -- (6,0) ;
+    \draw [thick] ([tangent=-45]-4,5) .. ([tangent=-45]-2.5,1.5) ..
+    ([tangent=0]-1,1) .. ([tangent=45]0,1.5) .. ([tangent=0]1,2) .. (2,1.5) ..
+    ([tangent=0]4,0) ;
+    \draw[thick,->] (-2.5,1.5) -- +(-45:1) ;
+    \draw[thick,->] (-2.5,1.5) -- +(-45:-1) ;
+    \draw[thick,->] (0,1.5) -- +(45:1) ;
+    \draw[thick,->] (0,1.5) -- +(45:-1) ;
+     \foreach \x/\y in {-4/5,-2.5/1.5,0/1.5,2/1.5,4/0}
+    { \draw (\x,\y) node [circle,fill,inner sep=1pt] {} ; }
+    \draw (-4,5) node [above right] {$\mathscr{C}_f$} ;
+  \end{tikzpicture}
+\end{center}
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \complet{3cm}{%
+      \begin{definition}
+        La fonction dérivée de $f$ sur $\interff{a,b}$ est la fonction
+        qui à tout $x$ de $\interff{a,b}$ associe le nombre dérivé en
+        $x$.
+
+        On note cette fonction $f'$.
+      \end{definition}%
+    }
+  \end{minipage}
+}
+
+\begin{remarque}
+  Dans certains cas, on ne peut associer de nombre dérivé en un point.
+
+  Dans ce cas, la dérivée présente une discontinuité.
+\end{remarque}
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{theoreme}
+      \complet{2cm}{%
+        \begin{itemize}
+          \item Si $f$ est dérivable en $a$, alors $f$ est continue en
+            $a$.
+          \item Si $f$ est dérivable sur $I$ intervalle de $\R$, alors
+            $f$ est continue sur $I$.
+        \end{itemize}
+      }
+    \end{theoreme}
+  \end{minipage}
+}
+
+\begin{remarque}
+  La réciproque de ce théorème est fausse en général.
+\end{remarque}
+
+Les opérations sur les limites nous permettent d'écrire la propriété
+suivante :
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{propriete}
+      \complet{2cm}{%
+        \begin{itemize}
+          \item $(f+g)' = f'+g'$
+          \item $(\lambda f)' = \lambda f'$
+        \end{itemize}
+      }
+    \end{propriete}
+  \end{minipage}
+}
+
+On a aussi la propriété suivante sur la dérivée du produit de deux
+fonctions dérivables.
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{propriete}
+      \complet{2cm}{%
+        \begin{itemize}
+          \item $(f+g)' = f'+g'$
+          \item $(\lambda f)' = \lambda f'$
+        \end{itemize}
+      }
+    \end{propriete}
+  \end{minipage}
+}
+
+
+Cette proriété justifie que l'essentiel soit de construire le tableau
+des dérivées.
+
+\begin{center}
+  \begin{tabular}{|p{5cm}|p{5cm}|}\hline
+    $f:\R\to\R,\ x\mapsto k,\ k\in \R$ & \complet{1cm}{$f':\R\to\R,\ x\to 0$} \\ \hline
+    $f:\R\to\R,\ x\mapsto x$ & \complet{1cm}{$f':\R\to\R,\ x\to 1$} \\ \hline
+    $f:\R\to\R,\ x\mapsto x^2$ & \complet{1cm}{$f':\R\to\R,\ x\to 2x$} \\ \hline
+    $f:\R^*\to\R^*,\ x\mapsto \frac1x $ & \complet{1cm}{$f':\R^*\to\R^*,\ x\to -\frac1{x^2}$} \\ \hline
+    $f:\R_+\to\R_+,\ x\mapsto \sqrt{x}$ & \complet{1cm}{$f':\R_+^* \to \R_+^*,\ x\to \frac1{2\sqrt{x}}$} \\ \hline
+  \end{tabular}
+\end{center}
+
+\section{Dérivation d'une fonction composée}
+
+Soit $u$ une fonction définie et dérivable sur $\interff{a,b}$.
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{propriete}
+      \complet{2cm}{%
+        $u^n$ est dérivable et sa dérivée est $x\mapsto nu'(x)u^{n-1}(x)$
+    }
+    \end{propriete}
+  \end{minipage}
+}
+
+\begin{exemple}
+  Sans développer dériver la fonction définie pour tout réel par
+  $f(x)=(x^2 + 2x -3)^3$.
+\end{exemple}
+
+On suppose que $u(x)$ ne s'annule pas $\interff{a,b}$
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{propriete}
+      \complet{2cm}{%
+        $x\mapsto \frac1{u(x)}$ est dérivable et sa dérivée est
+        $x\mapsto -\frac{u'(x)}{(u(x))^2}$.
+    }
+    \end{propriete}
+  \end{minipage}
+}
+
+\begin{exemple}
+  Dériver $x\mapsto \frac1{x^2 +1}$
+\end{exemple}
+
+On suppose que pour tout $x$ de $\interff{a,b}$, $u(x) > 0$.
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{propriete}
+      \complet{2cm}{%
+        $x\mapsto\sqrt{u(x)}$ est dérivable et sa dérivée est $x\mapsto
+        \frac{u'(x)}{2\sqrt{u(x)}}$
+    }
+    \end{propriete}
+  \end{minipage}
+}
+
+\begin{exemple}
+  Dériver la fonction définie sur $\R$ par $f(x) = \sqrt{x^2 + 2x + 2}$
+\end{exemple}
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{theoreme}
+      \complet{2cm}{%
+        Sous réserve d'existence, la dérivée de $f(u(x))$, notée $f\circ
+        u$ est $u'\times f'(u(x)) = u'\times (f'\circ u)$
+   }
+    \end{theoreme}
+  \end{minipage}
+}
+
+
+
+\end{document}

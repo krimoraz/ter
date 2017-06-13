@@ -1,0 +1,785 @@
+\documentclass[11pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-base}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\Cf}{\mathscr{C}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\diff}[1]{\mathrm{d}\,#1}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+%\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Intégration}
+\author{\bsc{Jumel}}
+\date{février 2017}
+
+\begin{document}
+
+\noindent\maketitle
+
+\bigskip
+
+Donnons tout d'abord une présentation générale de la notion
+d'intégration avant de démontrer, dans le formalisme du langage
+mathématiques, un certain nombre de résultat.
+
+Intégrer une fonction, ou en effectuer la quadrature, c'est initialement
+rechercher un rectangle de même aire. Le problème le plus célèbre est
+celui de la quadrature du cercle dont Gauss puis Wantzel démontrèrent
+qu'il n'avait pas de solution\footnote{à la règle et au compas}. Cette
+recherche extrèmement féconde amena les mathématiciens de diverses
+époques à élaborer une nouvelle théorie, celle de l'intégration. Cette
+théorie constitue désormais un fondement des mathématiques, en
+particulier lorsque Lebesgue puis Kolmogorov l'associèrent aux
+probabilités.
+
+Afin de rendre ce problème dans le langage moderne, nous étudierons
+d'abord la vision géométrique dans le cas des fonctions continues
+positives puis nous verrons comment étendre cette définition aux
+fonctions continues et ensuite, nous verrons comment calculer
+effectivement une intégrale dans des cas simples. Pour conclure, nous
+ferons le lien de cette intégrale avec d'autres domaines des
+mathématiques ou des sciences.
+
+\bigskip
+
+Dans ce cours, $f$ désigne une fonction définie et continue sur $I =
+\interff{a;b}$ un intervalle de $\R$ où $a<b$ sont deux nombres réels.
+On notera $\Cf_f$ sa courbe représentative de la fonction $f$.
+
+\section{Calculer une aire}
+\begin{minipage}{0.74\linewidth}
+On va dans un premier temps s'intéresser aux fonctions positives. Pour
+$f$ une telle fonction, notons $\mathscr{D}(f)(a,b)$ le domaine limité
+par $\Cf_f$, l'axe des abscisses $y=0$ et les droites d'équations $x=a$
+et $x=b$.
+\end{minipage}
+\begin{minipage}{0.24\linewidth}
+\begin{tikzpicture}
+  \tkzInit[xmin=0,ymin=0,xmax=4.5,ymax=3.5]
+  \tkzDrawXY[noticks=true]
+
+  \draw [fill=lightgray!50] plot [smooth, domain=1:4] (\x,{(\x -1)*(\x
+  -3)*(\x -4) + 1}) -- (4,0) -- (1,0) -- cycle ;
+  \draw [thick] plot [smooth, domain=1:4] (\x,{(\x -1)*(\x -3)*(\x -4) +
+  1}) ;
+
+  \draw [thick] (1,0) node [below] {$a$} -- (1,1) node [fill, circle,
+  inner sep = 1pt] {} ;
+  \draw [thick] (4,0) node [below] {$b$} -- (4,1) node [fill, circle,
+  inner sep = 1pt] {} ;
+\end{tikzpicture}
+\end{minipage}
+\subsection{Définition}
+
+\begin{minipage}{0.74\linewidth}
+\begin{definition}[Sommes de Darboux]
+  On considère une subdivision de l'intervalle $\interff{a;b}$ en $n$
+  points équidistants et on considère les rectangles construits en $f(a
+  + i\Delta x)$ pour $i$ variant de 0 à $n -1$.
+
+  La somme $\sum_{i=0}^nf(a + i\Delta x)\Delta x$ s'appelle somme de
+  Darboux de $f$ sur l'intervalle $\interff{a;b}$.
+\end{definition}
+\end{minipage}
+\begin{minipage}{0.24\linewidth}
+\begin{tikzpicture}
+  \tkzInit[xmin=0,ymin=0,xmax=4.5,ymax=3.5]
+  \tkzDrawXY[noticks=true]
+
+  \draw [thick] plot [smooth, domain=1:4] (\x,{(\x -1)*(\x -3)*(\x -4) +
+  1}) ;
+
+  \draw [thick] (1,0) node [below] {$a$} -- (1,1) node [fill, circle,
+  inner sep = 1pt] {} ;
+  \draw [thick] (4,0) node [below] {$b$} -- (4,1) node [fill, circle,
+  inner sep = 1pt] {} ;
+
+  \foreach \x in {0,1,...,9} {
+    \draw ({1+\x*3/10}, 0) rectangle ({1+(\x+1)*3/10},
+    {(1+(\x+1)*3/10-1)*(1+(\x+1)*3/10 -3)*(1+(\x+1)*3/10 -4) +1}) ;
+  }
+\end{tikzpicture}
+\end{minipage}
+
+On peut observer plusieurs choses :
+\begin{itemize}
+  \item La somme des rectangles approche le domaine ;
+  \item en ne prenant que des rectangles sous la courbe, la somme sera
+    plus incluse dans le domaine ;
+  \item en ne prenant que des rectangles au dessus de la courbe, le
+    domaine sera inclus dans la somme.
+\end{itemize}
+
+\begin{definition}[Intégrale d'une fonction positive]\label{def:int_pos}
+  On appelle intégrale d'une fonction positive l'aire du domaine limité
+  par $\Cf_f$, l'axe des abscisses $y=0$ et les droites d'équations
+  $x=a$ et $x=b$.
+
+  On le note $\int_a^bf(x)\diff{x}$.
+\end{definition}
+
+\begin{remarque}
+  \begin{itemize}
+    \item L'écriture précédente se lit «intégrale de $a$ à $b$ de $f$ de
+      $x$, $\diff{x}$».
+    \item On dit aussi parfois «somme intégrale».
+    \item Le $\int$ est un \textsl{S} allongé.
+    \item Le $\diff{x}$ indique la variable d'intégration : ainsi
+      $\int_a^bf(x)\diff{x} = \int_a^bf(t)\diff{t}$.
+    \item Physiquement, cet élément différentiel est homogène à une
+      longueur ou à un temps.
+  \end{itemize}
+\end{remarque}
+
+\begin{exercice}
+  À l'aide d'un raisonnement géométrique, donner l'intégrale entre $0$
+  et $1$ des fonctions suivantes :
+  \begin{itemize}
+    \item la fonction constante égale à 1.
+    \item la fonction constante égale à $k$, un réel strictement
+      positif.
+    \item la fonction $x\mapsto x$.
+    \item la fonction $x\mapsto 2x+3$.
+  \end{itemize}
+  \emph{Indication :} Dessinez les fonctions dans un repère et reprenez
+  les formules de calcul d'aires.
+\end{exercice}
+
+\begin{exercice}
+  Toujours à l'aide d'un raisonnement géométrique, expliquer comment on
+  peut décomposer l'aire de la dernière des fonctions.
+\end{exercice}
+
+\begin{exercice}
+  Donner, toujours par un raisonnement géométrique, l'intégrale entre
+  $0$ et $t$, $t$ un réel strictement positif de la fonction $x\mapsto
+  x$.
+\end{exercice}
+
+Une activité permettra de démontrer que $\int_0^1x^2\diff{x} = \frac13$.
+
+\subsection{Propriétés qui découlent de l'aire}
+
+Du fait de la définition en tant qu'aire, on a les propriétés suivantes
+qui en découlent.
+
+\begin{propriete}[Positivité]
+  L'intégrale d'une fonction positive est positive.
+\end{propriete}
+\begin{preuve}
+  C'est une aire.
+\end{preuve}
+
+\begin{propriete}[Relation de Chasles]
+  ~\\[-0.5ex]
+  Pour tout $c \in \interff{a;b}$, on $\int_a^bf(t)\diff{t} =
+  \int_a^cf(t)\diff{t} + \int_c^bf(t)\diff{t}$.
+\end{propriete}
+\begin{preuve}
+  L'aire est une grandeur extensive.
+\end{preuve}
+
+\begin{propriete}[Additivité de l'intégrale d'une fonction positive]
+  \begin{itemize}
+    \item Si $f$ et $g$ sont deux fonctions continues sur $I$, alors
+      $\int_a^b f(x)+g(x) \diff{x} = \int_a^b f(x) \diff{x} +
+      \int_a^b g(x) \diff{x}$.
+    \item Si $\lambda$ est un réel, alors $\int_a^b\lambda f(x)\diff{x}
+      = \lambda\int_a^b f(x)\diff{x}$
+  \end{itemize}
+\end{propriete}
+\begin{preuve}
+  La preuve repose ici sur une notion intuitive et non développée
+  rigoureusement. Supposons $f$ et $g$ strictement croissante sur tout
+  l'intervalle $I$.
+  \begin{itemize}
+    \item À l'aide de somme de Darboux, je peux minorer l'intégrale de
+      $f+g$. En écrivant une somme de Darboux démarrant de $b$, je peux
+      également majorer l'intégrale de $f + g$.
+
+      \begin{tikzpicture}
+        \begin{scope}[scale=0.7]
+          \tkzInit[xmin=0,ymin=0,xmax=4.5,ymax=4.5]
+          \tkzDrawXY[noticks=true]
+
+          \draw [thick] plot [smooth, domain=1:4] (\x,{(2*ln(\x) +
+          1)/2}) node[right] {$f$};
+
+          \draw [thick] (1,0) node [below] {$a$} -- (1,{(2*ln(1)+1)/2})
+          node [fill, circle, inner sep = 1pt] {} ;
+          \draw [thick] (4,0) node [below] {$b$} -- (4,{(2*ln(4) +
+          1)/2}) node [fill, circle, inner sep = 1pt] {} ;
+
+        \end{scope}
+        \begin{scope}[scale=0.7,xshift=7cm]
+          \tkzInit[xmin=0,ymin=0,xmax=4.5,ymax=4.5]
+          \tkzDrawXY[noticks=true]
+
+          \draw [thick] plot [smooth, domain=1:4] (\x,{exp(\x/4) }) node
+          [right] {$g$};
+
+          \draw [thick] (1,0) node [below] {$a$} -- (1,{exp(1/4)}) node
+          [fill, circle, inner sep = 1pt] {} ;
+          \draw [thick] (4,0) node [below] {$b$} -- (4,{exp(4/4)}) node
+          [fill, circle, inner sep = 1pt] {} ;
+
+        \end{scope}
+        \begin{scope}[scale=0.7,xshift=14cm]
+          \tkzInit[xmin=0,ymin=0,xmax=4.5,ymax=4.5]
+          \tkzDrawXY[noticks=true]
+
+          \draw [thick] plot [smooth, domain=1:4] (\x,{(2*ln(\x) + 1)/2}) ;
+
+          \draw [thick] plot [smooth, domain=1:4] (\x,{(2*ln(\x) + 1)/2
+          + exp(\x/4)}) node [right] {$f+g$};
+
+          \draw [thick] (1,0) node [below] {$a$} --
+          (1,{(2*ln(1)+1)/2+exp(1/4)}) node [fill, circle, inner sep =
+          1pt] {} ;
+          \draw [thick] (4,0) node [below] {$b$} --
+          (4,{(2*ln(4)+1)/2+exp(4/4)}) node [fill, circle, inner sep =
+          1pt] {} ;
+
+        \end{scope}
+      \end{tikzpicture}
+
+      On a alors, par extensivité de la somme (cette fois verticalement)
+      le résultat annoncé.
+    \item On reprend le raisonnement précédent, mais cette fois avec
+      $f$ et $\lambda f$.
+  \end{itemize}
+\end{preuve}
+
+\begin{remarque}
+  On démontrera plus tard que ce résultat est vrai pour une fonction
+  quelconque.
+\end{remarque}
+
+\begin{propriete}[Inégalité de la moyenne]
+  Pour toute fonction $f$ continue positive, il existe $m$ et $M$ tels
+  que \[ m(b-a) \leqslant \int_a^b f(x)\diff{x} \leqslant M(b-a)\]
+\end{propriete}
+\begin{preuve}
+  $f$ est continue donc d'après le théorème des valeurs intermédiaires,
+  l'image de l'intervalle $\interff{a;b}$ est un intervalle. La
+  positivité de $f$ entraîne que cet intervalle est inclus dans les
+  réels positifs, on a donc l'existence de $m$ et $M$, tels que $\forall
+  x \in \interff{a;b}\, 0 \leqslant m \leqslant f(x) \leqslant M$.
+
+  Donc l'aire sous la courbe -- c'est-à-dire l'intégrale -- est comprise
+  entre les aires de deux rectangles de longueur $b - a$ et de hauteurs
+  respectives $m$ et $M$.
+\end{preuve}
+
+\begin{definition}[Valeur moyenne]
+  On appelle valeur moyenne de l'intégrale sur $\interff{a;b}$ le réel
+  noté $\mu_{\interff{a;b}} = \frac1{b - a}\int_a^b f(x)\diff{x}$.
+\end{definition}
+
+\begin{remarque}
+  Ce réel existe, il appartient même à l'intervalle image de $f$.
+\end{remarque}
+
+\subsection{Continuité}
+
+Après le dernier exercice et l'activité, il est tentant de considérer
+une nouvelle fonction $\Phi \colon \interff{a;b} \to \R, x\mapsto
+\int_a^xf(t)\diff{t}$.
+
+\begin{definition}
+  On pose -- c'est presque axiomatique -- $\int_a^af(t)\diff{t} = 0$.
+\end{definition}
+
+Avec cette définition, la fonction $\Phi$ est bien définie sur
+$\interff{a;b}$.
+
+\begin{propriete}
+  La fonction $\Phi$ est continue sur $\interff{a;b}$.
+\end{propriete}
+
+En fait, on va même démontrer mieux que ça : $\Phi$ est dérivable et sa
+dérivée est $f$.
+
+\begin{exercice}~\\[-5mm]
+
+  \noindent\begin{minipage}{0.65\linewidth}
+  On va supposer ici que $f$ est croissante.
+  \begin{enumerate}
+    \item Soit $x_0$ un réel de l'intervalle $\interff{a;b}$.
+      \begin{enumerate}
+        \item Soit $h$ positif. Comparer $f(x_0)$ et $f(x_0 + h)$.
+        \item Exprimer l'aire des rectangles de hauteurs respectives
+          $f(x_0)$ et $f(x_0 + h)$
+        \item Encadrer l'aire $\Phi(x_0 + h) - \Phi(x_0)$.
+        \item En déduire que $f(x_0) \leqslant \frac{\Phi(x_0 + h) -
+          \Phi(x_0)}{h} \leqslant f(x_0 + h)$
+      \end{enumerate}
+    \item Que peut-on dire si $h$ est négatif ?
+  \end{enumerate}
+  \end{minipage}
+  \begin{minipage}{0.25\linewidth}
+    \begin{tikzpicture}[xscale=1.4]
+      \tkzInit[xmin=0,ymin=0.5,xmax=2,ymax=3]
+      \tkzDrawXY[noticks=true]
+      \draw [thick] plot [smooth, domain=1:1.7] (\x,{(\x -1)*(\x -3)*(\x
+      -4) + 1 });
+      \def\x{1.4}
+      \def\xo{1.3}
+      \draw (\xo,0) rectangle (\x,{(\x -1)*(\x -3)*(\x -4) + 1 });
+      \draw [dashed] (0,{(\x -1)*(\x -3)*(\x -4) + 1 }) node [left]
+      {$f(x_0 + h)$} -- (\x,{(\x -1)*(\x -3)*(\x -4) + 1 });
+      \draw [dashed] (0,{(\xo -1)*(\xo -3)*(\xo -4) + 1 }) node [left]
+      {$f(x_0)$} -- (\xo,{(\xo -1)*(\xo -3)*(\xo -4) + 1 });
+      \draw (\xo,{(\xo -1)*(\xo -3)*(\xo -4) + 1 }) -- (\x,{(\xo
+      -1)*(\xo -3)*(\xo -4) + 1 }) ;
+    \end{tikzpicture}
+  \end{minipage}
+  \begin{enumerate}[start=3]
+    \item \begin{enumerate}
+        \item En utilisant la continuité de $f$, que peut-on dire de
+          $\lim_{h\to0}f(x_0 + h)$ ?
+        \item En déduire la limite de $\frac{\Phi(x_0 + h) -
+          \Phi(x_0)}{h}$ quand $h$ tend vers 0.
+        \item Interpréter cette limite.
+        \item Compléter : $\Phi$ est \dotfill en $x_0$ et $\Phi'(x_0) =
+          $\dotfill.
+      \end{enumerate}
+    \item \begin{enumerate}
+        \item Quelle hypothèse a été faite sur $x_0$ ? Conclure sur la
+          dérivabilité sur $\interff{a;b}$.
+        \item Que se passe-t-il si la fonction $f$ était strictement
+          décroissante sur l'intervalle $\interff{a;b}$ ?
+        \item Que faire si la fonction est croissante puis décroissante
+          ou décroissante puis croissante ?
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\section{Primitives}
+
+\subsection{Définition et première propriétés}
+
+On peut désormais généraliser le résultat précédent à toute fonction
+continue.
+
+\begin{definition}[Primitive]
+  On appelle \emph{primitive} de $f$ sur $I$ une fonction $F$ telle que
+  $F'=f$.
+\end{definition}
+
+\begin{remarque}
+  On dit une primitive car l'unicité n'est pas garantie (et n'est pas
+  nécessaire.)
+\end{remarque}
+
+\begin{propriete}
+  Soit $f$ une fonction continue sur $I$ qui admet $F_1$ comme
+  primitive. Alors pour tout $x \in I$, $F_2(x) = F_1(x) +k$ est aussi
+  une primitive ($k\in\R$.)
+\end{propriete}
+
+\begin{preuve}
+  $F_1$ dérivable sur $I$ et $F_1' = f$. $F_2 \colon x\mapsto F_1(x) +
+  k$ est dérivable et $F_2' = F_1'$
+
+  Réciproquement, si $F_2$ est une primitive, $F_2' - F_1' = 0$ et donc
+  $F_1 - F_2$ est une fonction constante. D'où le résultat.
+\end{preuve}
+
+\begin{exercice}
+  \begin{enumerate}
+    \item Justifier qu'il existe une unique primitive qui prends la
+      valeur $y_0$ en $x_0$.
+    \item Exprimer cette primitive.
+  \end{enumerate}
+\end{exercice}
+
+\begin{propriete}
+  Toute fonction continue sur $I = \interff{a;b}$ admet des primitives
+  sur $I$.
+\end{propriete}
+
+\begin{exercice}
+  \begin{enumerate}
+    \item Quel est la nature de l'intervalle image de $I$ par $f$ ?
+    \item On suppose que $f$ admet un mininum $m$ sur $I$.
+      \begin{enumerate}
+        \item Compléter : $\phi \colon x \mapsto f(x)$ est une fonction
+          \dots et \dots.
+        \item $\phi$ admet donc une primitive sur $I$. Exprimer
+          $\phi(x)$ pour tout $x$ de $I$ en choisissant «$k =0$».
+        \item Conclure.
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+On vient de raisonner sur une fonction quelconque, \textit{i.e.} on a
+rien supposé quant au signe. On peut donc généraliser la notion
+d'intégrale d'une fonction de la façon suivante.
+
+\begin{definition}
+  On définit désormais l'intégrale ainsi :
+  \begin{itemize}
+    \item Si la fonction est positive sur $I$, alors l'intégrale
+      $\int_a^b f(x) \diff{x}$ est l'aire sous la courbe (voir la
+      définition \ref{def:int_pos})
+    \item Si la fonction est négative sur $I$, alors l'intégrale
+      $\int_a^b f(x) \diff{x}$ est l'opposé de l'intégrale de l'opposé.
+      Autrement dit, on compte négativement l'aire d'une fonction
+      négative.
+    \item Si la fonction change de signe sur $I$ en $c$, on utilise la
+      relation de Chasles et on se ramène aux deux cas précédents.
+  \end{itemize}
+\end{definition}
+
+\begin{remarque}
+  Attention : $\int_a^bf(x) \diff{x} = 0$ n'entraîne pas que $\forall x
+  \in I,\ f(x) = 0$.
+\end{remarque}
+
+\begin{exercice}
+  Par un raisonnement géométrique, justifier que
+  $\int_{-1}^1x\diff{x} = 0$. $f$ est-elle la fonction nulle ?
+\end{exercice}
+
+On déduit aisément de cette définition une propriété qui «généralise» un
+résultat précédent.
+
+\begin{propriete}
+  Pour toute fonction $f$ continue, on a $\int_a^b -f(x)\diff{x} =
+  -\int_a^b f(x)\diff{x}$.
+\end{propriete}
+
+On peut désormais calculer une intégrale en passant par les primitives :
+\begin{propriete}
+  Pour tout fonction $f$ admetant une primitive explicite $F$, on a
+  $\int_a^bf(x)\diff{x} = F(b) - F(a)$
+\end{propriete}
+\begin{preuve}
+  Voir exercice précédent.
+\end{preuve}
+
+\begin{remarque}
+  On note souvent $\int_a^bf(x)\diff{x} = \left[ F(x) \right]_a^b$.
+\end{remarque}
+
+Il est intéressant de noter que cette primitive n'est pas très
+importante dans le calcul de l'intégrale.
+
+\begin{exercice}
+  Démontrer que la valeur d'une intégrale ne dépend pas de la primitive
+  choisie.
+\end{exercice}
+
+\begin{propriete}
+  \begin{itemize}
+    \item Pour toutes fonctions $f$ et $g$ continues, $\int_a^bf(x) +
+      g(x)\diff{x} = \int_a^bf(x) \diff{x} + \int_a^bg(x)\diff{x}$ ;
+    \item pour toute fonction $f$ et pour tout $\lambda$ réel, $\int_a^b
+      \lambda f(x) \diff{x} = \lambda \int_a^b f(x) \diff{x}$.
+  \end{itemize}
+\end{propriete}
+\begin{preuve}
+  \begin{itemize}
+    \item $f+g$ possède une primtive, notons la $K$. De même, $f$ et $g$
+      possède des primitives notées respectivement $F$ et $G$. On peut
+      les exprimer : pour tout $x$ de $I$, on a, par exemple, $K(x) =
+      \int_a^xf(t) + g(t)\diff{t},\ F(x) = \int_a^xf(t) \diff{t},
+      \ G(x) = \int_a^xg(t)\diff{t}$ pour les primitives s'annulant en
+      $a$. En dérivant, on a $K' = F' + G'$, ce qui entraîne que pour
+      tout $x$ de $I$, $K(x) - F(x) - G(x) = k,\ k\in\R$. On trouve $k =
+      0$ en prenant $x = a$ et donc on en déduit $\forall x\in I,\ K(x)
+      = F(x) + G(x)$ et donc le résultat attendu.
+    \item Laissée en exercice au lecteur\footnote{Mais le principe est
+      le même.}.
+  \end{itemize}
+\end{preuve}
+
+Une conséquence de cette propriété est que l'opération de recherche de
+primitive est «linéaire» : si $F$ et $G$ sont deux primitives de $f$ et
+$g$, alors $F+\lambda G$ est une primitive de $f+\lambda g$.
+
+\subsection{Caclul d'une primitive dans des cas «simples»}
+
+On peut résumer dans le tableau suivant les résultats issus de la
+«lecture inverse» du tableau des dérivées.
+
+\renewcommand{\arraystretch}{2.1}
+
+\begin{center}
+  \begin{tabular}{|*{3}{>{\hfill}p{4cm}<{\hfill~}|}} \hline
+    \textbf{Fonction $f:x\mapsto$} & \textbf{Intervalle de validité} &
+    \textbf{Primitve $F:x\mapsto$} \\ \hline
+    $0$            & $\R$ & $k \in\R$ \\ \hline
+    $a,\ a\in\R$   & $\R$ & $ax + k,\ k\in\R$ \\ \hline
+    $x$            & $\R$ & $\dfrac{x^2}2 + k,\ k\in\R$ \\ \hline
+    $x^2$          & $\R$ & $\dfrac{x^3}3 + k,\ k\in\R$ \\ \hline
+    $x^n,\ n\in\N$ & $\R$ & $\dfrac{x^{n+1}}{n+1} + k,\ k\in\R$ \\ \hline
+    $\dfrac1{x^2}$ & $\R^*$ & $\dfrac{-1}{x} + k,\ k\in\R$ \\ \hline
+    $\dfrac1x$ & $\R^*_+$ & $\ln{x} + k,\ k\in\R$ \\ \hline
+    $e^x$ & $\R$ & $e^x + k,\ k\in\R$ \\ \hline
+    $e^{ax},\ a\in\R^*$ & $\R$ & $\frac1a e^{ax} + k,\ k\in\R$ \\ \hline
+    $\dfrac1{\sqrt{x}}$ & $\R_+^*$ & $2\sqrt{x} + k,\ k\in\R$ \\ \hline
+  \end{tabular}
+\end{center}
+
+On utilise ensuite des propriétés comme l'additivité des primitives ou
+la multiplication par un scalaire.
+
+\begin{exercice}
+  On considère une fonction polynomiale $f \colon x\mapsto ax^2 + bx +
+  c$.
+  \begin{enumerate}
+    \item \begin{enumerate}
+        \item Sur quel ensemble est définie cette intégrale ?
+        \item Donner une primitive de cette fonction s'annulant en 0.
+        \item Donner l'ensemble des primitives de $f$ sur $\R$.
+      \end{enumerate}
+    \item \begin{enumerate}
+        \item Écrire l'intégrale de $f$ entre 0 et 1.
+        \item Exprimer cette intégrale en fonction de $a$, $b$ et $c$.
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\begin{remarque}
+  Si la primitive d'une somme est bien la somme des primitives, ce n'est
+  pas le cas pour le produit. L'exercice suivant pourra nous en
+  convaincre.
+\end{remarque}
+
+\begin{exercice} Soient $f\colon x\mapsto \frac1x$ et $g\colon x\mapsto
+  x$ définie sur $I=\interff{1;2}$.
+  \begin{enumerate}
+    \item \begin{enumerate}
+        \item Donner une primitive de $f\times g$ sur $I$.
+        \item Calculer $\int_1^2 f(x)g(x) \diff{x}$
+      \end{enumerate}
+    \item \begin{enumerate}
+        \item Donner une primitive de $f$, puis de $g$ sur $I$.
+        \item Calculer $\left(\int_1^2 f(x)\diff{x}\right) \times
+          \left(\int_1^2 g(x)\diff{x}\right)$.
+      \end{enumerate}
+    \item Conclure.
+    \item Trouver un autre exemple de produit de fonctions qui illustre
+      cet exemple.
+  \end{enumerate}
+\end{exercice}
+
+\subsection{Calcul des primitives dans des cas plus «complexes»}
+
+On vient de voir que le produit de deux fonctions ne disposait pas
+nécessairement d'une primitive. Néanmoins, sous certaines conditions, on
+peut écrire explicitiement une primitive. Détaillons ces cas.
+
+On considère ici que $u$ est une fonction définie au moins sur $I$ et
+éventuellement présentant une certaines conditions.
+
+\begin{center}
+  \begin{tabular}{|*{3}{>{\hfill}p{4cm}<{\hfill~}|}} \hline
+    \textbf{Fonction $f:x\mapsto$} & \textbf{Intervalle de validité} &
+    \textbf{Primitve $F:x\mapsto$} \\ \hline
+    $u'(x)u^n(x)$ & $\R$ & $\frac1{n+1}u^{n+1}(x) + k \in\R$ \\ \hline
+    $\dfrac{u'(x)}{u^2(x)}$ & $\{x \mid u(x)\neq 0\}$ &
+    $\dfrac{-1}{u(x)} + k,\ k\in\R$ \\ \hline
+    $\dfrac{u'(x)}{u(x)}$ & $\{x \mid u(x) > 0\}$ &
+    $\ln(u(x)) + k,\ k\in\R$ \\ \hline
+    $\dfrac{u'(x)}{\sqrt{u(x)}}$ & $\{x \mid u(x) > 0\}$ &
+    $2\sqrt{u(x)} + k,\ k\in\R$ \\ \hline
+    $u'(x) e^{u(x)}$ & $\R$ & $e^{u(x)} + k,\ k\in\R$ \\ \hline
+  \end{tabular}
+\end{center}
+
+\begin{exercice}
+  Démontrer ces résultats.
+\end{exercice}
+
+La première ligne de ce tableau est particulièrement utile lorsqu'on
+dispose d'une forme factorisée, par exemple issue d'une translation.
+
+\begin{exercice}
+  On considère la parabole de sommet $(1,1)$ s'annulant en $-1$ et en
+  $1$.
+  \begin{enumerate}
+    \item Donner l'équation de cette parabole.
+    \item Donner l'aire sous la courbe entre les valeurs $x = -1$ et $x
+      = 1$.
+    \item Que pensez-vous de l'aire sous la parabole $(x-2)^2 + 1$.
+      Donner deux méthodes de calcul.
+  \end{enumerate}
+\end{exercice}
+
+La dernière ligne du tableau nous permettra de donner un argument
+(incomplet) à un des résultats du cours de probabilités. On peut dès à
+présent s'en servir dans le cadre de l'exercice suivant.
+
+\begin{exercice}
+  Donner une primitive de la fonction $x\mapsto xe^{\frac{-x^2}2}$.
+\end{exercice}
+
+\begin{remarque}
+  La fonction $x\mapsto e^{-\frac{x^2}2}$ ne possède pas de primitive
+  explicte.
+\end{remarque}
+
+\section*{Réferences :}
+
+\begin{itemize}
+  \item \url{http://fonctionelliptique.pagesperso-orange.fr/Rectification.htm}
+  \item \url{http://fonctionelliptique.pagesperso-orange.fr/Quadrature.htm}
+  \item \url{http://www.cnrtl.fr/definition/rectification}
+  \item \url{http://serge.mehl.free.fr/anx/long_arc.html}
+\end{itemize}
+
+\end{document}

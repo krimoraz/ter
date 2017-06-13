@@ -1,0 +1,758 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage{etex}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{lmodern}
+\usepackage{kpfonts}
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+\usepackage{lastpage}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shadows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{intersections}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{positioning}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{patterns}
+\usetikzlibrary{calc}
+\usepackage{tkz-tab}
+\usepackage{tkz-fct}
+\usepackage{tkz-base}
+\usepackage{bclogo}
+\usepackage[top=0.5cm,bottom=2cm,left=1.5cm,right=1.3cm]{geometry}
+
+\usepackage{lastpage}
+\usepackage{marginnote}
+%\usepackage{pas-tableur}
+%\usepackage{picins}
+\usepackage{xparse}
+\usepackage[extdef]{delimset}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+\newcommand{\R}{\mathbb{R}} 
+\newcommand{\N}{\mathbb{N}} 
+\renewcommand{\D}{\mathbb{D}} 
+\newcommand{\Z}{\mathbb{Z}} 
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\C}{\mathbb{C}} 
+\newcommand{\vect}[1]{\mathchoice% 
+{\overrightarrow{\displaystyle\mathstrut#1\,\,}}% 
+{\overrightarrow{\textstyle\mathstrut#1\,\,}}% 
+{\overrightarrow{\scriptstyle\mathstrut#1\,\,}}% 
+{\overrightarrow{\scriptscriptstyle\mathstrut#1\,\,}}} 
+\def\Oij{$\left(\text{O},~\vect{\imath},~\vect{\jmath}\right)$} 
+\def\Oijk{$\left(\text{O},~\vect{\imath},~ \vect{\jmath},~ \vect{k}\right)$} 
+\def\Ouv{$\left(\text{O},~\vect{u},~\vect{v}\right)$}
+
+\usepackage{mdframed}
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+\setlist{noitemsep}
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+\usepackage[]{exsheets}
+\SetupExSheets{
+  counter-format = {qu[1] :} ,
+  headings = block-subtitle ,
+  points/name = {pt/s} ,
+  solution/print = false ,%true,%true
+  %solution/pre-hook = {\mdframed} ,
+  %solution/post-hook = {\endmdframed} ,
+  blank/style = dotted ,
+}
+
+\DeclareExSheetsHeadingContainer{autopoints}{%
+  \textbf{(\GetQuestionProperty{points}{\CurrentQuestionID} points)}%
+}
+
+ \DeclareInstance{exsheets-heading}{block-subtitle}{default}{
+ join = {
+ title[r,B]number[l,B](.333em,0pt) ;
+ title[r,B]subtitle[l,B](1em,0pt)
+ } ,
+ attach = {
+ main[l,vc]title[l,vc](0pt,0pt) ;
+ main[r,vc]autopoints[l,vc](\marginparsep-55pt,0pt)
+ },
+}
+
+
+\everymath{\displaystyle\everymath{}}
+
+\newcommand{\brm}[1]{\marginpar{\addpoints*{#1}}}% étoile n'affiche pas les points sur la copie
+\newcommand{\cel}{\celtxt[c]}
+\title{BBlanc \no{1}}
+\renewcommand{\theenumi}{\textbf{\arabic{enumi}}} 
+\renewcommand{\labelenumi}{\textbf{\theenumi.}} 
+\renewcommand{\theenumii}{\textbf{\alph{enumii}}} 
+\renewcommand{\labelenumii}{\textbf{\theenumii.}}
+\usetikzlibrary{backgrounds}
+\frenchbsetup{StandardLists=true}
+\def\coeff{2}
+
+\newcommand{\itemTriangle}{%
+   \scalebox{0.8}{$\blacktriangleright$}%
+}
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+
+\count1=\year \count2=\year
+\ifnum\month<8\advance\count1by-1\else\advance\count2by1\fi
+
+\setlength{\headheight}{14.5pt}
+\cfoot{\textsl{\footnotesize{Année \number\count1/\number\count2}}}
+\lfoot{\textsl{\footnotesize{Lycée La salle \textsc{Saint-Denis}}}}
+%\rfoot{%
+ % \ifthenelse{\value{page}=1}{%
+ %}
+ % {%
+ %  \footnotesize{Page \thepage/ \pageref{LastPage}}
+% }
+%}
+%\rhead{\textbf{16LYJBSBB1}}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[r]{\textsl{\footnotesize{Page \thepage{} sur \pageref{LastPage}}}}
+
+\begin{document}
+
+
+
+\renewcommand\labelitemi{\textbullet}
+\thispagestyle{empty} 
+\begin{flushright}
+\textbf{16LYJBSBB1}
+\end{flushright}
+\begin{center}
+ \begin{tikzpicture}
+ \draw (0,8) node[color=black,draw,fill=black!20]%
+ {\fontsize{30}{30}\selectfont{\upshape BACCALAUR\'EAT G\'EN\'ERAL }};
+  \node[name    = s,%
+        shape   = rectangle,%
+        rotate  = 35,%
+        color   = black!50]%
+  {\fontsize{100}{150}\selectfont{\upshape  \textbf{\textit{obligatoire}}}};
+\draw (0,7)    node[color=black] {\LARGE \textbf{Bac blanc n°1  Lycée La Salle -Saint Denis} };%   
+\draw (0,6)    node[color=black] {\Large \textbf{Session 2016} };%
+\draw (0,4)    node[color=black] {\Huge \textbf{MATH\'EMATIQUES} };%
+\draw (0,2)    node[color=black] {\huge \textbf{- Série S -}};
+\draw (0,0)    node[color=black] {\LARGE \textbf{\'EPREUVE DU  MERCREDI 14 D\'ECEMBRE 2016 }};
+\draw (0,-2)    node[color=black] {\Large \textbf{ENSEIGNEMENT SP\'ECIFIQUE}};
+\draw (0,-3)    node[color=black] {\Large \textit{ \textbf{Durée de l'épreuve : 4 heures}}};
+\draw (6.3,-2.1)    node[color=black] {\large \textit{ \textbf{Coefficient : 7}}};
+\draw (0,-7)  node[text centered]%
+                  {\textbf%
+                   {Les calculatrices éléctroniques de poche sont autorisées,}
+                  };
+\draw (0,-7.4)  node[text centered]%
+                  {\textbf%
+                   {conformément à la réglementation en vigueur.}
+                  };
+
+ \draw (0,-10) node[inner sep=5pt,draw,text width = 15cm, text justified] {
+\textbf{Le sujet est composé de 4 exercices indépendants. Le candidat doit traiter tous les exercices.}
+
+\textbf{Dans chaque exercice, le candidat peut admettre un résultat précédemment donné dans le texte pour aborder les questions suivantes, à condition de l'indiquer clairement sur la copie. La qualité et la précision de la rédaction seront prises en compte dans l'appréciation des copies.}
+};
+                
+
+\draw (0,-13.6)  node[text centered]%
+                 {\textbf%
+                   {Avant de composer, le candidat s'assurera que le sujet comporte bien \pageref{LastPage} pages numérotées de 1 à \pageref{LastPage}}
+                 };
+\end{tikzpicture} 
+\end{center} 
+\begin{flushright}
+\begin{tabular}{@{}p{10cm}@{}}
+ {\raggedleft \itshape 
+\og Les gens de mérite sont des gens de mérite tant qu’ils ne voient pas leurs mérites. \fg \par}\\
+ 
+\end{tabular}
+\end{flushright}
+
+\vfill
+\newpage
+\pagenumbering{arabic}
+\begin{question}
+\vspace{-5.8mm}
+\begin{center}\textbf{Commun à tous les candidats}\end{center}
+\textbf{Dans cet exercice,  on cherche à représenter dans un repère orthonormé l’ensemble des points  $M$ du plan , de coordonnées $( x;y)$ , vérifiant l’équation :}
+\[(E):\dfrac{x^2}{4}+y^2=1 \]
+\begin{enumerate}[itemsep=8pt]
+\item Justifier que , pour tout $x\in[~-2~;~2~]$ , l’équation $(E)$ est équivalente  à : \[ y=\sqrt[]{1-\dfrac{x^2}{4}}\quad  \mbox{ou}\quad y =-\hspace{2mm}\sqrt[]{1-\dfrac{x^2}{4}}\]  \brm{0.5}
+\item Soit $f$  la fonction définie sur l’intervalle $[~-2~;~2~]$ par : 
+$f(x)=\sqrt[]{1-\dfrac{x^2}{4}}$ 
+\begin{enumerate}[itemsep=5pt]
+\item Montrer que  $ f$ en n'est pas dérivable en  -2 .  Quelle est l’interprétation  graphique de ce résultat ? \brm{1}
+
+On admettra pour la suite que $f$ n'est pas dérivable en 2.
+\item Pour tout $x\in]~-2~;~2~[$, calculer $f'(x)$ et étudier son signe. \brm{1}
+
+\item Dresser le tableau de variations de $f$. \brm{0.5}
+\end{enumerate}
+\item Sur la feuille \textbf{annexe n°1} tracer $\mathscr{C}_{f}$ la courbe représentative de la fonction $f$. \brm{1}
+\item Comment obtient-on , à partir de $\mathscr{C}_{f} $ la courbe représentative $ \mathscr{C}_{g}$  de la fonction \brm{1}
+
+$g:x \mapsto -\hspace{2mm} \sqrt[]{1-\dfrac{x^2}{4}}$ ? Tracer sur le même graphique cette courbe.
+
+\textbf{La réunion des deux courbes est une ellipse}
+\item \textbf{Question bonus:}
+
+Soit $F(~\sqrt[]{3}~  ;~0 )\quad \mbox{et}\quad F' (-~\sqrt{3}~;~0)$ ; Montrer que , pour tout point de cette ellipse :
+$MF+MF'=4$
+
+\end{enumerate}
+
+\end{question}
+\begin{solution}
+	\begin{enumerate}
+    	\item L'équation $(E)$ est équivalente à $y^2 = 1 - \frac{x^2}4
+        \iff y = \pm\sqrt{1 - \frac{x^2}4}$
+        \item 
+        \begin{enumerate}
+        \item $f = \sqrt{u}$ avec $u \colon x \mapsto 1 - \frac{x^2}4$.
+        $f$ est dérivable si $u$ est dérivable et $u(x) > 0$. Or $u(-2) = 
+        0$ donc $f$ n'est pas dérivable en 0. On peut cependant calculer le taux
+        d'accroissement $\tau_x$ et sa  limite. Par définition, $\tau_x(h) =
+        \frac{f(x+h) - f(x)}{h}$. Dans notre cas, on obtient : \[\tau_{-2}(h) = 
+        \frac{\sqrt{\brk*{1-\frac{h}{\sqrt{2}}}\brk*{1+\frac{h}{\sqrt{2}}}}}{h} \]
+        Sous cette forme là, on peut déterminer la limite et ici, on obtient $\lim_{h\to 
+        0}\tau_{-2}(h) = +\infty$. Cela signifie que la tangente en $-2$ est verticale.
+        
+        \item Pour tout $x$ de ${]{-2},2[}$, $f'(x) = \frac{-x}{4\sqrt{1 -
+        \frac{x^2}4}}$.
+        \item On a le tableau suivant :
+        \begin{center}
+        	\begin{tikzpicture}
+            	\tkzTabInit{$x$/1,$f'(x)$/1,$f$/2}{${-2}$,0,2}
+                \tkzTabLine{d,+,0,-,d}
+                \tkzTabVar{-/0,+/$1$,-/0}       	
+        	\end{tikzpicture}	
+        \end{center}
+        \end{enumerate}
+        \item Voir graphique ci-dessous
+        
+        \begin{center}
+\begin{tikzpicture}[xscale=2,yscale=2]
+\tkzInit[xmin=-2,xmax=2,ymin=-1.,ymax=1.]
+\tkzGrid 
+\tkzAxeXY 
+\draw [very thick,red,<->] (-0.5,1) -- (0.5,1) ;
+\draw [very thick,red,->] (2,0) -- (2,0.5) ;
+\draw [very thick,red,->] (-2,0) -- (-2,0.5) ;
+\draw [very thick,blue] plot [domain=-2:2,smooth,samples=250] (\x,{sqrt(1 - (\x/2)^2)} ) ;
+\draw [very thick,green] plot [domain=-2:2,smooth,samples=250] (\x,{-sqrt(1 - (\x/2)^2)} ) ;
+\end{tikzpicture}
+\end{center}
+\item La courbe de $\mathscr{C}_g$ se déduit par symétrie axiale d'axe l'axe des abscisses.
+\item Soit $\mathcal{E}$ l'ensemble des points $M$ tel que $MF+MF'=4$.
+
+Montrons $\mathcal{E}$ est bien notre ellipse.
+
+\[ \begin{array}{ccl} MF + MF' = 4 & \iff & MF^2 + 2MF \times MF' + MF'^2 = 16 \\
+ & \iff & \brk*{x - \sqrt{3}}^2 + y^2 + \brk*{x + \sqrt{3}}^2 + y^2 + 2\sqrt{\brk*{ 
+ \brk*{x - \sqrt{3}}^2 + y^2} \brk*{\brk*{x + \sqrt{3}}^2 + y^2}} = 16 \\
+ & \iff & \sqrt{\brk*{x^2 - 2\sqrt{3}x +3 + y^2} \brk*{x^2 + 2\sqrt{3}x +3 + y^2}} =
+ 5 - x^2 - y^2 \\
+ & \iff & \sqrt{\brk*{x^2 + y^2 + 3}^2 - 12x^2 } = 5 - x^2 - y^2
+\end{array} \]
+Une condition nécessaire pour trouver une solution est que $\brk*{5 - \brk*{x^2 + y^2}
+}^2 = \brk*{x^2 + y^2 + 3} - 12x^2$. En développant astucieusement, on obtient $25 - 10
+\brk*{x^2 + y^2} = 6\brk*{x^2 + y^2} + 9 -12x^2$ qui peut se mettre sous la forme $4x^2 
++ 16y^2 = 16$, où encore $\frac{x^2}{4} + y^2 = 1$. La condition est suffisante si on  
+ajoute que $5 - x^2 - y^2 \geqslant 0 \iff x^2 + y^2 \leqslant 5$ 
+    \end{enumerate}
+\end{solution}
+
+\vspace{4cm}
+\begin{question}
+\vspace{-5.8mm}
+\begin{center}\textbf{Commun à tous les candidats}\end{center}
+
+On présente ici un modèle probabiliste d'évolution de population proche du
+modèle de \bsc{Galton}-\bsc{Watson}. On suppose ici qu'un individu donné a,
+au cours de sa vie :
+\begin{itemize}
+\item aucun enfant avec une probabilité $\frac18$ ;
+\item un enfant avec une probabilité $\frac38$ ;
+\item deux enfants avec une probabilité $\frac38$ ;
+\item trois enfants avec une probabilité $\frac18$.
+\end{itemize}
+On suppose que les nombres d'enfants d'individus différents est indépendant d'un individu à l'autre.
+
+{\bfseries On admet qu'aucun individu n'a plus de trois enfants.}
+
+
+\textbf{Première partie : calculs de probabilités}
+
+Partons d'un seul individu (génération 0). Nous étudions la population de ses
+descendants.
+
+{\bfseries Soit $q_{n}$ la probabilité que la population s'éteigne au plus à la n-ième génération}
+
+
+\`A partir des informations données plus haut répondre aux questions suivantes:
+\begin{enumerate}[itemsep=5pt]
+\item Quelle est la probabilité $q_{1}$ que la population s'éteigne dès la première
+génération ?% est $q_1 = \frac18$ 
+\brm{0.25}
+
+\item On souhaite calculer $q_{2}$ la probabilité que la population s'éteigne à la deuxième génération.
+    \begin{enumerate}[itemsep=5pt]
+      \item Déterminer la probabilité que la population s'éteigne si cet individu n'a qu'un seul enfant. \brm{0.25}
+      \item Déterminer la probabilité que la population s'éteigne si cet individu a deux enfants. \brm{0.25}
+      \item Déterminer la probabilité que la population s'éteigne si cet individu a trois enfants. \brm{0.25}
+      \item Montrer que $q_{2}= \dfrac{729}{4096}$ \brm{0.5}
+    \end{enumerate}
+  \item En déduire que $q_{2}= \dfrac{1}{8}+\dfrac{3}{8}q_{1}+\dfrac{3}{8}q_{1}^{2}+\dfrac{1}{8} q_{1}^{3}$ \brm{0.5}
+  
+  
+  
+  \item Exprimer alors $q_{3}$, la probabilité que la population s'éteigne au plus à la 3-ième génération, en fonction de $q_{2}$. \brm{0.25}
+  \end{enumerate}
+\textbf{Deuxième partie : étude de la suite $(q_n)$}
+
+\begin{enumerate}
+  \item Soit $f$ la fonction définie sur l'intervalle $\intv{0}{1}$
+    \[ f(x) = \frac18x^3 + \frac38x^2 + \frac38x + \frac18 \]
+    \begin{enumerate}
+      \item Étudier les variations de $f$ sur l'intervalle $\intv{0}{1}$ \brm{0.5}
+      \item Soit $g$ la fonction définie pour tout $x$ de $\intv{0}{1}$
+        par $g(x) = f(x) - x$ \brm{0.5}
+
+        En remarquant que $g(1) = 0$, trouver trois nombres réels $a,b$
+        et $c$ tels que pour tout $x$ de $\intv{0}{1}$, \[ g(x) =
+        (x-1)(ax^2 + bx + c) .\] En déduire le signe de $g(x)$ sur
+        l'intervalle $\intv{0}{1}$.
+    \end{enumerate}
+  \item On admet que la suite $(q_n)$ est définie par la relation de
+    récurrence \[ \left\lbrace\begin{matrix}q_{n+1} = f(q_n) \\ q_1 =
+    \frac18\end{matrix}\right. \]
+
+    \begin{enumerate}
+      \item À l'aide de la représentation graphique de la fonction $f$ en \textbf{annexe n°2} ainsi qu'à l'aide de la droite d'équation $y=x$, représenter sur l'axe des abscisses les quatre premiers
+        termes de la suite $(q_n)$. \brm{0.5}
+      \item Quelles conjectures peut-on alors faire sur le comportement de la suite $(q_{n})$ ? \brm{0.25}
+
+      \item Montrer par récurrence que pour tout entier $n$ non nul , \[ 0 \leqslant q_n \leqslant \sqrt{5} - 2 \] \brm{0.5}
+
+      \item   Montrer que la suite $(q_n)$ est croissante. \brm{0.5}
+
+      \item Justifier que la suite $(q_n)$ est convergente et déterminer \brm{0.5}
+        sa limite.
+    \end{enumerate}
+\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\textbf{Partie A}
+    
+    \begin{enumerate}
+    \item La probabilité $q_1$ est $q_1 = \frac18$.
+    \item \begin{enumerate}
+    \item Si le parent n'a eu qu'un enfant, il a eu avec une
+    probabilité de $\frac38$. La probabilité que cet enfant n'ait
+    pas de descendance est $\frac18$. Les événements étant
+    indépendant, la probabilité est donc de $\frac38 \times \frac18
+    = \frac3{64}$.
+    \item Si le parent a eu deux enfants, c'est cette fois avec une
+    probabilité de $\frac38$. Pour chacun des deux descendants, la
+    probabilité que la population s'éteigne ensuite est de
+    $\frac18$ par enfant, et en utilisant à nouveau l'indépendance,
+    on a $\frac38 \times \brk*{\frac18}^2 = \frac3{512}$.
+    \item Par un raisonnement similaire, on trouve $\frac18 \times 
+    \brk*{\frac18}^3 = \frac1{4096}$.
+    \item Les 4 événements précédents étant incompatibles, on peut
+    donc les additionner pour obtenir la probabilité que la
+    population ne dépasse pas la deuxième génération.
+    \end{enumerate}
+    \item D'après ce qui précède, on a $q_2 = \frac18 + \frac38
+    \times \frac18 + \frac38 \brk*{\frac18}^2 + \frac18 
+    \brk*{\frac18}^3$. \`A l'exception du terme constant 
+    correspondant à l'extinction à la première génération, on 
+    reconnaît $q_1$ et on en déduit $q_2 = \frac18 + \frac38
+    \times q_1 + \frac38 q_1^2 + \frac18 q_1^3$.
+    \item La probabilité de s'éteindre à la 3\up{ième} génération
+    est fonction la probabilité de s'éteindre à la 2\up{ième}
+    génération. Il est raisonnable de penser que $q_3 = \frac18 +
+    \frac38\times q_2 + \frac38 q_2^2 + \frac18 q_3^3$.
+    \end{enumerate}
+    \textbf{Partie B}
+    
+    \begin{enumerate}
+    \item \begin{enumerate}
+    \item $f$ est une fonction polynôme de degré 3, somme monômes 
+    croissants sur $\intv{0}{1}$ donc elle est croissante sur 
+    $\intv{0}{1}$.
+    \item $f(1) = 1$, donc $g(1) = 0$ et $g(x)$ est donc 
+    factorisable par $(x-1)$.
+    
+    $(x-1)(ax^2 +bx + c) = ax^3 +bx^2 + cx - ax^2 -bx - c = ax^3 +
+    (b-a)x^2 + (c-b)x - c$. Au facteur $\frac18$ près, identifions 
+    les coefficients : $a = 1$, $-c = 1$ et $(b-a) = 3$. On trouve 
+    donc $a = \frac18$, $b=\frac12$ et $c=-\frac18$.
+    
+    $g(x) = \frac18(x-1)(x^2 +4x -1)$. $x^2 +4x -1$ possède un 
+    discriminant positif égal à 20, il se factorise en $(x + 2 + 
+    \sqrt{5})(x + 2 - \sqrt{5})$.
+    
+    \begin{center}
+    \begin{tikzpicture}
+    	\tkzTabInit{$x$/1,$x-1$/1,$x+2 - \sqrt{5}$/1,$g(x)$/1}
+        {0,$\sqrt{5}-2$,1}
+        \tkzTabLine{,-,,-,0}
+        \tkzTabLine{,-,0,+,}
+        \tkzTabLine{,+,0,-,0}
+    \end{tikzpicture}
+    \end{center}
+    On en déduit les solutions de l'équation $f(x) = $ sur 	
+    $\intv{0}{1}$ et que la courbe de $f$ est en dessous de la
+    droite $y =x$ sur $\intv*{\sqrt{5}-2}{1}$.
+    
+    \end{enumerate}
+    \item \begin{enumerate}
+    \item On a le tracé suivant :
+    \begin{center}
+\begin{tikzpicture}[scale=50,>=latex]
+	\draw [dotted,thin] (0,0) grid [step=0.05] (0.25,0.25) ;
+	\draw [very thick] plot [smooth,domain=0:0.25] (\x,{1/8*\x^3 + 3/8*\x*\x + 3/8 *\x + 1/8}) ;
+    \draw [very thick] (0,0) -- (0.25,0.25) ;
+    \draw [thick,->] (-0.01,0) -- (0.25,0) ;
+    \draw [thick,->] (0,-0.01) -- (0,0.25) ;
+    \draw (0,0) node [anchor=north west] {O} ;
+    
+    \draw [dashed,thick] (0.125,0) -- (0.125,0.177978515625) -- (0.177978515625,0.177978515625)
+    -- (0.177978515625,0.20432528913261194) -- (0.20432528913261194,0.20432528913261194)
+    -- (0.20432528913261194,0.21834408490310356) -- (0.21834408490310356,0.21834408490310356) ;
+    \draw (0.125,0) node [below] {$u_1$} ;
+    \draw [dashed,thick] (0.177978515625,0.177978515625) -- (0.177978515625,0) node [below] {$u_2$} ;
+    \draw [dashed,thick] (0.20432528913261194,0.20432528913261194) -- (0.20432528913261194,0) node [below] {$u_3$} ;
+    \draw [dashed,thick] (0.21834408490310356,0.21834408490310356) -- (0.21834408490310356,0) node [below] {$u_4$} ;
+\end{tikzpicture}
+% Calculs effectués avec 
+%def u(n):
+%    if n == 1:
+%        return 1/8
+%    else:
+%        return 1/8 + 3/8*u(n-1) + 3/8*u(n-1)**2 + 1/8*u(n-1)**3
+\end{center}
+\item La suite semble converger vers la première racine de $g$, c'est à dire $\sqrt{5} - 
+2$.
+\item Montrons par récurrence que «les termes de la suite $(q_n)$ appartiennent à 
+l'intervalle $\intv*{0}{\sqrt{5}-2}$», ce qui constitue notre proposition.
+\begin{itemize}
+\item Initialisation : $q_1 = \frac{1}{8}$ appartient bien à $\intv*{0}{\sqrt{5}-2}$
+\item Hérédité : Supposons la proposition vraie au rang $n$. Alors $q_n \in 
+\intv*{0}{\sqrt{5}-2}$. Comme $f$ est strictement croissante, alors $q_{n+1} = f(q_n)$ appartient à $\intv*{f(0)}{f(\sqrt{5} -2)} \subset \intv*{0}{\sqrt{5}-2}$. En effet, $f(0) = \frac18$ et $f(\sqrt{5} -2) = \sqrt{5} -2$.
+\item Conclusion : Pour tout $n$ entier naturel différent de 0, $ 0 \leqslant q_n 
+\leqslant \sqrt{5} - 2$
+\end{itemize}
+\item Soit $n$ un entier naturel, $q_{n+1} - q_n = f(q_n) - q_n = g(q_n)$. Or $g(x) > 0$ 
+pour $x \in \intv*{0}{\sqrt{5}-2}$, donc $q_{n+1} - q_n > 0$ et donc la suite est 
+croissante.
+\item $(q_n)$ est une suite croissante majorée, donc elle converge. De plus, si on note 
+$\ell$ sa limite, on a, par définition $\ell = f(\ell)$ donc $\ell = \sqrt{5} - 2$.
+    \end{enumerate}
+    \end{enumerate}
+\end{solution}
+
+\newpage
+\begin{question}
+\vspace{-5.8mm}
+\begin{center}\textbf{Commun à tous les candidats}\end{center}
+\textbf{Partie A}
+
+Soit $g$ la fonction définie sur $\mathbf{R}$ par $g(x)=-3x^{4}+3x^{3}+1$.
+\begin{enumerate}[itemsep=5pt]
+\item Déterminer les limites de $g$ en $-\infty\;\mbox{et en}\,+\infty$. \brm{0.5}
+\item \'Etudier les variations de la fonction $g$. \brm{0.5}
+\item \begin{enumerate}[itemsep=5pt]
+\item Déterminer que l'équation  $g(x)=0$ a exactement deux solutions dans $\mathbf{R}$. \brm{0.75}
+\item Donner un encadrement d'amplitude $\np{0,1}$ de chaque solution. \brm{0.5}
+\end{enumerate}
+\item Déterminer le signe de $g(x)$ selon les valeurs de $x$. \brm{0.5}
+\end{enumerate}
+\medskip
+\textbf{Partie B}
+
+Soit $f$ la fonction définie sur $\mathbf{R}$ par  $f(x)=2+\dfrac{4x-3}{x^{4}+1}$ et $\mathscr{C}$ sa courbe représentative.
+\begin{center}
+\definecolor{qqwuqq}{rgb}{0.,0.39215686274509803,0.}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=2cm,y=0.8cm]
+\draw[->,color=black] (-2.96,0.) -- (5.,0.);
+\foreach \x in {-2.,-1.,1.,2.,3.,4.}
+\draw[shift={(\x,0)},color=black] (0pt,2pt) -- (0pt,-2pt) node[below] {\footnotesize $\x$};
+\draw[->,color=black] (0.,-2.7) -- (0.,3.06);
+\foreach \y in {-2.,-1.,1.,2.,3.}
+\draw[shift={(0,\y)},color=black] (2pt,0pt) -- (-2pt,0pt) node[left] {\footnotesize $\y$};
+\draw[color=black] (0pt,-10pt) node[right] {\footnotesize $0$};
+\clip(-3,-3) rectangle (5.,3.06);
+\draw[line width=1.2pt,color=qqwuqq,smooth,samples=100,domain=-2.96:5.0] plot(\x,{2.0+(4.0*(\x)-3.0)/((\x)^(4.0)+1.0)});
+\draw [color=qqwuqq](1.56,3.12) node[anchor=north west] {$\mathscr{C}$};
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}[itemsep=5pt]
+\item \begin{enumerate}[itemsep=5pt]
+\item Démontrer que la courbe $\mathscr{C} $ admet une asymptote $\mathscr{D}$ parallèle à l'axe des abscisses. \brm{0.25}
+\item \'Etudier la position de $\mathscr{C}$ par rapport à $\mathscr{D}$. \brm{0.25}
+\end{enumerate}
+\item \begin{enumerate}[itemsep=5pt]
+\item Démontrer que $f'(x)=\dfrac{4g(x)}{(x^4+1)^2}$, $g$ étant la fonction définie dans la \textbf{partie A.} \brm{0.5}
+\item \'Etudier les variations de la fonction $f$. \brm{0.25}
+\end{enumerate}
+\item Soit $h$ une fonction telle que pour tout réel $x$ de l'intervalle $\left[\dfrac{3}{4};+\infty \right[ $ ,
+\[ 2 \leq h(x) \leq f(x) \]
+Déterminer la limite de la fonction $h$ en $+\infty$. \brm{0.5}
+\end{enumerate}
+\end{question}
+\begin{solution}
+\textbf{Partie A}
+
+\begin{enumerate}
+\item Étudions la limite de $g$ en $+\infty$. Pour $x > 0$, on $g(x) = x^4\brk*{-3 + \frac{3}{x} + \frac{1}{x^4}}$ et donc $\lim_{x\to +\infty}g(x) = -\infty$.
+
+Par symétrie, on trouve $\lim_{x\to -\infty}g(x) = -\infty$.
+\item $g$ est une somme de fonction dérivables, donc elle est dérivable et sa dérivée est $-12x^3 + 9x^2 = 3x^2(-4x + 3)$. On a donc le tableau suivant :
+\begin{center}
+\begin{tikzpicture}
+\tkzTabInit[espcl=5]
+{$x$/1,$g'(x)$/1,$g$/3}
+{$-\infty$,$\frac34$,$+\infty$}
+\tkzTabLine{,+,z,-,}
+\tkzTabVar{-/$-\infty$,+/$\frac{337}{256}$,-/$-\infty$}
+\tkzTabVal{1}{2}{0.6}{$\alpha$}{0}
+\tkzTabVal{2}{3}{0.4}{$\beta$}{0}
+\end{tikzpicture}
+\end{center}
+\item \begin{enumerate}
+\item Sur l'intervalle $\intv[l]*{-\infty}{\frac34}$, $g$ est strictement croissante, 
+continue donc d'après le théorème des valeurs :
+\begin{itemize}
+\item son image est un intervalle $J$ ;
+\item pour tout $k\in J$, l'équation $g(x) = k$ admet une unique solution.
+\end{itemize}
+Ici, $J = \intv[l]*{-\infty}{\frac{337}{256}} \ni 0$ donc il existe un unique réel 
+$\alpha$ tel que $g(\alpha) = 0$.
+
+De la même façon, on en déduit l'existence et l'unicité de $\beta$ tel que $g(\beta) = 
+0$.
+\item On trouve $\alpha \approx -0,6$ et $\beta \approx 1,2$.
+\end{enumerate}
+\item On a pour le signe de $g$ le tableau suivant :
+\begin{center}
+\begin{tikzpicture}
+\tkzTabInit[espcl=3]{$x$/1,$g(x)$/1}{$-\infty$,$\alpha$,$\beta$,$+\infty$}
+\tkzTabLine{,-,z,+,z,-,}
+\end{tikzpicture}
+\end{center}
+\end{enumerate}
+\textbf{Partie B}
+\begin{enumerate}
+\item \begin{enumerate}
+\item On obtient assez facilement que $\lim_{x\to\pm\infty}f(x) = 2$, ce qui se traduit
+graphiquement par la présence d'une asymptote horizontale d'équation $y = 2$.
+\item Étudions le signe de $f(x) - y$. $x^4 + 1$ étant positif, il suffit donc d'étudier 
+le signe de $4x -3$. On en déduit aisément que la courbe est sous son asymptote pour $x$ 
+négatif et au dessus pour $x$ positif.
+\end{enumerate}
+\item \begin{enumerate}
+\item $f$ est de la forme $\frac{u}{v}$ où $u$ et $v$ sont les fonctions définies par 
+$u(x) = 4x -3$, de dérivée $u'(x) = 4$ et $v(x)= x^4 + 1$ de dérivée $4x^3$. Utilisons 
+la relation $\frac{u'v - uv'}{v^2}$. On a donc $f'(x) = \frac{4(x^4 + 1) - 4x^3(4x 
+-3)}{(x^4+1)^2} = \frac{4x^4 + 4 - 16x^4 +12x^3}{(x^4+1)^2} = \frac{4 - 4\times 3x^4 
++4\times 3x^3}{(x^4+1)^2}$
+\item On peut reprendre le tableau précédent et le compléter :
+\begin{center}
+\begin{tikzpicture}
+\tkzTabInit[espcl=3]{$x$/1,$g(x)$/3}{$-\infty$,$\alpha$,$\beta$,$+\infty$}
+\tkzTabVar{+/2,-/$f(\alpha)$,+/$f(\beta)$,-/2}
+\end{tikzpicture}
+\end{center}
+\end{enumerate}
+\item Par encadrement, on a que $\lim_{x\to+\infty}h(x) = 2$.
+\end{enumerate}
+\end{solution}
+\newpage
+\begin{question}
+\vspace{-5.8mm}
+\begin{flushright}\hfill\textbf{Candidats n'ayant pas suivi l'enseignement de spécialité}\hfill ~\end{flushright}
+
+
+
+On considère le cube $ABCDEFGH$ de côté $a$, avec $I$, $J$ les
+    milieux respectifs des segments $[CD]$ et $[GH]$ et $L$ est le
+    milieu du segment $[JG]$ \brm{5}
+    \vspace{1cm}
+    \begin{center}
+    \definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\definecolor{ffqqtt}{rgb}{1.,0.,0.2}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(0.42,1.5) rectangle (5.64,6.7);
+\draw (1.,2.)-- (4.,2.);
+\draw [dash pattern=on 3pt off 3pt,color=ffqqtt] (5.,3.)-- (2.,3.);
+\draw [color=uuuuuu] (1.,5.)-- (4.,5.);
+\draw (5.,6.)-- (2.,6.);
+\draw (1.,2.)-- (1.,5.);
+\draw (4.,2.)-- (4.,5.);
+\draw (4.,5.)-- (5.,6.);
+\draw (4.,2.)-- (5.,3.);
+\draw (1.,5.)-- (2.,6.);
+\draw [dash pattern=on 3pt off 3pt,color=ffqqtt] (2.,6.)-- (2.,3.);
+\draw [dash pattern=on 3pt off 3pt,color=ffqqtt] (2.,3.)-- (1.,2.);
+\draw (5.,6.)-- (5.,3.);
+\draw (3.48,6.74) node[anchor=north west] {$\mathbf{J}$};
+\draw (4.1,6.78) node[anchor=north west] {$\mathbf{L}$};
+\draw (0.54,2.24) node[anchor=north west] {$\mathbf{A}$};
+\draw (4.06,2.18) node[anchor=north west] {$\mathbf{B}$};
+\draw (5.06,3.18) node[anchor=north west] {$\mathbf{C}$};
+\draw (1.44,3.62) node[anchor=north west] {$\mathbf{D}$};
+\draw (0.48,5.44) node[anchor=north west] {$\mathbf{E}$};
+\draw (4.06,5.18) node[anchor=north west] {$\mathbf{F}$};
+\draw (5.1,6.74) node[anchor=north west] {$\mathbf{G}$};
+\draw (1.52,6.66) node[anchor=north west] {$\mathbf{H}$};
+\draw (3.5,3.74) node[anchor=north west] {$\mathbf{I}$};
+\begin{scriptsize}
+\draw [fill=uuuuuu] (3.5,6.) circle (1.5pt);
+\draw [fill=uuuuuu] (3.5,3.) circle (1.5pt);
+\draw [fill=uuuuuu] (4.25,6.) circle (1.5pt);
+\end{scriptsize}
+\end{tikzpicture}
+    \end{center}
+\begin{enumerate}[itemsep=8pt]
+\item 
+
+ Démontrer que la droite $(BI)$ est orthogonale à $(IJ)$
+
+
+\item Quelle est la nature de la section du plan $(BIL)$ avec le plan $(EFG)$ ?(Donner deux caractéristiques de cette section)
+
+\item Démontrer que la section du cube $ABCDEFGH$ par le plan $(BIL)$ est un trapèze
+
+\item On se place dans  le repère
+    $(A;\overrightarrow{AB},\overrightarrow{AD},\overrightarrow{AE})$
+
+\begin{enumerate}[itemsep=5pt]
+\item Les points $L$, $I$, $B$ et $F$ sont-ils coplanaires ? 
+\item On considère le point  $K (~a~;~a~;~\frac{a}{2}~)$
+
+Les droites $(IL)$ et $(BK)$ sont-elles coplanaires ?
+\item Répondre à la question {\bf1.} en utilisant les coordonnées des points $B$,\,$J$ et $I$.
+\end{enumerate}
+\end{enumerate}
+
+\end{question}
+\begin{solution}
+\begin{enumerate}
+\item \textbf{Montrons que $(BI)$ est orthogonale à $(IJ)$}:
+
+On a $(IJ) \perp (DC)$ d'une part.
+
+D'autre part Comme $(IJ)\:\parallel \: (CG)$ et $(CG) \perp (BC)$ alors $(IJ)$ et orthogonale à $(BC)$. 
+
+$(IJ)$ est orthogonale à deux droites sécantes du plan $(BCD)$ donc $(IJ) \perp (BCD)$.
+Or $(BI)$ est une droite du plan $(BCD)$ Donc $(IJ) \perp (BI)$.
+
+\item \textbf{Nature de la section:}
+\begin{itemize}
+\item $(BIL)$ coupe $(EFG)$ en une droite $d$. Comme $L \in (BIL)$ et $ L \in (EFG)$ donc $ L \in d$.
+\item $(BIL)$ coupe $(ABC)$ suivant la droite $(IB)$, et $(ABC) \parallel (EFG)$ donc $(IB) \parallel d$.
+\item Finalement $L \in d$ et $d \parallel (IB)$
+\end{itemize}
+\item \textbf{Section du cube:}
+\begin{itemize}
+\item $(BIL)$ coupe la face $ABCD$ suivant le segment $[IB]$.
+\item On a vu question précédente que $(BIL)$ coupe $(EFG)$ suivant une droite $d$ passant par $L$ et parallèle à $(IB)$. On appelera $M$ le point d'intersection de $d$ avec $[FG]$
+
+Donc $(BIL)$ coupe la face $EFGH$ suivant le segment 	$LM]$.
+\item $(BIL)$ coupe la face $DCGH$ suivant le segment	$[IL]$.
+\item $(BIL)$ coupe la face $BCGF$ suivant le segment $[BM]$.
+\end{itemize}
+D'après ce qui précède la section du cube $ABCDEFGH$ est du plan $(BIL)$ est le trapèze $BILM$.
+\begin{center}
+    \definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\definecolor{ffqqtt}{rgb}{1.,0.,0.2}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\draw (0,0) node [below] {B} -- 
+	({sqrt(3)},0) node [below] {I} -- 
+    ({sqrt(3)},{sqrt(2)}) node [above] {L} -- 
+    ({sqrt(2)-1/2},{sqrt(2)}) node [above] {M} -- 
+    cycle;
+\end{tikzpicture}
+    \end{center}.
+\item \begin{enumerate}
+\item \textbf{Nature des points L,I,B et F:} 
+
+On à $L (~\frac{3}{4} a; a ; a ~)$,\: $B(~ a; 0; 0~)$,\;$I(~\frac{1}{2} a; a ; 	0~)$ et $F(~	 a; 0	; a ~)$
+
+$L,I,B \mbox{et}, F$ Sont coplanaires ssi $\vect{IL}$, $\vect{IB}$\;et $\vect{IF}$ sont coplanaires.
+
+Or il	n'exite pas de rélles	$\alpha\,\mbox{et} \beta$ vérifiant $\vect{IL}=\alpha	\vect{IB}+\beta \vect{IF}$ Donc les vecteures ne sont pas coplanaires.
+\item \textbf{Coplanarité des droites $(IL)\,et\,(BK)$:}
+
+Les droites  $(IL)\,et\,(BK)$ sont coplanaires ssi les points $I, L, B	\;\mbox{et} \,K$ sont coplanaires. 
+
+Même raisonnement il	n'exite pas de rélles	$\alpha\,\mbox{et} \beta$ vérifiant $\vect{IL}=\alpha	\vect{IB}+\beta \vect{IK}$ Donc les vecteures ne sont pas coplanaires.
+\item Il suffit d'utilier le théorème de Pythagore dans le triangle $IBJ$.
+
+
+\end{enumerate}
+\end{enumerate}
+\end{solution}
+\newpage 
+\textbf{Annexe \no{1} :}\hfill\textbf{\`A rendre avec la copie}\hfill \textbf{Numéro:}$\cdots$
+
+\vspace{2cm}
+\begin{tikzpicture}[xscale=4,yscale=5.5]
+\tkzInit[xmin=-2,xmax=2,ymin=-1.,ymax=1.]
+\tkzGrid 
+\tkzAxeXY 
+\end{tikzpicture}
+\newpage 
+\textbf{Annexe \no{2} :}\hfill\textbf{\`A rendre avec la copie}\hfill \textbf{Numéro:}$\cdots$
+\vfill
+
+\begin{center}
+\begin{tikzpicture}[scale=13,>=latex]
+	\draw [dotted,thin] (0,0) grid [step=0.1] (1,1) ;
+	\draw [very thick] plot [smooth,domain=0:1.1] (\x,{1/8*\x^3 + 3/8*\x*\x + 3/8 *\x + 1/8}) ;
+    \draw [very thick] (0,0) -- (1.1,1.1) ;
+    \draw [thick,->] (-0.1,0) -- (1.1,0) ;
+    \draw [thick,->] (0,-0.1) -- (0,1.1) ;
+    \draw (0,0) node [anchor=north west] {O} ;
+\end{tikzpicture}
+\end{center}
+\vfill
+\newpage
+\printsolutions
+\end{document}
+Pour chaque question plusieurs réponses sont proposées. Déterminer celles qui sont corrects.
+
+Une bonne réponse rapporte \np[pt]{1}.
+
+Une mauvaise réponse enlève \np[pt]{0,5}
+
+Une absence de réponse ne donne ni n'enlève de points.
+
+\textbf{Sur votre copie écrire la question ainsi que la réponse}
+
+\bcbombe {\bfseries Toute réponse non justifiée ne sera pas prise en compte.}
+\vspace{1cm}

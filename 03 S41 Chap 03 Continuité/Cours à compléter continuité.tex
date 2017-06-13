@@ -1,0 +1,258 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[frenchb]{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+\usepackage[autolanguage]{numprint}
+\newcommand{\np}{\numprint}
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Vecteur}{\overrightarrow}
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\vabs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\inff}[2]{\left[#1~;~#2\right]}
+\newcommand{\info}[2]{\left[#1~;~#2\right[}
+\newcommand{\inof}[2]{\left]#1~;~#2\right]}
+\newcommand{\inoo}[2]{\left]#1~;~#2\right[}
+
+\makeatother
+
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exercice}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{probleme}{Problème}
+\newtheorem{preuve}{Preuve}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+% Mise en forme des labels dans les énumérations
+\renewcommand{\labelenumi}{\textbf{\theenumi.}}
+\renewcommand{\labelenumii}{\textbf{\theenumii)}}
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\theenumii}{\alph{enumii}}
+
+
+\renewcommand{\labelitemi}{$\bullet$}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Continuité des fonctions}
+\author{Terminale S}
+\date{octobre 2016}
+
+\begin{document}
+
+\maketitle
+
+Remarque liminaire : dans un certain nombre d'ouvrages de l'enseignement
+supérieur, la notion de continuité vient avant la notion de limite. Ces
+deux notions sont fondamentales et sont à la base de l'analyse telle
+qu'on la pratique de façon courante et sont des notions ancrées dans
+notre inconscient.
+
+\section{Continuité sur un intervalle}
+
+\subsection{Continuité en un point}
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{definition}
+      On dit que $f$, fonction définie sur $I$ est continue en $a\in I$
+      si
+    \end{definition}
+    \vspace{2cm}
+  \end{minipage}
+}
+
+Si on se souvient de la définition de la limite en un point, on peut
+également dire que \[ \forall \varepsilon > 0\, \exists \alpha > 0,
+\abs{x - a} \leq \alpha \implies \abs{f(x) - f(a)} \leq \varepsilon .\]
+Autrement dit encore, si pour tout voisinage de $f(a)$, il existe un
+voisinage de $x$ tel que tous les points de ce voisinage ont une image
+dans le voisinage de $f(a)$, alors la fonction est continue en $a$.
+
+\subsection{Continuité en tous les points d'un intervalle}
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{definition}
+      On dit que $f$, fonction définie sur $I$ est continue sur $I$ si
+    \end{definition}
+    \vspace{2cm}
+  \end{minipage}
+}
+
+Attention, toutes les fonctions ne sont pas continues.
+
+\begin{exemple}[Fonction partie entière]~\\
+
+\begin{center}
+  \begin{tikzpicture}[>=latex]
+    \draw [thin, lightgray] (-1,-1) grid [step=1] (5,5) ;
+    \draw [thick,->] (-1,0) -- (5,0) ;
+    \draw [thick,->] (0,-1) -- (0,5) ;
+    \foreach \x in {-1,...,4} {
+      \draw[very thick,red] (\x,\x) node [circle,draw,fill,red,inner
+      sep=1.2pt] {} -- (\x + 1,\x) node [circle,draw,fill,red,inner
+      sep=1.6pt] {} (\x +1, \x) node [circle,draw,fill,white,inner
+      sep=0.8pt] {} ;
+      \draw (\x+1,\x) node [rectangle,draw,fill,white,inner sep = 1.6pt,
+      anchor=west]
+      {} ;
+    }
+  \end{tikzpicture}
+\end{center}
+Cette fonction, souvent noté $E$ ou $x\mapsto \lfloor x\rfloor$, associe
+à tout nombre $x$ réel l'entier naturel $n$ tel que $n\leq x < n+1$,
+comme par exemple $\lfloor\pi\rfloor = 3$.
+
+\end{exemple}
+
+\section{Théorème des valeurs intermédiaires}
+
+\subsection{Énoncé du théorème}
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{theoreme}[des valeurs intermédiaires]
+      Soit $f$ une fonction définie sur $I = [a;b],\ a < b$.
+      Si $f$ est continue sur $I$, alors 
+    \end{theoreme}
+    \vspace{2cm}
+  \end{minipage}
+}
+
+\begin{center}
+  \begin{tikzpicture}[scale=0.8,
+      use Hobby shortcut,
+      tangent/.style={%
+        in angle={(180+#1)},
+        Hobby finish,
+        designated Hobby path=next,
+        out angle=#1,
+      },
+    ]
+    \draw [dotted, help lines, line width=0.6pt] (-6,-6) grid (6,6) ;
+    \draw [dotted, help lines, step=0.5] (-6,-6) grid (6,6) ;
+    \draw [very thick, ->] (0,-6) -- (0,6) ;
+    \draw [very thick, ->] (-6,0) -- (6,0) ;
+    \draw [thick] ([tangent=-45]-4,5) .. (-2.5,1.5) ..
+    ([tangent=0]-1,1) .. (0,1.5) .. ([tangent=0]1,2) .. (2,1.5) ..
+    ([tangent=0]4,0) ;
+    \foreach \x/\y in {-4/5,-2.5/1.5,0/1.5,2/1.5,4/0}
+    { \draw (\x,\y) node [circle,fill,inner sep=1pt] {} ; }
+    \draw (-4,5) node [above right] {$\mathscr{C}_f$} ;
+    \draw[thick] (-4,1.5) node[circle,fill,inner sep=1pt] {} -- (4,1.5)
+    node[circle,fill,inner sep=1pt] {} ;
+    \draw (4,1.5) node[right] {$k$} ;
+  \end{tikzpicture}
+\end{center}
+
+\pagebreak
+\begin{remarque}~\\[-3mm]
+  \begin{itemize}
+    \item $f$ est juste continue, pas forcément monotone ;
+    \item on dit aussi que l'image d'un intervalle par $f$, notée $f(I)$
+      est un intervalle ;
+    \item l'existence de solutions d'une équation se ramène à un
+      problème de continuité.
+  \end{itemize}
+\end{remarque}
+
+\subsection{Corollaires du théorème}
+
+Si on suppose de plus que la fonction est strictement monotone, alors on
+a l'unicité du réel dans l'intervalle image. On va donc démontrer la
+proposition suivante :
+
+\framebox{
+  \begin{minipage}{0.99\linewidth}
+    \begin{theoreme}
+      Soit $f$ une fonction définie sur $I = \inff{a}{b}\, a < b$.
+
+      Si $f$ est continue et strictement croissante alors
+      \begin{itemize}
+        \item l'image de l'intervalle $\inff{a}{b}$ par $f$ est
+          $\inff{f(a)}{f(b)}$ ;
+        \item pour tout $k\in \inff{f(a)}{f(b)}$ l'équation $f(x) = k$
+          possède une unique solution dans $\inff{a}{b}$ ;
+        \item on dit que la fonction $f$ est bijective.
+      \end{itemize}
+    \end{theoreme}
+  \end{minipage}
+}
+
+\end{document}

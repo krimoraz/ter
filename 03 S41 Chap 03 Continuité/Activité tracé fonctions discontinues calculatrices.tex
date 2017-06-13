@@ -1,0 +1,171 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[frenchb]{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+
+\usepackage[autolanguage,np]{numprint}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Vecteur}{\overrightarrow}
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\vabs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\inff}[2]{\left[#1~;~#2\right]}
+\newcommand{\info}[2]{\left[#1~;~#2\right[}
+\newcommand{\inof}[2]{\left]#1~;~#2\right]}
+\newcommand{\inoo}[2]{\left]#1~;~#2\right[}
+
+\makeatother
+
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exercice}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{probleme}{Problème}
+\newtheorem{preuve}{Preuve}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+% Mise en forme des labels dans les énumérations
+\usepackage{enumitem}
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Tracer des fonctions définies «par morceaux»}
+\author{Terminale S}
+\date{novembre 2015}
+
+\begin{document}
+
+\maketitle
+
+\bigskip
+
+\textbf{Objectif :} Tracer des fonctions dont la définition est donnée
+sur des intervalles.
+
+Dans ce TD, on cherchera à représenter la fonction $f$ définie sur
+$\inff{0}{6}$ par \[ f(x) = \left\lbrace\begin{array}{lr}x-2 & 0
+\leqslant x < 2 \\ -2x + 3 & 2 \leqslant x \leqslant 4 \\ x - 9 & 4 < x
+\leqslant 6 \end{array}\right. \]
+
+\begin{enumerate}
+  \item Que trouve-t-on dans le menu \Touche[style=second]
+    \Touche[style=function, principal=math, second=tests, alpha=A] ?
+  \item Affecter une valeur négative à la variable $X$ de la
+    calculatrice.
+    \begin{enumerate}
+      \item Que renvoie \Menu{X<0} ?
+      \item Que renvoie \Menu{X>0} ?
+    \end{enumerate}
+\end{enumerate}
+
+On désire désormais tracer la fonction $x\mapsto x-2$ sur l'intervalle
+$\inff{0}{2}$, afin d'obtenir le dessin ci-contre.
+
+\begin{center}
+  \Ecran[width=12, height=8, graphic=true, xgrad=1, ygrad=1,
+  origin={(2,6)}]%
+  {%
+    (0<\x)*(\x-2)*(\x<2)/-2:12%
+  }
+\end{center}
+
+\textit{In fine}, on doit obtenir :
+\begin{center}
+  \Ecran[width=12, height=8, graphic=true, xgrad=1, ygrad=1,
+  origin={(2,6)}]%
+  {%
+    (0<\x)*(\x-2)*(\x<2) + (2<\x)*(-2*\x + 3)*(\x<4) +
+    (4<\x)*(\x-9)*(\x<6)/-2:12%
+  }
+\end{center}
+
+
+
+\end{document}

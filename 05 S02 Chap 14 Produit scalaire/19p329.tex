@@ -1,0 +1,215 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+%\usetikzlibrary{hobby}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  \vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exercice}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{probleme}{Problème}
+\newtheorem{preuve}{Preuve}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+\newcommand{\qed}{~\hfill$\Box$}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+%\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{framed}
+\newenvironment{acompleter}{%
+  \begin{framed}}
+  {\end{framed}%
+}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Produit scalaire dans l'espace}
+\author{\bsc{Jumel}}
+\date{janvier 2016}
+
+\begin{document}
+
+\setlength{\parindent}{0pt}
+
+\begin{exercice}[19 p 329]
+  On considère un plan $\mathscr{P}$ passant par $A:\vecteur{1;2;1}$ et
+  dirigé par deux vecteurs $\vv{u} = \vecteur{0,2,1}$ et $\vv{v} =
+  \vecteur{1,1,-1}$.
+
+  On considère une droite $d$ de vecteur directeur $\vv{BC} =
+  \vecteur{4,2,3}$.
+
+  On cherche un vecteur $\vv{n} = \vecteur{x,y,z}$ tel que
+  $\vv{u}\cdot\vv{n} = \vv{v}\cdot\vv{n} = 0$.
+
+  On obtient donc le système $\left\lbrace\begin{matrix}2y + z = 0 \\ x
+  + y - z =0\end{matrix}\right.$
+
+  Comme le système est incomplet, on peut fixer une coordonnée, par
+  exemple $x = -3$\footnote{Le choix n'a pas été fait au hasard, mais
+  après une recherche au brouillon.\\On peut d'ailleurs procéder
+  autrement : raisonner sur les deux coordonnées non-nulles du premier
+  vecteur en prenant $x$ arbitraire, puis utiliser le deuxième vecteur
+  pour déterminer $x$.}.
+
+  Le système devient donc $\left\lbrace\begin{matrix}2y + z = 0 \\ y - z
+  = 3\end{matrix}\right.$ ce qui donne successivement $y = 1$ puis $z =
+  -2$.
+
+  On vérifie : \begin{itemize}
+    \item $\vecteur{0,2,1}\cdot\vecteur{-3,1,-2} = 0\times (-3) +
+      2\times 1 + 1\times(-2) = 0$
+    \item $\vecteur{1,1,-1}\cdot\vecteur{-3,1,-2} = 1\times (-3) +
+      1\times 1+ (-1)\times(-2) = 0$
+  \end{itemize}
+
+  $\vv{n} = \vecteur{-3,1,-2}$ est bien un vecteur normal au plan
+  $\mathscr{P}$.
+
+  Étudions le produit scalaire $\vv{n}\cdot\vv{BC}$. Celui-ci égale
+  $(-3)\times 4 + 2\times 1 + (-2)\times 3 = -16 \neq 0$. La droite $d$
+  et le plan $\mathscr{P}$ sont donc sécants.
+\end{exercice}
+
+
+
+
+\end{document}

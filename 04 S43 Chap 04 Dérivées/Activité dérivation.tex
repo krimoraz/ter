@@ -1,0 +1,299 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{smallmatrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{smallmatrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\newcommand*{\versioncomplet}{}
+\newcommand{\complet}[2]{%
+  \ifdefined\versioncomplet
+    {\color{blue} #2}
+  \else
+   ~\\\hspace{0.98\linewidth}\vspace{#1}
+  \fi
+}
+
+
+\makeatother
+
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exercice}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{probleme}{Problème}
+\newtheorem{preuve}{Preuve}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage{exsheets}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Dérivation des fonctions : dégager une formule générale}
+\author{Terminale S}
+\date{novembre 2016}
+
+\begin{document}
+
+\maketitle
+
+\section{Prise d'initiative}
+
+Commençons par quelques calculs de dérivées.
+
+\begin{question}
+  Calculer de deux façons différentes les dérivées des fonctions
+  suivantes :
+  \begin{enumerate}
+    \item $f:x\mapsto (x^2 + 3x -1)(x + 1)$
+    \item $f:x\mapsto x^2\times x$
+    \item $f:x\mapsto \sqrt{x}\sqrt{x}$
+  \end{enumerate}
+\end{question}
+
+Qu'est ces deux derniers calculs permettent de démontrer ?
+
+Proposer un calcul permettant de démontrer la dérivée de la fonction
+inverse.
+
+Rédiger une démonstration de la dérivée des fonctions puissances
+($x\mapsto x^n$).
+
+On va désormais chercher à démontrer la formule de dérivation d'un
+produit que vous avez utilisé.
+
+\begin{propriete}
+  Soient $u$ et $v$ deux fonctions dérivables.
+
+  La dérivée du produit $uv$ est \[u'v + uv'\] où $u'$ et $v'$ sont les
+  dérivées respectives des fonctions $u$ et $v$.
+\end{propriete}
+
+Tracer les fonctions de l'exercice 1 de façon à obtenir ce graphique sur
+la calculatrice :
+\begin{center}
+  \Ecran[width=12, height=8, graphic=true, xgrad=1, ygrad=1,
+  origin={(6,4)}]%
+  {%
+    \x*\x+3*\x - 1/-5:5,%
+    \x + 1/-5:5,%
+    (\x*\x+3*\x - 1)*(\x+1)/-5:5%
+  }
+\end{center}
+
+
+\pagebreak
+\section{La dérivée du produit}
+
+On considère deux fonctions $f$ et $g$ dérivables sur $\interoo{a,b}$.
+
+\begin{enumerate}
+  \item Citer un théorème du cours pour justifier que les fonctions sont
+    continues sur $\interff{a,b}$.
+  \item Soit $x_0$ un réel de l'intervalle $\interoo{a,b}$.
+    \begin{enumerate}
+      \item Que vaut $- f(x_0 + h)g(x_0) + f(x_0 + h)g(x_0)$ ?
+      \item En utilisant la question précédente, écrire la différence
+        $f(x_0+h)g(x_0+h) - f(x_0)g(x_0)$ sous la forme d'une somme de
+        deux différences.
+      \item Compléter : $\frac{f(x_0+h)g(x_0+h) - f(x_0)g(x_0)}h = \dots
+        + \dots$.
+    \end{enumerate}
+  \item
+    \begin{enumerate}
+      \item Que vaut le membre de gauche de l'égalité précédente si on
+        fait tendre $h$ vers 0 ?
+      \item Peut-on passer à la limite dans le membre de droite ?
+
+        Justifier la réponse.
+      \item Écrire ce membre de droite sous la forme de la somme de deux
+        nombres dérivés.
+    \end{enumerate}
+  \item Conclure : la dérivée $(fg)'$ du produit des fonctions
+    dérivables est \dots.
+\end{enumerate}
+
+\section{Utilisation du produit pour en déduire d'autres égalités}
+
+Soient $u$ une fonction définie sur $\interff{a,b}$ dérivable sur
+$\interoo{a,b}$ et $x$ un nombre réel dans cet intervalle.
+
+\begin{enumerate}
+  \item
+    \begin{enumerate}
+      \item Que vaut $(u(x))^0$ ?
+      \item En écrivant $(u(x))^2 = u(x)\times u(x)$, écrire la dérivée de
+        $(u(x))^2$ en fonction de $u(x)$ et de $u'(x)$.
+      \item Démontrer par récurrence que $(u(x))^n =
+        nu'(x)(u(x))^{n-1}$.
+    \end{enumerate}
+  \item On suppose dans cette question que $u(x) > 0$ sur $\interff{a,b}$
+    \begin{enumerate}
+      \item Que vaut $\sqrt{u(x)}\sqrt{u(x)}$ ?
+      \item En utilisant les des expressions précédentes, dériver à
+        droite et à gauche l'égalité précédente.
+      \item En déduire la dérivée de $(\sqrt{u(x)})'$.
+    \end{enumerate}
+  \item On suppose que dans cette question $u(x) \neq 0$ sur
+    $\interff{a,b}$. On suppose de plus que si $u$ est dérivable,
+    $v:x\mapsto \left(\frac1u(x)\right)$ est dérivable.
+
+    \begin{enumerate}
+      \item Que vaut le produit $u(x)v(x)$ pour $x$ fixé ?
+      \item Écrire la dérivée du produit $uv$ de deux façons
+        différentes.
+      \item Exprimer $v'$ en fonction de $u$ et de $v$.
+      \item En revenant à la définition de $v$, donner la dérivée de
+        $\frac1u$.
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Bilan}
+
+\begin{enumerate}
+  \item Pour les trois résultats précédents, comparer les aux dérivées des
+    fonctions $f:x\mapsto x^n$, $g:x\mapsto \sqrt{x}$ et $h:x\mapsto \frac1x$.
+  \item Comment peut-on écrire les fonctions des trois questions
+    précédentes et leurs dérivées en fonction de $f$, $g$, $h$ et $u$ ?
+  \item Quelle est la forme qu'on peut écrire pour tradiuire une
+    relation générale ?
+\end{enumerate}
+
+\end{document}

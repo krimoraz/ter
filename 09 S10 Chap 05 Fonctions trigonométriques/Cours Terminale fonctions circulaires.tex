@@ -1,0 +1,596 @@
+\documentclass[11pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-base}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\Cf}{\mathscr{C}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\diff}[1]{\mathrm{d}\,#1}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}{Lemme}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+%\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Fonctions circulaires}
+\author{\bsc{Jumel}}
+\date{mars 2017}
+
+\begin{document}
+
+\noindent\maketitle
+
+\bigskip
+
+\section*{Activités préparatoires}
+
+\begin{exercice}
+  Placer sur le cercle ci-dessous le cosinus et le sinus de l'angle
+  $\alpha$.
+
+  \begin{center}
+    \begin{tikzpicture}[scale=2]
+      \tkzInit[xmin=-1,xmax=1,ymin=-1,ymax=1]
+      \tkzDrawXY
+      \draw plot [smooth,domain=0:360] ({cos(\x)}, {sin(\x)} ) ;
+      \draw (0,0) -- (36:1) ;
+      \draw [red,fill=red!30] plot [smooth,domain=0:36] ({0.3*cos(\x)},
+      {0.3*sin(\x)} ) -- (0,0) -- cycle ;
+      \draw (18:0.3) node [right] {$\alpha$} ;
+    \end{tikzpicture}
+  \end{center}
+\end{exercice}
+
+\begin{definition}
+  \begin{itemize}
+    \item On appelle fonction cosinus, notée $\cos$ la fonction de $\R
+      \to \R,\ x\mapsto \cos x$ ;
+    \item On appelle fonction sinus, notée $\sin$ la fonction de $\R \to
+      \R,\ x\mapsto \sin x$.
+  \end{itemize}
+\end{definition}
+
+On admet ici que ces deux fonctions sont continues sur $\R$.
+
+\begin{exercice}
+  Compléter les relations ci-dessous :
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item $\cos (a+\pi) = \dotfill$
+      \item $\cos (a-\pi) = \dotfill$
+      \item $\cos (-a) = \dotfill$
+      \item $\cos (a+\frac{\pi}2) = \dotfill$
+      \item $\cos (a-\frac{\pi}2) = \dotfill$
+      \item $\cos (a+b) = \dotfill$
+      \item $\cos (a-b) = \dotfill$
+      \item $\cos (2a) = \dotfill$
+      \item $\sin (a+\pi) = \dotfill$
+      \item $\sin (a-\pi) = \dotfill$
+      \item $\sin (-a) = \dotfill$
+      \item $\sin (a+\frac{\pi}2) = \dotfill$
+      \item $\sin (a-\frac{\pi}2) = \dotfill$
+      \item $\sin (a+b) = \dotfill$
+      \item $\sin (a-b) = \dotfill$
+      \item $\sin (2a) = \dotfill$
+    \end{itemize}
+  \end{multicols}
+\end{exercice}
+
+\begin{exercice}
+  Donner l'argument qui permet d'écrire $\cos^2 x + \sin^2 x = 1$.
+\end{exercice}
+
+Il est particulièrement utile de connaître le tableau suivant :
+
+\begin{center}
+  \begin{tabular}{%
+      |c|*{5}{c|}%
+    } \hline
+    $\alpha$ & 0 & $\frac{\pi}6$ &  $\frac{\pi}4$ &  $\frac{\pi}3$ &
+    $\frac{\pi}2$ \\ \hline
+    $\sin \alpha$ & 0 & $\frac12$ & $\frac{\sqrt{2}}2$ &
+    $\frac{\sqrt{3}}2$ & $\frac{\sqrt{4}}{2} = 1$ \\ \hline
+    $\cos \alpha$ & $\frac{\sqrt{4}}2 = 1$ & $\frac{\sqrt{3}}2$ &
+    $\frac{\sqrt{2}}2$ & $\frac{1}{2}$ & 0 \\ \hline
+  \end{tabular}
+\end{center}
+
+\section{Étude des fonctions sinus et cosinus}
+
+Il s'agit ici d'une étude au sens de l'étude de fonction. Pour cela,
+nous donnerons d'abord la dérivée des ces fonctions, étudierons les
+limites éventuelles (ou les majorants et minorants s'ils existent) et
+dresseront le tableau de variation.
+
+Une autre partie sera ensuite consacrée à la représentation graphique de
+telles fonctions.
+
+\subsection{Dérivées et études des fonctions}
+
+\begin{lemme}
+  La fonction $x \mapsto \frac{\sin x}{x}$ est continue et vaut 1 en 0.
+\end{lemme}
+
+Donnons une preuve géométrique de ce lemme.
+
+\begin{exercice}
+  Démontrons que $\sin h \leqslant h \leqslant \tan h$.
+
+  \begin{enumerate}
+    \item Préciser dans quel intervalle cette inégalité est non triviale
+      (i.e. non évidente)
+    \item $\sin h \leqslant h$.
+      \begin{enumerate}
+        \item Compléter le schéma en plaçant un point $S$ représentant
+          le sinus de l'angle représenté.
+          \begin{center}
+            \begin{tikzpicture}[scale=4]
+              \draw plot [smooth, domain=0:18] ({cos(\x)}, {sin(\x)} ) ;
+              \draw (0,0) node [left] {$O$} -- (1,0) node [right] {$U$} ;
+              \draw (0,0) -- (18:1) node [above] {$X$} ;
+              \draw (1,0) -- (1,{tan(18)}) node [right] {$T$} -- (18:1) ;
+            \end{tikzpicture}
+          \end{center}
+          On donne $OU = \np{1}$.
+        \item Donner un argument géométrique permettant de conclure.
+      \end{enumerate}
+    \item $h \leqslant \tan h$
+      \begin{enumerate}
+        \item Quelle longueur correspond à la tangente ?
+        \item Donner les aires des triangles $OSX$ et $OUT$ ainsi que du
+          secteur angulaire $OUX$.
+        \item En déduire $\sin h \cos h < h < \tan h$
+      \end{enumerate}
+    \item Quels théorèmes ou propriétés utiliser pour en déduire
+      $\lim_{h\to 0} \dfrac{h}{\sin h}$ puis $\lim_{h\to 0} \dfrac{\sin
+      h}h$ ?
+  \end{enumerate}
+\end{exercice}
+
+On obtient ainsi une démonstration de ce résultat qui ne fait pas appel
+à la dérivée du sinus.
+
+\begin{exercice}\label{ex:nb_deriv_cos}
+  Une démonstration du nombre dérivé de la fonction $\cos$.
+
+  \begin{enumerate}
+    \item \begin{enumerate}
+        \item Rappeler la formule de linéarisation du cosinus.
+        \item Donner $\lim_{h\to 0}\cos h$ et $\lim_{h\to 0}\sin h$.
+      \end{enumerate}
+    \item Soient $x$ et $h$ deux réels.
+      \begin{enumerate}
+        \item Linéariser $\cos(x+h)$
+        \item Montrer que $\cos(x + h) - \cos x = \cos x\cos h - \sin x
+          \sin h - \cos x$
+        \item En déduire une simplification de $\lim_{h\to
+          0}\dfrac{\cos(x + h) - \cos x}{h}$
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\begin{remarque}
+  Ici, on ne pouvait pas utiliser le nombre dérivé du sinus en 0, puisque
+  c'est justement ce qu'on cherche à montrer.
+\end{remarque}
+
+\begin{propriete}
+  \begin{itemize}
+    \item La fonction cosinus est dérivable sur $\R$ et sa dérivée est
+      $\cos'x = -\sin x$ ;
+    \item la fonction sinus est dérivable sur $\R$ et sa dérivée est
+      $\sin'x = \cos x$.
+  \end{itemize}
+\end{propriete}
+\begin{preuve}
+  \begin{itemize}
+    \item Voir les deux exercices ci-dessus ;
+    \item Reprendre l'exercice \ref{ex:nb_deriv_cos} en linéarisant le
+      sinus.
+  \end{itemize}
+\end{preuve}
+
+\begin{exercice}
+  Écrire la dérivée des fonctions $\cos$ et $\sin$ en terme de
+  déphasage.
+\end{exercice}
+
+De par sa définition géométrique, on a pour tout $x$ réel, $-1\leqslant
+\cos x \leqslant 1$ et $-1 \leqslant \sin x \leqslant 1$. On peut
+démontrer également que $\cos$ et $\sin$ n'ont pas de limite en
+$+\infty$. Il suffit de le montrer sur une suite.
+
+\begin{exercice}
+  \begin{enumerate}
+    \item Exprimer la suite $\cos(n\pi)$ en fonction de -1 et de $n$.
+    \item Même question pour la suite $\sin\left(\frac{n\pi}2\right)$.
+    \item Que vaut la limite de $n\pi$.
+    \item Conclure.
+  \end{enumerate}
+\end{exercice}
+
+Pour des raisons de périodicité (nous reviendrons sur ce terme plus
+tard), nous pouvons limiter les tableaux de variations.
+
+Pour le cosinus :
+\begin{center}
+  \begin{tikzpicture}
+    \tkzTabInit[]
+    {$x$/1, $-\sin x$/1, $\cos$/3}
+    {0, $\frac{\pi}2$, $\pi$, $\frac{3\pi}2$, $2\pi$}
+    \tkzTabLine{,-, ,-,0,+, ,+}
+    \tkzTabVar{+/1,R,-/-1,R,+/1}
+    \tkzTabVal{1}{3}{0.5}{}{0}
+    \tkzTabVal{3}{5}{0.5}{}{0}
+  \end{tikzpicture}
+\end{center}
+
+Pour le sinus :
+\begin{center}
+  \begin{tikzpicture}
+    \tkzTabInit[]
+    {$x$/1, $\cos x$/1, $\sin$/3}
+    {$-\pi$, $-\frac{\pi}2$, $0$, $\frac{\pi}2$, $\pi$}
+    \tkzTabLine{,-,0,+, ,+,0,-}
+    \tkzTabVar{+/0,-/-1,R,+/1,-/0}
+    \tkzTabVal{2}{4}{0.5}{}{0}
+  \end{tikzpicture}
+\end{center}
+
+\subsection{Représentations graphiques et compléments directs}
+
+À l'aide des tableaux de variations, on peut en déduire les
+représentation graphiques des ces fonctions.
+
+\begin{center}
+  \begin{tikzpicture}
+    \tkzInit[ymin=-1.2,ymax=1.2,xmin=-8,xmax=8]
+    \tkzDrawXY
+
+    \draw [thick,red] plot [smooth,samples=500,
+    domain={-2.5*3.14}:{2.5*3.14}] (\x, {cos(\x r)}) node [below] {$\cos
+    x$} ;
+    \draw [thick,blue] plot [smooth,samples=500,
+    domain={-2.5*3.14}:{2.5*3.14}] (\x, {sin(\x r)}) node [right] {$\sin
+    x$} ;
+  \end{tikzpicture}
+\end{center}
+
+On peut aussi donner de nouvelles relations qui complèterons les
+tableaux des dérivées et des primitives usuelles.
+
+\begin{propriete}
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item La primitive de $\cos$ est $\sin$.
+      \item La primitive de $\sin$ est $-\cos$.
+      \item Une façon de les mémoriser est de retenir que primitive et
+        dérivée sont «réciproques» l'une de l'autre, ainsi, pour $f\in\{
+        \cos,\sin\}$, la primitive est $f(x - \frac{\pi}2)$.
+    \end{itemize}
+    \columnbreak
+    \begin{itemize}
+      \item La dérivée de $x\mapsto \cos(\omega x + \varphi)$ est
+        $x\mapsto -\omega\sin(\omega x + \varphi)$.
+      \item La dérivée de $x\mapsto \sin(\omega x + \varphi)$ est
+        $x\mapsto \omega\cos(\omega x + \varphi)$.
+      \item La primitive de $x\mapsto \cos(\omega x + \varphi)$ est
+        $x\mapsto \frac1{\omega}\sin(\omega x + \varphi)$.
+      \item La primitive de $x\mapsto \sin(\omega x + \varphi)$ est
+        $x\mapsto \frac{-1}{\omega}\cos(\omega x + \varphi)$.
+    \end{itemize}
+  \end{multicols}
+\end{propriete}
+
+\section{Notions complémentaires sur les fonctions}
+
+\subsection{Quelques propriétés en plus}
+
+\begin{definition}
+  On dit qu'une fonction $f$ définie sur $I$ est :
+  \begin{itemize}
+    \item paire si $\forall x\in I,\ f(-x) = f(x)$ ;
+    \item impaire si $\forall x\in I,\ f(-x) = -f(x)$ ;
+  \end{itemize}
+\end{definition}
+
+\begin{exercice}
+  \begin{enumerate}
+    \item Préciser qui de sinus et de cosinus est paire ou impaire.
+    \item Interpréter la parité en terme de symétrie de la
+      représentation graphique.
+    \item Donner des exemples de fonctions paires et impaires.
+  \end{enumerate}
+\end{exercice}
+
+\begin{definition}
+  On dit qu'une fonction $f$ définie sur $I$ est périodique s'il existe
+  un réel $T$ tel que $\forall x \in I,\ f(x+T) = f(x)$.
+
+  Le réel $T_0 = \min \left\{ T | f(x+T) = f(x) \right \}$ est appelé
+  \emph{période} et on dit que $f$ est $T_0$ périodique.
+\end{definition}
+
+\begin{exercice}
+  Préciser la période des fonctions cosinus et sinus.
+\end{exercice}
+
+\pagebreak
+
+\subsection{Le rapport du sinus et du cosinus}
+
+\begin{definition}[tangente]
+  On définit la fonction tangente comme la fonction de $\R \setminus
+  \left\{\frac{(2n+1)\pi}2,\ n\in\Z \right\}\to \R, x\mapsto \frac{\sin
+  x}{\cos x}$
+\end{definition}
+
+\begin{propriete}
+  La fonction tangente est impaire, périodique, de période $\pi$.
+\end{propriete}
+\begin{preuve}
+  Soit $x \in \R \setminus \left\{\frac{(2n+1)\pi}2,\ n\in\Z \right\}$.
+  $\tan(-x) = \frac{\sin(-x)}{\cos(-x)} = \frac{-\sin x}{\cos x} = -\tan
+  x$.
+
+  $\tan(x+\pi) = \frac{\sin(x + \pi)}{\cos(x + \pi)} = \frac{- \sin x}{-
+  \cos x} = \tan x$.
+\end{preuve}
+
+\begin{propriete}
+  $\tan$ est continue dérivable sur son ensemble de définition et $\tan'
+  = 1 + \tan^2 = \frac1{\cos^2}$.
+\end{propriete}
+\begin{preuve}
+  $\tan$ est le quotient de deux fonctions continues dérivables.
+
+  $\tan' = \frac{\sin' \cos - \sin \cos'}{\cos^2} = \frac{\cos \cos +
+  \sin \sin}{\cos^2}$.
+\end{preuve}
+
+\begin{propriete}
+  $\lim_{\substack{x\to\frac{(2n+1)\pi}2^{\varepsilon}\\n\in\Z}} \tan x =
+  \varepsilon\infty$ avec $\varepsilon = \pm 1$.
+\end{propriete}
+\begin{preuve}
+  Il suffit d'étudier $\cos$ au voisinage de $(2n+1)\frac{\pi}2$.
+\end{preuve}
+
+\begin{center}
+  \begin{tikzpicture}
+    \tkzTabInit{$x$/1,$1+\tan^2 x$/1,$\tan x$/3}{$-\frac{\pi}2$,
+    $\frac{\pi}2$}
+    \tkzTabLine{,+,}
+    \tkzTabVar{-/$-\infty$,+/$+\infty$}
+    \tkzTabVal{1}{2}{0.5}{0}{0}
+  \end{tikzpicture}
+\end{center}
+
+Tracé de la courbe représentative de la tangente :
+
+\begin{center}
+  \begin{tikzpicture}[yscale=0.34]
+    \tkzInit[ymin=-10,ymax=10,xmin=-8,xmax=8]
+    \tkzDrawXY
+
+    \foreach \i in {-2,...,2} {
+      \draw [thick,red] plot [smooth,samples=500,
+      domain={-3.14/2+0.1 + 3.14*\i}:{3.14/2-0.1 + 3.14*\i}] (\x,
+      {tan(\x r)}) ;
+    }
+    \draw [red] (9,8) node { $\tan x$ } ;
+  \end{tikzpicture}
+\end{center}
+
+\subsection{Des fonctions qui découlent du sinus et du cosinus : leurs
+réciproques}
+
+\begin{definition}[injection, surjection, bijection]
+  \begin{itemize}
+    \item Une fonction telle que deux éléments $x_1 \neq x_2$ entraine
+      $f(x_1) \neq f(x_2)$ est dite injective ;
+    \item une fonction telle que pour tout élément $y$, il existe $x$
+      telle que $f(x) = y$ est dite surjective ;
+    \item une fonction à la fois injective et surjective est dite
+      bijective, on dit aussi que tout élément possède un et un seul
+      antécédent.
+  \end{itemize}
+\end{definition}
+
+Par exemple, toute fonction continue monotone (donc qui respecte le
+théorème des valeurs intermédiaires) est bijective.
+
+\begin{propriete}
+  \begin{itemize}
+    \item La restriction de $\cos$ à l'intervalle $\interff{0;\pi}$ est
+      bijective.
+    \item La restriction de $\sin$ à l'intervalle
+      $\interff{-\frac{\pi}2;\frac{\pi}2}$ est bijective.
+  \end{itemize}
+\end{propriete}
+\begin{preuve}
+  Il suffit pour cela de considèrer les variations de ces fonctions.
+\end{preuve}
+
+\begin{propriete}
+  Une fonction continue bijective, à dérivée continue bijective admet
+  une réciproque continue bijective.
+\end{propriete}
+
+Cette dernière affirmation n'est pas démontrée, mais on peut en donner
+un exemple : les fonctions $\exp$ et $\ln$.
+
+\begin{definition}
+  \begin{itemize}
+    \item La réciproque de $\cos$ s'appelle $\arccos$ et est définie sur
+      $\interff{-1;1}$.
+    \item La réciproque de $\sin$ s'appelle $\arcsin$ et est définie sur
+      $\interff{-1;1}$.
+  \end{itemize}
+\end{definition}
+
+\begin{propriete}
+  \begin{itemize}
+    \item $\arccos' x = \frac{-1}{\sqrt{1-x^2}}$
+    \item $\arcsin' x = \frac{1}{\sqrt{1-x^2}}$
+  \end{itemize}
+\end{propriete}
+
+Ces deux dernières dérivées sont particulièrement utiles dans le cadre
+de l'intégration. On retrouve ainsi des résultats assez intéressants.
+
+\section*{Réferences :}
+
+\begin{itemize}
+  \item \url{http://xavier.hubaut.info/coursmath/ana/sinus.htm}
+\end{itemize}
+
+\end{document}

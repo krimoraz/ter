@@ -1,0 +1,40 @@
+% rubber: setlist arguments --shell-escape
+\documentclass[varwidth,convert]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+
+\begin{document}
+Démontrons que $\forall n \in \mathbf{N}, 1 + 3 + \cdots + (2n+1) =
+(n+1)^2$.
+
+Soit $P(n)$ la proposition « $1 + 3 + \cdots + (2n+1) = (n+1)^2$».
+
+\emph{Initialisation}
+
+Vérifions $P(0)$.
+
+Pour $P(0)$, la somme vaut 1 et $(n+1)^2 = 1$.
+
+Donc $P(0)$ est vraie.
+
+\emph{Hérédité}
+
+Soit $n$ un entier naturel supérieur ou égal à 1.
+
+Supposons que $P(n)$ est vraie, démontrons $P(n+1)$ : « $1 + 3 + \cdots
++ (2n+1) + (2(n+1)+1) = (n+1 +1)^2$.
+
+$1 + 3 + \cdots + (2n+1) + (2(n+1)+1) = (n+1)^2 + (2(n+1)+1)$ en
+utilisant l'hypothèse de réuccurence.
+
+En factorisant l'identité remarquable, on obtient
+
+\centering $\boxed{1 + 3 + \cdots + (2n+1) + (2(n+1)+1) = (n+1 +1)^2}$.
+
+\emph{Conclusion}
+
+Le principe de récurrence nous permet désormais d'affirmer que $\forall
+n \in \mathbf{N}, 1 + 3 + \cdots + (2n+1) = (n+1)^2$.
+\end{document}

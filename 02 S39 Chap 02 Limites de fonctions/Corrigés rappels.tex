@@ -1,0 +1,161 @@
+\documentclass[a4paper,12pt,french]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[upright]{kpfonts}
+\usepackage[margin=1.4cm]{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+
+\usepackage[inline]{enumitem}
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[zerostyle=d]{newtxtt}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{tipfr}
+
+\usepackage{babel}
+\usepackage[lastexercise]{exercise}
+
+\renewcommand{\ExerciseName}{Exercice}
+\renewcommand{\AnswerName}{Réponse de l'exercice}
+
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\R}{\mathbf{R}}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Correction exercices suites rappels}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{Exercise}[number=1,title={Vrai-faux}]
+ \begin{enumerate}
+    \item Pour tout $x$, $(x+1)^2 \geqslant x+1$.
+    \item Si $x \leqslant \sqrt{x} \leqslant x^2$, alors $x=0$.
+    \item Si $x > 1$, alors $\frac3{x^2} < \frac4x$.
+    \item Si $x > 1$, alors $x^2 < x^3$.
+    \item Si $x > 0$, $x-1 < (x-1)^2$
+  \end{enumerate}
+\end{Exercise}
+\begin{Answer}
+  \begin{enumerate}
+    \item Faux. Deux arguments différents :
+      \begin{itemize}
+        \item $\forall x\in\R,\ (x+1)^2 \geqslant x+1 \iff x^2 + 2x +1
+          \geqslant x+1 \iff x^2 + x \geqslant 0$. La fonction
+          polynomiale $x\mapsto x^2 + x$ s'annule deux fois sur $\R$, ce
+          qui invalide l'expression de départ.
+        \item Pour $x=-\frac12$, le membre de gauche vaut $\frac14$ et
+          celui de droite $\frac12$ ; or $\frac14 \leqslant \frac12$.
+      \end{itemize}
+    \item Faux, $1 \leqslant \sqrt1 \leqslant 1^2$.
+    \item Vrai. Soit $x\in\R,\ x > 1 \implies x^2 > x \implies
+      \frac{x^2}3 > \frac{x}{3} > \frac{x}{4} \implies \frac3{x^2} <
+      \frac{4}{x}$
+    \item Vrai. Soit $x\in\R,\ x > 1 \implies x^2 > x \implies x^3 >
+      x^2$
+    \item Faux. Deux arguments différents :
+      \begin{itemize}
+        \item Pour $x=\frac32$, le membre de gauche vaut $\frac12$ ; le
+          membre de droite vaut $\frac14$.
+        \item $\forall x\in\R,\ x-1 < (x-1)^2 \iff x-1 < x^2 -2x +1 \iff
+          x^2 -3x +2 > 0$. Or cette fonction polynomiale s'annule en 1
+          et en 2.
+      \end{itemize}
+  \end{enumerate}
+\end{Answer}
+\begin{Exercise}[title={QCM}]
+  \emph{Pour chaque affirmation, une seule réponse est exacte.
+  Identifiez-la en justifiant votre réponse.}
+
+  Les fonctions $f$, $g$ et $h$ sont définies sur $\R$ par : \[ f(x) =
+  2x+3 ,\ \ g(x) = 3 - x^2\ \ \text{et}\ \ h(x) = x^2 + 2x - 1 .\]
+  \begin{enumerate}
+    \item $f(x) \leqslant g(x)$ pour tout $x$ de l'intervalle :
+      \begin{multicols}{3}
+        \begin{enumerate}
+          \item $\R$
+          \item $[-2;0]$
+          \item $[-2;2]$
+        \end{enumerate}
+      \end{multicols}
+    \item Pour tout $x$ de l'intervalle $[-2;1]$ :
+      \begin{multicols}{3}
+        \begin{enumerate}
+          \item $g(x) < f(x)$
+          \item $h(x) \geqslant f(x)$
+          \item $g(x) \geqslant h(x)$
+        \end{enumerate}
+      \end{multicols}
+    \item \begin{enumerate}
+        \item Pour tout $x$, $x > \frac32,\ h(x) < f(x)$.
+        \item Pour tout $x$ de l'intervalle $]-2,0],\  \left[f(x) -
+          g(x)\right]\times\left[f(x) - h(x)\right] \leqslant 0$.
+        \item Il n'existe pas de nombre $x$ tel que : \[f(x) \leqslant
+          g(x) \leqslant h(x).\]
+      \end{enumerate}
+  \end{enumerate}
+\end{Exercise}
+\begin{Answer}
+  À la calculatrice, on peut obtenir ceci :
+  \begin{center}
+    \Ecran[graphic=true]{
+      2*\x + 3/-6:6,
+      3 - \x*\x/-6:6,
+      \x*\x + 2*\x -1/-6:6
+    }
+  \end{center}
+  \begin{enumerate}
+    \item La différence $f-g$ est la fonction polynomiale $x\mapsto -x^2
+      + 2x$. C'est donc la réponse \textbf{b)}.
+    \item La différence $g -h$ est la fonction polynomiale $x\mapsto 4 -
+      2x -2x^2$ dont les racines sont 1 et -2. C'est donc la réponse
+      \textbf{c)}.
+    \item $f(-2) = -1 ;\ g(-2) = -1 ;\ h(-2) = -1$. C'est donc la
+      réponse \textbf{c)}.
+  \end{enumerate}
+\end{Answer}
+
+\begin{Exercise}[title={Vrai ou faux}]
+  \begin{enumerate}
+    \item Pour tout $x$, $x-1 \leqslant x - \cos(x) \leqslant x +1$.
+    \item Quelque soit $x$, $2\sin(x) + (\cos x)^2 \geqslant 0$.
+    \item $f$ est une fonctin définie sur un intervalle $I$ telle que :
+
+      pour tout $x$ de $I$: \[ -1 \leqslant f(x) \leqslant 3 .\] Alors,
+      pour tout $x$ de $I$, le nombre $\frac{f(x) + \sin(x)}{2}$
+      appartient à $[-1;2]$.
+    \item Il existe des nombres $x$ de l'intervalle $]0;\pi]$ tels que
+      $\sin(x) \leqslant -\frac1x$.
+  \end{enumerate}
+\end{Exercise}
+\begin{Answer}
+  \begin{enumerate}
+    \item Vrai : $-1\leqslant\cos x\leqslant 1 \implies -1\leqslant
+      -\cos x\leqslant 1 \implies x-1\leqslant x-\cos x\leqslant x+1$.
+    \item Faux : $2\sin\left(\frac{-\pi}{2}\right) + \cos^2
+      \left(\frac{-\pi}{2}\right) = 2\times (-1) + 0 \leqslant 0$.
+    \item Vrai : $-1\leqslant\sin x\leqslant 1 \ \text{et}\ -1 \leqslant
+      f(x) \leqslant 3 \implies -2\leqslant f(x) + \sin(x) \leqslant 4
+      \implies -1 \leqslant \frac{f(x) + \sin(x)}{2} \leqslant 2
+      \implies \frac{f(x) + \sin(x)}{2} \in [-1;2]$.
+    \item Faux : $\forall x\in ]0;\pi],\ \sin x \geqslant 0 $ et $-\frac1x
+      \leqslant 0$.
+  \end{enumerate}
+\end{Answer}
+\end{document}

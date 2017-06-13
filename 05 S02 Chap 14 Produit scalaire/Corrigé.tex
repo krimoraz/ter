@@ -1,0 +1,114 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fourier}
+\usepackage[scaled=0.875]{helvet}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage{amsmath,amssymb,makeidx}
+\usepackage[normalem]{ulem}
+\usepackage{fancybox}
+\usepackage{enumerate}
+\usepackage{tabularx}
+\usepackage{ulem}
+\usepackage{dcolumn}
+\usepackage{textcomp}
+\newcommand{\euro}{\eurologo{}}
+\usepackage{pstricks,pst-plot,pst-text,pst-tree}
+\everymath{\displaystyle}
+\setlength\paperheight{297mm}
+\setlength\paperwidth{210mm}
+\setlength{\textheight}{23,5cm}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\vect}[1]{\mathchoice%
+{\overrightarrow{\displaystyle\mathstrut#1\,\,}}%
+{\overrightarrow{\textstyle\mathstrut#1\,\,}}%
+{\overrightarrow{\scriptstyle\mathstrut#1\,\,}}%
+{\overrightarrow{\scriptscriptstyle\mathstrut#1\,\,}}}
+\renewcommand{\theenumi}{\textbf{\arabic{enumi}}}
+\renewcommand{\labelenumi}{\textbf{\theenumi.}}
+\renewcommand{\theenumii}{\textbf{\alph{enumii}}}
+\renewcommand{\labelenumii}{\textbf{\theenumii.}}
+\def\Oij{$\left(\text{O},~\vect{\imath},~\vect{\jmath}\right)$}
+\def\Oijk{$\left(\text{O},~\vect{\imath},~ \vect{\jmath},~ \vect{k}\right)$}
+\def\Ouv{$\left(\text{O},~\vect{u},~\vect{v}\right)$}
+\usepackage{fancyhdr} 
+\textheight 23,5cm 
+\voffset -1.5cm \oddsidemargin 0pt 
+\usepackage{esvect}
+\usepackage[frenchb]{babel}
+\usepackage[np]{numprint}
+
+\begin{document}
+\setlength\parindent{0mm}
+
+\vspace{0,25cm}
+
+\textbf{\textsc{Exercice 1}}
+
+\medskip
+
+On considère le cube ABCDEFGH d'arête de longueur 1 représenté ci-dessous.
+
+L'espace est rapporté au repère orthonormal $\left(\text{A}~;~\vect{\text{AB}},\,\vect{\text{AD}},\,\vect{\text{AE}}\right)$.
+
+\medskip
+
+\begin{enumerate}
+  \item Démontrer que le vecteur $\vect{n}$ de coordonnées $(1~;~0~;~1)$
+    est un vecteur normal au plan (BCE).
+
+    $\vv{BC} = \vv{AD} = \left(\begin{matrix}0\\1\\0\end{matrix}\right)$
+
+    $\vv{BC} \cdot \vv{n} = 0$
+
+    $\vv{BE} = \vv{BA} + \vv{AE} = -\vv{AB} + \vv{AE} =
+    \left(\begin{matrix}-1\\0\\1\end{matrix}\right)$
+
+    $\vv{BE} \cdot \vv{n} = -1\times 1 + 0\times 0 + 1\times 1 = 0$.
+
+    Donc $\vv{n}$ est orthogonal à $(BCE)$.
+
+  \item Déterminer une équation du plan (BCE).
+
+    $x + z + d =0$ est une équation du plan. Le point $B$ de coordonnées
+    $(1;0;0)$ appartient au plan $(BCE)$ donc $d = -1$.
+
+    L'équation du plan est $\boxed{x + z - 1 = 0}$
+
+  \item On note $(\Delta)$ la droite perpendiculaire en E au plan (BCE).
+
+    Déterminer une représentation paramétrique de la droite $(\Delta)$.
+
+    $\vv{n}$ est un vecteur directeur de cette droite $(\Delta)$. On a
+    donc \[(\Delta): \left\lbrace\begin{matrix}x = t\\y = 0\\ z = 1 +
+    t\end{matrix}\right.,t\in\R \]
+  \item Démontrer que la droite $(\Delta)$ est sécante au plan (ABC) en
+    un point R, symétrique de B par rapport à A.
+
+    $(ABC) = (ABD)$. $\vv{AE}$ est orthogonal à $\vv{AB}$ et $\vv{AD}$.
+    On en déduit que $\boxed{z=0}$ est une équation cartésienne du plan
+    $(ABC)$.
+
+    Le point d'intersection vérifie le système d'équation
+    $\left\lbrace\begin{matrix}x = t\\y = 0\\ z = 1 + t \\ z  = 0
+    \end{matrix}\right.$ qui est équivalent à
+    $\left\lbrace\begin{matrix}x = t\\y = 0\\ z = 1 + t \\ t + 1 =
+    0\end{matrix}\right.$ dont l'unique solution est $(-1;0;0)$. Si on
+    donne au point $R$ ses coordonnées, on a bien que $\vv{RA} =
+    \vv{AB}$, ce qui correspond à la représentation vectorielle d'une
+    symétrie centrale.
+
+  \item Démontrer que $\vv{DR} -\vv{DB} + 2\vv{DC} = \vv{0}$
+
+    $\vv{DR} -\vv{DB} + 2\vv{DC} = \vv{DA} + \vv{AR} - \vv{DA} - \vv{AB}
+    + 2 \vv{DC} = 2\vv{BA} + 2\vv{DC} = 2\vv{BA} + 2\vv{AB} = \vv{0}$
+
+    car $\vv{AR} = \vv{AB}$ et $\vv{DC} = \vv{AB}$.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,73 @@
+\documentclass[12pt,a4paper,french]{exam}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{cmbright}
+
+\usepackage{babel}
+
+\frenchbsetup{}
+
+\newcounter{exo}
+\newcommand{\Exo}{\refstepcounter{exo}\fullwidth{\noindent%
+\Large \textbf{Exercice \theexo}}}
+
+\newcounter{partie}[exo]
+\newcommand{\Partie}{%
+  \refstepcounter{partie}%
+  \fullwidth{%
+    \noindent \textbf{Partie \Alph{partie}}
+  }
+}
+\renewcommand{\questionlabel}{\textbf{\thequestion.}}
+\renewcommand{\partlabel}{\textbf{\thepartno.}}
+
+
+% Commande pour se faciliter la vie:
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\R}{\mathbf{R}}
+
+\title{Bac blanc décembre 2015}
+
+
+\begin{document}
+
+\pagestyle{headandfoot}
+
+\firstpageheader{}
+  {}
+  {}
+\runningheader{}{Jean-Baptiste de la Salle\\ Bac blanc, décembre 2015\\
+Mathématiques}{}
+
+\footer{}{Page \thepage{} sur \numpages}{\iflastpage{Fin du
+sujet.}{T.S.V.P.}}
+
+\begin{coverpages}
+
+  \maketitle
+
+\end{coverpages}
+
+\Exo
+\begin{questions}
+  \question Donner la définition 
+
+  \Partie
+  On considère la fonction définie sur $\R$ par $f(x) = x + \frac1x$.
+
+  \question
+
+  \begin{parts}
+    \part On considère la suite $(u_n)$ définie sur $\N$ par $u_{n+1} =
+    f(u_n)$.
+  \end{parts}
+\end{questions}
+
+\Exo
+\begin{questions}
+  \question 2 + 2 = 
+\end{questions}
+
+\end{document}

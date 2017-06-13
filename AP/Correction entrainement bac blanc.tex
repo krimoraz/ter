@@ -1,0 +1,756 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2;\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1;#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+%\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exercice}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{probleme}{Problème}
+\newtheorem{preuve}{Preuve}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+\newcommand{\qed}{\hfill$\Box$}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Correction entrainement bac blanc}
+\author{\bsc{Jumel}}
+\date{7 décembre 2015}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercice}
+  On considère une fonction $f$ définie par l'expression $f(x) =
+  \frac{x}{\sqrt{x^2 -1}}$.
+
+  \begin{enumerate}
+    \item $f$ est définie sur $\interoo{-\infty;-1} \cup
+      \interoo{1;+\infty}$
+  \end{enumerate}
+  Soit $\mathscr{C}$ sa courbe représentative dans un repère orthonormé
+  $\vecteur[&;]{O;\vv{\imath};\vv{\jmath}}$.
+
+  \begin{enumerate}[resume]
+    \item \begin{enumerate}
+        \item $\lim_{\substack{x\to1 \\ x>1}}f(x) = +\infty$ et
+          $\lim_{x\to+\infty}f(x) = 1.$
+        \item $\mathscr{C}$ admet deux asymptotes
+          $\Delta_1: x = 1$ et $\Delta_2 : y = 1$.
+      \end{enumerate}
+    \item \begin{enumerate}
+        \item Soit $g$ la fonction définie pour tout réel $x$ de
+          $\interoo{1;+\infty}$, par : $g(x) = \sqrt{x^2 -1}$. Justifier
+          que sa dérivée $g'$ vérifie, pour tout réel $x$ de
+          $\interoo{1;+\infty}\ :\  g'(x) = f(x)$.
+
+          Posons $u(x) = x^2 -1 \forall x\in D_f$. $(\sqrt{u}=' =
+          \frac{u'}{2\sqrt{u}}$ et $u'(x) = 2x \forall x\in D_f \implies
+          g'(x) = f(x)$
+        \item $f'$ désigne la dérivée de $f$. Justifier que, pour tout
+          réel $x$ de $\interoo{1;+\infty}$, on a : \[ f'(x) =
+          \frac{-1}{\left(x^2 -1\right)\sqrt{x^2-1}} .\]
+          Soit $x$ un réel de $\interoo{1;+\infty}$ $f(x) =
+          \frac{x}{g(x)}$ et donc $f'(x) = \frac{1\times g(x) - x\times
+          g'(x)}{g^2(x)} = \frac{\sqrt{x^2 - 1} - \frac{x^2}{\sqrt{x^2 -
+          1}}}{x^2 -1} $ $f'(x) = \frac{1}{\sqrt{x^2 -1}}\times\frac{x^2
+          - 1 - x^2}{x^2 -1}$ \qed
+        \item Dresser le tableau de variation de $f$.
+        \item Compléter le tableau suivant, en donnant des valeurs
+          approchées à \np{0.01} des images $f(x)$.
+          \begin{center}
+            \begin{tabular}{|*{7}{>{\hfill}p{3em}<{\hfill~}|}} \hline
+              $x$    & 1,1  & 1,25 & 1,5  & 1,75 & 2    & 4    \\ \hline
+              $f(x)$ & 2,40 & 1,67 & 1,34 & 1,22 & 1,15 & 1,03 \\ \hline
+            \end{tabular}
+          \end{center}
+        \item Tracer la courbe $\mathscr{C}$ et les droites $\Delta_1$
+          et $\Delta_2$ dans le repère $\vecteur[&;]{0; \vv{\imath};
+        \vv{\jmath}}$
+      \end{enumerate}
+    \item Soient deux réels $a$ et $b$ tels que $1 < a < b$.
+
+      \begin{enumerate}
+        \item $I(b) = \lim_{a\to1^+}\sqrt{b^2 - 1} - \sqrt{a^2 - 1} - b
+          + a = \sqrt{b^2 - 1} - b + 1$
+        \item Soit $b$ un réel $b > 1$
+
+          $\sqrt{b^2 - 1} - b = \frac{\left(\sqrt{b^2 - 1} - b\right)
+          \left(\sqrt{b^2 - 1} + b\right)}{\sqrt{b^2 - 1} + b} =
+          \frac{b^2 - 1 - b^2}{\sqrt{b^2 - 1} + b} = \frac{-1}{\sqrt{b^2
+          - 1} + b}.$
+        \item $K = \lim_{b\to+\infty} I(b) = \frac{-1}{\sqrt{b^2 - 1} +
+          b} +1 = 1$.
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+  Soit $f$ une fonction définie sur $\R$, strictement positive,
+  dérivable et dont la dérivée est strictement positive. Pour tout point
+  $M$ d'abscisse $t$ appartenant à la courbe représentative de $f$, on
+  considère le point $P$ de coordonnées $(t,~ 0)$ et le point $N$, point
+  d'intersection de la tangente en $M$ à la courbe représentative de $f$
+  avec l'axe des abscisses.
+  \begin{enumerate}
+    \item Calculer la distance $PN$ en fonction de $f(t)$ et de $f'(t)$.
+    \item Proposer une relation qui lie $f$ et $f'$ lorsque :
+      \begin{enumerate}
+        \item $PN$ est constante ;
+        \item $PN$ varie linéairement avec $P$
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\pagebreak
+
+\begin{exercice}
+  ~\\[-\baselineskip]
+  \parbox[c]{0.5\textwidth}{Soit $f$ la fonction définie sur
+    l'intervalle [0~;~ 1] par $f(x) = x - 2\sqrt{x} + 1$. Cette fonction
+    est dérivable sur [0~;~1] et sa dérivée $f'$ vérifie $f'(1) = 0$. La
+    courbe représentative
+    $\Gamma$ de la fonction $f$ dans un repère orthonormal est donnée
+    ci-contre.
+
+    \textbf{1. a.}  Montrer que le point $M$ de coordonnées $(x,~y)$
+    appartient à $\Gamma$ si et seulement si $x \geqslant 0,~ y
+    \geqslant 0$ et $\sqrt{x} + \sqrt{y} = 1$.
+
+    \textbf{b.} Montrer que $\Gamma$ est symétrique par rapport à la
+  droite d'équation $y = x$.} \hfill
+  \parbox[c]{0.5\textwidth}{\begin{center}
+      \begin{tikzpicture}[scale=4,>=latex]
+        \draw [->] (-0.25,0) -- (1.25,0) ;
+        \draw [->] (0,-0.25) -- (0,1.25) ;
+        \draw plot [domain=0:1] (\x,{\x - 2*sqrt(\x) + 1});
+    \end{tikzpicture}
+  \end{center}}
+
+  \textbf{2.} \textbf{a.}  Si $\Gamma$ était un arc de cercle, quel
+  serait son centre ? Quel serait son rayon ?
+
+  \textbf{b.}  La courbe $\Gamma$ est-elle un arc de cercle ?
+\end{exercice}
+
+\begin{exercice}
+
+  Soit I l'intervalle [0 ; 1]. On considère la fonction $f$ définie sur
+  I par $f(x) = \dfrac{3x +2}{x+4}$.
+
+  \begin{enumerate}
+    \item Les variations de la fonctions sont données par le signe de
+      $3(x +2) - 3x -2 = 10 >0$ La fonction est donc strictement
+      croissante.
+
+      $f$ est continue (car dérivable) et donc on peut utiliser le
+      théorème des valeurs intermédiaires : l'image d'un intervalle par
+      $f$ est un intervalle et on peut même écrire $f(I) = \interff{f(0)
+      = \frac12 ; f(1) = 1}\subset\interff{0;1}$
+    \item On considère la suite $\left(u_{n}\right)$ définie par
+      \[u_{0} = 0\quad  \text{et} \quad u_{n +1} =
+      \dfrac{3u_{n}+2}{u_{n} + 4}.\]
+
+      Montrons que, pour tout $n,~ u_{n}$ appartient à I.
+
+      La suite est ici définie par récurrence, il faut démontrer ce
+      point par récurrence. On a les points suivants :
+      \begin{itemize}
+        \item $u_0\in I$
+        \item Soit $n\in\N$, supposons que $u_n\in I$. D'après ce qui
+          précède, $u_{n+1} = f(u_n) \in I$ \qed
+        \item $\forall n\in\N,\ u_n\in I$.
+      \end{itemize}
+
+      On se propose d'étudier la suite $\left(u_{n}\right)$ par deux
+      méthodes différentes.
+      \vspace{0,8cm}
+
+      \textbf{Première méthode :}
+
+    \item \begin{enumerate} \item Représenter graphiquement $f$ dans un
+          repère orthonormal d'unité graphique 10 cm.
+
+        \item En utilisant le graphique précédent, placer les points
+          A$_{0}$,~ A$_{1}$,~ A$_{2}$ et A$_{3}$ d'ordonnée nulle et
+          d'abscisses respectives $u_{0},~ u_{1},~ u_{2}$ et $u_{3}$.
+
+          Que suggère le graphique concernant le sens de variation de
+          $\left(u_{n}\right)$ et sa convergence ?
+
+          À propos de la convergence, le graphique suggère que la
+          suite converge vers 1.
+
+        \item $u_{n+1} - u_n = \dfrac{3u_{n}+2}{u_{n} + 4} - u_n =
+          \dfrac{3u_{n}+2 - (u_{n} + 4)u_n}{u_{n} + 4} \dfrac{-u_n^2 -
+          u_{n}+2}{u_{n} + 4}$
+
+          Considérons le polynome en $X$ $-X^2 - X +2$ dont les racines
+          sont 1 et -2. On obtient donc la factorisation suivante :
+          $-u_n^2 - u_{n}+2 = (1- u_n)(u_n+2)$ et donc $u_{n+1} - u_n =
+          \dfrac{(1- u_n)(u_n+2)}{u_n+4}$
+
+          $u_{n+1} - u_n > 0 \implies u_n$ croissante. (signe du
+          polynome)
+        \item $u$ est une suite croissante majorée, donc convergente.
+        \item On a que $\lim_{n\to+\infty}u_n =
+          \lim_{n\to+\infty}u_{n+1} = \lim_{n\to+\infty}f(u_n)$
+
+          $f$ étant continue, on en déduit que si $\lim_{n\to+\infty}u_n
+          = l$, alors $l = f(l)$.
+
+          Résolvons l'équation $ l = f(l) \iff \dfrac{(1-l)(l+2)}{l+4} =
+          0$ dont la solution sur $\interff{0;1}$ est 1. \qed
+      \end{enumerate}
+      \vspace{0,8cm}
+
+      \textbf{Deuxième méthode :}
+
+      On considère la suite $\left(v_{n}\right)$ definie par $v_{n} =
+      \dfrac{u_{n} - 1}{u_{n} + 2}$.
+
+    \item
+      \begin{enumerate}
+        \item $v_{n+1} = \dfrac{u_{n} - 1}{u_{n} + 2} =
+          \dfrac{\dfrac{3u_n+2}{u_n+4} - 1}{\dfrac{3u_n+2}{u_n+4} + 2} =
+          \dfrac{3u_n+2 - u_n -4}{3u_n+2 + 2u_n+8} = \frac{3(u_n -
+          1)}{5(u_n+2)} = \frac25v_n$
+
+        \item $v_{0} = -\frac12$ et $v_{n} = -\frac12\left( \frac25
+          \right)^n$.
+        \item $v_nu_{n} + 2 v_n = u_n - 1 \iff u_n \left(v_n - 1\right)
+          = -1 -2 v_n \iff u_n = - \dfrac{1+2v_n}{v_n -1}$
+
+          $u_n = \frac{1 - 2\frac12\left( \frac25 \right)^n}{1 +
+          \frac12\left( \frac25 \right)^n}$.
+        \item Posons $g:x\mapsto \frac{1 - 2x}{1+x}$. On a $u_n =
+          g(v_n) \forall n\in\N$ et $\lim_{\to\infty}v_n = 0$. De plus,
+          $g$ est continue en 0 et $g(0) = 1$.
+
+          $\lim_{n\to\infty}u_{n}$
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\pagebreak
+
+\begin{exercice}
+  On sait tous qu'il y a des années à coccinelles et d'autres sans !
+
+  On se propose d'étudier l'évolution d'une population de coccinelles à
+  à l'aide d'un modèle utilisant la fonction numérique $f$ définie par
+  $f(x) = kx(1 - x),~ k$ étant un paramètre qui dépend de
+  l'environnement $(k \in \R)$.
+
+  Dans le modèle choisi, on admet que le nombre des coccinelles reste
+  inférieur àà un million. L'effectif des coccinelles, exprimé en
+  millions d'individus, est approché pour l'année $n$ par un nombre réel
+  $u_{n}$, avec $u_{n}$ compris entre 0 et 1. Par exemple, si pour
+  l'année zéro il y a \nombre{300000}~coccinelles, on prendra $u_{0} =
+  0,3$.
+
+  On admet que l'évolution d'une année sur l'autre obéit à la relation
+  $u_{n+1} = f\left(u_{n}\right),~ f$ étant la fonction définie
+  ci-dessus.
+
+  Le but de l'exercice est d'étudier le comportement de la suite
+  $\left(u_{n}\right)$ pour différentes valeurs de la population
+  initiale $u_{0}$ et du paramètre $k$.
+
+  \begin{enumerate}
+    \item Démontrer que si la suite $\left(u_{n}\right)$
+      converge, alors sa limite $l$ vérifie la relation $f(l) = l$.
+    \item Supposons $u_{0} = 0,4$ et $k = 1$.
+      \begin{enumerate}
+        \item Étudier le sens de variation de la suite
+          $\left(u_{n}\right)$.
+        \item Montrer par récurrence que, pour tout entier $n,~ 0
+          \leqslant u_{n} \leqslant 1$.
+        \item La suite $\left(u_{n}\right)$ est-elle convergente ? Si
+          oui, quelle est sa limite ?
+        \item Que peut-on dire de l'évolution à long terme de la
+          population de coccinelles avec ces hypothèses ?
+      \end{enumerate}
+    \item Supposons maintenant $u_{0} = 0,3$ et $k = 1,8$.
+      \begin{enumerate}
+        \item Étudier les variations de la fonction $f$
+          sur $[0~;~ 1]$ et montrer que $f\left(\dfrac{1}{2}\right) \in
+          \left[0~;~\dfrac{1}{2}\right]$.
+        \item En utilisant éventuellement un raisonnement par
+          récurrence,
+          \begin{itemize}
+            \item  montrer que, pour tout entier naturel $n,~ 0
+              \leqslant u_{n} \leqslant \dfrac{1}{2}$
+          \item  établir que, pour tout entier naturel $n,~ u_{n+1}
+            \geqslant u_{n}$.
+        \end{itemize}
+      \item La suite $\left(u_{n}\right)$ est-elle convergente ? Si
+        oui, quelle est sa limite ?
+      \item Que peut-on dire de l'évolution à long terme de la
+        population de coccinelles avec ces hypothèses ?
+    \end{enumerate}
+  \item On a représenté sur les feuilles annexes la fonction $f$ dans
+    les deux cas étudiés ci-dessus ainsi que la droite d'équation $y =
+    x$. Le troisième graphique correspond au cas où\`u $u_{0} = 0,8$
+    et $k = 3,2$.
+
+    Illustrer sur les deux premiers graphiques les résultats trouvés
+    en \textbf{1.} et \textbf{2.} en laissant les traits de
+    construction et en faisant apparaî\^{\i}tre en abscisse les
+    valeurs successives $u_{0},~u_{1},~u_{2},~\ldots$
+
+    En utilisant la même méthode, formuler une conjecture sur
+    l'évolution de la population dans le troisième cas.
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+  Cet exercice se présente comme un questionnaire à choix multiples
+  (QCM). les quatre questions posées sont indépendantes.
+
+  Pour chaque question il y a deux conclusions correctes. Le candidat
+  doit cocher \textbf{au plus deux cases} (celles qu'il juge correctes).
+
+  Aucune justification n'est demandée.
+
+  À chaque question est affecté  un certain nombre de points. Chaque
+  réponse exacte rapporte la moitié des  points affectés ; chaque
+  réponse fausse enlève le quart des points affectés. Cocher trois cases
+  ou plus à d'une question, ou n'en cocher aucune, rapporte zéro point à
+  cette question.
+
+  Si, par aplication de ce barème, le total des points de l'exercice est
+  négatif, il est ramené à zéro.
+
+
+  On considère trois suites $\left(u_{n}\right),~ \left(v_{n}\right)$ et
+  $\left(w_{n}\right)$ qui vérifient la propriété suivante :
+
+  \begin{center}
+    \og Pour tout entier naturel~ $n$~ strictement positif :~
+    $\left(u_{n}\right) \leqslant \left(v_{n}\right) \leqslant
+    \left(w_{n}\right)$~\fg.
+\end{center}
+
+  \begin{enumerate}
+    \item Si la suite $\left(v_{n}\right)$ tend vers $- \infty$, alors :
+
+      $\Box$ La suite $\left(w_{n}\right)$ tend vers $- \infty$
+
+      $\blacksquare$ la suite $\left(u_{n}\right)$ est majorée
+
+      $\blacksquare$ la suite $\left(u_{n}\right)$ tend vers $- \infty$
+
+      $\Box$ la suite $\left(w_{n}\right)$ n'a pas de limite.
+
+    \item Si $\left(u_{n}\right) \geqslant 1,~\left(w_{n}\right) =
+      2\left(u_{n}\right)$ et $\lim \left(u_{n}\right) = l$, alors
+
+      $\Box$ $\lim  \left(v_{n}\right) = l$
+
+      $\Box$ La suite $\left(w_{n}\right)$ tend vers $+ \infty$
+
+      $\blacksquare$ $\lim (w_{n} - u_{n})= l$
+
+      $\blacksquare$ On ne sait pas dire si la suite $\left(v_{n}\right)$ a une
+      limite ou non.
+
+    \item Si $lim \left(u_{n}\right) = - 2$ et $\lim \left(w_{n}\right)
+      = 2$, alors :
+
+      $\blacksquare$ La suite $\left(v_{n}\right)$ est majorée
+
+      $\Box$ $\lim \left(v_{n}\right) = 0$
+
+      $\Box$ la suite $\left(v_{n}\right)$ n'a pas de limite
+
+      $\blacksquare$ On ne sait pas dire si la suite $\left(v_{n}\right)$ a une
+      limite ou non.
+
+    \item Si $u_{n} =\dfrac{2n^2-1}{n^2}$ et  $w_{n} =
+      \dfrac{2n^2+3}{n^2}$2nalors :
+
+      $\Box~ \lim \left(w_{n}\right) = 0$
+
+      $\blacksquare~ \lim \left(v_{n}\right) = 2$
+
+      $\blacksquare~  \lim \left(u_{n}\right) = 2$
+
+      $\Box$ la suite $\left(v_{n}\right)$ n'a pas de limite.
+
+  \end{enumerate}
+\end{exercice}
+
+\pagebreak
+
+\begin{exercice}
+  On se propose d'étudier les fonctions $f$ dérivables sur $\interfo{0;+
+  \infty}$ vérifiant la condition \[(1) \quad\left\{\begin{array}{l}
+    \text{pour tout} \quad  x \in [0~;~ + \infty[,~ f(x)f'(x) = 1\\
+  f(0) = 1\\ \end{array}\right.\]
+
+  \textbf{ Partie A}
+
+  On suppose qu'il existe une fonction $f$ qui vérifie (1).
+
+  La méthode d'\textsc{euler} permet de construire une suite de points
+  $\left(M_{n}\right)$ proches de la courbe représentative de la
+  fonction $f$.
+
+  On choisit le pas $h = 0,1$.
+
+  On admet que les coordonnées $\left(x_{n},~ y_{n}\right)$ des points
+  $M_{n}$ obtenus en appliquant cette méthode avec ce pas vérifient :
+  \[\left\{\begin{array}{l c l}
+        x_{0} & = & 0\\
+        y_{0} & = & 1\\
+      \end{array}\right. \qquad
+      \left\{\begin{array}{l c l}
+          x_{n+1} & = & x_{n} + 0,1\\
+          y_{n+1} & = & y_{n} + \dfrac{0,1}{y_{n}}\\
+  \end{array} \right. \quad \text{pour tout entier naturel}~ n.\]
+  Calculer les coordonnées des points M$_{1}$,~ M$_{2}$,~ M$_{3}$,~
+  M$_{4}$,~ M$_{5}$ (on arrondira au millième les valeurs trouvées).
+
+  \textbf{ Partie B}
+
+  On se propose de démontrer qu'une fonction vérifiant (1) est
+  nécessairement strictement positive sur $\interfo{0;+ \infty}$.
+
+  \begin{enumerate}
+    \item Montrer que si la fonction $f$ vérifie (1)
+      alors $f$ ne s'annule pas sur $\interfo{0;+\infty}$.
+    \item On suppose que la fonction $f$ vérifie la condition (1) et qu'il
+      existe un réel a strictement positif tel que $f(a) < 0$.
+
+      En déduire que l'équation $f (x) = 0$ admet au
+      moins une solution dans l'intervalle $[0~;~ a]$.
+
+    \item Conclure.
+
+  \end{enumerate}
+
+  \textbf{ Partie C}
+
+  \textbf{Existence et unicité de la fonction} \boldmath $f$
+  \unboldmath.
+
+  \begin{enumerate}
+    \item Soit $u$ une fonction dérivable sur un intervalle I. Quelles
+      sont les fonctions telles que leurs dérivées soient $uu'$ ?
+    \item En déduire que si $f$ est telle que,
+      \[\text{pour tout} \quad x \in \interfo{0; + \infty},~ f(x)f'(x) =
+      1,\] alors il existe une constante $C$ telle que :
+      \[\text{pour tout} \quad x \in \interfo{0; + \infty},
+      \left[f(x)\right]^2 = 2x + C.\]
+    \item On rappelle que $f(0) = 1$. Déterminer l'expression de $f(x)$
+      pour $x$ réel positif.
+    \item  En déduire les valeurs arrondies au millième de $f(0,1),~
+      f(0,2),~ f(0,3),~ f(0,4),~f(0,5)$, puis les comparer avec les
+      valeurs obtenues par la méthode d'\textsc{euler}.
+  \end{enumerate}
+\end{exercice}
+
+\pagebreak
+
+\begin{exercice}
+
+  Un certain concours d'entrée dans une école d'ingénieurs consiste en
+  plusieurs épreuves:
+
+  \setlength\parindent{5mm}
+  \begin{itemize}
+    \item Après examen de leur dossier scolaire, 15\,\% des candidats
+      (les meilleurs) sont admis directement sans passer d'autres
+      épreuves.
+    \item Les autres candidats, non admis sur dossier, passent
+      une épreuve écrite. On estime que 60\,\% des candidats réussissent
+      cette épreuve écrite et les autres sont recalés.
+    \item Les candidats ayant réussi l'épreuve écrite sont alors
+      convoqués pour passer une épreuve orale. Les candidats réussissant
+      l'épreuve orale sont alors admis. On estime que les candidats ont
+      une chance sur trois de réussir l'épreuve orale.
+  \end{itemize}
+  \setlength\parindent{0mm}
+
+  On considère les évènements suivants :
+
+  \setlength\parindent{5mm}
+  \begin{itemize}
+    \item $D$ : \og Le candidat est admis sur dossier \fg
+    \item $E$ : \og Le candidat passe et réussit l'épreuve écrite \fg
+    \item $O$ : \og Le candidat passe et réussit l'épreuve orale \fg
+    \item $A$ : \og Le candidat est admis \fg.
+  \end{itemize}
+  \setlength\parindent{0mm}
+
+  On note $\overline{E}$ l'évènement contraire de $E$.
+
+  On note $P(D)$ la probabilité de l'évènement $D$ et $P_{E}(O)$ la
+  probabilité de l'évènement $O$ sachant que l'évènement $E$ est
+  réalisé.
+
+  \begin{enumerate}
+    \item Établir l'arbre des probabilités.
+    \item \begin{enumerate}
+        \item Compléter à l'aide des hypothèses :
+
+          $P(D) =  \ldots \qquad P_{\overline{D}}(E) = \ldots \qquad
+          P_{R}(O) = \ldots $
+        \item Déterminer la probabilité $P(E)$ qu'un candidat passe et
+          réussisse l'épreuve écrite et la probabilité $P(O)$ qu'un
+          candidat passe et réussisse l'épreuve orale.
+        \item On note $p$ la probabilité $P(A)$ qu'un candidat soit
+          admis dans cette école d'ingénieurs. Justifier que $p$ vaut
+          $0,32$.
+      \end{enumerate}
+    \item Cinq amis décident de passer ce concours (les résultats
+      obtenus par chaque candidat sont indépendants les uns des autres).
+      \begin{enumerate}
+        \item Exprimer, en fonction de $p$, la probabilité $P_{1}$ que
+          les cinq soient admis.
+
+          Puis donner une valeur approchée de $P_{1}$ à $10^{-4}$ près.
+        \item  Exprimer, en fonction de $p$, la probabilité $P_{2}$
+          qu'au moins un des cinq soit recalé.
+
+          Puis donner une valeur approchée de $P_{2}$ à $10^{-4}$ près.
+        \item   Exprimer, en fonction de $p$, la probabilité $P_{3}$
+          qu'au moins un des cinq soit admis.
+
+          Puis donner une valeur approchée de $P_{3}$ à $10^{-4}$ près.
+        \item  Exprimer, en fonction de $p$, la probabilité $P_{4}$ que
+          trois exactement soient admis.
+
+          Puis donner une valeur approchée de $P_{4}$ à $10^{-4}$ près.
+      \end{enumerate}
+    \item Par hasard, je rencontre un candidat qui me dit avoir été
+      admis dans cette école d'ingénieurs. Quelle est la probabilité
+      $P_{A}(D)$ qu'il ait été admis sur dossier ?
+  \end{enumerate}
+\end{exercice}
+
+\pagebreak
+
+\begin{exercice}
+  Soit $f$ la fonction définie sur l'intervalle $\interfo{0;+\infty}$
+  par : \[f(x) = 6 -  \dfrac{5}{x + 1}.\]
+
+  Le but de cet exercice est d'étudier des suites $\left(u_{n}\right)$
+  définies par un premier terme positif ou nul $u_{0}$ et vérifiant pour
+  tout entier naturel $n$ : \[u_{n+1} = f\left(u_{n}\right).\]
+
+  \begin{enumerate}
+    \item  Étude de propriétés de la fonction $f$
+      \begin{enumerate}
+        \item Étudier le sens de variation de la fonction $f$ sur
+          l'intervalle $\interfo{0;+\infty}$.
+        \item Résoudre dans l'intervalle $\interfo{0;+\infty}$
+          l'équation $f(x) = x$.
+
+          On note $\alpha$ la solution.
+        \item Montrer que si $x$ appartient à l'intervalle
+          $[0~;~\alpha]$, alors $f(x)$ appartient à l'intervalle
+          $[0~;~\alpha]$.
+
+          De même, montrer que si $x$ appartient à l'intervalle
+          $\interfo{\alpha ;+\infty}$ alors $f(x)$ appartient à
+          l'intervalle $\interfo{\alpha~;~ + \infty}$.
+      \end{enumerate}
+    \item Étude de la suite $\left(u_{n}\right)$ pour $u_{0} = 0$
+
+      Dans cette question, on considère la suite $\left(u_{n}\right)$
+      définie par $u_{0} = 0$ et pour tout entier naturel $n$ :
+      \[u_{n + 1} = f\left(u_{n}\right) = 6 - \dfrac{5}{u_{n} + 1}.\]
+
+      \begin{enumerate}
+        \item Sur le graphique représenté dans l'annexe 2, sont
+          représentées les courbes d'équations $y = x$ et $y=f(x)$.
+
+          Placer le point $A_{0}$ de coordonnées
+          $\left(u_{0}~;~0\right)$, et, en utilisant ces courbes,
+          construire à partir de $A_{0}$ les points
+          $A_{1}$,~$A_{2}$,~$A_{3}$  et $A_{4}$ d'ordonnée nulle et
+          d'abscisses respectives $u_{1},~u_{2},~u_{3}$ et $u_{4}$.
+
+          Quelles conjectures peut-on émettre quant au sens de variation
+          et à la convergence de la suite $\left(u_{n}\right)$ ?
+        \item Démontrer, par récurrence, que, pour tout entier naturel
+          $n,~ 0 \leqslant u_{n} \leqslant  u_{n+1} \leqslant \alpha$.
+        \item En déduire que la suite $\left(u_{n}\right)$ est
+          convergente et déterminer sa limite.
+      \end{enumerate}
+    \item Étude des suites $\left(u_{n}\right)$ selon les valeurs du
+      réel positif ou nul $u_{0}$
+
+      \emph{Dans cette question, toute trace d'argumentation, même
+        incomplète, ou d'initiative, même non fructueuse, sera prise en
+      compte dans l'évaluation.}
+
+\medskip
+
+      Que peut-on dire du sens de variation et de la convergence de la
+      suite $\left(u_{n}\right)$ suivant les valeurs du réel positif ou
+      nul $u_{0}$ ?
+  \end{enumerate}
+
+  \pagebreak
+
+  \begin{center}
+    \begin{tikzpicture}[>=latex]
+      \draw [help lines] (0,0) grid (-0.15,7.9) ;
+      \draw [help lines] (0,0) grid (7.9,-0.15) ;
+      \draw [thick,red] plot [smooth,domain=0:8] (\x,{6 - 5/(\x+1)}) ;
+      \draw [thick,blue] plot [domain=0:8] (\x,\x) ;
+      \draw [very thick,->] (0,0) -- (8.2,0) ;
+      \draw [very thick,->] (0,-0.5) -- (0,8.2) ;
+
+    \end{tikzpicture}
+  \end{center}
+
+\end{exercice}
+
+\end{document}

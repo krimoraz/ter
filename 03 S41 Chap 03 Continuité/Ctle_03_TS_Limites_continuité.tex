@@ -1,0 +1,202 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage[top=1.4cm,bottom=1.4cm,left=2cm,right=2cm,includehead,
+includefoot]{geometry}
+
+\usepackage{lmodern}
+\usepackage[upright]{kpfonts}
+\usepackage{textcomp}
+\newcommand{\euro}{\eurologo{}}
+\frenchbsetup{og=«,fg=»}
+
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+
+\count1=\year \count2=\year
+\ifnum\month<8\advance\count1by-1\else\advance\count2by1\fi
+\pagestyle{fancy}
+\cfoot{\textsl{\footnotesize{Année \number\count1/\number\count2}}}
+\lfoot{\textsl{\footnotesize{Lycée \textsc{LaSalle Saint-Denis}}}}
+\rfoot{\footnotesize{Page \thepage/ \pageref{LastPage}}}
+\rhead{}
+\lhead{\ifthenelse{\value{page}=1}{Nom:\dotfill\hfill Prénom: \dotfill
+\hfill \no{\dots}}{}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+%\frenchbsetup{ItemLabels=\textbullet,}
+
+\usepackage{tabularx}
+\usepackage{enumitem}
+
+\usepackage[autolanguage,np]{numprint}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+\usepackage{lastpage}
+
+\usepackage{fancybox}
+
+
+\usepackage{pdfmarginpar}
+
+\makeatletter
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{0.98\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+  \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+\hypersetup{
+  pdftitle={\scantokens\expandafter{\jobname\noexpand}},
+  %pdfsubject={Modèle de document LaTeX},
+  %pdfkeywords={LaTeX, modèle},
+  pdfauthor={Vincent-Xavier Jumel}
+}
+
+
+\makeatother
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\theorembodyfont{\normalfont}
+\theoremstyle{break}
+\newtheorem{exercice}{Exercice}
+
+%\theoremstyle{plain}
+\theoremstyle{nonumberplain}
+\newtheorem{probleme}{Problème}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\e}{\varepsilon}
+
+\newcommand{\rep}[1]{\textcolor{red}{#1}}
+\newcommand{\com}[1]{\textcolor{green!60!black}{#1}}
+
+\newcommand{\ligne}[1]{%
+  \begin{tikzpicture}[]
+    \draw[white] (0,#1+0.8) -- (15,#1+0.8) ;
+    \foreach \i in {1,...,#1}
+    { \draw[dotted] (0,\i) -- (\linewidth,\i) ; }
+    \draw[white] (0,0.6) -- (15,0.6) ;
+  \end{tikzpicture}%
+}
+
+\usepackage{framed}
+\newcommand{\maximaout}[3]{%
+  \begin{framed}%
+    \begin{minipage}{0.5\linewidth}
+    \ttfamily \textcolor{red}{(\%i#1)} \textcolor{blue}{#2}\\
+      \textcolor{brown}{(\%o#1)} #3 %
+    \end{minipage}
+  \end{framed}%
+}
+
+\usepackage{array,multirow,makecell}
+\setcellgapes{1pt}
+\makegapedcells
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+\usepackage{alterqcm}
+\usepackage{needspace}
+
+
+\title{Évaluation \no{4}}
+\author{Terminale S 3}
+\date{mardi 15 novembre 2016}
+
+\begin{document}
+\maketitle
+
+\medskip
+
+\begin{exercice}~\hfill\textbf{(6 points)}\\[-5mm]
+  Calculer les limites suivantes et interpréter graphiquement.
+  \begin{multicols}{3}
+    \begin{enumerate}
+      \item $\lim_{x\to -\infty} x^3 + 3x^2 + 2x +1$
+      \item $\lim_{x\to+\infty} \frac{x^2 - 3x + 4}{2x^2 - 3}$
+      \item $\lim_{\substack{x\to 5\\x \leqslant 5}} \frac{\sin(x) -
+        \cos(x)}{x^2 - 25}$
+    \end{enumerate}
+  \end{multicols}
+  \ligne{12}
+\end{exercice}
+
+\begin{exercice}~\hfill\textbf{(3 points)}\\[-5mm]
+  Énoncer le théorème des valeurs intermédiaires et son corollaire.
+
+  \ligne{5}
+
+  \ligne{3}
+\end{exercice}
+
+\begin{exercice}~\hfill\textbf{(3 points)}\\[-5mm]
+  Préciser si les fonctions suivantes sont continues.
+  \begin{multicols}{3}
+    \begin{enumerate}
+      \item $f:x\mapsto \left\lbrace\begin{array}{ll} x^2 & \text{si } x
+    < 0 \\ \sqrt{x} & \text{si } x \geqslant 0\end{array} \right.$
+      \item $f:t \mapsto \left\lbrace\begin{array}{ll} 1 & \text{si } t
+    \geqslant 0 \\ 0 & \text{si } t < 0\end{array} \right.$
+      \item $f:x\mapsto \sin\left(\dfrac1x\right)$
+    \end{enumerate}
+  \end{multicols}
+  \ligne{6}
+
+\end{exercice}
+
+
+\end{document}

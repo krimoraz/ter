@@ -1,0 +1,293 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{lmodern}
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.9cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\usepackage[]{algorithm2e}
+
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+
+\makeatletter
+
+\count1=\year \count2=\year
+\ifnum\month<8\advance\count1by-1\else\advance\count2by1\fi
+
+\setlength{\headheight}{14.5pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\cfoot{\textsl{\footnotesize{Année \number\count1/\number\count2}}}
+
+\rfoot{%
+  \ifthenelse{\value{page}=1}{%
+  }
+  {%
+    \footnotesize{Page \thepage/ \pageref{LastPage}}
+  }
+}
+
+\rhead{}
+
+\lhead{%
+  \ifthenelse{\value{page}=1}{%
+    Nom:\dotfill\hfill Prénom: \dotfill \hfill
+    Classe: \@author \dots%
+  }
+  { }
+}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{headings=block}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Évaluation \no{8} : logarithmes}
+\author{\bsc{Ts}}
+\date{28 février 2017}
+
+\begin{document}
+
+\maketitle
+
+\begin{tabular}{|p{6em}|p{26em}|p{6em}|}\hline
+   & & \\
+   & & \\
+   \hfill\Huge /\totalpoints* & & \\
+   & & \\
+   & & \\ \hline
+\end{tabular}
+
+
+\begin{question}[ID=equation.log.transformation]
+  ~\\[-6ex]
+  \phantom{a}\hfill\textbf{(\GetQuestionProperty{points}{\CurrentQuestionID} points)}\\
+  \begin{enumerate}
+    \item Résoudre l'équation $\ln(x-2) + \ln(x-6) = \ln(x+4)$
+      \addpoints*{2}
+    \item En déduire les solutions de l'inéquation $\ln(x-6) < \ln(x+4)
+      - \ln(x-2)$ \addpoints*{1}
+  \end{enumerate}
+
+  \blank[style=dotted,width=11\linewidth,linespread=1.7]{}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item L'équation est a priori définie sur $I=\interoo{6;+\infty}$.
+      Sur cet intervalle $I$, elle est successivement équivalente à
+      \begin{align}
+        \ln\left[(x-2)(x-6)\right] = \ln(x+4) \\
+        (x-2)(x-6) = (x+4) \\
+        x^2 - 8x + 12 = x + 4 \\
+        x^2 - 9x + 8 = 0 \\
+        (x - 1)(x - 8) = 0
+      \end{align}
+      La dernière ligne se trouve en remarquant que 1 est une racine
+      évidente et en utilisant somme et produit des racines.
+
+      Parmi les solutions de cette dernière équation, $1 \notin I$ et $8
+      \in I$.
+    \item L'inéquation proposée se ramène à l'inéquation $\ln(x-2) +
+      \ln(x-6) < \ln(x+4)$. Ce qui est vrai pour $\ x \in
+      \interoo{6;8}$.
+  \end{enumerate}
+\end{solution}
+
+\begin{question}[ID=etude.log,use=true]
+  ~\\[-6ex]
+  \phantom{a}\hfill\textbf{(\GetQuestionProperty{points}{\CurrentQuestionID} points)}\\
+  \begin{enumerate}
+    \item $g$ est la fonction définie sur $\R$ par $g(x) = xe^x + 1$.
+      Démontrer que pour tout $x$ de $\R$, $g(x) > 0$. \addpoints*{2}
+
+    \item $f$ est la fonction définie sur $I = \interoo{0;+\infty}$ par
+      : \[ f(x) = e^x + \ln(x) .\]
+      \begin{enumerate}
+        \item Démontrer que pour tout $x$ de $\R$, $f'(x) =
+          \frac{g(x)}x$. \addpoints*{2}
+        \item Dresser le tableau de variation de $f$. \addpoints*{1}
+        \item Déduisez-en que pour tout $m$, l'équation $f(x) = m$
+          possède une unique solution. \addpoints*{2}
+      \end{enumerate}
+  \end{enumerate}
+  \blank[style=dotted,width=5\linewidth,linespread=1.7]{}
+
+  \blank[style=dotted,width=15\linewidth,linespread=1.7]{}
+\end{question}
+
+\begin{question}[ID=equation.logarithme.chgt.var,use=false]
+  ~\\[-6ex]
+  \phantom{a}\hfill\textbf{(\GetQuestionProperty{points}{\CurrentQuestionID} points)}\\
+   Résoudre l'équation $\left[-\ln(x)\right]^2 + 4\ln(x) + 5 = 0$.
+  \addpoints*{2}
+
+  \blank[style=dotted,width=8\linewidth,linespread=1.7]{}
+\end{question}
+\begin{solution}
+  Procédons par changement de variable : on pose $X = \ln x$. L'équation
+  devient $-X^2 + 4X + 5 = 0$ dont une racine évidente est $-1$. On en
+  déduit l'autre racine 5 avec le produit.
+
+  Ainsi, $x = e^{-1}$ ou $x = e^5$ sont les solutions de cette équation.
+\end{solution}
+
+\end{document}
+\newpage
+\section*{Correction}
+\printsolutions
+\vfill
+\hrule
+\vfill
+\section*{Correction}
+\printsolutions
+\vfill
+\hrule
+\vfill
+\end{document}

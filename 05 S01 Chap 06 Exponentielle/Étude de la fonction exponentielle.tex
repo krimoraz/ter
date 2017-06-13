@@ -1,0 +1,323 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Étude de la fonction exponentielle}
+\author{\bsc{Jumel}}
+\date{janvier 2017}
+
+\begin{document}
+
+\maketitle
+
+On a montré, en admettant son existence, qu'il existait une et une seule
+fonction définie, continue et dérivable sur $\R$ telle que : \[ f' = f \
+\text{et}\ f(0) = 1.\] Cette fonction s'appelle la fonction
+exponentielle et est notée $\exp$.
+
+\section{Propriétés «fonctionnelles»}
+
+Les premières propriétés relatives à la fonction exponentielle sont
+celles qui explicitent la relation fonctionnelle de l'exponentielle,
+c'est à dire la transformation des sommes en produits. Explicitons-les.
+
+
+\begin{propriete}
+  Pour tout $a$ et $b$ réels, on a \[\exp(a+ b) = \exp(a)\times\exp(b)
+  .\]
+  \begin{preuve}
+    Soit $b$ un nombre réel.
+
+    On considère la fonction $g_b$ définie sur $\R$ par $g_b(x) =
+    \frac{\exp(x+b)}{\exp(b)}$. En dérivant $g_b$ et en calculant
+    $g_b(0)$, on démontre que $g_b = \exp$.
+  \end{preuve}
+\end{propriete}
+
+\begin{remarque}
+  On appelle cette propriété un morphisme de groupe, et même plus
+  précisément un morphisme de $(\R,+)$ dans le groupe $\R^*,\times)$.
+\end{remarque}
+
+En utilisant explicitement cette propriété avec des nombres négatifs, on
+a le corollaire suivant.
+
+\begin{corollaire}
+  Pour tout $a$ et $b$ réels, \[ \exp(a-b) = \frac{\exp(a)}{\exp(b)} \]
+\end{corollaire}
+
+On a aussi la propriété suivante :
+\begin{propriete}
+  Pour tout entier naturel $n$ et pour tout nombre réel $a$, \[\exp(na)
+  = (\exp(a))^n.\]
+  \begin{preuve}
+    Par récurrence en utilisant la propriété de transformation de somme
+    en produit.
+  \end{preuve}
+\end{propriete}
+
+Cette propriété s'étend assez naturellement aux entiers relatifs.
+
+\begin{notation}
+  Si on pose $\exp(1) = e$, on obtient pour tout entier relatif que
+  $\exp(n) = e^n$. Cette notation étant très commode, on l'adopte
+  souvent pour tous les nombres réels.
+\end{notation}
+
+\section{Étude «classique» de la fonction exponentielle}
+
+\subsection{Variations de la fonction exponentielle}
+
+Par définition de la fonction exponentielle, $\exp' = \exp$. Les
+variations de $\exp$ sont données par son signe.
+
+\begin{propriete}
+  Pour tout $x$ réel, $e^x > 0$.
+  \begin{preuve}
+    Soit $x$ un nombre réel. $e^x$ s'écrit $e^{2\frac{x}2} =
+    \left(e^{\frac{x}2}\right)$ qui est positif (c'est un carré).
+  \end{preuve}
+\end{propriete}
+
+On en déduit que la fonction exponentielle est strictement croissante
+sur $\R$.
+
+\begin{corollaire}
+  Pour tous nombres réels $a$ et $b$, \[ a \leqslant b \iff e^a
+  \leqslant e^b.\]
+\end{corollaire}
+
+Une autre conséquence, en utilisant le théorème des valeurs
+intermédiaires, est que l'équation $e^x = a$ avec $a$ strictement
+positif possède une unique solution sur $\R$.
+
+\subsection{Limites de $\exp$}
+
+\begin{propriete}~\\[-7ex]
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item $\lim_{x\to+\infty}e^x = +\infty$
+      \item $\lim_{x\to-\infty}e^{x} = 0$
+    \end{itemize}
+  \end{multicols}
+\end{propriete}
+
+Une activité a permis de démontrer la première de ces limites, la
+deuxième se déduisant aisément de la précédente.
+
+On peut également démontrer que $\exp$ «croit plus vite que n'importe
+quelle puissance» et écrire les limites suivantes :
+
+\begin{propriete}~\\[-7ex]
+  \begin{multicols}{3}
+    \begin{itemize}
+      \item $\lim_{x\to0}\frac{e^x-1}{x} = 1$
+      \item $\lim_{x\to+\infty}\frac{e^{x}}x = +\infty$
+      \item $\lim_{x\to-\infty}xe^{x} = 0$
+    \end{itemize}
+  \end{multicols}
+\end{propriete}
+
+La propriété 5, telle qu'écrite ci-dessus, est la seule démontrée en
+Terminale, mais elle possède en puissance la force de sa généralisation.
+Voir pour cela l'activité sur les limites de la fonction exponentielle.
+
+\subsection{Tableau de variation et courbe représentative}
+
+On a le tableau de variation suivant pour la fonction exponentielle :
+
+\begin{center}
+  \begin{tikzpicture}
+    \tkzTabInit[espcl=9]
+    {$x$ / 1 , $\exp(x)$ / 1, $\exp$ / 3}
+    {$-\infty$, $+\infty$}
+    \tkzTabLine{, + , }
+    \tkzTabVar{-/0,+/$+\infty$}
+    \tkzTabVal{1}{2}{0.33}{0}{1}
+    \tkzTabVal{1}{2}{0.67}{1}{$e$}
+  \end{tikzpicture}
+\end{center}
+
+Ce tableau de variation nous permet de déduire la représentation
+graphique suivante :
+
+\begin{center}
+  \begin{tikzpicture}[>=latex]
+    \tkzInit[xmin=-5,xmax=5,ymin=-0.5,ymax=16]
+    \tkzGrid
+    \tkzAxeXY
+
+    \foreach \a in {-1,0,1,2} {
+      \draw[thick,red,<->] plot[domain={\a-1}:{\a+1}] (\x, {exp(\a)*(\x-\a)
+      + exp(\a)}) ;
+    }
+
+    \draw[very thick] plot[smooth,domain=-5:0] (\x,{exp(\x)}) ;
+    \draw[very thick] plot[smooth,domain=0:2] (\x,{exp(\x)}) ;
+    \draw[very thick] plot[smooth,domain=2:{exp(1)}] (\x,{exp(\x)}) ;
+
+  \end{tikzpicture}
+\end{center}
+
+\end{document}

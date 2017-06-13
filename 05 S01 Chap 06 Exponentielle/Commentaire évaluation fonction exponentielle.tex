@@ -1,0 +1,268 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{lmodern}
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{headings=block}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Commentaires sur évaluation \no{6} : exponentielle}
+\author{\bsc{Ts 3}}
+\date{22 janvier 2015}
+
+\begin{document}
+
+\maketitle
+
+L'évaluation a été plutôt bien réussie dans l'ensemble et les élèves qui
+ont appris leur cours ont su reconnaître les questions de cours et y
+répondre directement. Cependant quelques erreurs plus oun moins graves
+se sont glissées dans les copies.
+
+Attention toutefois, dans le premier exercice, peu ont correctement
+calculé la dérivée en question et encore moins ont penser à justifier du
+signe de la dérivée. À titre d'exercice : étudiez les fonctions définies
+pour tout $x$ réel par $\sinh(x) = \frac{e^x - e^{-x}}2$ et $\cosh(x) =
+\frac{e^x + e^{-x}}2$.
+
+\section{Simplification abusive}
+
+Heureusement présente qu'une seule fois dans les copies, mais
+intolérable en classe de Terminale S. En effet, même avec des
+exponetielles (ou des radicaux), on ne peut pas simplifier une fraction
+de la forme $\frac{ab + c}{ad}$ et ce résultat est en général faux.
+
+À titre d'exercice, étudier les valeurs de $a$, $b$, $c$ et $d$ qui
+réalisent $\frac{ab + c}{ad} = \frac{b+c}{d}$.
+
+\section{Cohérence des résultats ou avec les questions}
+
+Une erreur assez grave en Terminale est celle de la cohérence de vos
+résultats entre eux. Prétendre qu'une fonction est croissante alors que
+le signe de la dérivée n'a pas été étudié ou pire encore qu'il est
+manifestement négatif est une faute qui est sanctionnée de façon
+implicite par le correcteur, qui se met à douter de toutes vos
+affirmations. Soyez vigilants et relisez-vous.
+
+\section{Confusion entre égalité et équivalence}
+
+On trouve dans des copies, souvent dans un souci de bien faire, des
+confusions entre l'équivalence ($\iff$) et l'égalité ($=$). Il s'agit de
+deux notions distinctes.
+
+L'égalité est une relation binaire entre deux expressions mathématiques,
+éventuellement numériques. Écrire que $a = b$ signifie qu'on pourra
+remplacer $a$ par $b$ dans une expression à venir.
+
+En toute rigueur, on ne devrait pas écrire $a = b = c$, mais $a = b$ et
+$b = c$ donc $a = c$.
+
+L'équivalence est une relation de la logique, qui porte sur des
+assertions logiques (des propositions logiques, c'est-à-dire des
+phrases) parfois écrites avec le symbolisme mathématique. Si $P$ et $Q$
+sont deux assertions logiques, $P\iff Q$ signifie que $P$ et $Q$ ont
+même valeurs de vérité, c'est-à-dire que si $P$ est vraie, alors $Q$ est
+vraie et si $Q$ est vraie, alors $P$ est vraie. On peut résumer ce fait
+par le tableau de vérité suivant :
+\begin{center}
+  \begin{tabular}{|*{3}{c|}}\hline
+    $P$ & $Q$ & $P \iff Q$ \\ \hline
+    V & V & V \\ \hline
+    F & F & V \\ \hline
+    V & F & F \\ \hline
+    F & V & F \\ \hline
+  \end{tabular}
+\end{center}
+
+L'équivalence $P \iff Q$ est «syntaxiquement équivalente» à $P \implies
+Q$ et $Q \implies P$, ce qui est souvent utile dans les démonstrations.
+
+\section{Confusion entre fonction et valeur de la fonction}
+
+Il faut noter qu'une fonction est en quelque sorte un processus
+(mathématiquement ça n'est pas tout à fait juste, mais ça permet de
+comprendre) qui associe à un élément d'un ensemble de départ un unique
+élement d'un ensemble d'arrivée. La fonction est donc l'ensemble de
+toutes ces associations et de comment on y arrive. On note la fonction
+par une lettre minuscule $f$ par exemple.
+
+Pour une fonction numérique, c'est à dire d'une partie de $\R$ dans une
+partie de $\R$, il y a généralement une méthode calculatoire explicite,
+c'est ce qu'on appelle son expression, qu'on note $f(x)$, qui est en
+fait la réalisation du calcul pour la valeur $x$, mais qui n'est pas la
+fonction.
+
+On peut le voir dans la notation suivante : «Soit $f$ la fonction qui à
+$x$ associe $f(x)$ (noté $f:x\mapsto f(x)$)» où $f(x)$ est généralement
+une formule de calcul.
+
+Ainsi, on parle de la fonction dérivée $f'$ qui existe et de $f'(x)$ le
+\emph{nombre} dérivé de $f$ en $x$.
+
+Pour conclure cette remarque, on peut considérer la fonction suivante,
+qui ne possède pas d'expression : $\mathbf{1}_{\mathbf{Q}}:x\mapsto
+\left\lbrace\begin{matrix} 1\text{ si }x\in\mathbf{Q}\\ 0\text{ sinon
+}\end{matrix}\right.$.
+
+\end{document}

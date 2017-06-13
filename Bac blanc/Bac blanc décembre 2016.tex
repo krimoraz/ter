@@ -1,0 +1,139 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage{etex}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{lmodern}
+\usepackage{kpfonts}
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shadows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{intersections}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{positioning}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{patterns}
+\usetikzlibrary{calc}
+\usepackage{tkz-tab}
+\usepackage{tkz-fct}
+\usepackage{tkz-base}
+\usepackage[top=0.5cm,bottom=2cm,left=1.5cm,right=1.3cm]{geometry}
+\usepackage[extdef]{delimset}
+
+\usepackage{lastpage}
+
+\usepackage{mdframed}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+\setlist{noitemsep}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\usepackage[]{exsheets}
+\SetupExSheets{
+  counter-format = {qu[1] :} ,
+  headings = block-subtitle ,
+  points/name = {pt/s} ,
+  solution/print = false,%true
+  %solution/pre-hook = \mdframed ,
+  %solution/post-hook = \endmdframed ,
+  blank/style = dotted ,
+}
+
+\DeclareInstance{exsheets-heading}{block-subtitle}{default}{
+   indent-first = false,
+ join = {
+   title[r,B]number[l,B](.333em,0pt) ;
+ title[r,B]subtitle[l,B](1em,0pt)
+ } ,
+ attach = {
+   main[l,vc]title[l,vc](0pt,0pt) ;
+ main[r,vc]points[l,vc](\marginparsep,0pt)
+ } ,
+ subtitle-post-code = {
+   ~\textbf{(\GetQuestionProperty{points}{\CurrentQuestionID} points)}} ,
+ number-post-code = {\IfQuestionSubtitleF{
+   ~\textbf{(\GetQuestionProperty{points}{\CurrentQuestionID} points)}}},
+}
+
+
+\everymath{\displaystyle\everymath{}}
+
+\newcommand{\brm}[1]{\marginpar{\addpoints{#1}}}% étoile pour afficher les points en marge.
+\newcommand{\cel}{\celtxt[c]}
+\title{Devoir surveillé \no{1}}
+\usetikzlibrary{backgrounds}
+\frenchbsetup{StandardLists=true}
+\def\coeff{2}
+
+\begin{document}
+\thispagestyle{empty}
+
+\vspace*{1cm}
+
+\begin{center}
+\bfseries \large%
+\rule{\textwidth}{1pt}
+
+Lycée \textsc{La\!Salle Saint-Denis} \hfill
+Mercredi 14 Décembre 2016
+
+{\Huge%
+\setlength{\baselineskip}{\coeff\baselineskip}%
+BAC BLANC \No 1\\
+DE MATHÉMATIQUES\\
+-- SÉRIE S --\\}
+
+\vspace{\coeff\baselineskip}
+
+Durée de l'épreuve : 4 HEURES\\
+Les calculatrices sont AUTORISÉES\\
+
+\vspace{\coeff\baselineskip}
+
+
+\hfill Coefficient : \coeff\\
+
+
+\rule{\textwidth}{1pt}
+
+%\vfill
+\vspace{0.5cm}
+
+\begin{minipage}{0.8\textwidth}
+\normalsize \normalfont \slshape
+Le candidat doit traiter les quatre  exercices.
+La clarté des raisonnements et la qualité de la
+rédaction interviendront pour une part importante
+dans l'appréciation des copies.
+\end{minipage}%
+
+\vspace*{0.5cm}
+
+\end{center}
+
+
+\pagebreak
+
+\begin{question}
+  \input{exercice_probabilite.txt}
+\end{question}
+
+\end{document}

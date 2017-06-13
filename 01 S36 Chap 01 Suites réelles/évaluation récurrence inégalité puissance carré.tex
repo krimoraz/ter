@@ -1,0 +1,40 @@
+% rubber: setlist arguments --shell-escape
+\documentclass[varwidth,convert]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+
+\begin{document}
+
+On souhaite démontrer que pour tout $n \geq 1, 2^n \geq (n+1)^2$
+
+Pour chacune des étapes de la démonstration par récurrence, identifier
+et proposer une correction.
+
+Soit $P(n)$ la proposition «$2^n \geq (n+1)^2$»
+
+\emph{Initialisation}
+
+Vérifions $P(1)$.
+
+$2^1 \geq 2$.
+
+Donc $P(1)$ est vraie.
+
+\emph{Hérédité}
+
+Soit $n$ un entier naturel supérieur ou égal à 1.
+
+Supposons que $P(n)$ est vraie pour tout entier $n$, démontrons $P(n+1)$
+: « $2^{n+1} \geq (n+2)^2$.
+
+$2^{n+1} \geq 2\times2^n = 2(n+1)^2 = 2n^2 + 4n + 2 \geq n^2 + 4n + 4 =
+(n+2)^2$
+
+Donc pour tout $n$, $2^{n+1} \geq (n+2)^2$.
+
+\emph{Conclusion}
+
+Pour $n$ fixé, $2^n \geq (n+1)^2$
+\end{document}

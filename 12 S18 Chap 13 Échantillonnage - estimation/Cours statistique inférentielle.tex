@@ -1,0 +1,338 @@
+\documentclass[10pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-base}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\Cf}{\mathscr{C}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\diff}[1]{\mathrm{d}\,#1}
+
+\newcommand{\p}{\mathcal{P}}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{corollaire}{Corollaire}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}{Lemme}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{notation}{Notation}
+\newtheorem{probleme}{Problème}
+\theoremsymbol{\ensuremath{\blacksquare}}
+\newtheorem{preuve}{Preuve}
+\theoremsymbol{}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+%\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Éléments de statistique inférentielle}
+\author{\bsc{Jumel}}
+\date{mai 2017}
+
+\begin{document}
+
+\noindent\maketitle
+
+
+\section*{Introduction}
+
+Ce dernier cours de l'année est à envisager comme une initiation à la
+statistiques inférentielle. Il repose principalement sur des
+raisonnements de probabilité et permettra de donner une justification à
+certains résultats utilisés depuis la classe de seconde.
+
+Le but général de cette branche de la statistique est de permettre
+d'inférer des résultats sur une population à partir de l'étude d'un
+échantillon de cette population. Plusieurs questions se posent :
+\begin{itemize}
+  \item l'échantillon se comporte-t-il comme la population totale ;
+  \item quel part prend le hasard dans la détermination d'un échantillon
+    et donc des résultats qui en sont issus ;
+  \item quelle confiance donner aux résultats obtenus par cette méthode.
+\end{itemize}
+
+\section{Intervalle de fluctuation}
+
+On considère une caractéristique mesurable dans une population et on
+considère la variable aléatoire $F$ qui a un échantillon associe la
+proportion de la caractéristique mesurable.
+
+$I$ est intervalle de fluctuation pour cette variable aléatoire au seuil
+$\beta$ lorsque la probabilité pour une réalisation de $F$ d'appartenir
+à $I$ est supérieur à $\beta$.
+
+On a ainsi la définition suivante.
+
+\begin{definition}
+  $I$ est un intervalle de fluctuation de $F$ au seuil $\beta$ lorsque
+  $\p(F \in I) \geqslant \beta$
+\end{definition}
+
+En pratique, il est rare d'utiliser cette définition assez théorique et
+on utilise l'intervalle de fluctuation asymptotique telle que défini par
+cette proposition.
+
+\begin{propriete}~\\[-5mm]
+  $I_n = \interff{ p - u_{\alpha}\frac{\sqrt{p(1-p)}}{\sqrt{n}} ; p +
+  u_{\alpha}\frac{\sqrt{p(1-p)}}{\sqrt{n}} }$ est l'intervalle de
+  fluctuation asymptotique de $\frac{X_n}{n}$ au seuil $1 - \alpha$ et
+  \[ \lim_{n\to +\infty} \p\left(\frac{X_n}{n} \in I_n \right) \geqslant
+  1 - \alpha.\]
+  \begin{preuve}
+    Soit $X_n$ une variable aléatoire qui suit une loi binomiale de
+    paramètres $n$ et $p$ et $\alpha \in \interoo{0;1}$.
+
+    On a d'une part, pour toute variable aléatoire $Z$ qui suit la loi
+    normale centrée réduite $\mathscr{N}(0;1) \ \p(-u_{\alpha} \leqslant
+    Z \leqslant u_{\alpha}) = 1 - \alpha$.
+
+    D'autre part $E(X_n) = np $ et $V(X_n) = np(1 - p)$ donc d'après le
+    théorème de Moivre-Laplace la proposition suivante est vraie à la
+    limite pour la variable aléatoire $Z = \frac{X_n -
+    np}{\sqrt{np(1-p)}}$.
+
+    Or $-u_{\alpha} \leqslant \frac{X_n - np}{\sqrt{np(1-p)}} \leqslant
+    u_{\alpha}  \iff p - u_{\alpha} \frac{\sqrt{p(1-p)}}{\sqrt{n}}
+    \leqslant \frac{X_n}{n} \leqslant p + u_{\alpha}
+    \frac{\sqrt{p(1-p)}}{\sqrt{n}}$.
+  \end{preuve}
+\end{propriete}
+
+\begin{remarque}
+  La notion d'intervalle de fluctuation asymptotique n'a réellement de
+  sens que lorsque l'approximation d'une loi binomiale par une loi
+  normale est possible (condition d'applications du théorème de
+  Moivre-Laplace) c'est-à-dire $n \geqslant 30$ et $np$ et $n(1-p)
+  \geqslant 5$.
+\end{remarque}
+
+Il est utile à ce stade là de mémoriser les valeurs $u_{0,05} \approx
+1,96$ et $u_{0,01} \approx 2,58$. Ces valeurs là sont celles qui servent
+régulièrement lors de la prise de décision.
+
+\begin{remarque} $u_{\alpha}$ est parfois appelé «rayon de l'intervalle
+  de fluctuation» au seuil d'acceptabilité $1 - \alpha$ (ou de risque
+  $\alpha$)
+\end{remarque}
+
+La propriété suivante va permettre de justifier un résultat admis en
+classe de seconde.
+
+\begin{propriete}
+  L'intervalle de fluctuation asymptotique au seuil de 95\% est inclus
+  dans l'intervalle $I = \interff{p - \frac1{\sqrt{n}} ; p +
+  \frac1{\sqrt{n}}}$.
+  \begin{preuve}
+    En étudiant les variations de la fonction $p\mapsto \sqrt{p(1-p)}$
+    sur $\interff{0;1}$, on obtient que $1,96\sqrt{p(1-p)} \leqslant 1$.
+  \end{preuve}
+\end{propriete}
+
+\begin{remarque}
+  Cette inclusion n'est vraie que jusqu'à un certain seuil.
+\end{remarque}
+
+\section{Intervalle de confiance}
+
+On veut souvent obtenir une information sur la fréquence (ou la
+proportion) inconnue d'une population à partir de la mesure d'un
+échantillon. C'est ce qui est courament fait lors des sondages.
+
+Pour cela, on peut définir l'intervalle de confiance comme étant une
+réalisation d'un intervalle choisi au hasard contenant la proportion $p$
+inconnu. Cet intervalle est déterminé à partir de $F_n$ la fréquence
+observée dans l'échantillon.
+
+On pose $F_n = \frac{X_n}{n}$ qui a un échantillon de taille $n$ associe
+la fréquence d'apparition $f$ de la caractéristique étudiée. $X_n$ suit,
+quant à elle, une loi binomiale de paramètres $n$ et $p$.
+
+Sous les conditions d'approximations usuelles ($n \leqslant 30, \dots$)
+on a que si $n$ augmente $F_n$ appartient à $\interff{p -
+\frac1{\sqrt{n}} ; p + \frac1{\sqrt{n}}}$ avec une probabilité supérieure
+à $1 - \alpha$. On peut démontrer ensuite l'équivalence suivante.
+
+\begin{propriete}~\\[-5mm]
+  $\p\left(F_n \in \interff{p - \frac1{\sqrt{n}} ; p +
+  \frac1{\sqrt{n}}}\right) \iff \p\left(p \in \interff{F_n -
+  \frac1{\sqrt{n}} ; F_n + \frac1{\sqrt{n}}}\right)$
+  \begin{preuve}
+    Il suffit d'écrire ce que signifie l'appartenance aux intervalles et
+    de raisonner sur l'inégalité de droite (ou de gauche.)
+  \end{preuve}
+\end{propriete}
+
+On peut donc définir, pour une réalisation particulière l'intervalle de
+confiance.
+
+\begin{definition}
+  L'intervalle de confiance au seuil de 95\% est l'intervalle
+  $\interff{f_{\text{obs}} - \frac1{\sqrt{n}} ; f_{\text{obs}} +
+  \frac1{\sqrt{n}}}$.
+\end{definition}
+
+Cet intervalle est d'amplitude $\frac2{\sqrt{n}}$.
+
+\begin{remarque}
+  On trouve parfois aussi l'intervalle d'amplitude
+  $\frac{2\sqrt{f_{\text{obs}}(1-f_{\text{obs}})}}{\sqrt{n}}$.
+\end{remarque}
+
+\section{Prise de décision}
+
+On suppose désormais que $p$ est connu et on cherche à vérifier dans une
+population donnée si la proportion d'individus présentant la
+caractéristique est bien $p$. On cherche pour cela à «éliminer le
+hasard» dans le choix de notre échantillon ou du moins à quantifier la
+fluctuation maximale admissible.
+
+Pour cela, au seuil $\alpha$ fixé, on détermine un intervalle de
+fluctuation asymptotique $I$ de la fréquence du caractère dans un
+échantillon de taille $n$.
+
+On observe ensuite dans un échantillon effectivement prelevé la
+fréquence en question et on énonce puis applique la règle suivante :
+\begin{itemize}
+  \item si $f \notin I$, alors on rejette l'hypothèse au seuil $\alpha$
+    ; le risque de rejet à tort est $\alpha$ ;
+  \item si $f \in I$ alors on ne rejette pas l'hypothèse.
+\end{itemize}
+
+\end{document}

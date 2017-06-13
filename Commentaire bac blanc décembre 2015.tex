@@ -1,0 +1,589 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{kpfonts}
+\usepackage{textcomp}
+\newcommand{\euro}{\eurologo{}}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+\usepackage{breakurl}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\frenchbsetup{ItemLabels=\textbullet,}
+
+\usepackage{tabularx}
+\usepackage{enumitem}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+\usepackage{tkz-tab}
+\usepackage[top=1.4cm,bottom=1.4cm,left=2cm,right=2cm,includehead,
+includefoot]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{fancybox}
+
+\usepackage[autolanguage]{numprint}
+\newcommand{\np}{\numprint}
+
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{\ifthenelse{\value{page}=0}{Nom:\dotfill\hfill Prénom: \dotfill
+\hfill ~}{}}
+\rhead{}
+\chead{}
+
+\rfoot{\upshape \small page {\thepage} de \pageref{LastPage}}
+\lfoot{}
+\cfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\usepackage{pdfmarginpar}
+
+\makeatletter
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{0.98\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+  \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\makeatother
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\theorembodyfont{\normalfont}
+\theoremstyle{nobreak}
+\newtheorem{exercice}{Exercice}
+
+%\theoremstyle{plain}
+\theoremstyle{nonumberplain}
+\newtheorem{probleme}{Problème}
+
+% Mise en forme des labels dans les énumérations
+\renewcommand{\labelenumi}{\textbf{\theenumi.}}
+\renewcommand{\labelenumii}{\textbf{\theenumii)}}
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\theenumii}{\alph{enumii}}
+
+\renewcommand{\labelitemi}{$\bullet$}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\R}{\mathbf{R}}
+
+\newcommand{\ligne}[1]{%
+  \begin{tikzpicture}[]
+    \draw[white] (0,#1+0.8) -- (15,#1+0.8) ;
+    \foreach \i in {1,...,#1}
+    { \draw[dotted] (0,\i) -- (\linewidth,\i) ; }
+    \draw[white] (0,0.6) -- (15,0.6) ;
+  \end{tikzpicture}%
+}
+
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\definecolor{fond}{RGB}{136,136,136}
+\definecolor{sicolor}{RGB}{128,0,128}
+\definecolor{tantquecolor}{RGB}{221,111,6}
+\definecolor{pourcolor}{RGB}{187,136,0}
+\definecolor{bloccolor}{RGB}{128,0,0}
+\newenvironment{cadrecode}{%
+  \def\FrameCommand{{\color{fond}\vrule width
+  5pt}\fcolorbox{fond}{white}}%
+  \MakeFramed {\hsize \linewidth \advance\hsize-\width
+\FrameRestore}\begin{footnotesize}}%
+{\end{footnotesize}\endMakeFramed}
+\makeatletter
+\def\therule{\makebox[\algorithmicindent][l]{\hspace*{.5em}\color{fond}
+\vrule width 1pt height .75\baselineskip depth .25\baselineskip}}%
+\newtoks\therules
+\therules={}
+\def\appendto#1#2{\expandafter#1\expandafter{\the#1#2}}
+\def\gobblefirst#1{#1\expandafter\expandafter\expandafter{\expandafter\@gobble\the#1}}%
+\def\Ligne{\State\unskip\the\therules}% 
+\def\pushindent{\appendto\therules\therule}%
+\def\popindent{\gobblefirst\therules}%
+\def\printindent{\unskip\the\therules}%
+\def\printandpush{\printindent\pushindent}%
+\def\popandprint{\popindent\printindent}%
+\def\Variables{\Ligne \textcolor{bloccolor}{\textbf{VARIABLES}}}
+\def\Si#1{\Ligne \textcolor{sicolor}{\textbf{SI}} #1
+\textcolor{sicolor}{\textbf{ALORS}}}%
+\def\Sinon{\Ligne \textcolor{sicolor}{\textbf{SINON}}}%
+\def\Pour#1#2#3{\Ligne \textcolor{pourcolor}{\textbf{POUR}} #1
+  \textcolor{pourcolor}{\textbf{ALLANT\_DE}} #2
+\textcolor{pourcolor}{\textbf{A}} #3}%
+\def\Tantque#1{\Ligne \textcolor{tantquecolor}{\textbf{TANT\_QUE}} #1
+\textcolor{tantquecolor}{\textbf{FAIRE}}}%
+\algdef{SE}[WHILE]{DebutTantQue}{FinTantQue}
+{\pushindent \printindent
+\textcolor{tantquecolor}{\textbf{DEBUT\_TANT\_QUE}}}
+{\printindent \popindent
+\textcolor{tantquecolor}{\textbf{FIN\_TANT\_QUE}}}%
+\algdef{SE}[FOR]{DebutPour}{FinPour}
+{\pushindent \printindent
+\textcolor{pourcolor}{\textbf{DEBUT\_POUR}}}
+{\printindent \popindent
+\textcolor{pourcolor}{\textbf{FIN\_POUR}}}%
+\algdef{SE}[IF]{DebutSi}{FinSi}%
+{\pushindent \printindent
+\textcolor{sicolor}{\textbf{DEBUT\_SI}}}
+{\printindent \popindent
+\textcolor{sicolor}{\textbf{FIN\_SI}}}%
+\algdef{SE}[IF]{DebutSinon}{FinSinon}
+{\pushindent \printindent
+\textcolor{sicolor}{\textbf{DEBUT\_SINON}}}
+{\printindent \popindent
+\textcolor{sicolor}{\textbf{FIN\_SINON}}}%
+\algdef{SE}[PROCEDURE]{DebutAlgo}{FinAlgo}
+{\printandpush
+\textcolor{bloccolor}{\textbf{DEBUT\_ALGORITHME}}}%
+{\popandprint
+\textcolor{bloccolor}{\textbf{FIN\_ALGORITHME}}}%
+\makeatother
+\newenvironment{algobox}%
+{%
+  \begin{ttfamily}
+    \begin{algorithmic}[1]
+      \begin{cadrecode}
+        \labelwidth 1.5em
+        \leftmargin\labelwidth
+        \addtolength{\leftmargin}{\labelsep}
+      }
+      {%
+      \end{cadrecode}
+    \end{algorithmic}
+  \end{ttfamily}
+}
+
+\newcommand{\maximaout}[3]{%
+\begin{framed}%
+  {\ttfamily \textcolor{red}{(\%i#1)} #2\\%
+      \textcolor{brown}{(\%o#1)} #3}%
+\end{framed}%
+}
+\usepackage{wasysym}
+
+\newcommand{\vf}{%
+  \Square{}~ Vrai \-\- \Square{}~ Faux%
+}
+
+\renewcommand{\Vec}[1]{\overrightarrow{#1}}
+\newcommand{\ProSca}[2]{#1 \cdot #2}
+
+\title{Commentaires sur 29 copies de bac blanc}
+\author{\bsc{Jumel}}
+\date{décembre 2015}
+
+\begin{document}
+
+\maketitle
+
+\emph{Compétences :}
+\begin{itemize}
+  \item Étudier la limite d'une somme, d'un produit ou d'un quotient de
+    deux suites ;
+  \item Utilisation des théorèmes de comparaison ;
+  \item Savoir mener un raisonnement par récurrence ;
+  \item Construire un arbre pondéré de probabilités ;
+  \item Théorème des valeurs intermédiaires ;
+  \item Limites de fonctions (et interprétations graphiques) ;
+  \item Dérivation et variation d'une fonction :
+  \item Géométrie dans l'espace.
+\end{itemize}
+
+\section*{Introduction}
+La rédaction est assez pauvre, lorsque présente. On trouve des
+expressions au sens bien étrange : «on fait …» qui ne correspondent pas
+au niveau de langue attendue en classe de Terminale générale. On trouve
+également, dans les copies ayant fait un effort de rédaction de
+nombreuses fautes de syntaxe élémentaire, qui nuisent à l'impression
+globale de la copie.
+
+De nombreuses copies donnent l'impression que les connaissances des
+années antérieures ne sont pas maîtrisées, c'est dommage, les
+compétences de Terminale sont donc faiblement acquises. En particulier,
+la validité des égalités n'est jamais vérifiée ou annoncée.
+
+Beaucoup d'élèves n'ont pas du prendre le temps de se relire : ils ont
+laissé passé de graves incohérences soit entre leurs réponses
+successives soit entre l'énoncé et leurs réponses. Cela indique une
+déconnexion entre les questions qui n'est pas réelle. On notera
+d'ailleurs que bien peu d'élèves ont traité les questions
+d'interprétation du premier exercice.
+
+\section*{Commentaires sur les exercices}
+
+\begin{exercice}[Une étude de suites, dans un cas concret]~
+
+  L'objet de cet exercice était d'étudier une modélisation de
+  l'évolution de population particulière. Sans être nécessairement
+  introduit en tant que tel, le coefficient $k$ correspond à un taux de
+  renouvellement, $u_n$ à une population exprimée en millions.
+
+  Dans le premier cas, $k<1$ (pas de renouvellement des populations) on
+  observe une décroissance de la population et même une extinction.
+
+  Dans le deuxième cas, et c'est le but du tableau, on constate une
+  stabilisation de la population vers une valeur qui ne dépend pas de la
+  population initiale, mais surtout du facteur de renouvellement. Ainsi,
+  lorsque le taux de natalité est inférieur à deux, on obtient une
+  convergence vers le demi-million d'individus.
+
+  Une étude plus détaillée se trouve sur
+  \href{https://interstices.info/jcms/i_56750/modeliser-la-dynamique-des-populations-animales-la-predation}{interstices.info
+  : modeliser-la-dynamique-des-popu\-lations-animales-la-predation}
+
+  Le but de l'exercice était de vérifier que les élèves savent rédiger
+  un raisonnement par récurrence, déterminer la limite d'une suite
+  définie par une relation de récurrence et exploiter ce résultat. Une
+  des question sert précisément à montrer l'existence d'une racine.
+  Parmi les points à maîtriser, la connaissance des fonctions
+  polynomiales de degré 2 était un atout certain qui évitait un
+  développement fastidieux.
+
+  Dans l'ensemble l'exercice n'a pas été bien réussi par les élèves, qui
+n'ont pas su interpréter les résultats en terme d'évolution de la
+  population.
+
+  \underline{Cas \no{} 1}
+  \begin{enumerate}
+    \item Il s'agit d'une récurrence qu'il faut écrire précisément dans
+      laquelle il n'y a pas de difficulté technique autre que sur les
+      inégalités dans l'hérédité.
+    \item L'objet de cette question est le calcul de la limite de la
+      suite $u_n$. Ici, celle-ci est encadrée par 0 et une suite
+      géométrique de raison $k\in\left]0;1\right[$. Le théorème
+      d'encadrement nous fournit la limite de la suite.
+    \item Puisque la limite est nulle, il y a extinction de la
+      population.
+  \end{enumerate}
+  \underline{Cas \no{} 2}
+  \begin{enumerate}
+    \item \begin{enumerate}
+           \item Un algorithme assez basique de calcul qui permet
+             simplement de remplir  de façon itérative un tableau de
+             valeur d'une suite récurrente.
+
+             Il suffisait d'effectuer un calcul ou de mettre en œuvre
+             rapidement l'algorithme sur la calculatrice.
+           \item On cherchait juste à établir une conjecture sensée à
+             partir du tableau de valeurs précédent. Quelques élèves ont
+             fournit des résultats étranges.
+         \end{enumerate}
+       \item On rentrait désormais dans l'étude approfondie de la
+         fonction $f$ proposé pour en déduire des informations sur la
+         convergence de la suite, éventuellement une version explicite.
+         \begin{enumerate}
+           \item L'étude des variations d'un polynôme de degré 2 est du
+             programme de Seconde, consolidée par une étude exhaustive
+             en classe de Première S.
+           \item La question précédente permettait de mettre en lumière
+             la continuité de la fonction précédente et d'utiliser les
+             connaissances de Terminale S : le théorème des valeurs
+             intermédiaires qui permet d'affirmer de façon générale que
+             l'image d'un intervalle est un intervalle, sous réserve de
+             continuité de la fonction.
+           \item Une récurrence évidente permettait de démontrer cette
+             inégalité en utilisant le résultat de la question
+             précédente qui pouvait être admis ici.
+           \item Suite croissante majorée.
+           \item La population se stabilise vers \np{473000} individus.
+         \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[Une étude de fonction]~
+
+  Cet exercice consistait en une étude de fonction dédiée à la recherche
+  d'une solution $\alpha$ pour une certaine fonction donnée (partie A)
+  et au calcul de l'image de cette solution par la fonction (partie B)
+  et enfin, l'étude de la direction asymptotique de la fonction (partie
+  C)
+
+  \noindent\textbf{\underline{Partie A}}
+
+  Sans l'écrire explicitement, on ne s'intéresse qu'au numérateur de la
+  fonction de la partie B. En effet, c'est lui qui peut s'annuler,
+  annulant ainsi la fonction $f$.
+
+  \begin{enumerate}
+    \item Il s'agissait de déterminer des limites en $+\infty$ et
+      $-\infty$. Ici le calcul se menait de la même façon dans les deux
+      cas et pouvait être expédié rapidement pour la deuxième limite.
+
+      D'autre part, certains élèves écrivent des égalités avec $x$ au
+      dénominateur sans que ce soit une limite en $+\infty$, c'est à
+      dire que l'égalité n'est pas valide (ex : $3x^2 -1 = x(3x -
+      \frac1x)$ n'est vraie que si $x>A>0$.)
+    \item Le calcul de la dérivée n'a pas posé de problème ici aux
+      élèves. Cependant, une meilleure connaissance des fonctions
+      polynomiales de degré 2 aurait évité de se lancer dans le calcul
+      du discriminant pour trouver le tableau de signe.
+
+      Le sens de variation en fonction du signe de la dérivée est une
+      connaissance qui semble assez solide chez les élèves. On trouve
+      cependant des incohérences ici. Il ne faut pas hésiter à tracer la
+      fonction sur la calculatrice afin de valider le résultat écrit.
+
+      Certains élèves écrivent des tableaux de variations laissant
+      entendre qu'une fonction peut-être croissante de -7 à -9
+      sous-entendant que $-7<-9$. Il est impératif de se relire pour
+      éviter de telles erreurs.
+    \item La question a été souvent abordée de façon très incomplète, il
+      fallait justifier que la fonction était continue, strictement
+      monotone sur 3 intervalles différents, et qu'un seul contenait 0.
+      La conclusion se faisait en citant le théorème (ou son corollaire)
+      des valeurs intermédiaires.
+
+      Quelques élèves ont cité le théorème de la bijection, qui n'est
+      plus au programme.
+    \item Question bien réussie dans l'ensemble, validant une démarche
+      par balayage à la calculatrice. Peu d'élève semblent avoir écrit
+      un algorithme sur leur calculatrice ou utilisé les fonctions
+      idoines d'icelle.
+    \item Une partie des élèves n'a pas fait le lien avec la question
+      précédente. $\alpha$ a désormais un statut unique de nombre et
+      peut être utilisé. La question de l'encadrement a d'ailleurs
+      permis de le placer sur la droite des nombres réels.
+  \end{enumerate}
+
+  \noindent\textbf{\underline{Partie B}}
+
+  On considère une fonction définie un intervalle donné. De nombreux
+  candidats ont étudié la fonction sur l'ensemble de son intervalle, ce
+  qui n'était pas demandé ici, d'autant plus que cette fonction
+  présente, de part sa parité, une symétrie centrale.
+
+  \begin{enumerate}
+    \item Il s'agissait d'une question sur les limites séparées en deux
+      questions intermédiaires.
+      \begin{enumerate}
+        \item La plus part des candidats a su exploiter correctement la
+          limite ici. On regrette que beaucoup d'entre-eux se laissent
+          aller à démontrer d'abord qu'il s'agit d'une forme
+          indéterminée puis à «lever l'indétermination». Les
+          abréviations sont à proscrire ici.
+        \item En revanche, beaucoup de candidats n'ont pas bien compris
+          que l'essence de cette question était de mettre en évidence
+          une limite infinie aux bornes de l'intervalle de définition et
+          donc la présence d'une asymptote verticale.
+      \end{enumerate}
+    \item La question a été bien réussie dans l'ensemble pour les
+      candidats qui s'y sont frottés, c'est à dire une grande majorité.
+      Cependant, beaucoup n'ont pas fait le lien avec la partie
+      précédente : $f'$ s'annule et change de signe en $\alpha$, ce qui
+      d'ailleurs motive la question 2.
+    \item Quelques élèves ont essayé d'encadrer $\alpha$ ou ses valeurs
+      approchées pour essayer de démontrer la formule proposée. Bien peu
+      y sont arrivés.
+
+      Encore moins et c'est dommage ont donné un encadrement de
+      $f(\alpha)$.
+  \end{enumerate}
+
+  \noindent\textbf{\underline{Partie C}}
+
+  On s'intéresse dans cette partie au comportement asymptotique de la
+  fonction, c'est à dire son comportement au voisinage de $+\infty$.
+
+  \begin{enumerate}
+    \item Quelques élèves n'ont pas tracé la droite correctement. Les
+      résultats s'en ressentent. Il s'agit d'élèves tombant souvent dans
+      la première catégorie (cf. infra.)
+    \item La conjecture a été faite souvent moyennement, sa
+      démonstration très rarement.
+    \item Le calcul fait précédemment devait permettre d'affirmer que
+      $MN\approx 0$ quand $x\to \infty$. Peu l'ont traité, et même peu
+      ont répondu à la question.
+  \end{enumerate}
+
+\end{exercice}
+
+\begin{exercice}[Suite et probabilités]~
+
+  L'exercice consistait en un tirage de dé un peu particulier avec une
+  répétition d'une des expériences puis la construction de la suite des
+  résultats, ainsi que la question de sa convergence. La suite ainsi
+  construite était une suite de probabilité, donc à valeurs dans
+  $\left[0;1\right]$, ce que quelques élèves semblent avoir oublié au
+  moment de conclure.
+
+  \begin{enumerate}
+    \item Le rôle de cette question était d'observer ce qui se passe
+      avant la répétions afin de bien fixer les idées. Cette question a
+      été plutôt bien traitée.
+      \begin{enumerate}
+        \item L'arbre de probabilité a été assez bien complété dans
+          l'ensemble.
+        \item Sans forcément justifier (l'arbre était au dessus), la
+          plus part des candidats ont utilisé la formule des
+          probabilités totales.
+      \end{enumerate}
+    \item On répétait désormais la deuxième partie de l'expérience.
+      \begin{enumerate}
+        \item Une partie des élèves donne les probabilités certainement
+          par extraction de la réponse suivante. Il est rare d'avoir
+          la justification de la répétition d'une expérience, avec la
+          considération d'indépendance des événements.
+        \item On trouve un certain nombre de rédaction étranges ici pour
+          cette question et bien peu sont valables. Il s'agissait
+          formellement pourtant de la même réponse qu'à la question
+          1.b).
+        \item On introduisait une suite ici, celle de la probabilité de
+          tirer le dé rouge. On voulait, en utilisant la formule de
+          Bayes retrouver la probabilité d'avoir tirer un dé
+          particulier.
+
+          Un élève a pensé à vérifier que cette égalité était vraie pour
+          $n=1$, mais dans le cadre d'un raisonnement par récurrence qui
+          était inutile ici.
+        \item La limite de cette suite a donné lieu à des résultats
+          étranges : certains élèves ont oublié qu'il s'agissait de
+          probabilité et que le résultat était entre 0 et 1. Bien peu se
+          sont donnés la peine de vérifier la cohérence du résultat avec
+          l'énoncé de départ. En effet, il y'a «plus de chance que le 6
+          vienne du dé rouge que du dé vert» donc si on connaît la
+          probabilité d'avoir obtenu 6, la probabilité de venir du dé
+          rouge est grande.
+      \end{enumerate}
+    \item On admettait ici que la suite était croissante, ce qui
+      simplifiait l'étude.
+      \begin{enumerate}
+        \item L'existence de cet entier $n_0$ est garantie par la
+          définition de la convergence d'une suite. D'ailleurs, celle-ci
+          étant croissante, elle est majorée par sa limite.
+        \item L'algorithme proposé ici était celui qui calcule les
+          termes de la suite : on définit $E$ la précision, puis tant
+          que $ 1 - p_n \geqslant E$, on incrémente $n$.
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[Géométrie dans l'espace]~
+
+  L'exercice faisait appel à un certain nombre de connaissance des
+  années antérieures, en particulier du collège, ou de la classe de
+  Seconde. Peu l'ont abordé.
+
+  Beaucoup ont perdu temps à rédiger longuement des réponses à des
+  questions qui ne leur était pas demandées ou qui possédaient des
+  réponses très simples.
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item Deux méthodes permettait de répondre à la question :
+          \begin{itemize}
+            \item en utilisant le théorème des milieux ;
+            \item en utilisant la proportionnalité des vecteurs.
+          \end{itemize}
+          Dans l'ensemble, la question a été assez bien traitée.
+        \item On pouvait dans cette question raisonner par l'absurde :
+          montrer, en utilisant le théorème de Thalès ou la
+          proportionnalité des vecteurs, que les droites ne pouvaient
+          pas être parallèles et comme elles étaient dans le même plan,
+          alors, elles étaient sécantes.
+
+          Quelques élèves n'ont pas bien lu l'énoncé et ont effectué la
+          démonstration pour l'affirmation qui était admise.
+        \item L'intersection de plan est une droite, certains élèves
+          semblent l'avoir oublié. C'est dommage. Les points
+          d'intersections trouvés à la question précédentes
+          fournissaient la réponse.
+      \end{enumerate}
+    \item Cette question devait se traiter uniquement à l'aide des
+      relations vectorielles. Beaucoup ont cherché à développer
+      longuement le calcul espérant perdre le lecteur et affirmer
+      triomphalement le résultat. Cette technique ne fonctionne guère.
+      \begin{enumerate}
+        \item Placer le point $G$ dans le plan aurait grandement aidé
+          les candidats à trouver l'intuition de décomposition
+          convenable. Cependant, quelques uns, certainement après une
+          recherche au brouillon, ont été en mesure de répondre avec
+          satisfaction à la question.
+
+          L'interprétation en tant que points coplanaires n'a que peu
+          été traitée.
+        \item Le point $G$ était défini partout comme un isobarycentre,
+          notion qui n'est désormais plus au programme. On trouvait
+          néanmoins que $G$ était le milieu du sagement $[KE]$ puis que
+          $G$ était le centre de gravité du triangle $IJK$.
+      \end{enumerate}
+    \item Cette question permettait de tester des connaissances de cours
+      sur les notions de représentation de droites ou de plan. La plus
+      part des élèves ne prennent d'ailleurs pas les «meilleurs
+      \footnote{au sens de la simplicité}» vecteurs directeurs.
+      \begin{enumerate}
+        \item Il s'agissait d'une question de cours. Elle a été assez
+          bien traité dans l'ensemble, bien que de nombreux élèves
+          n'aient pas choisie une représentation plus simple qui
+          simplifierait les calculs suivants.
+
+          Il est à noter que trop d'élèves ne précisent pas que le
+          paramètre «vit» dans l'ensemble $\R$ des nombres réels (et
+          qu'à ce sujet tout droite de l'espace est une bijection de la
+          droite des réels.)
+        \item On peut refaire les mêmes remarques à cette question qu'à
+          la question précédente.
+        \item Comme les coordonnées du point $H$ étaient données, la
+          démonstration se limitait à une vérification d'appartenance.
+        \item La réponse est positive et pouvait se faire par des
+          considérations de géométrie (penser à la construction du
+          centre de gravité d'un triangle, et à la projection
+          homothétique d'un centre de gravité d'un triangle sur un
+          autre.)
+      \end{enumerate}
+  \end{enumerate}
+\end{exercice}
+
+\section*{Conclusion}
+
+Deux types d'élèves semblent se dégager :
+\begin{itemize}
+  \item des élèves pour qui un effort conséquent est attendu ;
+  \item des élèves qui réussissent moyennement et pour lesquels un
+      travail régulier permettra d'appréhender le bac tranquillement.
+\end{itemize}
+
+Pour les seconds, les bases semblent être présentes et un travail
+régulier pendant l'année leur permettra de réussir l'épreuve de
+mathématiques du bac.
+
+Pour les premiers, des efforts conséquents de remise à niveau vont être
+nécessaire. Une stratégie est donc à mettre en place.
+
+\end{document}

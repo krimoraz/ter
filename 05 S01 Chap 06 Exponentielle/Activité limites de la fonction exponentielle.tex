@@ -1,0 +1,247 @@
+\documentclass[12pt,a4paper,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{array}
+
+\usepackage{kpfonts}
+
+\usepackage[bookmarks=false,colorlinks,linkcolor=blue]{hyperref}
+
+\pdfminorversion 7
+\pdfobjcompresslevel 3
+
+\usepackage{tabularx}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{enumitem}
+
+\usepackage{tipfr}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usetikzlibrary{hobby}
+
+\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\usepackage{lastpage}
+
+\usepackage{esvect}
+\usepackage{marginnote}
+
+\usepackage{wrapfig}
+
+\usepackage[defaultlines=5,all]{nowidow}
+
+
+\makeatletter
+\renewcommand{\@evenfoot}%
+        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
+\renewcommand{\@oddfoot}{\@evenfoot}
+
+\renewcommand{\maketitle}%
+{\framebox{%
+    \begin{minipage}{1.0\linewidth}%
+      \begin{center}%
+        \Large \@title ~-- \@author \\%
+        \@date%
+      \end{center}%
+    \end{minipage}}%
+  \normalsize%
+  %\vspace{1cm}%
+}
+
+\pgfdeclarepatternformonly{mes_hachures}
+{\pgfpoint{-0.1cm}{-0.1cm}}
+{\pgfpoint{0.9cm}{0.5cm}}
+{\pgfpoint{0.8cm}{0.4cm}}
+{\pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
+\pgfusepath{stroke}}
+
+%Des macros pour les noms d'ensmbles
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\N}{\mathbf{N}}
+
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+%Une macro récursive pour l'intérieru des vecteurs
+%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
+
+\newcommand\vecteur[2][\\]{%
+    \global\def\my@delim{#1}%
+    \left(\negthinspace\begin{matrix}
+        \my@vector #2,\relax\noexpand\@eolst%
+    \end{matrix}\right)}
+
+%Une macro pour les vecteurs
+\def\my@vector #1,#2\@eolst{%
+   \ifx\relax#2\relax
+      #1
+   \else
+      #1\my@delim
+      \my@vector #2\@eolst%
+   \fi}
+
+%Une macro récursive pour mettre formater l'intérieur des intervalles
+\def\my@intervalle #1;#2\@eolst{%
+  \ifx\relax#2\relax
+    #1
+  \else
+    \my@intervalle #2\@eolst%
+  \fi}
+
+%Quatre macros pour les quatres types d'intervalles
+\newcommand{\interff}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]
+}
+\newcommand{\interfo}[1]{%
+  \left[\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+\newcommand{\interof}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right]}
+\newcommand{\interoo}[1]{%
+  \left]\my@intervalle #1;\relax\noexpand\@eolst%
+  \right[}
+
+\makeatother
+
+
+\usepackage{framed}
+
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{propriete}{Propriété}
+\newtheorem{propdef}{Propriété - Définition}
+\newtheorem{theoreme}{Théorème}
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+\newtheorem{exerciceT}{Exercice}
+\theoremstyle{nonumberplain}
+\newtheorem{remarque}{Remarque}
+\newtheorem{probleme}{Problème}
+\newtheorem{preuve}{Preuve}
+\theoremstyle{nonumberbreak}
+\newtheorem{exemple}{Exemple}
+
+\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
+
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlength{\itemsep}{7pt}
+
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\triangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Limites de la fonction exponentielle}
+\author{\bsc{Jumel}}
+\date{janvier 2017}
+
+\begin{document}
+
+\maketitle
+
+\section{Limites infinies}
+
+\subsection{Limite en $+\infty$}
+
+\begin{exercice}
+  On considère la fonction
+  $f:\left\lbrace\begin{matrix}\R\to\R\\x\mapsto e^x -
+  x\end{matrix}\right.$.
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item Justifier que cette fonction est dérivable.
+        \item Calculer la dérivée $f'$ de cette fonction.
+        \item Dresser son tableau de variation.
+      \end{enumerate}
+    \item Avec les variations, que peut-on en déduire concernant l'image
+      de 0 ?
+    \item Reformuler l'inégalité obtenue.
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+  On considère l'inégalité $\forall x\in \R, e^x > x$ (qu'on admet
+  éventuellement.)
+
+  \begin{enumerate}
+    \item Donner la limite de la fonction $x\mapsto x$ en $+\infty$.
+    \item Quel théorème sur les limites peut-on utiliser ?
+    \item Conclure.
+  \end{enumerate}
+\end{exercice}
+
+\subsection{Limite en $-\infty$}
+
+\begin{exercice}
+  Démontrer que $\lim_{x\to-\infty}e^x = 0$. On pourra poser $Y = -x$.
+\end{exercice}
+
+\section{Croissances comparées}
+
+\subsection{Développement limité au premier ordre}
+
+\begin{exercice}
+  Une première limite, qui correspond au développement limité de
+  l'exponentielle en 0.
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item Rappeler la définition du nombre dérivé d'une fonction en
+          $a$.
+        \item Mettre en œuvre cette définition pour exprimer le nombre
+          dérivée de la fonction $\exp$ en 0.
+        \item Calculer ce nombre dérivé en utilisant la fonction
+          dérivée d'$\exp$.
+      \end{enumerate}
+    \item Donner la limite \\$\lim_{x\to0}\frac{e^x - 1}{x}$.
+  \end{enumerate}
+\end{exercice}
+
+\subsection{Des équivalents}
+
+On va utiliser un théorème de comparaison.
+\begin{exercice}
+  Une deuxième limite.
+  \begin{enumerate}
+    \item Étudier la différence $e^x - \frac{x^2}2$.
+    \item Démontrer que $f(x) > 1 > 0$.
+    \item Soit $x$ un réel, comparer $\frac{e^x}x$ et $\frac{x}2$
+    \item En déduire la limite de $\frac{e^x}x$ en $+\infty$.
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+  En utilisant une remarque analogue à l'exercice 3, démontrer que
+  $\lim_{x\to-\infty}xe^x = 0$
+\end{exercice}
+
+
+\end{document}

@@ -1,0 +1,70 @@
+\documentclass[a4paper,12pt,french]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[upright]{kpfonts}
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[margin=1.4cm]{geometry}
+\usepackage{enumitem}
+\usepackage[lastexercise]{exercise}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{tkz-tab}
+\usetikzlibrary{babel}
+\usepackage{babel}
+
+\setlength{\columnseprule}{0pt}
+
+%\setlength{\parindent}{0pt}
+\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+\setlist[itemize]{leftmargin=*}
+\setlist[itemize,1]{label=$\blacktriangleright$}
+\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+\setlist[enumerate,2]{label=\emph{\alph*}),
+ref=\theenumi.\emph{\alph*}}
+\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+\setlist[description]{font=\sffamily\bfseries}
+
+\renewcommand{\ExerciseName}{Exercice}
+\renewcommand{\AnswerName}{Réponse de l'exercice}
+
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\R}{\mathbf{R}}
+
+\everymath{\displaystyle\everymath{}}
+
+\title{Activité de recherche}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{Exercise}[number=33]
+  La suite $(u_n)$ est définie par $u_0 = 1$ et pour tout entier naturel
+  $n$, $u_n = \dfrac{u_n}{u_n + 2}$.
+
+  \emph{Objectif :} Exprimer de façon explicite les termes de la suite
+  $(u_n)$ définie par récurrence.
+
+  \begin{enumerate}
+    \item Calculez sous forme fractionnaire les termes $u_1$, $u_2$,
+      $u_3$, $u_4$, $u_5$ et $u_6$.
+    \item Calculez la différence entre les dénominateurs de deux termes
+      conséscutifs allant de $u_1$ à $u_6$.
+    \item
+      \begin{enumerate}
+        \item Énoncez une conjecture et testez-là sur les termes connus.
+        \item Prouvez, par récurrence, que votre conjecture est vraie.
+      \end{enumerate}
+  \end{enumerate}
+\end{Exercise}
+\pagebreak
+\begin{Answer}[number=104]
+\end{Answer}
+\end{document}
