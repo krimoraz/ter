@@ -413,15 +413,15 @@
       \coordinate (B) at (0.4,0.4); \draw (B) node[right] {$B$};
       \coordinate (S) at (0.6,1.17); \draw (S) node[above] {$S$};
       %segments
-      \draw[color=D1] (C)--(A)--(B);
-      \draw[color=J1] (B)--(S)--(C);
-      \draw[color=B1, ->, thick] (B)--(C);
-      \draw[color=B1, ->, thick] (A)--(S);
+      \draw[color=black] (C)--(A)--(B);
+      \draw[color=green] (B)--(S)--(C);
+      \draw[color=blue, ->, thick] (B)--(C);
+      \draw[color=blue, ->, thick] (A)--(S);
       %codage
-      \draw[color=D1] (0.5,0) node {{\boldmath $\bullet$}};
-      \draw[color=D1] (0.2,0.2) node {{\boldmath $\bullet$}};
-      \draw[color=J1] (0.5,0.74) node {{\boldmath $\approx$}};
-      \draw[color=J1] (0.8,0.59) node {{\boldmath $\approx$}};
+      \draw[color=black] (0.5,0) node {{\boldmath $\bullet$}};
+      \draw[color=black] (0.2,0.2) node {{\boldmath $\bullet$}};
+      \draw[color=green] (0.5,0.74) node {{\boldmath $\approx$}};
+      \draw[color=green] (0.8,0.59) node {{\boldmath $\approx$}};
     \end{tikzpicture}
   \end{center}
 
@@ -450,10 +450,10 @@
       %(BH) et (EC)
       \draw[thin, color=red, dashed] (B)--(H); \draw[thin, color=red, dashed] (E)--(C);
       %angle
-      \fill[color=A1,opacity=0.3,domain=228:291] (O)
+      \fill[color=grey,opacity=0.3,domain=228:291] (O)
         --plot ({(1+\dx)/2+\r*cos(\x)}, {0.25+\r*sin(\x)})
         --cycle;
-      \draw[color=A1]({(1+\dx)/2},-0.15) node {{\boldmath $\alpha$}};
+      \draw[color=grey]({(1+\dx)/2},-0.15) node {{\boldmath $\alpha$}};
     \end{tikzpicture}
   \end{center}
   Calculer une valeur approchée de la mesure de l'angle $\alpha =
