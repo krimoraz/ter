@@ -279,3 +279,38 @@
       $u_n$ en fonction de $n$, puis la limite de la suite $(u_n)$.
   \end{enumerate}
 \end{question}
+
+\begin{question}[topic=suites]
+  On considère une suite $(u_n)$.
+
+  L'algorithme ci-dessous permet de calculer le terme $u_n$ pour une valeur
+  donnée en entrée.
+
+  \begin{center}
+    \begin{tikzpicture}[yscale=0.7]
+      \draw (0,0) node [anchor=west] { \textbf{Variables} } ;
+      \draw (1,-1) node [anchor=west] { $u$ est du type nombre } ;
+      \draw (1,-2) node [anchor=west] { $n$ est du type nombre } ;
+      \draw (1,-3) node [anchor=west] { $k$ est du type nombre } ;
+      \draw (0,-4) node [anchor=west] { \textbf{Début} } ;
+      \draw (1,-5) node [anchor=west] { Lire $n$ } ;
+      \draw (1,-6) node [anchor=west] { $u$ prend la valeur 2 } ;
+      \draw (1,-7) node [anchor=west] { $k$ prend la valeur 0 } ;
+      \draw (1,-8) node [anchor=west] { Tant Que ( $ k > n$ ) Faire } ;
+      \draw (2,-9) node [anchor=west] { $k$ prend la valeur $k + 1$} ;
+      \draw (2,-10) node [anchor=west] { $u$ prend la valeur $u + 2 * (k - 1) + 1 $ } ;
+      \draw (1,-11) node [anchor=west] { Fin Tant Que } ;
+      \draw (1,-12) node [anchor=west] { Afficher $u$ } ;
+      \draw (0,-13) node [anchor=west] { \textbf{Fin} } ;
+    \end{tikzpicture}
+  \end{center}
+  \begin{enumerate}
+    \item Les deux propositions suivantes sont-elles \textbf{vraies} ou
+      \textbf{fausses} ? Justifier.
+      \begin{enumerate}
+        \item $u_3 = 11$.
+        \item Pour tout $n \in \mathbf{N}, u_{n+1} = u_n + 2n + 1.$
+      \end{enumerate}
+    \item Montrer que la suite $(u_n)$ est strcitement décroissante.
+  \end{enumerate}
+\end{question}
