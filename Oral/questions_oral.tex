@@ -693,3 +693,34 @@ $A(-1\,; 2\,; -1)$ et de vecteur normal $\vv{n}\begin{pmatrix} 1 \\ 2 \\ -3
       On donnera une valeur approchée à la minute près.
   \end{enumerate}
 \end{question}
+
+\begin{question}[topic=suites,class=IG]
+  Soit la fonction $f$ définie sur $]-2; +\infty[$ par $f(x) =
+  \dfrac{4x+1}{x+2}$.
+
+  Soit la suite associée $(u_n)$ définie âr $u_0 = 5$ et pour tout $n$
+  entier naturel, $u_{n+1} = f(u_n)$.
+
+  \begin{enumerate}
+    \item Soit la courbe représentative de $f$, la droite d'équation $y =
+      x$. Placer $u_0, u_1, u_2$ sur l'axe des abscisses.
+
+      \begin{center}
+        \begin{tikzpicture}[scale=0.5]
+          \tkzInit[xmin=-3,xmax=17,ymin=-4.5,ymax=8]
+          \tkzAxeXY
+          \tkzGrid
+          \draw [thick] plot [smooth,domain=-1:17] (\x , {(4*\x - 1)/(\x +
+            2)}) ;
+          \draw [very thick] (-3,-3) -- (8,8) ;
+        \end{tikzpicture}
+      \end{center}
+    \item
+      \begin{enumerate}
+        \item Quelle conjecture peut-on donner sur la monotonie de la suite
+          $(u_n)$ et la convergence de la suite $u$ ?
+        \item Montrer que $(u_n)$ est décroissante.
+        \item Que peut-on en déduire ?
+      \end{enumerate}
+  \end{enumerate}
+\end{question}
