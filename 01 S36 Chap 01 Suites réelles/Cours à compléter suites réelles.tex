@@ -98,7 +98,7 @@
 
 \subsection{Raisonnement par récurrence}
 
-Le raisonnement par \underline{\hspace{8em}} est un type de raisonnement
+Le raisonnement par \emph{récurrence} est un type de raisonnement
 permettant de montrer une propriété sur les entiers.
 
 Il repose sur le principe (ou axiome) énoncé par Peano pour la
@@ -149,18 +149,38 @@ reformuler :
 }
 
 Exemple de raisonnement par récurrence : démontrer que pour tout $n$
-entier naturel, $1 + 2 + 3 + \dots + n = \frac{n(n+1)}2$.
+entier naturel, $0 + 1 + 2 + 3 + \dots + n = \frac{n(n+1)}2$.
 
 \framebox{\begin{minipage}{0.99\linewidth}
-    \emph{Initialisation}\\[1.6cm]
-    \emph{Hérédité}\\[4.8cm]
-    \emph{Conclusion}\\[1.6cm]
+    Soit $P_n$ la proposition «$0 + 1 + 2 + 3 + \dots + n = \frac{n(n+1)}2$».
+    \\
+    \emph{Initialisation}\\
+    Vérifions $P_0$ : En effet, comme $0 = \frac{0 \times (0 + 1)}2 = 0$,
+    $P_0$ est vraie et la récurrence est initialisée.
+    \emph{Hérédité}\\
+    On suppose que $P_n$ est vraie pour $n$ un entier arbitrairement choisi,
+    montrons alors que $P_{n+1}$ est vraie.
+    \begin{align*}
+      0 + 1 + 2 + 3 + \cdots + n + (n +1) & = \frac{n(n+1)}2 + (n + 1)           \\
+                                          & = \frac{n}2(n+1) + (n+1)             \\
+                                          & = \left( \frac{n}2 + 1 \right) (n+1) \\
+                                          & = \frac{n+2}{2} (n+1)                \\
+                                          & = \frac{(n+1)(n+2)}2
+    \end{align*}
+    \emph{Conclusion}\\
+    Pour tout $n$ entier naturel, la proposition $P_n$ : «$0 + 1 + 2 + 3 +
+    \dots + n = \frac{n(n+1)}2$» est vraie.
   \end{minipage}
 }
 
 La structure de ce raisonnement doit bien apparaître, éventuellement en
 mettant en exergue la proposition, ici «$P(n) : 1 + 2 + 3 + \dots + n =
 \frac{n(n+1)}2$».
+
+Entraînez vous à écrire la proposition $P_n$ pour différentes lettres, ou
+pour $n + 1$.
+
+Les trois étapes du raisonnement doivent clairement apparaître.
 
 \subsection{La notion de suite}
 
@@ -201,7 +221,7 @@ et on tâchera de se ramener à la première formulation.
   \begin{minipage}{0.99\linewidth}
     \emph{Montrer qu'une suite arithmétique définie pour tout entier
     naturel $n$ par $u_{n+1} = u_n + r$ peut se mettre sous la forme
-    $u_n = u_0 + rn$.\\[4.8cm]
+    $u_n = u_0 + rn$, où $u_0$, le premier terme, est connu.\\[4.8cm]
   Donner la somme des $N$ premiers termes.\\[2.7cm]}
   \end{minipage}
 }
@@ -209,7 +229,7 @@ et on tâchera de se ramener à la première formulation.
 \subsection{Quelques compléments sur les suites}
 
 \begin{definition}
-  On dit qu'une suite est 
+  On dit qu'une suite est
   \begin{itemize}
     \item arithmétique si la différence entre un terme et le suivant est
       une constante $r$ qu'on appelle raison. On a alors $u_n = u_0 +
@@ -252,7 +272,7 @@ On dit qu'une suite admet une limite finie $\ell$ lorsqu'à partir d'un
 certain rang, tous les termes de la suite sont au voisinage de cette
 limite. Ce voisinage s'entend à une précision $\varepsilon$ près. On a
 donc la définition suivante :
-\begin{definition}
+\begin{definition}\label{def:suite:superieur}
   La suite $(u_n)_{n\in\N}$ admet $\ell$ pour limite si \[ \forall
     \varepsilon > 0, \exists N_0\in\N | \forall n \in\N , n\geq N_0
   \implies \vabs{u_n - \ell} \leq \varepsilon \]
@@ -262,22 +282,25 @@ donc la définition suivante :
 On ne perd pas en généralité si on remplace l'inégalité précédente par
 une inégalité stricte.
 
-\framebox{
-  \begin{minipage}{0.99\linewidth}
-    \emph{Réécrire la proposition de la définition en terme
-    d'appartenance à un intervalle.}
-    \vspace{3cm}
-  \end{minipage}
-}
+Interprétons les différents éléments de cette définition :
+\begin{itemize}
+  \item $\exists N_0\in\N, | \forall n \in\N , n\geq N_0$ signifie qu'on se
+    place à partir d'un certain rang ;
+  \item $\forall \varepsilon > 0$ on s'est fixé une précision, c'est le
+    diamètre d'un certain intervalle, et ça doit donc être valable pour tous
+    les intervalles ;
+  \item $\vabs{u_n - \ell} \leq \varepsilon$ peut se lire $u_n \in [ \ell -
+    \varepsilon ; \ell + \varepsilon ]$.
+\end{itemize}
 
 On peut désormais prendre la proposition suivante, équivalente à la
-définition 1 :
+définition \ref{def:suite:superieur} :
 
 \framebox{
   \begin{minipage}{0.99\linewidth}
-    $\lim_{n\to+\infty} u_n = \ell$ si et seulement si tout
-    \underline{\hspace{5cm}} contenant \underline{\hspace{0.7cm}}
-    contient aussi tous les termes de la suite \underline{\hspace{6cm}}.
+    $\lim_{n\to+\infty} u_n = \ell$ si et seulement si pour tout
+    intervalle contenant $\ell$, celui-ci contient aussi tous les termes de
+    la suite à partir d'un certain rang.
   \end{minipage}
 }
 
@@ -304,9 +327,9 @@ On remarque que cette définition ne donne aucun moyen pratique de
 calculer la limite d'une suite ni même de dire si celle-ci existe.
 
 \begin{remarque}[Critère de Cauchy (admis et hors programme)]~\\
-  $(u_n)_{n\in\N}$ converge si, et seulement si, $\forall \varepsilon >
+  $(u_n)_{n\in\N}$ converge si, et seulement si, \[\forall \varepsilon >
   0,\ \exists N_0\in\N,\ \forall (n,p)\in\N^2,\ n\geq p\geq N_0 \implies
-  \vabs{u_n - u_p} < \varepsilon$.
+\vabs{u_n - u_p} < \varepsilon. \]
 \end{remarque}
 
 \subsection{Limite infinie d'une suite}
@@ -316,20 +339,20 @@ lorsqu'à partir d'un certain rang, tous les termes de la suite
 appartiennent à tous les intervalles de la forme $\ioo{A}{+\infty}$, où
 $A$ est un réel arbitraitement grand.
 
-\begin{definition}
+\begin{definition}\label{def:suiteinf:superieur}
   La suite $(u_n)_{n\in\N}$ admet $+\infty$ pour limite si \[ \forall
     A\in\R,\ \exists N_0\in\N\ |\ \forall n\in\N,\ n\geq N_0 \implies
   u_n > A \]
 \end{definition}
 
 On peut aussi écrire la proposition suivante, équivalente à la
-définition 2 :
+définition \ref{def:suiteinf:superieur} :
 
 \framebox{
   \begin{minipage}{0.99\linewidth}
     $\lim_{n\to+\infty} u_n = +\infty$ si et seulement si tout
-    \underline{\hspace{5cm}} de la forme \underline{\hspace{3cm}}
-    contient aussi tous les termes de la suite \underline{\hspace{6cm}}.
+    intervalle de la forme $[A; +\infty [$ contient aussi tous les termes de
+    la suite à partir d'un certain rang.
   \end{minipage}
 }
 
@@ -486,12 +509,13 @@ entier naturel $n$ par $q^n$ où $q$ est un réel strictement supérieur à
 
 \framebox{
   \begin{minipage}{0.99\linewidth}
-    \emph{Rappeler l'inégalité de Bernoulli :}
+    \emph{Démontrer par récurrence l'inégalité de Bernoulli : $(1 + a)^n
+    \geqslant 1 + na, a > 0$}
       \vspace{4cm}
   \end{minipage}
 }
 
-Attention, ici l'hypothèse $a>1$ prend toute son importance !
+Attention, ici l'hypothèse $a>0$ prend toute son importance !
 
 \framebox{
   \begin{minipage}{0.99\linewidth}
@@ -500,7 +524,7 @@ Attention, ici l'hypothèse $a>1$ prend toute son importance !
   \end{minipage}
 }
 
-On démontre également que les suites géométriques de raison $\vabs{a} <
+On démontre également que les suites géométriques de raison $\vabs{q} <
 1$ convergent vers 0.
 
 \framebox{
@@ -508,7 +532,7 @@ On démontre également que les suites géométriques de raison $\vabs{a} <
     \emph{Preuve :}
       En effet, à partir du rang $n_0$, tous les intervalles ouverts
       contenus dans l'intervalle
-      $\ioo{-\frac{u_0}{\vabs{a}^{n_0+1}}}{\frac{u_0}{\vabs{a}^{n_0+1}}}$
+      $\ioo{-\frac{u_0}{\vabs{q}^{n_0+1}}}{\frac{u_0}{\vabs{q}^{n_0+1}}}$
       contiennent tous les termes de la suite.
   \end{minipage}
 }
