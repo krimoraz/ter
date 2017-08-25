@@ -1,0 +1,132 @@
+\documentclass[12pt,a4paper,french]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%\usepackage{fourier}
+
+\usepackage[margin=1.4cm]{geometry}
+\usepackage{titling}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{tikz}
+\usepackage{tkz-base}
+\usetikzlibrary{intersections}
+\usepackage{tabularx}
+\usepackage{esvect}
+\usepackage{delimset}
+
+\usepackage{sesamanuel} % pour les commandes spéciales du manuel 2de
+\usepackage{sesamanuelTIKZ} %  pour les commandes spéciales de la figure
+
+%\usepackage{enumitem}
+%\setlist{noitemsep}
+%%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+%\setlist[itemize]{leftmargin=*}
+%\setlist[itemize,1]{label=$\triangleright$}
+%\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
+%\setlist[enumerate,1]{label=\textbf{\arabic*.}, ref=\arabic*}
+%\setlist[enumerate,2]{label=\emph{\alph*}),
+%ref=\theenumi.\emph{\alph*}}
+%\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+%\setlist[description]{font=\sffamily\bfseries}
+
+\usepackage{exsheets}
+\usepackage{numprint}
+\newcommand{\np}{\numprint}
+\usepackage{tabularx}
+
+\usepackage[pdfusetitle]{hyperref}
+
+\usepackage{babel}
+
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+%\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\renewcommand{\u}{(u_n)_{n\in\N}}
+
+\author{Vincent-Xavier \bsc{Jumel}}
+\title{Terminale S, semaine 36 : Probabilités}
+\date{septembre 2017}
+
+\setlength{\parindent}{0pt}
+\everymath{\displaystyle}
+
+\SetupExSheets{solution/print=false}
+
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\section{Exercices d'entraînement}
+
+\begin{question}
+  \begin{enumerate}
+    \item On considère deux évènements $R$ et $S$ tels que
+      $P(R)=\dfrac{1}{4}$, $P_R(S)=\dfrac{5}{6}$ et
+      $P_{\overline{R}}\left(\overline{S}\right)=\dfrac{11}{12}$.
+
+      Construire un arbre pondéré avec ces évènements $R$ et $S$.
+    \item Tao ne sait pas s'il lui reste de quoi préparer à manger dans son
+      réfrigérateur.
+
+      Il estime la probabilité que ce soit le cas à \nombre{0,8}.
+      \begin{itemize}
+        \item Dans ce cas (s'il a de quoi préparer à manger), il estime que
+          la probabilité que le repas qu'il se préparera soit bon est de
+          \nombre{0,65}.
+        \item Sinon, il ira dans son restaurant favori dans lequel il estime
+          que la probabilité que le repas servi soit bon est de
+          \nombre{0,99}.
+      \end{itemize}
+
+      Construire un arbre pondéré représentant la situation après avoir
+      explicité les notations des évènements apparaissant dans cet arbre.
+  \end{enumerate}
+\end{question}
+\begin{solution}
+  \begin{enumerate}
+    \item ~~
+      \begin{center}
+        \begin{tikzpicture}[level distance=25mm,sibling distance=10mm]
+          \node {} [grow=right]
+            child[sibling distance=25mm] {
+              node {$\overline{R}$}
+              child[sibling distance=15mm] {
+                node {$\overline{S}$}
+                edge from parent node[below] {$p_{\overline{R}}(\overline{S})$}
+              }
+              child[sibling distance=15mm] {
+                node {$S$}
+                edge from parent node[above] {$p_{\overline{R}}(S)$}
+              }
+              edge from parent node[below] { $p(\overline{R})$ }
+            }
+            child[sibling distance=25mm] { node {$R$}
+              child[sibling distance=15mm] {
+              node {$\overline{S}$}
+                edge from parent node[below] { $p_R(\overline{S})$ }
+              }
+              child[sibling distance=15mm] {
+                node {$S$}
+                edge from parent node[above] { $p_R(S)$ }
+              }
+              edge from parent node[above] { $p(R) = \nombre{0.25}$ }
+            } ;
+          \end{tikzpicture}
+        \end{center}
+    \end{enumerate}
+  \end{solution}
+
+
+\section{Problèmes}
+
+\centering{\bfseries \Large \thetitle{} -- solutions }
+
+\bigskip
+
+\printsolutions
+
+\end{document}
