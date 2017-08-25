@@ -91,6 +91,37 @@
 
 \section{Exercices d'entraînement}
 
+\begin{question}On considère deux évènements $A$ et $B$ tels que $P(A)=\nombre{0,1}$ et $P(A\cap B)=\nombre{0,06}$.
+  Calculer $P_A(B)$.
+\end{question}
+
+
+\begin{question}On considère deux évènements $C$ et $D$ tels que $P(D)=\nombre{0,6}$ et $P(C\cap \overline{D})=\nombre{0,35}$.
+  Calculer $P_{\overline{D}}(C)$.
+\end{question}
+
+\begin{question}On considère deux évènements disjoints $E$ et $F$ de probabilités non nulles.
+  Calculer $P_E(F)$.
+
+\end{question}
+
+
+\begin{question}On considère deux évènements $A$ et $B$ tels que $P(A)=\nombre{0,37}$, $P(B)=\nombre{0,68}$  et $P(A\cup B)=\nombre{0,84}$.
+  Calculer :
+  \begin{enumerate}
+  \item $P_A(B)$
+  \item $P_B(A)$
+  \end{enumerate}
+\end{question}
+
+
+\begin{question}On considère deux évènements $A$ et $B$ tels que $P(A)=\nombre{0,63}$ et $P_A(B)=\nombre{0,06}$. Calculer :
+  \begin{enumerate}
+  \item $P(A\cap B)$
+  \item $P\left(A\cap \overline{B}\right)$
+  \end{enumerate}
+\end{question}
+
 \begin{question}
   \begin{enumerate}
     \item On considère deux évènements $R$ et $S$ tels que
@@ -122,9 +153,51 @@
         \arbre{R}{S}{$\frac14$}{$\frac34$}
         {$\frac56$}{$\frac16$}{$\frac1{12}$}{$\frac{11}{12}$}
       \end{center}
+    \item On considère les évènements :
+      \begin{itemize}
+        \item $R$ : \og Tao a de quoi se préparer à manger dans son
+          réfrigérateur \fg
+        \item $B$ : \og Le repas est bon \fg\medskip
+      \end{itemize}
+      \begin{center}
+        \arbre{R}{B}{\nombre{0.8}}{\nombre{0.2}}
+        {\nombre{0.65}}{\nombre{0.35}}{\nombre{0.99}}{\nombre{0.01}}
+      \end{center}
   \end{enumerate}
 \end{solution}
 
+\begin{question}
+    Sur une chaîne de production d'un composant électronique, on effectue des tests qualité :
+  \begin{itemize}
+    \item Un premier examen visuel est effectué éliminant \upc{5} des composants, qui sont détruits.
+    \item Les composants restants passent un test de fiabilité qui est réussi par \upc{90} des composants qui sont alors mis en vente.
+    \item Parmi les composants n'ayant pas réussi le test de fiabilité, \upc{30} peuvent être réparés facilement et mis en vente, le reste est détruit.
+  \end{itemize}
+  On prélève un composant au hasard sur cette chaîne.
+  \begin{enumerate}
+    \item Représenter la situation par un arbre de probabilité.
+
+      On notera $E$ l'événement \og le composant réussit l'examen
+      visuel \fg{}, $F$ \og le composant réussit le test de fiabilité
+      \fg{} et $V$ \og le composant est mis en vente \fg{}.
+    \item Calculer $P\left(\overline{F}\cap V\right)$, $P(V)$ et
+      $P_V\left(\overline{F}\right)$.
+    \item Un composant :
+        \begin{itemize}
+        \item coûte \ueuro{0,05} s'il est détruit ;
+        \item rapporte \ueuro{0.5} s'il est mis en vente sans
+          réparation et \ueuro{0,25} s'il est mis en vente après
+          réparation.
+        \end{itemize}
+        \vspace{-\baselineskip}\begin{enumerate}
+        \item Donner la loi de probabilité de $X$, la variable
+          aléatoire donnant la somme algébrique rapportée par un
+          composant produit et éventuellement vendu.
+        \item Combien d'argent peut-on \og espérer \fg{} gagner par
+          composant ?
+        \end{enumerate}
+  \end{enumerate}
+\end{question}
 
 \section{Problèmes}
 
