@@ -49,9 +49,38 @@
 \date{septembre 2017}
 
 \setlength{\parindent}{0pt}
-\everymath{\displaystyle}
+%\everymath{\displaystyle}
 
 \SetupExSheets{solution/print=false}
+
+\newcommand{\arbre}[8]{%
+  \begin{tikzpicture}[level distance=25mm,sibling distance=10mm]
+    \node {} [grow=right]
+      child[sibling distance=25mm] {
+        node {$\overline{#1}$}
+        child[sibling distance=15mm] {
+          node {$\overline{#2}$}
+          edge from parent node[below] { #8 }
+        }
+        child[sibling distance=15mm] {
+          node {$#2$}
+          edge from parent node[above] { #7 }
+        }
+        edge from parent node[below] { #4 }
+      }
+      child[sibling distance=25mm] { node {$#1$}
+        child[sibling distance=15mm] {
+          node {$\overline{#2}$}
+          edge from parent node[below] { #6 }
+        }
+        child[sibling distance=15mm] {
+             node {$#2$}
+          edge from parent node[above] { #5 }
+        }
+        edge from parent node[above] { #3 }
+      } ;
+  \end{tikzpicture}
+}
 
 
 \begin{document}
@@ -90,35 +119,11 @@
   \begin{enumerate}
     \item ~~
       \begin{center}
-        \begin{tikzpicture}[level distance=25mm,sibling distance=10mm]
-          \node {} [grow=right]
-            child[sibling distance=25mm] {
-              node {$\overline{R}$}
-              child[sibling distance=15mm] {
-                node {$\overline{S}$}
-                edge from parent node[below] {$p_{\overline{R}}(\overline{S})$}
-              }
-              child[sibling distance=15mm] {
-                node {$S$}
-                edge from parent node[above] {$p_{\overline{R}}(S)$}
-              }
-              edge from parent node[below] { $p(\overline{R})$ }
-            }
-            child[sibling distance=25mm] { node {$R$}
-              child[sibling distance=15mm] {
-              node {$\overline{S}$}
-                edge from parent node[below] { $p_R(\overline{S})$ }
-              }
-              child[sibling distance=15mm] {
-                node {$S$}
-                edge from parent node[above] { $p_R(S)$ }
-              }
-              edge from parent node[above] { $p(R) = \nombre{0.25}$ }
-            } ;
-          \end{tikzpicture}
-        \end{center}
-    \end{enumerate}
-  \end{solution}
+        \arbre{R}{S}{$\frac14$}{$\frac34$}
+        {$\frac56$}{$\frac16$}{$\frac1{12}$}{$\frac{11}{12}$}
+      \end{center}
+  \end{enumerate}
+\end{solution}
 
 
 \section{Problèmes}
