@@ -1,43 +1,8 @@
-\documentclass[12pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[frenchb]{babel}
-\usepackage{ntheorem}
-\usepackage{amsmath}
-\usepackage{amsfonts}
+\documentclass[12pt,a4paper,frenchb]{article}
 
-\usepackage{array}
-
-\usepackage{kpfonts}
-
-\usepackage[bookmarks=false,colorlinks,linkcolor=blue,pdfusetitle]{hyperref}
-
-\pdfminorversion 7
-\pdfobjcompresslevel 3
-
-\usepackage{tabularx}
-
-\usepackage{pgf}
-\usepackage{tikz}
-\usepackage{tkz-euclide}
-\usetkzobj{all}
-\usetikzlibrary{patterns}
-
-\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
-
-\usepackage{lastpage}
-
-\usepackage{marginnote}
-
-\usepackage{wrapfig}
-
-\usepackage[autolanguage]{numprint}
-\newcommand{\np}{\numprint}
+\input{../../commons.tex.inc}
 
 \makeatletter
-\renewcommand{\@evenfoot}%
-        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
-\renewcommand{\@oddfoot}{\@evenfoot}
 
 \renewcommand{\maketitle}%
 {\framebox{%
@@ -51,63 +16,19 @@
   %\vspace{1cm}%
 }
 
-\pgfdeclarepatternformonly{mes_hachures}
-{\pgfpoint{-0.1cm}{-0.1cm}}
-{\pgfpoint{0.9cm}{0.5cm}}
-{\pgfpoint{0.8cm}{0.4cm}}
-{\pgfpathmoveto{\pgfpointorigin}
-  \pgfpathlineto{\pgfpoint{0.8cm}{0.4cm}}
-\pgfusepath{stroke}}
-
-\newcommand{\R}{\mathbf{R}}
-\newcommand{\N}{\mathbf{N}}
-\newcommand{\Vecteur}{\overrightarrow}
-\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
-\newcommand{\vabs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\inff}[2]{\left[#1~;~#2\right]}
-\newcommand{\info}[2]{\left[#1~;~#2\right[}
-\newcommand{\inof}[2]{\left]#1~;~#2\right]}
-\newcommand{\inoo}[2]{\left]#1~;~#2\right[}
-
 \makeatother
-
-
-\theoremstyle{break}
-\newtheorem{definition}{Définition}
-\newtheorem{propriete}{Propriété}
-\newtheorem{propdef}{Propriété - Définition}
-\newtheorem{theoreme}{Théorème}
-\theoremstyle{plain}
-\theorembodyfont{\normalfont}
-\newtheorem{exercice}{Exercice}
-\theoremstyle{nonumberplain}
-\newtheorem{remarque}{Remarque}
-\newtheorem{probleme}{Problème}
-\newtheorem{preuve}{Preuve}
-\theoremstyle{nonumberbreak}
-\newtheorem{exemple}{Exemple}
-
-% Mise en forme des labels dans les énumérations
-\renewcommand{\labelenumi}{\textbf{\theenumi.}}
-\renewcommand{\labelenumii}{\textbf{\theenumii)}}
-\renewcommand{\theenumi}{\arabic{enumi}}
-\renewcommand{\theenumii}{\alph{enumii}}
-
-\renewcommand{\labelitemi}{$\bullet$}
 
 \setlength{\parsep}{0pt}
 \setlength{\parskip}{5pt}
 \setlength{\parindent}{0pt}
 \setlength{\itemsep}{7pt}
 
-\usepackage{multicol}
-\setlength{\columnseprule}{0pt}
-
 \everymath{\displaystyle\everymath{}}
+
 
 \title{Limites de fonctions}
 \author{Terminale S}
-\date{octobre 2016}
+\date{octobre 2017}
 
 \begin{document}
 
@@ -120,7 +41,7 @@
 Comme vu dans les activités 1 et 2 pages 52 53, on étend la définition
 de la limite vue sur les suites aux fonctions, au moins dans un premier
 temps sur les fonctions monotones sur tous les intervalles de la forme
-$\intv*[r]{A}{+\infty}$, avec $A > 0$.
+$\intv[r]*{A}{+\infty}$, avec $A > 0$.
 
 \framebox{
   \begin{minipage}{0.99\linewidth}
@@ -169,13 +90,13 @@ Attention toute fois à éviter les raisonnements trop hâtifs !
   $\lim_{n\to+\infty}f(n) = 1$ et pourtant $\lim_{x\to\infty} \neq 1$ et
   même n'a pas de limite.
   \begin{preuve}
-    Il s'agit de démontrer que $\forall\ell\in\inff{0}{1},\exists
+    Il s'agit de démontrer que $\forall \ell \in \intv[c]*{0}{1},\exists
     \varepsilon > 0,\ \exists A,\ x > A \implies \vabs{x - \ell} >
     \varepsilon$.
 
-    Soit $\ell$ dans $\inff{0}{1}$, (par exemple 1) pour $\varepsilon =
+    Soit $\ell$ dans $\intv*{0}{1}$, (par exemple 1) pour $\varepsilon =
     \np{0.1}$, pour $x = \np{1254},\ \vabs{x - 1} < \varepsilon$, mais
-    pour $x = A + \frac12,\ x\not\in \inoo{\ell - \varepsilon}{\ell +
+    pour $x = A + \frac12,\ x\not\in \intv[o]*{\ell - \varepsilon}{\ell +
     \varepsilon}$
   \end{preuve}
 \end{exemple}
