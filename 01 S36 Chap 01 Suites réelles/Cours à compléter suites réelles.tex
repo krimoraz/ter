@@ -1,41 +1,8 @@
-\documentclass[12pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[frenchb]{babel}
-\usepackage{ntheorem}
-\usepackage{amsmath}
-\usepackage{amsfonts}
+\documentclass[12pt,a4paper,frenchb]{article}
 
-\usepackage{array}
-
-\usepackage{kpfonts}
-
-\usepackage[bookmarks=false,colorlinks,linkcolor=blue,pdfusetitle]{hyperref}
-
-\pdfminorversion 7
-\pdfobjcompresslevel 3
-
-\usepackage{tabularx}
-
-\usepackage{pgf}
-\usepackage{tikz}
-\usepackage{tkz-euclide}
-\usetkzobj{all}
-\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
-
-\usepackage{lastpage}
-
-\usepackage{marginnote}
-
-\usepackage{wrapfig}
-
-\usepackage[autolanguage]{numprint}
-\newcommand{\np}{\numprint}
+\input{../../commons.tex.inc}
 
 \makeatletter
-\renewcommand{\@evenfoot}%
-        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
-\renewcommand{\@oddfoot}{\@evenfoot}
 
 \renewcommand{\maketitle}%
 {\framebox{%
@@ -49,40 +16,12 @@
   %\vspace{1cm}%
 }
 
-\newcommand{\R}{\mathbf{R}}
-\newcommand{\N}{\mathbf{N}}
-\newcommand{\Vecteur}{\overrightarrow}
-\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
-\newcommand{\vabs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\ioo}[2]{\left]#1~;~#2\right[}
-
 \makeatother
-
-
-\theoremstyle{break}
-\newtheorem{definition}{Définition}
-\newtheorem{propriete}{Propriété}
-\newtheorem{propdef}{Propriété - Définition}
-\newtheorem{theoreme}{Théorème}
-\theoremstyle{plain}
-\theorembodyfont{\normalfont}
-\newtheorem{exercice}{Exercice}
-\theoremstyle{nonumberplain}
-\newtheorem{remarque}{Remarque}
-\newtheorem{probleme}{Problème}
-\newtheorem{preuve}{Preuve}
-\theoremstyle{nonumberbreak}
-\newtheorem{exemple}{Exemple}
-
-\usepackage{enumitem}
 
 \setlength{\parsep}{0pt}
 \setlength{\parskip}{5pt}
 \setlength{\parindent}{0pt}
 \setlength{\itemsep}{7pt}
-
-\usepackage{multicol}
-\setlength{\columnseprule}{0pt}
 
 \everymath{\displaystyle\everymath{}}
 
@@ -104,7 +43,7 @@ permettant de montrer une propriété sur les entiers.
 Il repose sur le principe (ou axiome) énoncé par Peano pour la
 construction des entiers naturels, ensemble dont on suppose l'existence
 \emph{a priori} :
-\begin{enumerate}[label=(\roman*)]
+\begin{enumerate}[label=(\roman*),labelsep=7pt]
   \item L'élément appelé \emph{zéro} et noté 0 existe et est un entier
     naturel.
   \item Tout entier naturel $n$ possède un \emph{unique} successeur,
