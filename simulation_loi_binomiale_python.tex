@@ -1,0 +1,70 @@
+\documentclass[a4paper,french,12pt]{article}
+
+\input{../commons.tex.inc}
+
+\usepackage[pyfuture=all, autoprint=true, gobble=auto]{pythontex}
+
+\title{Séance 3 : simulation d'une loi de probabilité}
+\author{Vincent-Xavier \bsc{Jumel}}
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\begin{definition}
+  On dit qu'une variable aléatoire $X$ suit une loi binomiale lorsqu'elle
+  modélise la situation suivante :
+  \begin{itemize}
+    \item on répéte $n$ fois une même expérience aléatoire ;
+    \item la répétition est supposée indépendante ;
+    \item cette expérience aléatoire n'a que deux issues possibles (schéma
+      de Bernoulli) avec une probabilité $p$.
+  \end{itemize}
+  On dit alors que $n$ et $p$ sont les paramètres de la loi et on note $X
+  \leadsto \mathcal{B}(n,p)$.
+\end{definition}
+
+\noindent On considère le code suivant :
+\begin{pyblock}
+  from random import random
+  X = random()
+  print(X)
+\end{pyblock}
+
+\begin{question}
+  \begin{enumerate}
+    \item Préciser le résultat de ces trois lignes.
+    \item Compléter ces trois lignes pour simuler une loi de Bernoulli de
+      paramètre $p = 0,2$.
+    \item Simuler, avec une boucle, 10 répétitions de cette loi de
+      Bernoulli.
+  \end{enumerate}
+\end{question}
+
+On désire désormais construire la loi de probabilités. Pour cela, on va
+utiliser la structure de liste. Voici quelques éléments sur cette structure.
+
+\begin{pyblock}
+  l = [] # définit une liste vide
+  l = [1,2,3] # définit une liste à trois éléments
+  l[1] # renvoie le 2eme élément de la liste
+  len(l) # est la longueur de la liste
+  l[1] = 4 # remplace le 2eme élément par 4
+  l.append(4) # ajoute 4 à la fin de la liste
+  l.pop() # renvoie 4 et retire le dernier élément de la liste
+  print(l) # affiche la liste
+  l = 10*[0] # initialise une liste à 10 éléments tous égaux à zéro
+\end{pyblock}
+
+\begin{question}
+  On considère une expérience aléatoire dont la loi de probabilité est la
+  loi binomiale de paramètres $n = 25$ et $p = 0,1$. Écrire un programme
+  Python qui explicite la loi de probabilité sous forme d'une liste à 26
+  éléments.
+
+  Vous rendrez votre réponse sous la forme d'un fichier déposé dans l'espace
+  Restitution de la classe initulé «Nom Prénom loi binomiale.py»
+\end{question}
+
+
+\end{document}
