@@ -1,0 +1,54 @@
+% vim: set ft=tex:
+\documentclass[12pt,french,a4paper]{article}
+
+\input{../commons.tex.inc}
+
+\title{Suites et probabilités : évaluation \no{2} }
+\date{10 octobre 2017}
+\author{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\begin{center}
+  \tikz{
+    \draw (0,0) rectangle (18,3) ;
+    \draw (3,0) rectangle (15,3) ;
+    \draw (0,3) node [anchor=north west] {\large /5} ;
+    \draw (3,3) node [anchor=north west] { \large Appréciation } ;
+    \draw (15,3) node [anchor=north west] { \large Signature } ;
+  }
+
+%  Pour certaines questions, plusieurs réponses peuvent être possible.
+\end{center}
+
+\begin{question}
+  Chaque jour Bill doit décider s'il achète ou non du pain.
+  \begin{itemize}
+    \item S'il a acheté du pain un jour, la probabilité qu'il en achète le
+      lendemain est \np{0.3}.
+    \item S'il n'en a pas acheté un jour, la probabilité qu'il en achète le
+      lendemain est \np{0.8}.
+  \end{itemize}
+  Pour tout entier $n \in \N^*$, on appelle $A_n$ l'événement «Bill achète
+  du pain le jour $n$ » et on note $p_n = p(A_n)$.
+
+  Aujourd'hui, premier jour, Bill a acheté du pain et $p_1 = 1$.
+  \begin{enumerate}
+    \item Calculer $p_2$ et $p_3$.
+    \item Représenter la situation par un arbre de probabilité sur lequel
+      figurent $A_n$, $\overline{A_n}$, $A_{n+1}$ et $\overline{A_{n+1}}$.
+    \item Montrer que $p_{n+1} = 0,8 - 0,5 p_n$.
+    \item Montrer que $p_n = \frac7{15} \brk*{\frac12}^{n-1} + \frac8{15}$
+      pour tout $n \in \N^*$.
+    \item \begin{enumerate}
+      \item Déterminer $\lim_{n\to+\infty} p_n$.
+      \item Interpréter cette limite en termes concrets.
+    \end{enumerate}
+  \end{enumerate}
+\end{question}
+
+
+\end{document}
