@@ -1,0 +1,54 @@
+% vim: set ft=tex:
+\documentclass[12pt,french,a4paper]{article}
+
+\input{../commons.tex.inc}
+
+\title{Entraînement sujet type bac}
+\date{3 octobre 2017}
+\author{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+Louis et Arthur jouent à un jeu de société dans lequel il n’y a pas d’égalité.
+
+Les deux joueurs ont la même probabilité de gagner la première partie.
+
+En revanche, si Louis gagne une partie, la probabilité qu’il gagne la suivante est 0,7 ; s’il perd, la probabilité qu’il perde la suivante est 0,9.
+
+$n$ étant un entier naturel non nul, on note $G_n$ l'événement «Louis
+gagne la $n$-ième partie».
+
+\textbf{Partie A : Deux parties}
+
+On suppose, ici, que Louis et Arthur font deux parties.
+\begin{enumerate}
+  \item Écrire l'énoncé à l'aide d'un arbre de probabilités.
+  \item Calculer la probabilité que Louis gagne les deux parties.
+  \item Démontrer que $P(G_2) = 0,4$.
+  \item Sachant que Louis a gagné la deuxième partie, quelle est la
+    probabilité qu'il ait gagné la première.
+  \item Les événements $G_1$ et $G_2$ sont ils indépendants ?
+\end{enumerate}
+
+\textbf{Partie B : plusieurs parties}
+
+On suppose, ici, que les joueurs font plusieurs parties. $n$ étant un
+entier naturel non nul, on pose $p_n = P(G_n)$.
+\begin{enumerate}
+  \item À l'aide de l'énoncé, donner les valeurs de $p_1,
+    P_{G_n}(G_{n+1})$ et $P_{\overline{G_n}}(G_{n+1})$.
+  \item Montrer que, pour tout entier naturel $n$ non nul, $p_{n+1} =
+    0,6p_n +0,1$.
+  \item Pour tout entier naturel $n$ non nul, on pose $v_n = p_n -
+    0,25$.
+
+    Démontrer que la suite $(v_n)$ est géométrique de raison 0,6.
+  \item Exprimer $v_n$ en fonction de $n$, puis $p_n$ en fonction de
+    $n$.
+  \item Calculer la limite de la suite $(p_n)$ et interpréter ce
+    résultat.
+\end{enumerate}
+\end{document}
