@@ -1,0 +1,57 @@
+% vim: set ft=tex:
+\documentclass[12pt,french,a4paper]{article}
+
+\input{../commons.tex.inc}
+
+\title{Suites et probabilités : évaluation \no{2} }
+\date{10 octobre 2017}
+\author{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\begin{center}
+  \tikz{
+    \draw (0,0) rectangle (18,3) ;
+    \draw (3,0) rectangle (15,3) ;
+    \draw (3,0) node [anchor=south east] {\Huge /5} ;
+    \draw (3,3) node [anchor=north west] { \large Appréciation } ;
+    \draw (15,3) node [anchor=north west] { \large Signature } ;
+  }
+
+%  Pour certaines questions, plusieurs réponses peuvent être possible.
+\end{center}
+
+\begin{question}
+  Un joueur débute un jeu vidéo et effectue plusieurs parties successives.
+  On admet que :
+  \begin{itemize}
+    \item la probabilité qu'il gagne la première partie est de \np{0.1}. ;
+    \item s'il gagne une partie, la probabilité de gagner la suivante est
+      égale à \np{0,8} ;
+    \item s'il perd une partie, la probabilité de gagner la suivant est
+      égale à \np{0,6}
+  \end{itemize}
+  On note, pour tout entier naturel $n$ non nul :
+  \begin{itemize}
+    \item $G_n$ l'événement « le joueur gagne la $n$-ième partie » ;
+    \item $p_n$ la probabilité de l'événement $G_n$.
+  \end{itemize}
+  On a donc $p_1 = \np{0,1}$.
+  \begin{enumerate}
+    \item Montrer que $p_2 = \np{0,62}$.
+    \item Le joueur a gagné la deuxième partie. Calculer la probabilité
+      qu'il ait perdu la première.
+    \item Montrer que pour tout entier naturel $n$, non nul : \[ p_{n+1} =
+      \frac15 p_n + \frac35 . \]
+    \item Montrer par récurrence que, pour tout entier naturel $n$ non nul :
+      $ p_n = \frac34 - \frac{13}4 \brk*{\frac15}^n$.
+    \item Déterminer la limite de la suite $(p_n)$ quand $n$ tend vers
+      $+\infty$.
+  \end{enumerate}
+\end{question}
+
+
+\end{document}
