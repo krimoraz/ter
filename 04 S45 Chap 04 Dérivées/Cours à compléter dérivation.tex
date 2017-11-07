@@ -115,7 +115,7 @@
   \left]\my@intervalle #1;\relax\noexpand\@eolst%
   \right[}
 
-%\newcommand*{\versioncomplet}{}
+\newcommand*{\versioncomplet}{}
 \newcommand{\complet}[2]{%
   \ifdefined\versioncomplet
     {\color{blue} #2}
@@ -166,7 +166,7 @@ ref=\theenumi.\emph{\alph*}}
 
 \title{Dérivation des fonctions}
 \author{Terminale S}
-\date{novembre 2016}
+\date{novembre 2017}
 
 \begin{document}
 
@@ -288,8 +288,7 @@ fonctions dérivables.
     \begin{propriete}
       \complet{2cm}{%
         \begin{itemize}
-          \item $(f+g)' = f'+g'$
-          \item $(\lambda f)' = \lambda f'$
+          \item $(fg)' = f'g+fg'$
         \end{itemize}
       }
     \end{propriete}
@@ -334,7 +333,8 @@ On suppose que $u(x)$ ne s'annule pas $\interff{a,b}$
 \framebox{
   \begin{minipage}{0.99\linewidth}
     \begin{propriete}
-      \complet{2cm}{%
+      \complet{2.5cm}{%
+        La fonction
         $x\mapsto \frac1{u(x)}$ est dérivable et sa dérivée est
         $x\mapsto -\frac{u'(x)}{(u(x))^2}$.
     }
