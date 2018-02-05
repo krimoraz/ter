@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper,french]{article}
-\usepackage[utf8]{inputenc}
+\usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{babel}
 \usepackage[thmmarks]{ntheorem}
@@ -167,9 +167,9 @@ ref=\theenumi.\emph{\alph*}}
 
 \everymath{\displaystyle\everymath{}}
 
-\title{Devoir maison \no 5 : Exponentielle}
+\title{Devoir maison \no 4 : Exponentielle}
 \author{\bsc{Jumel}}
-\date{pour le 20 avril 2017}
+\date{pour le 14 février 2018}
 
 \begin{document}
 
@@ -177,31 +177,31 @@ ref=\theenumi.\emph{\alph*}}
 
 \bigskip
 
-Le but de ce devoir est de montrer que l'exponentielle est une fonction
-«naturelle« qui émerge dans des cas assez simples. En particulier, on
-justifiera ainsi l'existence d'une fonction $f$ définie sur $\R$ telle
-que $f' = f$.
-
-On pose $f_n \colon z \mapsto \left( 1 + \frac{z}n \right)^n$. La
-dérivée de cette fonction est $f_n'(z) = \frac{1}n n \left( 1 + \frac{z}n
-\right)^{n-1} = f_{n-1}(z)$.
-
-Par passage à la limite, on a $\lim_{n\to+\infty} f'_n (z) =
-\lim_{n\to+\infty} f_{n-1} (z)$
-
-On a donc, une convergence ponctuelle.
-
-La suite de fonction $(f'_n)$ possède la même limite que la suite
-$(f_n)$. Il faut encore démontrer que la convergence est normale.
-
-Cette notion est hors de portée d'élèves de TS pour l'instant.
-
-
-Cependant, on peut évaluer la suite de fonction en 0. Il est facile de
-vérifier que pour tout $n \geqslant 0, f_n(0) = 1$.
-
-On a ainsi une suite de fonctions dont la limite est telle que $f' = f$
-et $f(0) = 1$.
+%Le but de ce devoir est de montrer que l'exponentielle est une fonction
+%«naturelle« qui émerge dans des cas assez simples. En particulier, on
+%justifiera ainsi l'existence d'une fonction $f$ définie sur $\R$ telle
+%que $f' = f$.
+%
+%On pose $f_n \colon z \mapsto \left( 1 + \frac{z}n \right)^n$. La
+%dérivée de cette fonction est $f_n'(z) = \frac{1}n n \left( 1 + \frac{z}n
+%\right)^{n-1} = f_{n-1}(z)$.
+%
+%Par passage à la limite, on a $\lim_{n\to+\infty} f'_n (z) =
+%\lim_{n\to+\infty} f_{n-1} (z)$
+%
+%On a donc, une convergence ponctuelle.
+%
+%La suite de fonction $(f'_n)$ possède la même limite que la suite
+%$(f_n)$. Il faut encore démontrer que la convergence est normale.
+%
+%Cette notion est hors de portée d'élèves de TS pour l'instant.
+%
+%
+%Cependant, on peut évaluer la suite de fonction en 0. Il est facile de
+%vérifier que pour tout $n \geqslant 0, f_n(0) = 1$.
+%
+%On a ainsi une suite de fonctions dont la limite est telle que $f' = f$
+%et $f(0) = 1$.
 
 % http://paramanands.blogspot.com/2014/05/theories-of-exponential-and-logarithmic-functions-part-2_10.html
 
@@ -219,5 +219,52 @@ et $f(0) = 1$.
 %https://www.math.u-psud.fr/~perrin/CAPES/analyse/fonctions/definition-exponentielle.pdf
 %http://www.les-mathematiques.net/phorum/file.php?4,file=19894,filename=m04c31ea.pdf
 %(capes externe 2004)
+
+\begin{question}
+  Rappeller et démontrer l'inégalité de Bernouilli.
+\end{question}
+
+\begin{question}
+  Soit $x$ un nombre réel. On considère $(u_n(x))_{n \in \N}$ et
+  $(v_n(x))_{n \in \N}$ définies pour tout $n$ entier par \[ u_n(x) =
+  \left( 1 + \frac{x}n \right)^n \ \text{et}\ v_n(x) = \left( 1 -
+  \frac{x}n \right)^{-n} . \]
+  Montrer que, pour $x$ fixé,
+  \begin{itemize}
+    \item la suite $u$ est croissante et la suite $v$ est décroissante ;
+    \item pour tout $n$ entier naturel, $u_n(x) ≤ v_n(x)$ ;
+    \item la limite de la suite $(v_n(x) - u_n(x))$ est 0.
+  \end{itemize}
+\end{question}
+
+On note $\exp(x)$ la limite commune aux deux suites, pour $x$ fixé, réel.
+
+\begin{question}
+  Soit $f$ une fonction dérivable sur $[a;b],\ a < b$. On suppose que
+  pour tout $x \in [a;b],\ m ≤ f'(x) ≤ M$. Démontrer que, pour tout $x
+  \in [a;b]$ : \[ m(x - a) ≤ f(x) ≤ M(x - a) . \]
+\end{question}
+
+Cette dernière inégalité s'appelle inégalité des accroissements finis.
+
+\begin{question}
+  On veut montrer que pour $x \in \R$ : \[ h \exp(x) ≤ \exp(x + h) -
+  \exp(x) ≤ h \exp(x + h) . \]
+  On va démontrer l'inégalité dans le cas $h > 0$.
+  \begin{enumerate}
+    \item Calculer $u_n'(x)$ et $u''_n(x)$. En déduire les variations de
+      $u'_n$ sur $[x; x+h]$ pour $n ≥ \abs{x}$.
+    \item En utilisant l'inégalité des accroissements finis, montrer que
+      $h u'_n(x) ≤ u_n(x + h) - u_n(x) ≤ hu'_n(x + h)$.
+  \end{enumerate}
+\end{question}
+
+\begin{question}
+  On pose $\exp(x) = \lim{n \to +\infty} u_n(x)$.
+
+  Que faut-il vérifier pour démontrer $\exp'(x) = \exp(x)$ ?
+\end{question}
+
+
 
 \end{document}
