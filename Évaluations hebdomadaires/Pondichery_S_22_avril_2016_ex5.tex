@@ -1,0 +1,184 @@
+%!TEX encoding = UTF-8 Unicode
+\documentclass[10pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fourier}
+\usepackage[scaled=0.875]{helvet}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage{makeidx}
+\usepackage{amsmath,amssymb}
+\usepackage{fancybox}
+\usepackage[normalem]{ulem}
+\usepackage{pifont}
+\usepackage{lscape}
+\usepackage{multicol}
+\usepackage{mathrsfs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{textcomp} 
+\newcommand{\euro}{\eurologo{}}
+%Tapuscrit : Denis Vergès
+\usepackage{pst-plot,pst-tree,pstricks,pst-node,pst-text}
+\usepackage{pst-eucl}
+\usepackage{pstricks-add}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\setlength{\textheight}{23.5cm}
+\setlength{\voffset}{-1.5cm}
+\newcommand{\vect}[1]{\mathchoice%
+{\overrightarrow{\displaystyle\mathstrut#1\,\,}}%
+{\overrightarrow{\textstyle\mathstrut#1\,\,}}%
+{\overrightarrow{\scriptstyle\mathstrut#1\,\,}}%
+{\overrightarrow{\scriptscriptstyle\mathstrut#1\,\,}}}
+\renewcommand{\theenumi}{\textbf{\arabic{enumi}}}
+\renewcommand{\labelenumi}{\textbf{\theenumi.}}
+\renewcommand{\theenumii}{\textbf{\alph{enumii}}}
+\renewcommand{\labelenumii}{\textbf{\theenumii.}}
+\def\Oij{$\left(\text{O},~\vect{\imath},~\vect{\jmath}\right)$}
+\def\Oijk{$\left(\text{O},~\vect{\imath},~\vect{\jmath},~\vect{k}\right)$}
+\def\Ouv{$\left(\text{O},~\vect{u},~\vect{v}\right)$}
+\makeindex
+\usepackage{fancyhdr}
+\usepackage[dvips]{hyperref}
+\hypersetup{%
+pdfauthor = {APMEP},
+pdfsubject = {Baccalauréat S},
+pdftitle = {Pondichéry  22 avril 2016},
+allbordercolors = white,
+pdfstartview=FitH} 
+\usepackage[frenchb]{babel}
+\usepackage[np]{numprint}
+\begin{document}
+\setlength\parindent{0mm}
+%\rhead{\textbf{A. P{}. M. E. P{}.}}
+%\lhead{\small Baccalauréat S}
+%\lfoot{\small{Pondichéry}}
+%\rfoot{\small{22 avril 2016}}
+\renewcommand \footrulewidth{.2pt}
+\pagestyle{fancy}
+\thispagestyle{empty}
+
+\textbf{\textsc{Exercice 1} \hfill 5 points}
+ 
+\textbf{Commun  à tous les candidats}
+
+\medskip
+
+On souhaite stériliser une boîte de conserve.
+
+Pour cela, on la prend à la température ambiante $T_0 = 25$\,\degres C et on la place dans un four à
+température constante $T_F = 100$\,\degres C.
+
+La stérilisation débute dès lors que la température de la boîte est supérieure à 85\,\degres C.
+
+\smallskip
+
+\emph{Les deux parties de cet exercice sont indépendantes}
+
+\bigskip
+
+\textbf{Partie A : Modélisation discrète}
+
+\medskip
+
+Pour $n$ entier naturel, on note $T_n$ la température en degré Celsius de la boîte au bout de $n$
+minutes. On a donc $T_0 = 25$.
+
+Pour $n$ non nul, la valeur $T_n$ est calculée puis affichée par l'algorithme suivant :
+
+\begin{center}
+\begin{tabularx}{0.7\linewidth}{|l|X|}\hline
+Initialisation : 	&$T$ prend la valeur 25\\ \hline
+Traitement :		& Demander la valeur de $n$\\
+					&Pour $i$ allant de 1 à $n$ faire\\
+					&\hspace{0,5cm}$T$ prend la valeur $0,85 \times  T + 15$\\
+					&Fin Pour\\ \hline
+Sortie : 			&Afficher T\\ \hline
+\end{tabularx}
+\end{center}
+
+\begin{enumerate}
+\item Déterminer la température de la boîte de conserve au bout de 3 minutes.
+
+Arrondir à l'unité.
+\item Démontrer que, pour tout entier naturel $n$, on a $T_n = 100 - 75 \times 0,85^n$.
+\item Au bout de combien de minutes la stérilisation débute-elle ?
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B : Modélisation continue}
+
+\medskip
+
+Dans cette partie, $t$ désigne un réel positif.
+
+On suppose désormais qu'à l'instant $t$ (exprimé en minutes), la température de la boîte est
+donnée par $f(t)$ (exprimée en degré Celsius) avec :
+
+\[f(t) = 100 - 75\text{e}^{- \frac{\ln 5}{10}t}.\]
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item Étudier le sens de variations de $f$ sur $[0~;~+ \infty[$.
+		\item Justifier que si $t \geqslant 10$ alors $f(t) \geqslant 85$.
+	\end{enumerate}
+\item Soit $\theta$ un réel supérieur ou égal à 10.
+		
+On note $\mathcal{A}(\theta)$ le domaine délimité par les droites d'équation $t =  10,\: t = \theta,\:$
+		 
+$y = 85$ et la courbe représentative $\mathcal{C}_f$ de $f$.
+		
+On considère que la stérilisation est finie au bout d'un temps $\theta$, si l'aire, exprimée en unité
+d'aire du domaine $\mathcal{A}(\theta)$ est supérieure à $80$.
+
+\begin{center}
+\psset{xunit=0.35cm,yunit=0.05cm}
+\begin{pspicture}(-0.5,-5)(32,110)
+\multido{\n=0+5}{7}{\psline[linestyle=dashed,linewidth=0.3pt](\n,0)(\n,110)}
+\multido{\n=0+5}{21}{\psline[linestyle=dashed,linewidth=0.3pt](0,\n)(32,\n)}
+\psaxes[linewidth=1.25pt,Dx=5,Dy=10]{->}(0,0)(-0.5,-5)(32,110)
+\psaxes[linewidth=1.25pt,Dx=5,Dy=10](0,0)(0,0)(32,110)
+\psplot[plotpoints=3000,linewidth=1.25pt,linecolor=blue]{0}{32}{100 2.71828 5 ln 10 div x mul  neg exp 75 mul sub}
+\uput[u](29,0){temps (en minutes)}
+\uput[r](0,105){température (en degré Celsius)}
+\uput[u](2,46){\blue $\mathcal{C}_f$}
+\psline[linestyle=dashed,linewidth=1.5pt](0,85)(32,85)
+\uput[d](27.5,85){$y = 85$}
+\end{pspicture}
+\end{center}
+\medskip
+	\begin{enumerate}
+		\item Justifier, à l'aide du graphique donné en annexe , que l'on a $\mathcal{A}(25) > 80$.
+		%\item Justifier que, pour $\theta \geqslant 10$, on a $\mathcal{A}(\theta) = 15(\theta - 10) - 75 \displaystyle\int_{10}^{\theta} \text{e}^{- \frac{\ln 5}{10}t}\:\text{d}t$.
+		%\item La stérilisation est-elle finie au bout de 20 minutes ?
+	\end{enumerate}
+\end{enumerate}
+
+\vspace{1cm}
+
+\begin{center}
+\begin{flushleft}\textbf{EXERCICE 1}\end{flushleft}
+
+\bigskip
+
+\psset{xunit=0.35cm,yunit=0.075cm}
+\begin{pspicture}(-0.5,-5)(32,110)
+\multido{\n=0+5}{7}{\psline[linestyle=dashed,linewidth=0.5pt](\n,0)(\n,110)}
+\multido{\n=0+5}{21}{\psline[linestyle=dashed,linewidth=0.5pt](0,\n)(32,\n)}
+\psaxes[linewidth=1.25pt,Dx=5,Dy=10]{->}(0,0)(-0.5,-5)(32,110)
+\psplot[plotpoints=3000,linewidth=1.25pt,linecolor=blue]{0}{32}{100 2.71828 5 ln 10 div x mul  neg exp 75 mul sub}
+\uput[u](28,0){temps (en minutes)}
+\uput[r](0,105){température (en degré Celsius)}
+\uput[u](2,48){\blue $\mathcal{C}_f$}
+\psline[linestyle=dashed,linewidth=1.5pt](0,85)(32,85)
+\uput[d](27.5,86){$y = 85$}
+\uput[dl](0,0){O}
+\end{pspicture}
+\end{center}
+\end{document}
