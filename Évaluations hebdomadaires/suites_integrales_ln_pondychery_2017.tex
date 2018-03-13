@@ -1,0 +1,67 @@
+Une entreprise spécialisée dans les travaux de construction a été mandatée pour percer un tunnel à flanc de montagne. 
+
+Après étude géologique, l'entreprise représente dans le plan la situation de la façon suivante : dans un repère orthonormal, d'unité 2~m, la zone de creusement est la surface délimitée par l'axe des abscisses et la courbe 
+$\mathcal{C}$. 
+
+\begin{center}
+\psset{unit=2cm}
+\begin{pspicture}(-3,-0.2)(3,3.2)
+
+\psframe[fillstyle=vlines](-3,0)(3,3)
+\pscustom[fillstyle=solid,fillcolor=lightgray]{
+\psplot[plotpoints=3000,linewidth=1.25pt,linecolor=blue]{-2.5}{2.5}{13.5 x dup mul 2 mul sub ln}
+\psline(2.5,0)(-2.5,0)}
+\rput(-2.1,2.5){montagne}\rput(0,1.6){zone de creusement}
+\uput[ur](1,2.1){$\mathcal{C}$}\uput[dl](0,0){O}
+\uput[d](0.5,0){$\vect{u}$}\uput[l](0,0.5){$\vect{v}$}
+\psaxes[linewidth=1.25pt,Dx=10,Dy=10](0,0)(-3,-0.2)(3,3.2)
+\psaxes[linewidth=1.25pt,Dx=10,Dy=10]{->}(0,0)(0,0)(1,1)
+\end{pspicture}
+\end{center} 
+
+On admet que $\mathcal{C}$ est la courbe représentative de la fonction $f$ définie sur l'intervalle $[- 2,5~;~2,5]$ par: 
+
+\[f(x) = \ln \left(- 2x^2 + 13,5\right).\] 
+
+L'objectif est de déterminer une valeur approchée, au mètre carré près, de l'aire de la zone de creusement. 
+
+\bigskip
+
+\textbf{Partie A : Étude de la fonction } \boldmath $f$ \unboldmath 
+
+\medskip
+
+\begin{enumerate}
+\item Calculer $f'(x)$ pour $x \in  [- 2,5~;~2,5]$.
+\item Dresser, en justifiant, le tableau de variation de la fonction $f$ sur 
+$[- 2,5~;~2,5]$. 
+
+En déduire le signe de $f$ sur $[- 2,5~;~2,5]$. 
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B : Aire de la zone de creusement}
+
+\medskip 
+
+On admet que la courbe $\mathcal{C}$ est symétrique par rapport à l'axe des ordonnées du repère. 
+
+\medskip
+
+\begin{enumerate}
+\item La courbe $\mathcal{C}$ est-elle un arc de cercle de centre O ? Justifier la réponse.
+\item Justifier que l'aire, en mètre carré, de la zone de creusement est 
+
+$\mathcal{A} = 8\displaystyle\int_0^{2,5}  f(x)\:\text{d}x$. 
+\item L'algorithme, donné en annexe, permet de calculer une valeur approchée par défaut de $I = \displaystyle\int_0^{2,5}  f(x)\:\text{d}x$, notée $a$. 
+
+On admet que : $a \leqslant  I \leqslant a + \dfrac{f(0) - f(2,5)}{n}\times  2,5$. 
+
+	\begin{enumerate}
+		\item Le tableau fourni en annexe, donne différentes valeurs obtenues pour $R$ et $S$ lors de l'exécution de l'algorithme pour $n = 50$. 
+
+Compléter ce tableau en calculant les six valeurs manquantes. 
+		\item En déduire une valeur approchée, au mètre carré près, de l'aire de la zone de creusement. 
+	\end{enumerate}
+\end{enumerate}
