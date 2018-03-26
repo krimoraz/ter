@@ -1,3 +1,61 @@
+%!TEX encoding = UTF-8 Unicode
+\documentclass[10pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fourier}
+\usepackage[scaled=0.875]{helvet}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage{makeidx}
+\usepackage{amsmath,amssymb}
+\usepackage{fancybox}
+\usepackage[normalem]{ulem}
+\usepackage{pifont}
+\usepackage{lscape}
+\usepackage{multicol}
+\usepackage{mathrsfs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{textcomp} 
+\newcommand{\euro}{\eurologo{}}
+%Tapuscrit : Denis Vergès
+\usepackage{pst-plot,pst-tree,pstricks,pst-node,pst-text}
+\usepackage{pst-eucl}
+\usepackage{pstricks-add}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\setlength{\textheight}{23.5cm}
+\setlength{\voffset}{-1.5cm}
+\newcommand{\vect}[1]{\mathchoice%
+{\overrightarrow{\displaystyle\mathstrut#1\,\,}}%
+{\overrightarrow{\textstyle\mathstrut#1\,\,}}%
+{\overrightarrow{\scriptstyle\mathstrut#1\,\,}}%
+{\overrightarrow{\scriptscriptstyle\mathstrut#1\,\,}}}
+\renewcommand{\theenumi}{\textbf{\arabic{enumi}}}
+\renewcommand{\labelenumi}{\textbf{\theenumi.}}
+\renewcommand{\theenumii}{\textbf{\alph{enumii}}}
+\renewcommand{\labelenumii}{\textbf{\theenumii.}}
+\def\Oij{$\left(\text{O},~\vect{\imath},~\vect{\jmath}\right)$}
+\def\Oijk{$\left(\text{O},~\vect{\imath},~\vect{\jmath},~\vect{k}\right)$}
+\def\Ouv{$\left(\text{O},~\vect{u},~\vect{v}\right)$}
+\makeindex
+\usepackage{fancyhdr}
+\usepackage[dvips]{hyperref}
+
+\usepackage[frenchb]{babel}
+\usepackage[np]{numprint}
+\begin{document}
+\setlength\parindent{0mm}
+%\rhead{\textbf{A. P{}. M. E. P{}.}}
+%\lhead{\small Baccalauréat S}
+%\lfoot{\small{Pondichéry}}
+%\rfoot{\small{22 avril 2016}}
+\renewcommand \footrulewidth{.2pt}
+\pagestyle{fancy}
+\thispagestyle{empty}
 Une entreprise spécialisée dans les travaux de construction a été mandatée pour percer un tunnel à flanc de montagne. 
 
 Après étude géologique, l'entreprise représente dans le plan la situation de la façon suivante : dans un repère orthonormal, d'unité 2~m, la zone de creusement est la surface délimitée par l'axe des abscisses et la courbe 
@@ -65,3 +123,4 @@ Compléter ce tableau en calculant les six valeurs manquantes.
 		\item En déduire une valeur approchée, au mètre carré près, de l'aire de la zone de creusement. 
 	\end{enumerate}
 \end{enumerate}
+\end{document}
