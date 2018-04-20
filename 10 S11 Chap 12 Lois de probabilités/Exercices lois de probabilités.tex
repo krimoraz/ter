@@ -1,63 +1,65 @@
 %vim: ft=tex
 %!TEX encoding = UTF-8 Unicode
-\documentclass[12pt,frenchb]{article}
+\documentclass[12pt,french]{article}
 
-\input{../../common.tex.inc}
+\input{../../commons.tex.inc}
 
-\title{Exercices échantillonnages}
+\title{Exercices lois de probabilités}
 \date{mai \the\year}
-\author{}
+\author{Bac 2015}
 
 \begin{document}
+	
+\maketitle
 
 \begin{question}[subtitle={Pondichery 2015}]
 Des études statistiques ont permis de modéliser la durée de vie, en mois, d'un type de lave-vaisselle par une variable aléatoire $X$ suivant une loi normale $\mathcal{N}\left(\mu,~ \sigma^2\right)$ de moyenne $\mu = 84$ et d'écart-type $\sigma$. De plus, on a $P(X \leqslant 64) = 0,16$. \index{loi normale}
 
 La représentation graphique de la fonction densité de probabilité de $X$ est donnée ci-dessous.
 
+%%\begin{center}
+%%\psset{xunit=0.075cm,yunit=5cm}
+%%%algebraic=true
+%%\begin{pspicture}(-80,-0.1)(80,1.1)
+%%\psframe(-80,-0.1)(80,1.1)
+%%\psaxes[linewidth=1.25pt,Dx=1000](0,0)(-75,0)(75,0)
+%%\multido{\n=-75+10,\na=10+10}{15}{\uput[d](\n,0){\na}}
+%%\psplot[plotpoints=4000,linewidth=1.25pt,linecolor=blue]{-80}{80}{2.71828 x dup mul 0.00125 mul neg exp}
+%%\pscustom[fillstyle=solid,fillcolor=lightgray]{
+%%\psplot[plotpoints=4000,linewidth=1.45pt,linecolor=blue]{-80}{-21}{2.71828 x dup mul 0.00125 mul neg exp}
+%%\psline(-21,0)(-80,0)}
+%%\uput[d](-20,0){\blue 64}\rput(-35,0.1){16\,\%}
+%%\end{pspicture}
+%%\end{center}
+%
 %\begin{center}
-%\psset{xunit=0.075cm,yunit=5cm}
-%%algebraic=true
-%\begin{pspicture}(-80,-0.1)(80,1.1)
-%\psframe(-80,-0.1)(80,1.1)
-%\psaxes[linewidth=1.25pt,Dx=1000](0,0)(-75,0)(75,0)
-%\multido{\n=-75+10,\na=10+10}{15}{\uput[d](\n,0){\na}}
-%\psplot[plotpoints=4000,linewidth=1.25pt,linecolor=blue]{-80}{80}{2.71828 x dup mul 0.00125 mul neg exp}
-%\pscustom[fillstyle=solid,fillcolor=lightgray]{
-%\psplot[plotpoints=4000,linewidth=1.45pt,linecolor=blue]{-80}{-21}{2.71828 x dup mul 0.00125 mul neg exp}
-%\psline(-21,0)(-80,0)}
-%\uput[d](-20,0){\blue 64}\rput(-35,0.1){16\,\%}
-%\end{pspicture}
+%\psset{xunit=0.07cm, yunit=200cm, runit=1cm, arrowsize=3pt 3, algebraic=true}
+%\def\xmin {5}   \def\xmax {165}
+%\def\ymin {-0.0047} \def\ymax {0.02}
+%\begin{pspicture*}(\xmin,\ymin)(\xmax,\ymax)
+%\psaxes[labels=none,ticks=none]{->}(0,0)(\xmin,\ymin)(\xmax,\ymax)
+%\def\m{84}% moyenne 
+%\def\s{20}% écart type
+%\def\f{1/(\s*sqrt(2*PI))*EXP((-((x-\m)/\s)^2)/2)}
+%\def\inf{\xmin} \def\sup{64}
+%\pscustom[fillstyle=solid,fillcolor=blue!20]
+%{
+%\psplot{\inf}{\sup}{\f} % courbe de f sur [inf ; sup]
+%\lineto(\sup,0)\lineto(\inf,0)
+%\closepath % indispensable !
+%}
+%\psplot[plotpoints=1000,linecolor=blue,linewidth=1.25pt]{\xmin}{\xmax}{\f}
+%\uput{12pt}[d](\sup,0.0013){\footnotesize \blue \sup}
+%%\uput[d](\inf,0){\footnotesize \blue \inf}
+%\multido{\n=10+10}{15}
+%{
+%\uput[d](\n,0){\footnotesize \n}
+%\psline(\n,0.0005)(\n,-0.0005)
+%}
+%\psline(\m,0.0007)(\m,-0.0007)
+%\rput(55,0.003){\bf 16\,\%}
+%\end{pspicture*}
 %\end{center}
-
-\begin{center}
-\psset{xunit=0.07cm, yunit=200cm, runit=1cm, arrowsize=3pt 3, algebraic=true}
-\def\xmin {5}   \def\xmax {165}
-\def\ymin {-0.0047} \def\ymax {0.02}
-\begin{pspicture*}(\xmin,\ymin)(\xmax,\ymax)
-\psaxes[labels=none,ticks=none]{->}(0,0)(\xmin,\ymin)(\xmax,\ymax)
-\def\m{84}% moyenne 
-\def\s{20}% écart type
-\def\f{1/(\s*sqrt(2*PI))*EXP((-((x-\m)/\s)^2)/2)}
-\def\inf{\xmin} \def\sup{64}
-\pscustom[fillstyle=solid,fillcolor=blue!20]
-{
-\psplot{\inf}{\sup}{\f} % courbe de f sur [inf ; sup]
-\lineto(\sup,0)\lineto(\inf,0)
-\closepath % indispensable !
-}
-\psplot[plotpoints=1000,linecolor=blue,linewidth=1.25pt]{\xmin}{\xmax}{\f}
-\uput{12pt}[d](\sup,0.0013){\footnotesize \blue \sup}
-%\uput[d](\inf,0){\footnotesize \blue \inf}
-\multido{\n=10+10}{15}
-{
-\uput[d](\n,0){\footnotesize \n}
-\psline(\n,0.0005)(\n,-0.0005)
-}
-\psline(\m,0.0007)(\m,-0.0007)
-\rput(55,0.003){\bf 16\,\%}
-\end{pspicture*}
-\end{center}
 \begin{enumerate}
 \item 
 	\begin{enumerate}
@@ -208,19 +210,19 @@ On munit le plan contenant la bande verticale d'un repère : la ligne centrale v
 ordonnées.
 
 On note $X$ la variable aléatoire qui, à toute flèche tirée atteignant ce plan, associe l'abscisse de son point d'impact.}\hfill
-\parbox{0.33\linewidth}{\psset{unit=0.125cm}
-\begin{pspicture}(-18,-18)(22,18)
-\psframe[fillstyle=solid,fillcolor=lightgray](-10,-18)(10,18)
-\multido{\n=-15+5}{8}{\psline[linestyle=dashed,linewidth=0.2pt](\n,-18)(\n,18)}
-\multido{\n=-15+5}{7}{\psline[linestyle=dashed,linewidth=0.2pt](-18,\n)(22,\n)}
-\psaxes[linewidth=1.25pt,Dx=5,Dy=5,labelFontSize=\scriptstyle]{->}(0,0)(-18,-18)(22,18)
-\psaxes[linewidth=1.25pt,Dx=5,Dy=5,labelFontSize=\scriptstyle](0,0)(0,0)(22,18)
-\psdots(-5,5)(10,-10)(15,10)%CBA
-\uput[ur](-5,5){C}\uput[ur](10,-10){B}\uput[ur](15,10){A}
-\psline[linewidth=1.25pt](-10,-18)(-10,18)
-\psline[linewidth=1.25pt](10,-18)(10,18)
-
-\end{pspicture}}
+%\parbox{0.33\linewidth}{\psset{unit=0.125cm}
+%\begin{pspicture}(-18,-18)(22,18)
+%\psframe[fillstyle=solid,fillcolor=lightgray](-10,-18)(10,18)
+%\multido{\n=-15+5}{8}{\psline[linestyle=dashed,linewidth=0.2pt](\n,-18)(\n,18)}
+%\multido{\n=-15+5}{7}{\psline[linestyle=dashed,linewidth=0.2pt](-18,\n)(22,\n)}
+%\psaxes[linewidth=1.25pt,Dx=5,Dy=5,labelFontSize=\scriptstyle]{->}(0,0)(-18,-18)(22,18)
+%\psaxes[linewidth=1.25pt,Dx=5,Dy=5,labelFontSize=\scriptstyle](0,0)(0,0)(22,18)
+%\psdots(-5,5)(10,-10)(15,10)%CBA
+%\uput[ur](-5,5){C}\uput[ur](10,-10){B}\uput[ur](15,10){A}
+%\psline[linewidth=1.25pt](-10,-18)(-10,18)
+%\psline[linewidth=1.25pt](10,-18)(10,18)
+%
+%\end{pspicture}}
 
 \medskip
 
@@ -356,16 +358,16 @@ $P\left(D_1\right) = P\left(D_2\right) = 0,39$.
 Deux montages possibles sont envisagés, présentés ci-dessous :
 
 \begin{center}
-\psset{unit=1cm}
-\begin{pspicture}(10,3.4)
-%\psgrid
-\psline(0,2)(1,2)(1,2.75)(1.5,2.75)\psframe(1.5,2.25)(3,3.25)\psline(3,2.75)(3.5,2.75)(3.5,2)(4.5,2)
-\psline(0,2)(1,2)(1,1.25)(1.5,1.25)\psframe(1.5,0.75)(3,1.75)\psline(3,1.25)(3.5,1.25)(3.5,2)
-\rput(2.25,2.75){1} \rput(2.25,1.25){2}
-\rput(2.5,0.2){Circuit en parallèle A} \rput(7.5,0.2){ Circuit en série B}
-\psline(5,2)(6,2)\psframe(6,1.5)(7.5,2.5)\psline(7.5,2)(8.5,2)\psframe(8.5,1.5)(10,2.5)
-\rput(6.75,2){1}\rput(9.25,2){2}
-\end{pspicture}
+%\psset{unit=1cm}
+%\begin{pspicture}(10,3.4)
+%%\psgrid
+%\psline(0,2)(1,2)(1,2.75)(1.5,2.75)\psframe(1.5,2.25)(3,3.25)\psline(3,2.75)(3.5,2.75)(3.5,2)(4.5,2)
+%\psline(0,2)(1,2)(1,1.25)(1.5,1.25)\psframe(1.5,0.75)(3,1.75)\psline(3,1.25)(3.5,1.25)(3.5,2)
+%\rput(2.25,2.75){1} \rput(2.25,1.25){2}
+%\rput(2.5,0.2){Circuit en parallèle A} \rput(7.5,0.2){ Circuit en série B}
+%\psline(5,2)(6,2)\psframe(6,1.5)(7.5,2.5)\psline(7.5,2)(8.5,2)\psframe(8.5,1.5)(10,2.5)
+%\rput(6.75,2){1}\rput(9.25,2){2}
+%\end{pspicture}
 \end{center}
 
 \medskip
@@ -464,21 +466,21 @@ Ses doutes sont-ils justifiés ?\hyperlink{Index}{*}
 \textbf{Question 1}
 
 \parbox{0.6\linewidth}{On considère l'arbre de probabilités ci-contre :}\hfill
-\parbox{0.4\linewidth}{\psset{unit=1.5cm}
-\pstree[treemode=R,nodesepB=4pt]{\TR{}}
-{
-	\pstree[nodesepA=4pt]{\TR{$A$}\ncput*{0,6}}
-	  { 
-		  \TR{$B$}\ncput*{0,2}
-		  \TR{$\overline{B}$}	   
-	  }
-	\pstree[nodesepA=4pt]{\TR{$\overline{A}$}}
-	  {
-		  \TR{$B$}\ncput*{0,3}
-		  \TR{$\overline{B}$}
-	  }
-}
-}\index{arbre de probabilités}
+%\parbox{0.4\linewidth}{\psset{unit=1.5cm}
+%\pstree[treemode=R,nodesepB=4pt]{\TR{}}
+%{
+%	\pstree[nodesepA=4pt]{\TR{$A$}\ncput*{0,6}}
+%	  { 
+%		  \TR{$B$}\ncput*{0,2}
+%		  \TR{$\overline{B}$}	   
+%	  }
+%	\pstree[nodesepA=4pt]{\TR{$\overline{A}$}}
+%	  {
+%		  \TR{$B$}\ncput*{0,3}
+%		  \TR{$\overline{B}$}
+%	  }
+%}
+%}\index{arbre de probabilités}
 \medskip
 
 Quelle est la probabilité de l'évènement $B$ ?
@@ -600,4 +602,6 @@ On admettra que le stock de bouteilles présentes dans le supermarché est suffi
 
 \bigskip
 
-\end{qustion}
+\end{question}
+
+\end{document}
