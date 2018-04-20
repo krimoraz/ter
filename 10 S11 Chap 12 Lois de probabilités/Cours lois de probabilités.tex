@@ -18,9 +18,9 @@ Le modèle utilisé dans cet exemple est celui du tirage aléatoire d'un
 nombre réel entre deux réels $a$ et $b$. Il est très similaire au tirage
 d'un nombre au hasard entre 0 et 1.
 
-\begin{exercice}
+\begin{question}
   Justifier l'affirmation précédente.
-\end{exercice}
+\end{question}
 
 \begin{tikzpicture}
   \draw (0,0) -- (5,0) ;
@@ -33,16 +33,16 @@ d'un nombre au hasard entre 0 et 1.
   \draw[red] (2.5,-0.5) node { $J$ };
 \end{tikzpicture}
 
-On choisit au hasard $x \in \interff{a;b}$ et on cherche la probabilité
+On choisit au hasard $x \in \intv{a}{b}$ et on cherche la probabilité
 que $x$ appartiennent à $J$, notée $\p(x\in J)$.
 
-Supposons que $J = \interff{\frac{p}q ; \frac{p'}q}$, avec $p$, $p'$ et
+Supposons que $J = \intv{\frac{p}q}{\frac{p'}q}$, avec $p$, $p'$ et
 $q$ convenablement choisis. La probabilité d'appartenir à un tel
 intervalle est $\frac{p' - p}{q(b-a)}$.
 
-Divisons désormais l'intervalle $\interff{a;b}$ en $n$ intervalle de
-longueur $\frac{b-a}n$. Sur tous ces intervalles $J_i = \interff{a_i +
-i\frac{b-a}n ; a_i + (i+1)\frac{b-a}n}$, la probabilité que $x$
+Divisons désormais l'intervalle $\intv{a}{b}$ en $n$ intervalle de
+longueur $\frac{b-a}n$. Sur tous ces intervalles $J_i = \intv{a_i +
+i\frac{b-a}n}{a_i + (i+1)\frac{b-a}n}$, la probabilité que $x$
 appartiennent à un de ces intervalles est constante et vaut $p$ et
 la probabilité qu'il appartiennent à la réunion des intervalles vaut 1.
 
@@ -56,14 +56,14 @@ On a donc, en généralisant une formule connue : $\p(x\in K) =
 
 On obtient donc que $p = \frac1{b-a}$.
 
-\begin{exercice}
+\begin{question}
   \begin{enumerate}
     \item Rappeler la formule qui a permis cette généralisation.
     \item Quel argument permet d'obtenir le dernier résultat ?
     \item Proposer une interprétation «robuste» du fait que $\sum_{i =
       a}^b \p(x\in J_i) = 1$ qui permettra une généralisation.
   \end{enumerate}
-\end{exercice}
+\end{question}
 
 \section{Lois à densité}
 
@@ -97,7 +97,7 @@ d'un évenement appartient à l'intervalle (non nécessairement borné) $J$.
 \end{definition}
 
 \begin{remarque}
-  \begin{exercice}~\\
+  \begin{question}~\\
     Démontrer qu'ainsi, pour $J$ et $K$ deux intervalles de $I$, on a :
     \begin{itemize}
       \item $\p(X\in \overline{J}) = 1 - \p(X\in J)$
@@ -105,19 +105,19 @@ d'un évenement appartient à l'intervalle (non nécessairement borné) $J$.
     \end{itemize}
     Justifier que, pour une loi à densité, $\p(X \in \{a\}) = \p(X = a)
     = 0$.
-  \end{exercice}
+  \end{question}
 \end{remarque}
 
 On notera souvent $\p(X\in \{x\in \R | a\leqslant x \leqslant b\})$ par
 $\p(a \leqslant X \leqslant b)$ par abus «inverse» de notation.
 
-\begin{propriete}
+\begin{proposition}
   Pour toute variable aléatoire $X$ qui suit une loi à densité, on a
   \begin{itemize}
     \item $\p(X = a) = 0$
     \item $\p(X \leqslant a ) = \p(X < a)$
   \end{itemize}
-\end{propriete}
+\end{proposition}
 
 On définit également, par analogie avec les lois dites discrètes,
 l'espérance d'une variable aléatoire $X$ dans le cas où celle-ci suit
@@ -131,26 +131,26 @@ une loi de densité de probabilité $f$.
 \subsection{La loi uniforme}
 
 Revenons à notre exemple premier de loi uniforme sur le segment
-$\interff{a;b}$.
+$\intv{a}{b}$.
 
 \begin{definition}
   La loi de probabilité uniforme a pour densité de probabilité la
-  fonction continue défine sur $\interff{a;b}$ par $f(x) = \frac1{b-a}$
+  fonction continue défine sur $\intv{a}{b}$ par $f(x) = \frac1{b-a}$
 \end{definition}
 
 On vérifie immédiatement que cette fonction définit bien une densité de
 probabilité.
 
-\begin{exercice}
+\begin{question}
   Calculer $\int_a^b f(x) \diff x$.
-\end{exercice}
+\end{question}
 
 On parle de loi de probabilité uniforme car si $J$ et $K$ sont deux
 intervalles de même longueur, $\p(X\in J) = \p(X \in K)$
 
-\begin{exercice}
+\begin{question}
   Montrer que si $X$ suit une loi uniforme, alors $E(X) = \frac{a+b}2$.
-\end{exercice}
+\end{question}
 
 Ce résultat est à connaître.
 
@@ -169,7 +169,7 @@ Ce résultat est à connaître.
 Il faut néamoins vérifier que cette fonction définit bien une densité de
 probabilité.
 
-\begin{exercice}
+\begin{question}
   Soit $\lambda$ un réél strictement positif.
   \begin{enumerate}
     \item Calculer l'intégrale $\int_0^x \lambda e^{-\lambda t} \diff t$
@@ -178,12 +178,12 @@ probabilité.
       t}$ en $+\infty$.
     \item Conclure.
   \end{enumerate}
-\end{exercice}
+\end{question}
 
 Le calcul d'une probabilité lorsqu'une variable aléatoire $T$ suit une
 loi exponentielle s'obtient généralement par le calcul direct.
 
-\begin{exercice}
+\begin{question}
   Soient $a$ et $b$ deux réels tels que $0\leqslant a \leqslant b$.
   Calculer :
   \begin{itemize}
@@ -191,16 +191,16 @@ loi exponentielle s'obtient généralement par le calcul direct.
     \item $\p(T \geqslant a) = \p(T > a )$
     \item $\p(a \leqslant T \leqslant b)$
   \end{itemize}
-\end{exercice}
+\end{question}
 
 On peut s'intéresser à l'espérance d'une telle variable aléatoire.
 
-\begin{propriete}
+\begin{proposition}
   L'espérance d'une variable aléatoire $T$ qui suit une loi
   exponentielle de paramètre $\lambda$ est $E(T) = \frac1{\lambda}$.
-\end{propriete}
+\end{proposition}
 
-\begin{exercice}
+\begin{question}
   Soit $\lambda$ un réél strictement positif.
   \begin{enumerate}
     \item Calculer l'intégrale $\int_0^x \lambda te^{-\lambda t} \diff
@@ -211,7 +211,7 @@ On peut s'intéresser à l'espérance d'une telle variable aléatoire.
       $+\infty$.
     \item Conclure.
   \end{enumerate}
-\end{exercice}
+\end{question}
 
 \subsection{Loi de vieillissement « sans mémoire»}
 
@@ -242,11 +242,11 @@ Ce modèle n'est en revanche pas valide pour les pièces présentant une
 usure mécanique qui est généralement quantifiable et donc ne fait pas
 appel à des méthodes probabbilistes.
 
-\begin{propriete}
+\begin{proposition}
   La loi exponnentielle est une loi «sans vieillissement».
-\end{propriete}
-\begin{preuve}
-  \begin{exercice}
+\end{proposition}
+\begin{proof}
+  \begin{question}
     Soit $T$ une variable aléatoire qui suit une loi exponnentielle de
     paramètre $\lambda$.
     \begin{enumerate}
@@ -257,8 +257,8 @@ appel à des méthodes probabbilistes.
       \item Interpréter $e^{-\lambda h}$ comme une probabilité.
       \item Conclure.
     \end{enumerate}
-  \end{exercice}
-\end{preuve}
+  \end{question}
+\end{proof}
 
 On admet que la réciproque est également vraie et que les variables
 aléatoires qui suivent des lois exponnentielles sont les seules
@@ -287,17 +287,17 @@ L'appellation de centrée-réduite sera justifiée par la suite.
 On dit aussi loi de Laplace-Gauss du nom des premiers mathématiciens à
 l'avoir étudié.
 
-\begin{propriete}[admise]
+\begin{proposition}[admise]
   \[ \int_{-\infty}^{+\infty} e^{-\frac{x^2}2} = \sqrt{2\pi} \]
-\end{propriete}
+\end{proposition}
 
 Ce résultat général est dur à obtenir, mais il nous assure que la
 fonction $\varphi$ définie ci-dessus est bien une densité de
 probabilité.
 
-\begin{exercice}
+\begin{question}
   Justifier cette affirmation.
-\end{exercice}
+\end{question}
 
 \begin{definition}
   On dit qu'une variable aléatoire $Z$ suit la loi normale
@@ -318,35 +318,35 @@ effet, la primitive $\Phi$ de $\varphi$ ne pouvant s'exprimer avec des
 fonctions usuelles, les valeurs de $\Phi$ étaient tabulées sur la
 demi-droite des $x$ positifs.
 
-\begin{propriete}
+\begin{proposition}
   $\p(a \leqslant X \leqslant b) = \Phi(b) - \Phi(a)$
-\end{propriete}
-\begin{preuve}
+\end{proposition}
+\begin{proof}
   $\Phi$ est, par définition, une primitive de $\varphi$.
-\end{preuve}
+\end{proof}
 
 Les $x$ positifs suffisent, en vertu de cette propriété :
 
-\begin{propriete}
+\begin{proposition}
   Pour tout $x$ réel, $\Phi(-x) = 1 - \Phi(x)$
-\end{propriete}
-\begin{preuve}
+\end{proposition}
+\begin{proof}
   Par symétrie de $\varphi$ et en utilisant le fait que le poids total
   est de 1.
-\end{preuve}
+\end{proof}
 
 Cependant, ce résultat peut servir lors de certaines démonstrations.
 
 Calculons l'espérance d'une variable aléatoire suivant une telle loi.
 
-\begin{exercice}
+\begin{question}
   Soit $a$ un nombre réel.
   \begin{enumerate}
     \item Calculer $\int_0^a x\varphi(x) \diff x$.
     \item En déduire $\lim_{a\to+\infty} \int_0^a x\varphi(x) \diff x$.
     \item Conclure sur l'espérance $E(Z)$.
   \end{enumerate}
-\end{exercice}
+\end{question}
 
 \begin{definition}[Variance]
   Soit $Z$ une variable aléatoire qui suit une loi normale
@@ -355,23 +355,23 @@ Calculons l'espérance d'une variable aléatoire suivant une telle loi.
   \diff x$.
 \end{definition}
 
-\begin{propriete}
+\begin{proposition}
   La variance $\sigma^2$ d'une variable qui suit la loi normale
   centrée-réduite est $\sigma^2 = 1$
-\end{propriete}
-\begin{preuve}
-  Exercices 82 et 83 p 432
-\end{preuve}
+\end{proposition}
+\begin{proof}
+  questions 82 et 83 p 432
+\end{proof}
 
-\begin{propriete}[admise]
+\begin{proposition}[admise]
   $\sigma^2 = E((X - E(X))^2)$
-\end{propriete}
+\end{proposition}
 
-\begin{exercice}
+\begin{question}
   Montrer que cette dernière proposition conduit à la définition
   proposée de la variance. Interpréter la variance en terme de
   moyenne.
-\end{exercice}
+\end{question}
 
 Dans la littérature, on note souvent la moyenne $\mu$ et la variance
 $\sigma^2$.
@@ -387,12 +387,12 @@ ce qui n'est pas toujours le cas.
 On peut aisément généraliser et considérer une variable aléatoire $X$
 qui suit une loi normale d'espérance $\mu$ quelconque et $\sigma^2 > 0$.
 
-\begin{propriete}
+\begin{proposition}
   Si $X \leadsto \mathcal{N}(\mu,\sigma^2)$, alors $Z = \frac{ X -
   \mu}{\sigma^2}$ suit une loi normale centrée-réduite.
-\end{propriete}
+\end{proposition}
 
-\begin{exercice}
+\begin{question}
   On considère une variable aléatoire $X$ qui suit une loi normale de
   paramètres $\mu$ et $\sigma^2$.
   \begin{enumerate}
@@ -400,7 +400,7 @@ qui suit une loi normale d'espérance $\mu$ quelconque et $\sigma^2 > 0$.
       la loi normale centrée-réduite.
     \item En déduire l'expression de la densité de probabilité de $X$.
   \end{enumerate}
-\end{exercice}
+\end{question}
 
 En règle général, le calcul des valeurs de la loi normale se fait
 désormais à la calculatrice.
@@ -412,15 +412,15 @@ désormais à la calculatrice.
 Avant de se lancer dans le calcul à proprement parler, démontrons une
 première propriété.
 
-\begin{propriete}
-  Soit $\alpha \in \interoo{0;1}$ et $X$ une variable aléatoire qui suit
+\begin{proposition}
+  Soit $\alpha \in \intv[o]{0}{1}$ et $X$ une variable aléatoire qui suit
   la loi normale centrée-réduite. Il existe un unique réel positif
   $u_{\alpha}$ tel que $\p(-u_{\alpha} \leqslant X \leqslant) = 1 -
   \alpha$.
-\end{propriete}
+\end{proposition}
 
-\begin{exercice}
-  On se donne $\alpha \in \interoo{0;1}$.
+\begin{question}
+  On se donne $\alpha \in \intv[o]{0}{1}$.
   \begin{enumerate}
     \item Exprimer $\Phi(x)$ en fonction de $\alpha$ où $\Phi$ est la
       primitive (aire sous la courbe de la densité de densité de
@@ -429,7 +429,7 @@ première propriété.
       important du cours de Terminale.
     \item Conclure.
   \end{enumerate}
-\end{exercice}
+\end{question}
 
 En particulier, il faut connaître : $u_{\np{0.05}} = \np{1.96}$ et
 $u_{\np{0.01}} = \np{2.58}$. De façon équivalente, on obtient $\p(-1,96
@@ -472,7 +472,5 @@ par une loi normale, c'est le théorème de Moivre-Laplace.
   Pour $n \leqslant 30$ ou $np$ ou $n(1-p) \leqslant 5$, cette
   approximation n'est pas valide.
 \end{remarque}
-
-
 
 \end{document}
