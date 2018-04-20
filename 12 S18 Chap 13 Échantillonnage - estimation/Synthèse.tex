@@ -1,0 +1,120 @@
+%vim: ft=tex
+%!TEX encoding = UTF-8 Unicode
+\documentclass[12pt,frenchb]{article}
+
+\input{../../common.tex.inc}
+
+\title{Nouvelle calédonie décembre 2015 : exercice de synthèse}
+\date{mai \the\year}
+\author{}
+
+\begin{document}
+
+Une usine produit de l'eau minérale en bouteilles. Lorsque le taux de calcium dans une
+bouteille est inférieur à 6,5~mg par litre, on dit que l'eau de cette bouteille est très peu
+calcaire.
+
+\smallskip
+
+\emph{Dans cet exercice les résultats approchés seront arrondis au millième.}
+
+\smallskip
+
+\textbf{Partie A}
+
+\medskip
+
+L'eau minérale provient de deux sources, notées \og source A \fg{} et \og source B \fg.
+
+La probabilité que l'eau d'une bouteille prélevée au hasard dans la production d'une journée
+de la source A soit très peu calcaire est $0,17$. La probabilité que l'eau d'une bouteille prélevée au hasard dans la production d'une journée de la source B soit très peu calcaire est $0,10$.\index{probabilités}
+
+\smallskip
+
+La source A fournit 70\,\% de la production quotidienne totale des bouteilles d'eau et la source
+B le reste de cette production.
+
+\smallskip
+
+On prélève au hasard une bouteille d'eau dans la production totale de la journée. On considère
+les évènements suivants :
+
+$A$ : \og La bouteille d'eau provient de la source A \fg
+
+$B$ : \og La bouteille d'eau provient de la source B \fg
+
+$S$ : \og L'eau contenue dans la bouteille d'eau est très peu calcaire \fg.
+
+\medskip
+
+\begin{enumerate}
+\item Déterminer la probabilité de l'évènement $A \cap S$.
+\item Montrer que la probabilité de l'évènement $S$ vaut $0,149$.
+\item Calculer la probabilité que l'eau contenue dans une bouteille provienne de la
+source A sachant qu'elle est très peu calcaire.
+\item Le lendemain d'une forte pluie, l'usine prélève un échantillon de \np{1000} bouteilles provenant de la source A. Parmi ces bouteilles, $211$ contiennent de l'eau très peu calcaire. 
+
+Donner un intervalle permettant d'estimer au seuil de 95\,\% la proportion
+de bouteilles contenant de l'eau très peu calcaire sur l'ensemble de la production
+de la source A après cette intempérie.\index{intervalle de confiance}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B}
+
+\medskip
+
+On note $X$ la variable aléatoire qui, à chaque bouteille prélevée au hasard dans la production d'une journée de la source A, associe le taux de calcium de l'eau qu'elle contient. On suppose que $X$ suit la loi normale de moyenne $8$ et d'écart-type $1,6$.\index{loi normale}
+
+On note $Y$ la variable aléatoire qui, à chaque bouteille prélevée au hasard dans la production d'une journée de la source B, associe le taux de calcium qu'elle contient. On suppose que $Y$ suit la loi normale de moyenne $9$ et d'écart-type $\sigma$.
+
+\medskip
+
+\begin{enumerate}
+\item Déterminer la probabilité pour que le taux de calcium mesuré dans une bouteille
+prise au hasard dans la production d'une journée de la source A soit compris entre
+$6,4$~mg et $9,6$~mg.
+\item Calculer la probabilité $p(X \leqslant 6,5)$.
+\item Déterminer $\sigma$ sachant que la probabilité qu'une bouteille prélevée au hasard dans la production d'une journée de la source B contienne de l'eau très peu calcaire est
+$0,1$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie C}
+
+\medskip
+
+Le service commercial a adopté pour les étiquettes des bouteilles la forme représentée ci-dessous dans un repère orthonormé du plan.
+
+La forme de ces étiquettes est délimitée par l'axe des abscisses et la courbe $\mathcal{C}$ d'équation $y = a\cos x$ avec $x \in  \left[- \frac{\pi}{2}~;~\frac{\pi}{2}\right]$ et $a$ un réel strictement positif.
+
+\smallskip
+
+Un disque situé à l'intérieur est destiné à recevoir les informations données aux acheteurs. On
+considère le disque de centre le point A de coordonnées $\left(0~;~\frac{a}{2}\right)$ et de rayon $\frac{a}{2}$. On admettra que ce disque se trouve entièrement en dessous de la courbe $\mathcal{C}$ pour des valeurs de $a$ inférieures à $1,4$.
+
+\medskip
+
+\begin{enumerate}
+\item Justifier que l'aire du domaine compris entre l'axe des abscisses, les droites d'équation
+$x = - \frac{\pi}{2}$ et $x =  \frac{\pi}{2}$, et la courbe $\mathcal{C}$ est égale à $2a$ unités d'aire.\index{aire et intégrale}
+\item Pour des raisons esthétiques, on souhaite que l'aire du disque soit égale à l'aire de la surface grisée. Quelle valeur faut-il donner au réel $a$ pour respecter cette contrainte ?\hyperlink{Index}{*}
+\end{enumerate}
+
+\begin{center}
+\psset{unit=3cm}
+\begin{pspicture}(-1.7,-0.2)(1.7,1.7)
+\psaxes[linewidth=1.25pt,Dx=2,Dy=2]{->}(0,0)(-1.7,-0.2)(1.7,1.7)
+\psplot[plotpoints=3000,linewidth=1.25pt]{-1.57}{1.57}{x RadtoDeg cos 1.3 mul}
+\pscustom[fillstyle=solid,fillcolor=lightgray]{
+\psplot[plotpoints=3000,linewidth=1.25pt]{-1.57}{1.57}{x RadtoDeg cos 1.3 mul}
+\psline(1.57,0)(-1.57,0)}
+\pscircle[fillstyle=solid,fillcolor=white](0,0.65){0.65}
+\psdots(0,0.65) \uput[ur](0,0.65){$A$}
+\uput[ul](-1.4,0.3){$\mathcal{C}$}\uput[d](1.57,0){$\dfrac{\pi}{2}$}
+\uput[d](-1.57,0){$- \dfrac{\pi}{2}$}\uput[dr](0,0){O}\uput[ul](0,1.3){$a$}
+\end{pspicture}
+\end{center}
+

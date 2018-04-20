@@ -1,0 +1,254 @@
+%vim: ft=tex
+%!TEX encoding = UTF-8 Unicode
+\documentclass[12pt,frenchb]{article}
+
+\input{../../common.tex.inc}
+
+\title{Exercices échantillonnages}
+\date{mai \the\year}
+\author{}
+
+\begin{document}
+
+\begin{question}[subtitle={Pondichéry 2015}]
+Le lave-vaisselle est garanti gratuitement pendant les deux premières années.
+
+L'entreprise El'Ectro propose à ses clients une extension de garantie de 3 ans
+supplémentaires.
+
+Des études statistiques menées \textbf{sur les clients qui prennent l'extension de garantie}
+montrent que 11,5\,\% d'entre eux font jouer l'extension de garantie.
+
+\medskip
+
+\begin{enumerate}
+\item On choisit au hasard 12 clients parmi ceux ayant pris l'extension de garantie (on peut
+assimiler ce choix à un tirage au hasard avec remise vu le grand nombre de clients).
+	\begin{enumerate}
+		\item Quelle est la probabilité qu'exactement 3 de ces clients fassent jouer cette
+extension de garantie ? Détailler la démarche en précisant la loi de probabilité
+utilisée. Arrondir à $10^{-3}$.
+		\item Quelle est la probabilité qu'au moins 6 de ces clients fassent jouer cette extension de garantie ? Arrondir à $10^{-3}$.
+	\end{enumerate}
+\item  L'offre d'extension de garantie est la suivante : pour 65~euros supplémentaires,
+El'Ectro remboursera au client la valeur initiale du lave-vaisselle, soit 399~euros, \textbf{si
+une panne irréparable survient entre le début de la troisième année et la fin de la
+cinquième année}. Le client ne peut pas faire jouer cette extension de garantie si la
+panne est réparable.
+	
+On choisit au hasard un client parmi les clients ayant souscrit l'extension de garantie,
+et on note $Y$ la variable aléatoire qui représente le gain algébrique en euros réalisé sur
+ce client par l'entreprise El'Ectro, grâce à l'extension de garantie.
+	
+\medskip
+	
+	\begin{enumerate}
+		\item Justifier que $Y$ prend les valeurs $65$ et $- 334$ puis donner la loi de probabilité de $Y$.
+		\item Cette offre d'extension de garantie est-elle financièrement avantageuse pour
+l'entreprise ? Justifier.\hyperlink{Index}{*}
+	\end{enumerate}
+\end{enumerate}
+\end{question}
+
+\begin{question}[subtitle={Liban 2015}]
+En prévision d'une élection entre deux candidats A et B, un institut de sondage recueille les
+intentions de vote de futurs électeurs.
+
+Parmi les \np{1200}~personnes qui ont répondu au sondage, 47\,\% affirment vouloir voter pour le
+candidat A et les autres pour le candidat B.
+
+\medskip
+
+Compte-tenu du profil des candidats, l'institut de sondage estime que 10\,\% des personnes
+déclarant vouloir voter pour le candidat A ne disent pas la vérité et votent en réalité pour
+le candidat B, tandis que 20\,\% des personnes déclarant vouloir voter pour le candidat B ne
+disent pas la vérité et votent en réalité pour le candidat A.
+
+\medskip
+
+On choisit au hasard une personne ayant répondu au sondage et on note :
+
+\setlength\parindent{6mm}
+\begin{itemize}
+\item[$\bullet~~$] $A$ l'évènement \og La personne interrogée affirme vouloir voter pour le candidat A \fg{} ;
+\item[$\bullet~~$] $B$ l'évènement \og La personne interrogée affirme vouloir voter pour le candidat B \fg{} ;
+\item[$\bullet~~$] $V$ l'évènement \og La personne interrogée dit la vérité \fg.
+\end{itemize}
+\setlength\parindent{0mm}
+
+\medskip
+
+\begin{enumerate}
+\item Construire un arbre de probabilités traduisant la situation.\index{arbre de probabilités}
+\item  
+	\begin{enumerate}
+		\item Calculer la probabilité que la personne interrogée dise la vérité.
+		\item Sachant que la personne interrogée dit la vérité, calculer la probabilité qu'elle
+affirme vouloir voter pour le candidat A.
+	\end{enumerate}
+\item  Démontrer que la probabilité que la personne choisie vote effectivement pour le candidat
+A est $0,529$.
+\item  L'institut de sondage publie alors les résultats suivants :  
+	
+\begin{center}
+\begin{tabularx}{0.75\linewidth}{|X|}\hline
+52,9\,\% des électeurs* voteraient pour le candidat A.\\
+*{\footnotesize estimation après redressement, fondée sur un sondage d'un
+échantillon représentatif de \np{1200} personnes.}\\ \hline
+\end{tabularx}
+\end{center}
+
+Au seuil de confiance de 95\,\%, le candidat A peut- il croire en sa victoire ?
+\item  Pour effectuer ce sondage, l'institut a réalisé une enquête téléphonique à raison de 10
+communications par demi-heure. La probabilité qu'une personne contactée accepte
+de répondre à cette enquête est $0,4$.
+
+L'institut de sondage souhaite obtenir un échantillon de \np{1200}~réponses.
+
+Quel temps moyen, exprimé en heures, l'institut doit-il prévoir pour parvenir à cet
+objectif ?\hyperlink{Index}{*}
+\end{enumerate}
+
+\end{question}
+
+\begin{question}[subtitle={Centres étrangers 2015}]
+Un fournisseur produit deux sortes de cadenas. Les uns sont \emph{premier prix}, et les autres sont \emph{haut de gamme}. Un magasin de bricolage dispose d'un stock de cadenas provenant de ce fournisseur; ce
+stock comprend un grand nombre de cadenas de chaque type.
+
+  \begin{enumerate}
+\item Le fournisseur affirme que, parmi les cadenas \emph{haut de gamme}, il n'y a pas plus de 3\,\% de cadenas défectueux dans sa production. Le responsable du magasin de bricolage désire vérifier
+la validité de cette affirmation dans son stock ; à cet effet, il prélève un échantillon aléatoire de 500~cadenas \emph{haut de gamme}, et en trouve 19 qui sont défectueux.
+
+\medskip
+
+Ce contrôle remet-il en cause le fait que le stock ne comprenne pas plus de 3\,\% de cadenas
+défectueux ?
+
+On pourra pour cela utiliser un intervalle de fluctuation asymptotique au seuil de 95\,\%.
+\index{intervalle de fluctuation asymptotique}
+\item Le responsable du magasin souhaite estimer la proportion de cadenas défectueux dans son stock de cadenas \emph{premier prix}. Pour cela il prélève un échantillon aléatoire de 500~cadenas \emph{premier prix}, parmi lesquels 39 se révèlent défectueux.\index{intervalle de confiance}
+
+\medskip
+
+Donner un intervalle de confiance de cette proportion au niveau de confiance 95\,\%.
+\end{enumerate}
+
+\end{question}
+
+\begin{question}[subtitle={Asie 2015}]
+  Indiquer si l'affirmation suivante est vraie :
+
+  \medskip
+
+  Un joueur de jeux vidéo en ligne adopte toujours la même stratégie. Sur les 312 premières
+parties jouées, il en gagne 223. On assimile les parties jouées à un échantillon aléatoire de taille $312$ dans l'ensemble des parties.
+
+On souhaite estimer la proportion de parties que va gagner le joueur, sur les prochaines parties
+qu'il jouera, tout en conservant la même stratégie.
+
+\textbf{Affirmation 3 :} au niveau de confiance de 95\,\%, la proportion de parties gagnées doit
+appartenir à l'intervalle [0,658~;~0,771].
+\end{question}
+
+\begin{question}[subtitle={Métropole septembre 2015}]
+\emph{Cet exercice est un questionnaire à choix multiples. Pour chacune des questions, quatre réponses sont proposées, dont une seule est exacte. Le candidat portera sur la copie le numéro de la question suivi de la réponse choisie. On ne demande pas de justification. Il est attribué $1$ point si la réponse est exacte. Aucun point n'est enlevé en l'absence de réponse ou en cas de réponse fausse.}\index{Q. C. M.}
+
+\medskip
+
+
+\textbf{Question 4}
+
+On lance une pièce de monnaie bien équilibrée 100 fois de suite.
+
+Lequel des intervalles ci-dessous est un intervalle de fluctuation asymptotique au seuil de 95\,\% de la fréquence d'apparition de la face pile de cette pièce ?\index{intervalle de fluctuation asymptotique}
+
+\medskip
+\begin{tabularx}{\linewidth}{*{4}{X}}
+\textbf{a.~~}[0,371~;~0,637] &\textbf{b.~~}[0,480~;~0,523]&\textbf{c.~~}[0,402~;~0,598]&\textbf{d.~~} [0,412~;~0,695]
+\end{tabularx}
+\medskip
+
+\textbf{Question 5}
+
+Une entreprise souhaite obtenir une estimation de la proportion de personnes de plus de 60 ans parmi ses clients, au niveau de confiance de 95\,\%, avec un intervalle d'amplitude inférieure à 0,05.\index{intervalle de confiance}
+
+Quel est le nombre minimum de clients à interroger ?
+
+\medskip
+\begin{tabularx}{\linewidth}{*{4}{X}}
+\textbf{a.~~} 400 &\textbf{b.~~} 800 &\textbf{c.~~} \np{1600}&\textbf{d.~~} \np{3200}
+\end{tabularx}\hyperlink{Index}{*}
+
+\end{question}
+
+\begin{question}[subtitle={Antilles Guyane septembre 2015}]
+Dans un supermarché, on réalise une étude sur la vente de bouteilles de jus de fruits sur une période d'un mois.
+
+\setlength\parindent{8mm}
+\begin{itemize}
+\item[$\bullet~~$]40\,\% des bouteilles vendues sont des bouteilles de jus d'orange ;
+\item[$\bullet~~$]25\,\% des bouteilles de jus d'orange vendues possèdent l'appellation \og pur jus \fg.
+\end{itemize}
+\setlength\parindent{0mm} 
+
+\medskip
+
+Parmi les bouteilles qui ne sont pas de jus d'orange, la proportion des bouteilles de \og pur jus \fg{} est notée $x$, où $x$ est un réel de l'intervalle [0~;~1].
+
+Par ailleurs, 20\,\% des bouteilles de jus de fruits vendues possèdent l'appellation \og pur jus \fg.
+
+On prélève au hasard une bouteille de jus de fruits passée en caisse. On définit les évènements suivants :\index{probabilités}
+
+$R$ : la bouteille prélevée est une bouteille de jus d'orange ;
+
+$J$ : la bouteille prélevée est une bouteille de \og pur jus \fg.
+
+\bigskip
+
+\textbf{Partie A}
+
+\medskip
+
+\begin{enumerate}
+\item Représenter cette situation à l'aide d'un arbre pondéré.\index{arbre de probabilités}
+\item Déterminer la valeur exacte de $x$.
+\item Une bouteille passée en caisse et prélevée au hasard est une bouteille de \og pur jus \fg.
+
+Calculer la probabilité que ce soit une bouteille de jus d'orange.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B}
+
+\medskip
+
+Afin d'avoir une meilleure connaissance de sa clientèle, le directeur du supermarché fait une étude sur un lot des $500$ dernières bouteilles de jus de fruits vendues.
+
+On note $X$ la variable aléatoire égale au nombre de bouteilles de \og pur jus \fg{} dans ce lot.
+
+On admettra que le stock de bouteilles présentes dans le supermarché est suffisamment important pour que le choix de ces $500$ bouteilles puisse être assimilé à un tirage au sort avec remise.
+
+\medskip
+
+\begin{enumerate}
+\item Déterminer la loi suivie par la variable aléatoire $X$. On en donnera les paramètres.\index{loi binomiale}
+\item Déterminer la probabilité pour qu'au moins 75 bouteilles de cet échantillon de $500$ bouteilles soient de \og pur jus \fg. On arrondira le résultat au millième.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie C}
+
+\medskip
+
+Un fournisseur assure que 90\,\% des bouteilles de sa production de pur jus d'orange contiennent moins de 2\,\% de pulpe. Le service qualité du supermarché prélève un échantillon de 900 bouteilles afin de vérifier cette affirmation. Sur cet échantillon, $766$~bouteilles présentent moins de 2\,\% de pulpe.
+
+\medskip
+
+\begin{enumerate}
+\item Déterminer l'intervalle de fluctuation asymptotique de la proportion de bouteilles contenant moins de 2\,\% de pulpe au seuil de 95\,\%.\index{intervalle de fluctuation asymptotique}
+\item Que penser de l'affirmation du fournisseur ?\hyperlink{Index}{*}
+\end{enumerate}
+
+\end{qustion}
