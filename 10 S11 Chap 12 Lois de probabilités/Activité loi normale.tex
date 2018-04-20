@@ -1,0 +1,93 @@
+%vim: ft=tex
+%!TEX encoding = UTF-8 Unicode
+\documentclass[12pt,french]{article}
+
+\input{../../commons.tex.inc}
+
+\title{Activité loi normale}
+\date{mai \the\year}
+\author{\bsc{Jumel}}
+
+\begin{document}
+	
+\maketitle
+
+\section*{Activité de découverte d'une nouvelle loi : Étude statistiques
+des notes du bac de 1000 élèves à la session 2015}
+
+On désire représenter les notes moyennes du bac de 1000 élèves pris au
+hasard parmi les élèves qui ont passé le bac l'année dernière.
+
+On dispose pour cela du fichier de données qui est à récupérer à
+l'adresse suivante : \url{fichier://a.recuperer}. Ce fichier ressemble à
+cela :
+\begin{verbatim}
+l = [..]
+
+import numpy as np
+from matplotlib import pyplot as plt
+\end{verbatim}
+
+Éxécutez le et nous continuerons ensuite à travailler dans la console
+interactive.
+
+Pour obtenir un histogramme des données, il suffit de taper
+successivement \texttt{plt.hist(l)} puis \texttt{plt.show()}.
+
+\begin{enumerate}
+  \item Préciser le rôle de chacune de ces deux commandes.
+\end{enumerate}
+
+Recommencer l'opération avec \texttt{plt.hist(l,50)} puis 100.
+
+\begin{enumerate}[resume*]
+  \item Préciser ce qui se passe. À quoi sert ce deuxième argument ?
+\end{enumerate}
+
+On veut désormais trouver une fonction qui approche cet histogramme.
+
+Pour tracer une fonction, il faut d'abord se donner un intervalle $x$
+avec la fonction \\
+\texttt{x = np.linspace(<début>,<fin>)}, puis calculer
+les images avec \texttt{y = f(x)} et enfin tracer et afficher le
+résultat avec \texttt{plt.plot(x,y)} et \texttt{plt.show()}.
+
+\begin{enumerate}[resume*]
+  \item Tracer la courbe représentative de la fonction racine sur
+    $\interff{2;20}$. On donne la fonction racine : \texttt{np.sqrt()}.
+  \item Que permet de faire l'enchainement \texttt{plt.hist(l,50)} ;
+    \texttt{plt.plot(x,y)} ; \texttt{plt.show()} ?
+\end{enumerate}
+
+Définissons désormais nos propres fonctions. Pour cela, retournons
+temporairement dans l'éditeur. Ajoutons y le code suivant :
+\begin{verbatim}
+def f(x,a,b,c):
+    return a*x**2 + b*x + c
+\end{verbatim}
+
+Éxécutons de nouveau le script et considérons la fonction $f$.
+
+\begin{enumerate}[resume*]
+  \item Combien d'argument prend cette fonction ?
+  \item Que renvoie-t-elle ?
+  \item Quelles valeurs donner à $a$,$b$ et $c$ de façon à avoir le même
+    maximum que l'histogramme et essayer d'approcher l'histogramme par
+    une telle courbe.
+  \item Cette approche semble-t-elle valide ?
+  \item Par essais-successifs sur les valeurs $m$ et $s$, essayer
+    d'approcher l'histogramme par la fonction définie par $\phi : x
+    \mapsto \frac1{s\sqrt{2\pi}} e^{-\frac{(x - m)^2}{2s^2}}$.
+\end{enumerate}
+
+\emph{Indication :}
+\begin{itemize}
+  \item $\exp \to$ \texttt{np.exp} ;
+  \item $\pi \to$ \texttt{np.pi}.
+\end{itemize}
+
+Cette dernière fonction s'appelle \textbf{densité de probabilité de
+Laplace-Gauss}.
+
+
+\end{document}

@@ -1,0 +1,133 @@
+\documentclass[11pt,a4paper,french]{article}
+
+\input{../../commons.tex.inc}
+
+\title{Lois de probabilité à densité}
+\author{\bsc{Jumel}}
+\date{avril 2018}
+
+\begin{document}
+
+\noindent\maketitle
+
+\bigskip
+
+\section*{Activités}
+
+\subsection*{Le pêcheur de Poisson}
+
+Dans cette activité, on se pose la question d'obtenir la probabilité
+qu'un pêcheur attrape un poisson lors d'une partie de pêche.
+
+\textbf{Partie A}
+
+\begin{enumerate}
+  \item Si on considère cette partie de pêche sur l'ensemble de la
+    journée du pêcher, quelle est le type de loi de probabilité
+    rencontrée ici ?
+  \item La rivière où se trouve notre pêcheur est extrèmement
+    poissonneuse. Pour fixer les idées, il y'a plus de \np{10000}
+    poissons à proximité de notre pécheur.
+
+    Dresser un arbre de probabilité permettant de modéliser trois
+    lancers successifs.
+  \item Quelle loi permet de modéliser ce genre de situation ?
+  \item Justifier alors qu'on peut fixer la probabilité.
+
+    Quelle est l'espérance d'une telle loi de probabilité ?
+\end{enumerate}
+
+\textbf{Partie B}
+
+On va estimer qu'en moyenne notre pécheur rapporte \np{1.6} poissons par
+journée de pêche. Sa journée de pêche dure en moyenne 8h.
+
+\begin{enumerate}
+  \item Quelle est, en moyenne, la probabilité qu'il pêche un poisson
+    pendant une heure donnée ?
+  \item Même question avec une minute ?
+\end{enumerate}
+
+On admet que si on découpe la journée en $n$ unités de temps, la
+probabilité de pêcher un poisson dans cet intervalle de temps est
+$p = \frac{\lambda}{n}$ et que cette expérience aléatoire est
+indépendante des autres, et qu'elle sont répétées $n$ fois.
+
+Ainsi, $\mathcal{P}(X = k)$, la probabilité que le pêcheur
+rapporte exactement $k$ poissons est donnée par $\mathcal{P}(X = k)
+= \binom{n}{k}p^k(1-p)^{n-k}$
+
+\begin{enumerate}[resume*]
+  \item Réécrire la dernière égalité en fonction de $\lambda$ et de $n$.
+\end{enumerate}
+
+\textbf{Partie C}
+
+On image qu'on peut découper notre intervalle de temps de plus en plus.
+
+\begin{enumerate}
+  \item Traduire cette condition en terme mathématiques.
+  \item Justifier que $\binom{n}{k} = \frac{n(n-1)(n-2)\cdots
+    (n-k+1)}{k!}$.
+  \item Regrouper les termes en $n$ et les autres dans l'expression
+    $\binom{n}{k} \left(\frac{\lambda}{n}\right)^k$ et justifier que \\
+    $\lim_{n\to+\infty}\frac{n(n-1)(n-2)\cdots (n-k+1)}{n^k} = 1$
+  \item Écrire le terme $\left(1 - \frac{\lambda}n \right)^{n-k}$ sous
+    la forme d'un produit de deux termes et donner la limite de $\left(1
+    - \frac{\lambda}n \right)^{-k}$ quand $n$ tend vers $+\infty$.
+  \item On admet que $\left(1 - \frac{\lambda}n \right)^{n} =
+    e^{-\lambda}$. Donner les arguments qui permettent de conclure.
+\end{enumerate}
+
+On a obtenu, par passage à la limite que $\mathcal{P}(X = k) =
+\frac{e^{-\lambda}\lambda^k}{k!}$. On peut montrer que l'espérance de
+cette loi est la même que pour la loi binomiale dont elle est issue.
+
+Cette loi s'appelle la loi de Poisson (du mathématicien Simeon-Denis
+Poisson, rien à voir avec le milieu aquatique) et permet de modéliser le
+passage («rare») d'un objet : on peut ainsi modéliser en probabilité le
+passage d'une voiture dans une rue, mais pas sur le périphérique
+parisien. On note souvent $X\leadsto \mathcal{P}(\lambda)$ cette loi
+d'espérance $\lambda$.
+
+\subsection*{Avec les calculatrices}
+
+Dans cette activité, on ne dispose que d'une calculatrice permettant de
+générer un nombre aléatoire entre 0 et 1. C'est en fait le cas de la
+plus part des calculatrices, de la fonction \texttt{rand()} du module
+\texttt{random} de Python ou de la fonction \texttt{=ALEA()} des
+tableurs.
+
+\textbf{Partie A.} Modélisation du jeu de pile ou face
+
+Proposer un algorithme qui renvoie Pile ou Face en n'utilisant que la
+fonction décrite ci-dessus.
+
+Mettre en œuvre cet algorithme sur Algobox, sur la calculatrice puis sur
+Python.
+
+On désire écrire une boucle qui permet de répéter 1000 fois l'expérience
+et de compter le nombre de Pile. Mettre en œuvre une telle boucle sur
+Python.
+
+\emph{Rappels}
+\begin{itemize}
+  \item Un test s'écrit \texttt{if <condition>:} suivi des actions à
+    exécuter dans un bloc indenté.
+  \item Une boucle «Pour» s'écrit \texttt{for i in range(k):} suivi des
+    actions à exécuter dans un bloc indenté.
+  \item Une boucle «Tant que» s'écrit \texttt{while <condition>:} suivi
+    des actions à exécuter dans un bloc indenté.
+  \item Une fonction se définit par \texttt{def <name>(<variables>):} et
+    son bloc d'exécution (indenté) se termine impérativement par
+    \texttt{return <variable>|<expression>}.
+\end{itemize}
+
+\textbf{Partie B.} Étude approfondie de la fonction qui renvoie un
+nombre au hasard entre 0 et 1.
+
+Activité 1 page 378.
+
+\end{document}
+
+
