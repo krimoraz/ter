@@ -8,78 +8,63 @@
 \date{mai \the\year}
 \author{Bac 2015}
 
+\SetupExSheets{headings=block-subtitle}
+
 \begin{document}
-	
+
 \maketitle
 
 \begin{question}[subtitle={Pondichery 2015}]
-Des études statistiques ont permis de modéliser la durée de vie, en mois, d'un type de lave-vaisselle par une variable aléatoire $X$ suivant une loi normale $\mathcal{N}\left(\mu,~ \sigma^2\right)$ de moyenne $\mu = 84$ et d'écart-type $\sigma$. De plus, on a $P(X \leqslant 64) = 0,16$. \index{loi normale}
+Des études statistiques ont permis de modéliser la durée de vie, en mois,
+d'un type de lave-vaisselle par une variable aléatoire $X$ suivant une loi
+normale $\mathcal{N}\left(\mu,~ \sigma^2\right)$ de moyenne $\mu = 84$ et
+d'écart-type $\sigma$. De plus, on a $P(X \leqslant 64) = 0,16$. \index{loi
+normale}
 
-La représentation graphique de la fonction densité de probabilité de $X$ est donnée ci-dessous.
+La représentation graphique de la fonction densité de probabilité de $X$ est
+donnée ci-dessous.
 
-%%\begin{center}
-%%\psset{xunit=0.075cm,yunit=5cm}
-%%%algebraic=true
-%%\begin{pspicture}(-80,-0.1)(80,1.1)
-%%\psframe(-80,-0.1)(80,1.1)
-%%\psaxes[linewidth=1.25pt,Dx=1000](0,0)(-75,0)(75,0)
-%%\multido{\n=-75+10,\na=10+10}{15}{\uput[d](\n,0){\na}}
-%%\psplot[plotpoints=4000,linewidth=1.25pt,linecolor=blue]{-80}{80}{2.71828 x dup mul 0.00125 mul neg exp}
-%%\pscustom[fillstyle=solid,fillcolor=lightgray]{
-%%\psplot[plotpoints=4000,linewidth=1.45pt,linecolor=blue]{-80}{-21}{2.71828 x dup mul 0.00125 mul neg exp}
-%%\psline(-21,0)(-80,0)}
-%%\uput[d](-20,0){\blue 64}\rput(-35,0.1){16\,\%}
-%%\end{pspicture}
-%%\end{center}
-%
-%\begin{center}
-%\psset{xunit=0.07cm, yunit=200cm, runit=1cm, arrowsize=3pt 3, algebraic=true}
-%\def\xmin {5}   \def\xmax {165}
-%\def\ymin {-0.0047} \def\ymax {0.02}
-%\begin{pspicture*}(\xmin,\ymin)(\xmax,\ymax)
-%\psaxes[labels=none,ticks=none]{->}(0,0)(\xmin,\ymin)(\xmax,\ymax)
-%\def\m{84}% moyenne 
-%\def\s{20}% écart type
-%\def\f{1/(\s*sqrt(2*PI))*EXP((-((x-\m)/\s)^2)/2)}
-%\def\inf{\xmin} \def\sup{64}
-%\pscustom[fillstyle=solid,fillcolor=blue!20]
-%{
-%\psplot{\inf}{\sup}{\f} % courbe de f sur [inf ; sup]
-%\lineto(\sup,0)\lineto(\inf,0)
-%\closepath % indispensable !
-%}
-%\psplot[plotpoints=1000,linecolor=blue,linewidth=1.25pt]{\xmin}{\xmax}{\f}
-%\uput{12pt}[d](\sup,0.0013){\footnotesize \blue \sup}
-%%\uput[d](\inf,0){\footnotesize \blue \inf}
-%\multido{\n=10+10}{15}
-%{
-%\uput[d](\n,0){\footnotesize \n}
-%\psline(\n,0.0005)(\n,-0.0005)
-%}
-%\psline(\m,0.0007)(\m,-0.0007)
-%\rput(55,0.003){\bf 16\,\%}
-%\end{pspicture*}
-%\end{center}
+\begin{center}
+  \begin{tikzpicture}[xscale=0.1,yscale=4,>=latex]
+    \fill [blue!30] plot [samples=500,domain=5:64] (\x,{exp(-(\x -
+    84)^2/900)}) -- (64,0) -- cycle ;
+    \draw (64,{exp(-(64-84)^2/900)}) -- (64,0) node [below,blue] {\small 64}
+    ;
+    \draw [very thick, blue] plot [smooth,samples=500,domain=5:160]
+    (\x,{exp(-(\x - 84)^2/900)}) ;
+    \draw (55,0.20) node {\bf 16\%} ;
+    \draw [thick,->] (0,0) -- (160,0) ;
+    \foreach \x in {10,20,...,150} {
+      \draw[thick] (\x,0.025) -- (\x,-0.025) node [below] {\small \x} ;
+    }
+    \draw (84,0.0375) -- (84,-0.0375) ;
+  \end{tikzpicture}
+\end{center}
+
 \begin{enumerate}
-\item 
-	\begin{enumerate}
-		\item En exploitant le graphique, déterminer $P(64 \leqslant X \leqslant 104)$.
-		\item Quelle valeur approchée entière de $\sigma$ peut-on proposer ?
-	\end{enumerate}
-\item On note $Z$ la variable aléatoire définie par $Z = \dfrac{X - 84}{\sigma}$.
-	\begin{enumerate}
-		\item Quelle est la loi de probabilité suivie par $Z$ ?
-		\item Justifier que $P(X \leqslant 64) = P \left(Z \leqslant \dfrac{- 20}{\sigma}\right)$.
-		\item En déduire la valeur de $\sigma$, arrondie à $10^{-3}$.
-	\end{enumerate}
-\item Dans cette question, on considère que $\sigma = 20,1$.
-	
-Les probabilités demandées seront arrondies à $10^{-3}$.
-	\begin{enumerate}
-		\item Calculer la probabilité que la durée de vie du lave-vaisselle soit comprise entre 2 et 5~ans.
-		\item Calculer la probabilité que le lave-vaisselle ait une durée de vie supérieure à
-10 ans.
-	\end{enumerate}
+  \item 
+    \begin{enumerate}
+      \item En exploitant le graphique, déterminer $P(64 \leqslant X
+        \leqslant 104)$.
+      \item Quelle valeur approchée entière de $\sigma$ peut-on proposer ?
+    \end{enumerate}
+  \item On note $Z$ la variable aléatoire définie par $Z = \dfrac{X -
+    84}{\sigma}$.
+    \begin{enumerate}
+      \item Quelle est la loi de probabilité suivie par $Z$ ?
+      \item Justifier que $P(X \leqslant 64) = P \left(Z \leqslant \dfrac{-
+        20}{\sigma}\right)$.
+      \item En déduire la valeur de $\sigma$, arrondie à $10^{-3}$.
+    \end{enumerate}
+  \item Dans cette question, on considère que $\sigma = 20,1$.
+
+    Les probabilités demandées seront arrondies à $10^{-3}$.
+    \begin{enumerate}
+      \item Calculer la probabilité que la durée de vie du lave-vaisselle
+        soit comprise entre 2 et 5~ans.
+      \item Calculer la probabilité que le lave-vaisselle ait une durée de
+        vie supérieure à 10 ans.
+    \end{enumerate}
 \end{enumerate}
 \end{question}
 
