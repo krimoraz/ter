@@ -6,6 +6,8 @@
 \author{\bsc{Jumel}}
 \date{avril 2018}
 
+\SetWatermarkText{}
+
 \begin{document}
 
 \maketitle
@@ -78,13 +80,15 @@ l'année sur le sujet.
 
 \begin{bclogo}[logo={\Calculatrice*[calcscale=0.3]}]{À la calculatrice}
   \Touche[style=second]
-  \Touche[style=function,principal={Vars},second={Distrib}]
-  \Touche[style=number,principal=3]
+  \Touche[style=function,principal={VARS},second={DISTR}]
+  \Touche[style=number,principal=0]
   permet de calculer directement la probabilité, alors que \\
   \Touche[style=second]
-  \Touche[style=function,principal={Vars},second={Distrib}]
-  \Touche[style=number,principal=4]
-  permet de calculer $\p(X ≤ k) = \displaystyle\sum_{l=0}^k \p(X = l)$
+  \Touche[style=function,principal={VARS},second={DISTR}]
+  \Touche[style=alpha]
+  \Touche[style=function,principal={MATH},second={TEST},alpha={A}]
+  permet de calculer $\p(X ≤ k) = \displaystyle\sum_{l=0}^k \p(X = l)$.\\
+  Dans les deux cas, on rentre les paramètres dans l'ordre $n$, $p$ et $k$.
 \end{bclogo}
 
 \begin{proposition}
@@ -578,13 +582,16 @@ désormais à la calculatrice.
 
 \begin{bclogo}[logo={\Calculatrice*[calcscale=0.3]}]{À la caluclatrice}
   \Touche[style=second]
-  \Touche[style=function,principal={Vars},second={Distrib}]
-  \Touche[style=number,principal=3]
-  permet de calculer directement la probabilité, alors que \\
+  \Touche[style=function,principal={VARS},second={DISTR}]
+  \Touche[style=number,principal=2]
+  permet de calculer directement la probabilité, en entrant les paramètres
+  dans l'ordre $a$, $b$, $\mu$, $\sigma$ dans le cas où on veut calculer
+  $\p(a ≤ X ≤ b)$ lorsque $X \leadsto \mathcal{N}(\mu,\sigma)$.\\
+  Lorsqu'une des bornes n'est pas présente, on utilisera
   \Touche[style=second]
-  \Touche[style=function,principal={Vars},second={Distrib}]
-  \Touche[style=number,principal=4]
-  permet de calculer $\p(X ≤ k) = \displaystyle\sum_{l=0}^k \p(X = l)$
+  \Touche[style=function,principal={,},second={EE},alpha={J}]
+  \Touche[style=number,principal=9] \Touche[style=number,principal=9] pour
+  représenter $±\infty$.
 \end{bclogo}
 
 \section{Applications et autres exemples}
