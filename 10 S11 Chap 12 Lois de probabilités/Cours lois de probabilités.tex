@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper,french]{article}
+\documentclass[12pt,a4paper,french]{article}
 
 \input{../../commons.tex.inc}
 
@@ -12,14 +12,173 @@
 
 \bigskip
 
-\section{La loi uniforme, un exemple pour comprendre}
+\section{Lois de probabilités}
+
+Une loi de probabilité est la donnée des probabilités de tous les événements
+possibles lors d'une expérience aléatoire. Ainsi, l'expérience aléatoire qui
+associe au lancer d'un dé à 6 faces, la valeur de la face obtenue est la loi
+de probabilité représentée par le tableau suivant :
+\begin{center}
+  \begin{tabular}{|*{7}{c|}}\hline
+    $X$ & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+    $\p(X = k)$ & $\frac16$ & $\frac16$ & $\frac16$ & $\frac16$ & $\frac16$
+                & $\frac16$ \\ \hline
+  \end{tabular}
+\end{center}
+Profitons de cet exemple pour introduire quelques notions.
+\begin{definition}
+  On dit que $X \colon \Omega \to E$, où $E$ est une partie finie de
+  $\Z$, $\N$ entier ou $\R$, est une \emph{variable aléatoire}.\\ On appelle
+  \emph{loi de $X$} la probabilité de toutes les valeurs prises par $X$.
+\end{definition}
+
+\begin{remarque}
+  Le nom est impropre, il faut bien comprendre que $X$ est une fonction de
+  $\Omega$, l'univers des possibles, dans un espace de nombre.\\
+  En revanche, on ne porte d'intérêt qu'au résultat final mesurable de
+  l'expérience aléatoire et non plus à l'événement lui-même. Ainsi, deux
+  événements donnant les même résultats seront confondus.
+\end{remarque}
+Dans le cas de «petits ensembles» $X(\Omega)$ de résultats, on donne souvent
+la loi de probabilité sous la forme d'un tableau comme dans l'exemple
+ci-dessus.
+\begin{definition}
+  \begin{itemize}
+    \item Lorsque $X(\Omega) \subset \N$ ou $\Z$, on dit que la variable
+      aléatoire est discrète.
+    \item Lorsque $X(\Omega) \not\subset \N$, on dit que la variable
+      aléatoire est continue.
+  \end{itemize}
+\end{definition}
+
+\subsection{Le cas discret : la loi binomiale}
+
+On étudie ici brièvement la loi binomiale, mais les résultats présentés ici
+sont vrais pour les lois discrètes, aux adaptations près. Le cas
+d'application de la loi binomiale est le suivant : on répète une même
+expérience aléatoire, dont le résultat est succès ou échec, de façon
+indépendante. On pourra relire de façon profitable l'activité du début de
+l'année sur le sujet.
+
+\begin{definition}
+  On dit qu'une telle variable aléatoire suit une loi binomiale
+  $\mathcal{B}$ de paramètres $n$ le nombre total de répétitions et $p$ la
+  probabilité de succès d'un tirage. On note $X \leadsto \mathcal{B}(n,p)$.
+\end{definition}
+
+\begin{proposition}
+  Soit $X$ une variable aléatoire suivant une loi binomiale de paramètres $n$
+  et $p$. On a \[ \p(X = k) = \binom{n}{k}p^k(1-p)^{n-k} . \]
+\end{proposition}
+\begin{proof}
+  Construire l'arbre «théorique», dénombrer les réalisations positives et
+  affecter les probabilités sur les branches. Le nombre $\binom{n}{k}$ étant
+  défini précisément comme le nombre de réalisations dans un tel arbre.
+\end{proof}
+
+\begin{bclogo}[logo={\Calculatrice*[calcscale=0.3]}]{À la calculatrice}
+  \Touche[style=second]
+  \Touche[style=function,principal={Vars},second={Distrib}]
+  \Touche[style=number,principal=3]
+  permet de calculer directement la probabilité, alors que \\
+  \Touche[style=second]
+  \Touche[style=function,principal={Vars},second={Distrib}]
+  \Touche[style=number,principal=4]
+  permet de calculer $\p(X ≤ k) = \displaystyle\sum_{l=0}^k \p(X = l)$
+\end{bclogo}
+
+\begin{proposition}
+  Soit $X$ une variable aléatoire qui suit une loi binomiale de paramètres
+  $n$ et $p$. Alors \[ \sum_{k=0}^n \p(X = k) = 1 .\]
+\end{proposition}
+\begin{proof}
+  On applique ici la loi des probabilités totales.
+\end{proof}
+
+\begin{question}
+  Refaire cette démonstration en utilisant le binôme de Newton.
+\end{question}
+
+\begin{definition}
+  Soit $X$ une variable aléatoire qui suit une loi binomiale de paramètres
+  $n$ et $p$.\\
+  L'\emph{espérance mathématique} de $X$, notée $E[X]$, vaut $E[X] =
+  \displaystyle\sum_{k= 0}^nk\p(X = k)$
+\end{definition}
+
+\begin{proposition}
+  Soit $X$ une variable aléatoire qui suit une loi binomiale de paramètres
+  $n$ et $p$.\\
+  L'espérance mathématiques $E[X]$ vaut $E[X] = np$.
+\end{proposition}
+\begin{proof}
+  Calculons $E[X] = \displaystyle\sum_{k= 0}^nk\p(X = k)$
+  \begin{align*}
+    E[X] & = \sum_{k= 0}^nk\p(X = k)                        \\
+         & = \sum_{k=0}^n k\binom{n}{k}p^k(1-p)^{n-k}       \\
+         & = \sum_{k=1}^{n+1} \binom{n}{k-1} p^k(1-p)^{n-k} \\
+         & = \sum_{k=0}^n n \binom{n}{k} p^{k+1}(1-p)^{n-k} \\
+         & = np \sum_{k=0}^n \p(X = k)                      \\
+         & = np
+  \end{align*}
+\end{proof}
+
+\begin{definition}
+  Soit $X$ une variable aléatoire qui suit une loi binomiale de paramètres
+  $n$ et $p$.\\
+  La variance de $X$, notée $V[X]$, vaut $V[X] = \displaystyle\sum_{k= 0}^n
+  k^2 \p(X = k)$.
+\end{definition}
+
+\begin{proposition}
+  Soit $X$ une variable aléatoire qui suit une loi binomiale de paramètres
+  $n$ et $p$.\\
+  On a $V[X] ≥ 0$
+\end{proposition}
+\begin{proof}
+  La variance est définie comme une somme de termes positifs.
+\end{proof}
+
+\begin{remarque}
+  \begin{itemize}
+    \item L'espérance est une moyenne pondérée, avec la somme des
+      pondérations égale à 1.
+    \item La variance pourra s'interpréter comme une moyenne des écarts à la
+      moyenne.
+    \item Le cas $V[X] = 0$ est très rare et correspond à une loi dans
+      laquelle $p \in \{0;1\}$.
+  \end{itemize}
+\end{remarque}
+
+\begin{proposition}
+  Soit $X$ une variable aléatoire qui suit une loi binomiale de paramètres
+  $n$ et $p$.\\
+  La variance $V[X]$ vaut $V[X] = np(1-p)$.
+\end{proposition}
+\begin{proof}
+  Provisoirement admis.
+\end{proof}
+
+\begin{definition}
+  On définit l'écart-type $\sigma_X$ par $\sigma_X = \sqrt{V[X]}$.
+\end{definition}
+
+\begin{remarque}
+  Toutes ces définitions sont valables pour toutes les lois discrètes,
+  moyennement un ajustement de la borne supérieure de la somme.\\
+  Pour les lois continues, on verra une extension commode de la notion de
+  somme.
+\end{remarque}
+
+\subsection{Le cas continu : la loi uniforme}
 
 Le modèle utilisé dans cet exemple est celui du tirage aléatoire d'un
 nombre réel entre deux réels $a$ et $b$. Il est très similaire au tirage
 d'un nombre au hasard entre 0 et 1.
 
 \begin{question}
-  Justifier l'affirmation précédente.
+  Justifier que pour obtenir un nombre au hasard entre $a$ et $b$ est
+  équivalent au tirage d'un nombre entre 0 et 1.
 \end{question}
 
 \begin{tikzpicture}
@@ -34,36 +193,42 @@ d'un nombre au hasard entre 0 et 1.
 \end{tikzpicture}
 
 On choisit au hasard $x \in \intv{a}{b}$ et on cherche la probabilité
-que $x$ appartiennent à $J$, notée $\p(x\in J)$.
-
+que $x$ appartiennent à $J$, notée $\p(x\in J)$.\\
 Supposons que $J = \intv{\frac{p}q}{\frac{p'}q}$, avec $p$, $p'$ et
 $q$ convenablement choisis. La probabilité d'appartenir à un tel
-intervalle est $\frac{p' - p}{q(b-a)}$.
-
+intervalle est $\frac{p' - p}{q(b-a)}$. En effet, c'est la probabilité, vue
+comme la «mesure» de l'ensemble $J$ divisée par la «mesure» de
+$\intv{a}{b}$.\\
 Divisons désormais l'intervalle $\intv{a}{b}$ en $n$ intervalle de
-longueur $\frac{b-a}n$. Sur tous ces intervalles $J_i = \intv{a_i +
-i\frac{b-a}n}{a_i + (i+1)\frac{b-a}n}$, la probabilité que $x$
+longueur $\frac{b-a}n$. Sur tous ces intervalles $J_i = \intv*{a +
+i\dfrac{b-a}n}{a + (i+1)\dfrac{b-a}n}$, la probabilité que $x$
 appartiennent à un de ces intervalles est constante et vaut $p$ et
-la probabilité qu'il appartiennent à la réunion des intervalles vaut 1.
-
-Un intervalle arbitraire $K$ peut-être vu comme réunion d'intervalles
-$J_i$ pour un $n$ donné : $K \bigcup_{i = l}^m J_i$. Avec notre
-construction, on peut aussi bien considérer que nos intervalles sont
-ouvert ou fermés, on verra pourquoi par la suite.
-
-On a donc, en généralisant une formule connue : $\p(x\in K) =
-\sum_{i=l}^m \p(x\in J_i) = (m -l)p$.
-
-On obtient donc que $p = \frac1{b-a}$.
+la probabilité qu'il appartiennent à la réunion des intervalles vaut 1. \\
+Donnons nous $K$, un intervalle arbitrairement choisi. Celui-ci peut-être vu
+comme réunion d'intervalles $J_i$ pour un $n$ donné : $K =
+\displaystyle\bigcup_{i = l}^m J_i$. Ces intervalles étant deux à deux
+disjoints, on pourra donc additionner leurs «mesures» et on obtient donc :
+\[ \p(x\in K) =\sum_{i=l}^m \p(x\in J_i) = (m -l)p . \]
+Enfin, on trouve que \[ p = \frac1{b - a} . \]
 
 \begin{question}
   \begin{enumerate}
-    \item Rappeler la formule qui a permis cette généralisation.
+    \item Quelle formule de probabilités est utilisée ici ?
     \item Quel argument permet d'obtenir le dernier résultat ?
-    \item Proposer une interprétation «robuste» du fait que $\sum_{i =
-      a}^b \p(x\in J_i) = 1$ qui permettra une généralisation.
+%    \item Proposer une interprétation «robuste» du fait que $\sum_{i =
+%      a}^b \p(x\in J_i) = 1$ qui permettra une généralisation.
   \end{enumerate}
 \end{question}
+
+\begin{bclogo}[logo=\bcattention]{}
+  Pour une loi continue, on ne peut pas calculer la probabilité d'obtenir un
+  nombre de l'intervalle. On notera plutôt, pour $x \in \intv{a}{b},\ \p(X =
+  x) = 0$. En revanche, pour $(x,y) \in \intv{a}{b}^2,\ \p(x ≤ X ≤ y) = \p(X
+  \in \intv{x}{y}) = \frac{y - x}{b - a}$.\\
+  Ce dernier résultat sera redémontrée d'une autre façon.
+\end{bclogo}
+
+\pagebreak
 
 \section{Lois à densité}
 
@@ -71,20 +236,20 @@ On obtient donc que $p = \frac1{b-a}$.
 
 On va désormais généraliser les résultats précédents. On va admettre
 quelques résultats que nous n'exploiterons que dans le cadre de ce cours
-et qui nous ameneraient à des développements théoriques très longs.
-
+et qui nous ameneraient à des développements théoriques très longs.\\
 En particulier, on admet que, sous certaines conditions, on peut écrire
-$\int_a^{+\infty}f(x)\diff x$ et affirmer qu'il s'agit d'un nombre réel.
+$\displaystyle\int_a^{+\infty}f(x)\diff x$ et affirmer qu'il s'agit d'un
+nombre réel.
 C'est bien souvent un résultat obtenu à partir de
-$\lim_{b\to+\infty}\int_a^b f(x) \diff x$.
-
+$\displaystyle\lim_{b\to+\infty}\displaystyle\int_a^b f(x) \diff x$.\\
 Ceci étant posé, on peut écrire la première définition formelle du
 chapitre.
 
 \begin{definition}
   On appelle \emph{densité de probabilité} une fonction $f$ définie et
   continue sur $I$ un intervalle (non nécessairement borné) de $\R$
-  telle que son intégrale sur $I$ $\int_{x\in I}f(x) \diff x = 1$.
+  telle que son intégrale sur $I$ $\displaystyle\int_{x\in I}f(x) \diff x =
+  1$.
 \end{definition}
 
 On considère désormais une variable aléatoire $X$ à valeurs dans $I$. On
@@ -93,20 +258,17 @@ d'un évenement appartient à l'intervalle (non nécessairement borné) $J$.
 
 \begin{definition}
   On dit que la variable aléatoire \emph{suit la loi de densité $f$}
-  lorsque $\p(X\in J) = \int_{J} f(x)\diff{x}$.
+  lorsque $\p(X\in J) = \displaystyle\int_{J} f(x)\diff{x}$.
 \end{definition}
 
-\begin{remarque}
-  \begin{question}~\\
-    Démontrer qu'ainsi, pour $J$ et $K$ deux intervalles de $I$, on a :
-    \begin{itemize}
-      \item $\p(X\in \overline{J}) = 1 - \p(X\in J)$
-      \item $\p(X\in J \cup K) + p(X\in J \cap K) = \p(X\in J) + \p(X\in K)$
-    \end{itemize}
-    Justifier que, pour une loi à densité, $\p(X \in \{a\}) = \p(X = a)
-    = 0$.
-  \end{question}
-\end{remarque}
+\begin{question}
+  Démontrer qu'ainsi, pour $J$ et $K$ deux intervalles de $I$, on a :
+  \begin{itemize}
+    \item $\p(X\in \overline{J}) = 1 - \p(X\in J)$
+    \item $\p(X\in J \cup K) + p(X\in J \cap K) = \p(X\in J) + \p(X\in K)$
+  \end{itemize}
+  Justifier que, pour une loi à densité, $\p(X \in \{a\}) = \p(X = a) = 0$.
+\end{question}
 
 On notera souvent $\p(X\in \{x\in \R | a\leqslant x \leqslant b\})$ par
 $\p(a \leqslant X \leqslant b)$ par abus «inverse» de notation.
@@ -118,14 +280,20 @@ $\p(a \leqslant X \leqslant b)$ par abus «inverse» de notation.
     \item $\p(X \leqslant a ) = \p(X < a)$
   \end{itemize}
 \end{proposition}
+\begin{proof}
+  Ces affirmations découlent directement des définitions avec les
+  intégrales.
+\end{proof}
 
 On définit également, par analogie avec les lois dites discrètes,
 l'espérance d'une variable aléatoire $X$ dans le cas où celle-ci suit
 une loi de densité de probabilité $f$.
 
 \begin{definition}
+  Soit $X$ une variable aléatoire continue.
   Sous réserve d'existence de l'intégrale, \emph{l'espérance} de la
-  variable aléatoire $X$ est définie par $E(x) = \int_I xf(x) \diff x$.
+  variable aléatoire $X$ est définie par $E(X) = \displaystyle\int_I xf(x)
+  \diff x$.
 \end{definition}
 
 \subsection{La loi uniforme}
@@ -142,14 +310,14 @@ On vérifie immédiatement que cette fonction définit bien une densité de
 probabilité.
 
 \begin{question}
-  Calculer $\int_a^b f(x) \diff x$.
+  Calculer $\displaystyle\int_a^b f(x) \diff x$.
 \end{question}
 
 On parle de loi de probabilité uniforme car si $J$ et $K$ sont deux
 intervalles de même longueur, $\p(X\in J) = \p(X \in K)$
 
 \begin{question}
-  Montrer que si $X$ suit une loi uniforme, alors $E(X) = \frac{a+b}2$.
+  Montrer que si $X$ suit une loi uniforme, alors $E(X) = \dfrac{a+b}2$.
 \end{question}
 
 Ce résultat est à connaître.
@@ -172,8 +340,8 @@ probabilité.
 \begin{question}
   Soit $\lambda$ un réél strictement positif.
   \begin{enumerate}
-    \item Calculer l'intégrale $\int_0^x \lambda e^{-\lambda t} \diff t$
-      en fonction de $x$ et de $\lambda$.
+    \item Calculer l'intégrale $\displaystyle\int_0^x \lambda e^{-\lambda t}
+      \diff t$ en fonction de $x$ et de $\lambda$.
     \item Donner la limite de la fonction $F:t \mapsto 1 - e^{-\lambda
       t}$ en $+\infty$.
     \item Conclure.
@@ -187,7 +355,8 @@ loi exponentielle s'obtient généralement par le calcul direct.
   Soient $a$ et $b$ deux réels tels que $0\leqslant a \leqslant b$.
   Calculer :
   \begin{itemize}
-    \item $\p(T \leqslant a) = \int_0^a \lambda e^{-\lambda x} \diff x$ ;
+    \item $\p(T \leqslant a) = \displaystyle\int_0^a \lambda e^{-\lambda x}
+      \diff x$ ;
     \item $\p(T \geqslant a) = \p(T > a )$
     \item $\p(a \leqslant T \leqslant b)$
   \end{itemize}
@@ -197,13 +366,13 @@ On peut s'intéresser à l'espérance d'une telle variable aléatoire.
 
 \begin{proposition}
   L'espérance d'une variable aléatoire $T$ qui suit une loi
-  exponentielle de paramètre $\lambda$ est $E(T) = \frac1{\lambda}$.
+  exponentielle de paramètre $\lambda$ est $E(T) = \dfrac1{\lambda}$.
 \end{proposition}
 
 \begin{question}
   Soit $\lambda$ un réél strictement positif.
   \begin{enumerate}
-    \item Calculer l'intégrale $\int_0^x \lambda te^{-\lambda t} \diff
+    \item Calculer l'intégrale $\displaystyle\int_0^x \lambda te^{-\lambda t} \diff
       t$ en fonction de $x$ et de $\lambda$ (on pourra utiliser une
         intégration par parties ou poser $f:t\mapsto \lambda
         te^{-\lambda t}$ et étudier $\lambda f + f'$.)
@@ -288,7 +457,7 @@ On dit aussi loi de Laplace-Gauss du nom des premiers mathématiciens à
 l'avoir étudié.
 
 \begin{proposition}[admise]
-  \[ \int_{-\infty}^{+\infty} e^{-\frac{x^2}2} = \sqrt{2\pi} \]
+  \[ \displaystyle\int_{-\infty}^{+\infty} e^{-\frac{x^2}2} = \sqrt{2\pi} \]
 \end{proposition}
 
 Ce résultat général est dur à obtenir, mais il nous assure que la
@@ -301,8 +470,9 @@ probabilité.
 
 \begin{definition}
   On dit qu'une variable aléatoire $Z$ suit la loi normale
-  centrée-réduite lorsque $\p(a\leqslant Z \leqslant b) = \int_a^b
-  \varphi(x)\diff x$. On note $Z \leadsto \mathcal{N}(0,1)$.
+  centrée-réduite lorsque $\p(a\leqslant Z \leqslant b) =
+  \displaystyle\int_a^b \varphi(x)\diff x$. On note $Z \leadsto
+  \mathcal{N}(0,1)$.
 \end{definition}
 
 \begin{remarque} La notation $\mathcal{N}(0,1)$ sera expliquée
@@ -342,8 +512,9 @@ Calculons l'espérance d'une variable aléatoire suivant une telle loi.
 \begin{question}
   Soit $a$ un nombre réel.
   \begin{enumerate}
-    \item Calculer $\int_0^a x\varphi(x) \diff x$.
-    \item En déduire $\lim_{a\to+\infty} \int_0^a x\varphi(x) \diff x$.
+    \item Calculer $\displaystyle\int_0^a x\varphi(x) \diff x$.
+    \item En déduire $\lim_{a\to+\infty} \displaystyle\int_0^a x\varphi(x)
+      \diff x$.
     \item Conclure sur l'espérance $E(Z)$.
   \end{enumerate}
 \end{question}
@@ -351,8 +522,8 @@ Calculons l'espérance d'une variable aléatoire suivant une telle loi.
 \begin{definition}[Variance]
   Soit $Z$ une variable aléatoire qui suit une loi normale
   centrée-réduite. On appelle \emph{variance} et on note $\sigma^2$ le
-  nombre défini par $\sigma^2 = \int_{-\infty}^{+\infty} x^2\varphi(x)
-  \diff x$.
+  nombre défini par $\sigma^2 = \displaystyle\int_{-\infty}^{+\infty}
+  x^2\varphi(x) \diff x$.
 \end{definition}
 
 \begin{proposition}
@@ -405,6 +576,17 @@ qui suit une loi normale d'espérance $\mu$ quelconque et $\sigma^2 > 0$.
 En règle général, le calcul des valeurs de la loi normale se fait
 désormais à la calculatrice.
 
+\begin{bclogo}[logo={\Calculatrice*[calcscale=0.3]}]{À la caluclatrice}
+  \Touche[style=second]
+  \Touche[style=function,principal={Vars},second={Distrib}]
+  \Touche[style=number,principal=3]
+  permet de calculer directement la probabilité, alors que \\
+  \Touche[style=second]
+  \Touche[style=function,principal={Vars},second={Distrib}]
+  \Touche[style=number,principal=4]
+  permet de calculer $\p(X ≤ k) = \displaystyle\sum_{l=0}^k \p(X = l)$
+\end{bclogo}
+
 \section{Applications et autres exemples}
 
 \subsection{Quelques valeurs particulières à connaître}
@@ -415,8 +597,8 @@ première propriété.
 \begin{proposition}
   Soit $\alpha \in \intv[o]{0}{1}$ et $X$ une variable aléatoire qui suit
   la loi normale centrée-réduite. Il existe un unique réel positif
-  $u_{\alpha}$ tel que $\p(-u_{\alpha} \leqslant X \leqslant) = 1 -
-  \alpha$.
+  $u_{\alpha}$ tel que $\p(-u_{\alpha} \leqslant X \leqslant u_{\alpha}) = 1
+  - \alpha$.
 \end{proposition}
 
 \begin{question}
@@ -464,8 +646,8 @@ par une loi normale, c'est le théorème de Moivre-Laplace.
   $\mathcal{B}(n,p)$ et $Z = \frac{X - E(X)}{\sigma(X)} = \frac{X -
   np}{\sqrt{np(1-p)}}$.
 
-  Alors $\lim_{n\to+\infty} P(a \leqslant Z \leqslant b) = \int_a^b
-  \varphi(x) \diff x$.
+  Alors $\lim_{n\to+\infty} P(a \leqslant Z \leqslant b) =
+  \displaystyle\int_a^b \varphi(x) \diff x$.
 \end{theoreme}
 
 \begin{remarque}
