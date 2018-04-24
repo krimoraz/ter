@@ -1,166 +1,6 @@
-\documentclass[10pt,a4paper,french]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{babel}
-\usepackage[thmmarks]{ntheorem}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+\documentclass[12pt,a4paper,french]{article}
 
-\usepackage{array}
-
-\usepackage{kpfonts}
-
-\usepackage[bookmarks=false,colorlinks,linkcolor=blue,pdfusetitle]{hyperref}
-
-\pdfminorversion 7
-\pdfobjcompresslevel 3
-
-\usepackage{tabularx}
-\usepackage[autolanguage,np]{numprint}
-\usepackage{enumitem}
-
-\usepackage{tipfr}
-\usepackage{pgf}
-\usepackage{tikz}
-\usepackage{tkz-base}
-\usepackage{tkz-euclide}
-\usetkzobj{all}
-\usetikzlibrary{hobby}
-\usepackage{tkz-tab}
-
-\usepackage[top=1.7cm,bottom=2cm,left=2cm,right=2cm]{geometry}
-
-\usepackage{lastpage}
-
-\usepackage{esvect}
-\usepackage{marginnote}
-
-\usepackage{wrapfig}
-
-\usepackage[defaultlines=5,all]{nowidow}
-
-
-\makeatletter
-\renewcommand{\@evenfoot}%
-        {\hfil \upshape \small page {\thepage} de \pageref{LastPage}}
-\renewcommand{\@oddfoot}{\@evenfoot}
-
-\renewcommand{\maketitle}%
-{\framebox{%
-    \begin{minipage}{1.0\linewidth}%
-      \begin{center}%
-        \Large \@title ~-- \@author \\%
-        \@date%
-      \end{center}%
-    \end{minipage}}%
-  \normalsize%
-  %\vspace{1cm}%
-}
-
-%Des macros pour les noms d'ensmbles
-\newcommand{\R}{\mathbf{R}}
-\newcommand{\Q}{\mathbf{Q}}
-\newcommand{\Z}{\mathbf{Z}}
-\newcommand{\C}{\mathbf{C}}
-\newcommand{\N}{\mathbf{N}}
-
-\newcommand{\Cf}{\mathscr{C}}
-
-\newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
-\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\diff}[1]{\mathrm{d}\,#1}
-
-\newcommand{\p}{\mathcal{P}}
-
-%Une macro récursive pour l'intérieru des vecteurs
-%http://tex.stackexchange.com/questions/19693/arguments-of-custom-commands-as-comma-separated-list
-
-\newcommand\vecteur[2][\\]{%
-    \global\def\my@delim{#1}%
-    \left(\negthinspace\begin{matrix}
-        \my@vector #2,\relax\noexpand\@eolst%
-    \end{matrix}\right)}
-
-%Une macro pour les vecteurs
-\def\my@vector #1,#2\@eolst{%
-   \ifx\relax#2\relax
-      #1
-   \else
-      #1\my@delim
-      \my@vector #2\@eolst%
-   \fi}
-
-%Une macro récursive pour mettre formater l'intérieur des intervalles
-\def\my@intervalle #1;#2\@eolst{%
-  \ifx\relax#2\relax
-    #1
-  \else
-    \my@intervalle #2\@eolst%
-  \fi}
-
-%Quatre macros pour les quatres types d'intervalles
-\newcommand{\interff}[1]{%
-  \left[\my@intervalle #1;\relax\noexpand\@eolst%
-  \right]
-}
-\newcommand{\interfo}[1]{%
-  \left[\my@intervalle #1;\relax\noexpand\@eolst%
-  \right[}
-\newcommand{\interof}[1]{%
-  \left]\my@intervalle #1;\relax\noexpand\@eolst%
-  \right]}
-\newcommand{\interoo}[1]{%
-  \left]\my@intervalle #1;\relax\noexpand\@eolst%
-  \right[}
-
-\makeatother
-
-
-\usepackage{framed}
-
-\theoremstyle{break}
-\newtheorem{definition}{Définition}
-\newtheorem{propriete}{Propriété}
-\newtheorem{corollaire}{Corollaire}
-\newtheorem{propdef}{Propriété - Définition}
-\newtheorem{theoreme}{Théorème}
-\newtheorem{lemme}{Lemme}
-\theoremstyle{plain}
-\theorembodyfont{\normalfont}
-\newtheorem{exerciceT}{Exercice}
-\theoremstyle{nonumberplain}
-\newtheorem{remarque}{Remarque}
-\newtheorem{notation}{Notation}
-\newtheorem{probleme}{Problème}
-\theoremsymbol{\ensuremath{\blacksquare}}
-\newtheorem{preuve}{Preuve}
-\theoremsymbol{}
-\theoremstyle{nonumberbreak}
-\newtheorem{exemple}{Exemple}
-
-\newenvironment{exercice}{\begin{framed}\begin{exerciceT}}{\end{exerciceT}\end{framed}}
-
-\setlength{\parsep}{0pt}
-\setlength{\parskip}{5pt}
-%\setlength{\parindent}{0pt}
-\setlength{\itemsep}{7pt}
-
-\setlist{noitemsep}
-%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
-\setlist[itemize]{leftmargin=*}
-\setlist[itemize,1]{label=$\triangleright$}
-\setlist[enumerate]{labelsep=*, leftmargin=1.5pc}
-\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
-\setlist[enumerate,2]{label=\emph{\alph*}),
-ref=\theenumi.\emph{\alph*}}
-\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
-\setlist[description]{font=\sffamily\bfseries}
-
-\usepackage{multicol}
-\setlength{\columnseprule}{0pt}
-
-\everymath{\displaystyle\everymath{}}
+\input{../../commons.tex.inc}
 
 \title{Éléments de statistique inférentielle}
 \author{\bsc{Jumel}}
@@ -209,15 +49,15 @@ En pratique, il est rare d'utiliser cette définition assez théorique et
 on utilise l'intervalle de fluctuation asymptotique telle que défini par
 cette proposition.
 
-\begin{propriete}~\\[-5mm]
-  $I_n = \interff{ p - u_{\alpha}\frac{\sqrt{p(1-p)}}{\sqrt{n}} ; p +
+\begin{proposition}
+  $I_n = \intv{ p - u_{\alpha}\frac{\sqrt{p(1-p)}}{\sqrt{n}}}{p +
   u_{\alpha}\frac{\sqrt{p(1-p)}}{\sqrt{n}} }$ est l'intervalle de
   fluctuation asymptotique de $\frac{X_n}{n}$ au seuil $1 - \alpha$ et
   \[ \lim_{n\to +\infty} \p\left(\frac{X_n}{n} \in I_n \right) \geqslant
   1 - \alpha.\]
-  \begin{preuve}
+  \begin{proof}
     Soit $X_n$ une variable aléatoire qui suit une loi binomiale de
-    paramètres $n$ et $p$ et $\alpha \in \interoo{0;1}$.
+    paramètres $n$ et $p$ et $\alpha \in \intv[o]{0}{1}$.
 
     On a d'une part, pour toute variable aléatoire $Z$ qui suit la loi
     normale centrée réduite $\mathscr{N}(0;1) \ \p(-u_{\alpha} \leqslant
@@ -232,8 +72,8 @@ cette proposition.
     u_{\alpha}  \iff p - u_{\alpha} \frac{\sqrt{p(1-p)}}{\sqrt{n}}
     \leqslant \frac{X_n}{n} \leqslant p + u_{\alpha}
     \frac{\sqrt{p(1-p)}}{\sqrt{n}}$.
-  \end{preuve}
-\end{propriete}
+  \end{proof}
+\end{proposition}
 
 \begin{remarque}
   La notion d'intervalle de fluctuation asymptotique n'a réellement de
@@ -255,15 +95,15 @@ régulièrement lors de la prise de décision.
 La propriété suivante va permettre de justifier un résultat admis en
 classe de seconde.
 
-\begin{propriete}
+\begin{proposition}
   L'intervalle de fluctuation asymptotique au seuil de 95\% est inclus
-  dans l'intervalle $I = \interff{p - \frac1{\sqrt{n}} ; p +
+  dans l'intervalle $I = \intv{p - \frac1{\sqrt{n}}}{p +
   \frac1{\sqrt{n}}}$.
-  \begin{preuve}
+  \begin{proof}
     En étudiant les variations de la fonction $p\mapsto \sqrt{p(1-p)}$
-    sur $\interff{0;1}$, on obtient que $1,96\sqrt{p(1-p)} \leqslant 1$.
-  \end{preuve}
-\end{propriete}
+    sur $\intv{0}{1}$, on obtient que $1,96\sqrt{p(1-p)} \leqslant 1$.
+  \end{proof}
+\end{proposition}
 
 \begin{remarque}
   Cette inclusion n'est vraie que jusqu'à un certain seuil.
@@ -285,26 +125,26 @@ la fréquence d'apparition $f$ de la caractéristique étudiée. $X_n$ suit,
 quant à elle, une loi binomiale de paramètres $n$ et $p$.
 
 Sous les conditions d'approximations usuelles ($n \leqslant 30, \dots$)
-on a que si $n$ augmente $F_n$ appartient à $\interff{p -
-\frac1{\sqrt{n}} ; p + \frac1{\sqrt{n}}}$ avec une probabilité supérieure
+on a que si $n$ augmente $F_n$ appartient à $\intv{p -
+\frac1{\sqrt{n}}}{p + \frac1{\sqrt{n}}}$ avec une probabilité supérieure
 à $1 - \alpha$. On peut démontrer ensuite l'équivalence suivante.
 
-\begin{propriete}~\\[-5mm]
-  $\p\left(F_n \in \interff{p - \frac1{\sqrt{n}} ; p +
-  \frac1{\sqrt{n}}}\right) \iff \p\left(p \in \interff{F_n -
-  \frac1{\sqrt{n}} ; F_n + \frac1{\sqrt{n}}}\right)$
-  \begin{preuve}
+\begin{proposition}
+  $\p\left(F_n \in \intv{p - \frac1{\sqrt{n}}}{p +
+  \frac1{\sqrt{n}}}\right) \iff \p\left(p \in \intv{F_n -
+\frac1{\sqrt{n}}}{F_n + \frac1{\sqrt{n}}}\right)$
+  \begin{proof}
     Il suffit d'écrire ce que signifie l'appartenance aux intervalles et
     de raisonner sur l'inégalité de droite (ou de gauche.)
-  \end{preuve}
-\end{propriete}
+  \end{proof}
+\end{proposition}
 
 On peut donc définir, pour une réalisation particulière l'intervalle de
 confiance.
 
 \begin{definition}
   L'intervalle de confiance au seuil de 95\% est l'intervalle
-  $\interff{f_{\text{obs}} - \frac1{\sqrt{n}} ; f_{\text{obs}} +
+  $\intv{f_{\text{obs}} - \frac1{\sqrt{n}}}{f_{\text{obs}} +
   \frac1{\sqrt{n}}}$.
 \end{definition}
 
