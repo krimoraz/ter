@@ -566,21 +566,34 @@ précisées ici.
 \textbf{Question 1}
 
 \parbox{0.6\linewidth}{On considère l'arbre de probabilités ci-contre :}\hfill
-%\parbox{0.4\linewidth}{\psset{unit=1.5cm}
-%\pstree[treemode=R,nodesepB=4pt]{\TR{}}
-%{
-%	\pstree[nodesepA=4pt]{\TR{$A$}\ncput*{0,6}}
-%	  { 
-%		  \TR{$B$}\ncput*{0,2}
-%		  \TR{$\overline{B}$}	   
-%	  }
-%	\pstree[nodesepA=4pt]{\TR{$\overline{A}$}}
-%	  {
-%		  \TR{$B$}\ncput*{0,3}
-%		  \TR{$\overline{B}$}
-%	  }
-%}
-%}\index{arbre de probabilités}
+\parbox{0.4\linewidth}{%
+  \begin{tikzpicture}[level distance=25mm,sibling distance=10mm]
+    \node {} [grow=right]
+    child[sibling distance=20mm] {
+      node {$\overline{A}$}
+      child[sibling distance=10mm] {
+        node {$\overline{B}$}
+        edge from parent node[below] { }
+      }
+      child[sibling distance=10mm] {
+        node {$B$}
+        edge from parent node[above] {$\np{0.3}$}
+      }
+      edge from parent node[below] { }
+    }
+    child[sibling distance=20mm] { node {$A$}
+      child[sibling distance=10mm] {
+        node {$\overline{B}$}
+        edge from parent node[below] { }
+      }
+      child[sibling distance=10mm] {
+        node {$B$}
+        edge from parent node[above] { $\np{0.2}$ }
+      }
+      edge from parent node[above] { $\np{0,6}$ }
+    } ;
+  \end{tikzpicture}
+}
 \medskip
 
 Quelle est la probabilité de l'évènement $B$ ?
